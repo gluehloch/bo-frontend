@@ -1,9 +1,10 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
 
+import { USERROLE } from './user-role.enum';
 
 
 export class Login {
@@ -16,11 +17,6 @@ export class Logout {
     token: string;
 }
 
-export enum USER_ROLE {
-    ADMIN,
-    USER
-};
-
 export class Authentication {
     nickname: string;
     password: string;
@@ -29,22 +25,24 @@ export class Authentication {
     authenticationTries: number;
     /** sessionId - Ist aber eigentlich das 'token' aus dem Login-Request. Jetzt nach 'token' umbenannt. */
     token: string;
-    role: USER_ROLE = USER_ROLE.USER;
+    role: USERROLE = USERROLE.USER;
 
-    constructor(nickname : string, role : USER_ROLE) {
+    constructor(nickname : string, role : USERROLE) {
         this.nickname = nickname;
         this.role = role;
     }
 
     isAdmin() {
-        return this.role === USER_ROLE.ADMIN;
+        return this.role === USERROLE.ADMIN;
     }
 }
 
+// TODO Wohin damit?
 var url = 'http://localhost:8080/betoffice-jweb/bo/office/';
 
 @Injectable()
 export class AuthenticationService {
+
     constructor(private http: Http, private rootUrl: URL) { }
 
     login(login: Login): void {
@@ -69,8 +67,8 @@ export class AuthenticationService {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
-}
 
+}
 
 /*
 
