@@ -6,6 +6,10 @@ import 'rxjs/add/operator/toPromise';
 
 import { USERROLE } from './user-role.enum';
 
+// Wie funktionieren Namespaces???
+/// reference path="./securitytoken.d";
+// declare var securitytoken: Rest.SecurityTokenJson;
+
 
 export class Login {
     nickname: string;
@@ -45,10 +49,10 @@ export class AuthenticationService {
 
     constructor(private http: Http, private rootUrl: URL) { }
 
-    login(login: Login): void {
+    login(login: Login): Promise<Rest.SecurityTokenJson> {
         return this.http.get(this.rootUrl + "login")
                   .toPromise()
-                  .then(response => response.json().data as Hero[])
+                  .then(response => response.json().data as Rest.SecurityTokenJson)
                   .catch(this.handleError);
     }
 
@@ -56,12 +60,14 @@ export class AuthenticationService {
 
     }
 
+/* Example:
     getHeroes(): Promise<Hero[]> {
         return this.http.get(this.heroesUrl)
                   .toPromise()
                   .then(response => response.json().data as Hero[])
                   .catch(this.handleError);
     }
+*/
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
