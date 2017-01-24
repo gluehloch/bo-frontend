@@ -2,8 +2,8 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { Authentication } from './security/credential';
-import { USER_ROLE } from './security/credential';
+import { Authentication } from './authentication.service';
+import { USERROLE } from './user-role.enum';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -35,8 +35,9 @@ describe('AppComponent', () => {
   }));
 
   it('class authentication is accessible', async(() => {
-    const froschAuthentication = new Authentication('Frosch', USER_ROLE.ADMIN);
+    const froschAuthentication = new Authentication('Frosch', USERROLE.ADMIN);
     expect(froschAuthentication.nickname).toEqual('Frosch');
     expect(froschAuthentication.isAdmin).toBeTruthy();
+    expect("Frosch").toEqual("Frosch");
   }));
 });

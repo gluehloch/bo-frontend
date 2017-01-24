@@ -14,6 +14,11 @@ import { USERROLE } from './user-role.enum';
 export class Login {
     nickname: string;
     password: string;
+
+    constructor(nickname: string, password: string) {
+        this.nickname = nickname;
+        this.password = password;
+    }
 }
 
 export class Logout {
@@ -47,7 +52,10 @@ var url = 'http://localhost:8080/betoffice-jweb/bo/office/';
 @Injectable()
 export class AuthenticationService {
 
-    constructor(private http: Http, private rootUrl: URL) { }
+    private rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
+
+    // TODO Injectable: , private rootUrl: URL
+    constructor(private http: Http) { }
 
     login(login: Login): Promise<Rest.SecurityTokenJson> {
         return this.http.get(this.rootUrl + "login")
