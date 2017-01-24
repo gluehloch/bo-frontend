@@ -21,7 +21,9 @@ import { ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { AuthenticationService } from './authentication.service';
+// import { SecurityTokenJson } from './betoffice-json.d';
 import { Login } from './authentication.service';
+import { USERROLE } from './user-role.enum';
 
 describe('AuthenticationService', () => {
   let mockBackend: MockBackend;
@@ -53,8 +55,34 @@ describe('AuthenticationService', () => {
     expect(true).toBe(true);
     expect(service).toBeDefined();
 
-//    let login = new Login("nickname", "password");
-//    service.login(login);
+    let login = new Login("nickname", "password");
+    let authenticationService: AuthenticationService;
+
+    getTestBed().compileComponents().then(() => {
+      mockBackend.connections.subscribe(
+        (connection: MockConnection) => {
+          connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: [
+                          {
+                            nickname: "Frosch",
+                            role: USERROLE.ADMIN,
+                            loginTime: "20170124183400"
+                          }
+                        ]
+                      }
+                    )));
+        }
+      );
+    });
+
+    // TODO Der Test da unten funktioniert nicht.
+
+    expect(service).toBeDefined();
+    service.login(login).then((value: Rest.SecurityTokenJson) => {
+      expect(value.nickname).toEqual("FroschAAA");
+    });
+    //expect(service).toBeUndefined();
   }));
 
 });
