@@ -4,6 +4,7 @@ import { Headers, Http, Response } from '@angular/http';
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
+import 'rxjs/Rx';
 
 import { USERROLE } from './user-role.enum';
 
