@@ -27,6 +27,7 @@ import { USERROLE } from './user-role.enum';
 
 describe('AuthenticationService', () => {
   let mockBackend: MockBackend;
+  let authenticationService: AuthenticationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,6 +52,7 @@ describe('AuthenticationService', () => {
     //TestBed.compileComponents();
 
     // getTestBed()
+    /*
     TestBed.compileComponents().then(() => {
       mockBackend.connections.subscribe(
         (connection: MockConnection) => {
@@ -68,37 +70,55 @@ describe('AuthenticationService', () => {
         }
       );
     });
+    */
   });
   //
 
-  it('should be defined and callable ...', inject([AuthenticationService], (authenticationService: AuthenticationService) => {
-  //it('should be defined and callable ...', async(() => {
-    // TODO Nicht ueber Injection, sondern aus dem Test-Bed extrahieren...
-    // Dann wird das inject(...) in der Testbeschreibung durch "async(() => { ... }" ersetzt.
-    //let authenticationService: AuthenticationService = getTestBed().get(AuthenticationService);
-  
+  describe('AuthenticationService # login', () => {
+    it('should be defined and callable ...', inject(
+      [AuthenticationService, MockBackend], (authenticationService: AuthenticationService, mockBackend: MockBackend) => {
 
-    expect(true).toBe(true);
-    expect(authenticationService).toBeDefined();
-    // expect(service).toBeDefined();
+      mockBackend.connections.subscribe(
+        (connection: MockConnection) => {
+          connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: JSON.stringify({
+                            "nickname": "Frosch",
+                            "role": USERROLE.ADMIN,
+                            "loginTime": "20170124183400"
+                          })
+                      }
+                    )));
+        }
+      );
+    //it('should be defined and callable ...', async(() => {
+      // TODO Nicht ueber Injection, sondern aus dem Test-Bed extrahieren...
+      // Dann wird das inject(...) in der Testbeschreibung durch "async(() => { ... }" ersetzt.
+      // let authenticationService: AuthenticationService = getTestBed().get(AuthenticationService);
+    
 
-    let login = new Login("nickname", "password");
-    // TODO let authenticationService: AuthenticationService;
-
-    // TODO Der Test da unten funktioniert nicht.
-
-    expect(authenticationService).toBeDefined();
-    //authenticationService.login(login).
-    authenticationService.login(login).subscribe((value: Rest.SecurityTokenJson) => {
-      expect(value.nickname).toEqual("FroschAAA"); // Muss 'Frosch' sein. Der Test sollte fehl schlagen.
-    });
-  }));
-
-  it('should do something async', (done) => {
-    setTimeout(() => {
       expect(true).toBe(true);
-      done();
-    }, 2000);
+      expect(authenticationService).toBeDefined();
+      // expect(service).toBeDefined();
+
+      let login = new Login("nickname", "password");
+      // TODO let authenticationService: AuthenticationService;
+
+      // TODO Der Test da unten funktioniert nicht.
+
+      expect(authenticationService).toBeDefined();
+      //authenticationService.login(login).
+      authenticationService.login(login).subscribe((value: Rest.SecurityTokenJson) => {
+        expect(value.nickname).toEqual("FroschAAA"); // Muss 'Frosch' sein. Der Test sollte fehl schlagen.
+      });
+    }));
+
+    it('should do something async', (done) => {
+      setTimeout(() => {
+        expect(true).toBe(true);
+        done();
+      }, 2000);
+    });
   });
 
 });
