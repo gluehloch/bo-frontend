@@ -2,9 +2,9 @@
 
 import {
   TestBed,
-   getTestBed,
-   async,
-   inject 
+  getTestBed,
+  async,
+  inject 
 } from '@angular/core/testing';
 
 import {
@@ -48,21 +48,10 @@ describe('AuthenticationService', () => {
       ]
     });
     mockBackend = getTestBed().get(MockBackend);
-//    TestBed.compileComponents();
-  });
+    //TestBed.compileComponents();
 
-  it('should be defined and callable ...', inject([AuthenticationService], (service: AuthenticationService) => {
-    // TODO Nicht ueber Injection, sondern aus dem Test-Bed extrahieren...
-    // Dann wird das inject(...) in der Testbeschreibung durch "async(() => { ... }" ersetzt.
-    let authenticationService: AuthenticationService = getTestBed().get(AuthenticationService);
-  
-    expect(true).toBe(true);
-    expect(service).toBeDefined();
-
-    let login = new Login("nickname", "password");
-    // TODO let authenticationService: AuthenticationService;
-
-    getTestBed().compileComponents().then(() => {
+    // getTestBed()
+    TestBed.compileComponents().then(() => {
       mockBackend.connections.subscribe(
         (connection: MockConnection) => {
           connection.mockRespond(new Response(
@@ -79,13 +68,37 @@ describe('AuthenticationService', () => {
         }
       );
     });
+  });
+  //
+
+  it('should be defined and callable ...', inject([AuthenticationService], (authenticationService: AuthenticationService) => {
+  //it('should be defined and callable ...', async(() => {
+    // TODO Nicht ueber Injection, sondern aus dem Test-Bed extrahieren...
+    // Dann wird das inject(...) in der Testbeschreibung durch "async(() => { ... }" ersetzt.
+    //let authenticationService: AuthenticationService = getTestBed().get(AuthenticationService);
+  
+
+    expect(true).toBe(true);
+    expect(authenticationService).toBeDefined();
+    // expect(service).toBeDefined();
+
+    let login = new Login("nickname", "password");
+    // TODO let authenticationService: AuthenticationService;
 
     // TODO Der Test da unten funktioniert nicht.
 
     expect(authenticationService).toBeDefined();
-    authenticationService.login(login).then((value: Rest.SecurityTokenJson) => {
+    //authenticationService.login(login).
+    authenticationService.login(login).subscribe((value: Rest.SecurityTokenJson) => {
       expect(value.nickname).toEqual("FroschAAA"); // Muss 'Frosch' sein. Der Test sollte fehl schlagen.
     });
   }));
+
+  it('should do something async', (done) => {
+    setTimeout(() => {
+      expect(true).toBe(true);
+      done();
+    }, 2000);
+  });
 
 });

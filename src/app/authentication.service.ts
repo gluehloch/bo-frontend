@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs';
 
 import { USERROLE } from './user-role.enum';
 
@@ -57,12 +58,20 @@ export class AuthenticationService {
     // TODO Injectable: , private rootUrl: URL
     constructor(private http: Http) { }
 
+    /* Mit Observable */
+    login(login: Login): Observable<Rest.SecurityTokenJson> {
+        return this.http.get(this.rootUrl + "login").
+            map(( r: Response) => r.json().data as Rest.SecurityTokenJson);
+    }
+
+/* Mit Promise        
     login(login: Login): Promise<Rest.SecurityTokenJson> {
         return this.http.get(this.rootUrl + "login")
                   .toPromise()
                   .then(response => response.json().data as Rest.SecurityTokenJson)
                   .catch(this.handleError);
     }
+*/
 
     logout(login: Login): void {
 
