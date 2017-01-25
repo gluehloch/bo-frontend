@@ -52,11 +52,15 @@ describe('AuthenticationService', () => {
   });
 
   it('should be defined and callable ...', inject([AuthenticationService], (service: AuthenticationService) => {
+    // TODO Nicht ueber Injection, sondern aus dem Test-Bed extrahieren...
+    // Dann wird das inject(...) in der Testbeschreibung durch "async(() => { ... }" ersetzt.
+    let authenticationService: AuthenticationService = getTestBed().get(AuthenticationService);
+  
     expect(true).toBe(true);
     expect(service).toBeDefined();
 
     let login = new Login("nickname", "password");
-    let authenticationService: AuthenticationService;
+    // TODO let authenticationService: AuthenticationService;
 
     getTestBed().compileComponents().then(() => {
       mockBackend.connections.subscribe(
@@ -78,11 +82,10 @@ describe('AuthenticationService', () => {
 
     // TODO Der Test da unten funktioniert nicht.
 
-    expect(service).toBeDefined();
-    service.login(login).then((value: Rest.SecurityTokenJson) => {
-      expect(value.nickname).toEqual("FroschAAA");
+    expect(authenticationService).toBeDefined();
+    authenticationService.login(login).then((value: Rest.SecurityTokenJson) => {
+      expect(value.nickname).toEqual("FroschAAA"); // Muss 'Frosch' sein. Der Test sollte fehl schlagen.
     });
-    //expect(service).toBeUndefined();
   }));
 
 });
