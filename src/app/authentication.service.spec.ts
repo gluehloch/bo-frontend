@@ -26,8 +26,8 @@ import { Login } from './authentication.service';
 import { USERROLE } from './user-role.enum';
 
 describe('AuthenticationService', () => {
-  let mockBackend: MockBackend;
-  let authenticationService: AuthenticationService;
+  //let mockBackend: MockBackend;
+  //let authenticationService: AuthenticationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,8 +48,8 @@ describe('AuthenticationService', () => {
         HttpModule
       ]
     });
-    mockBackend = getTestBed().get(MockBackend);
-    //TestBed.compileComponents();
+    //mockBackend = getTestBed().get(MockBackend);
+    TestBed.compileComponents();
 
     // getTestBed()
     /*
@@ -77,21 +77,18 @@ describe('AuthenticationService', () => {
   describe('AuthenticationService # login', () => {
     it('should be defined and callable ...', inject(
       [AuthenticationService, MockBackend], (authenticationService: AuthenticationService, mockBackend: MockBackend) => {
-
-      mockBackend.connections.subscribe(
-        (connection: MockConnection) => {
-          connection.mockRespond(new Response(
-                    new ResponseOptions({
-                        body: JSON.stringify({
-                            "nickname": "Frosch",
-                            "role": USERROLE.ADMIN,
-                            "loginTime": "20170124183400"
-                          })
-                      }
-                    )));
-        }
-      );
-    //it('should be defined and callable ...', async(() => {
+      //[AuthenticationService], (authenticationService: AuthenticationService) => {
+      mockBackend.connections.subscribe((connection: MockConnection) => {
+        connection.mockRespond(new Response(new ResponseOptions({
+          body: JSON.stringify({
+            "nickname": "Frosch",
+            "role": USERROLE.ADMIN,
+            "loginTime": "20170124183400"
+          }),
+          status: 200
+        })));
+      });
+      //it('should be defined and callable ...', async(() => {
       // TODO Nicht ueber Injection, sondern aus dem Test-Bed extrahieren...
       // Dann wird das inject(...) in der Testbeschreibung durch "async(() => { ... }" ersetzt.
       // let authenticationService: AuthenticationService = getTestBed().get(AuthenticationService);
@@ -109,6 +106,7 @@ describe('AuthenticationService', () => {
       expect(authenticationService).toBeDefined();
       //authenticationService.login(login).
       authenticationService.login(login).subscribe((value: Rest.SecurityTokenJson) => {
+        expect(value).toBeDefined();
         expect(value.nickname).toEqual("FroschAAA"); // Muss 'Frosch' sein. Der Test sollte fehl schlagen.
       });
     }));

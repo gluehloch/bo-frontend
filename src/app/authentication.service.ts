@@ -61,8 +61,9 @@ export class AuthenticationService {
 
     /* Mit Observable */
     login(login: Login): Observable<Rest.SecurityTokenJson> {
-        return this.http.get(this.rootUrl + "login").
-            map(( r: Response) => r.json().data as Rest.SecurityTokenJson);
+        let response = this.http.get(this.rootUrl + "login");
+        let xx = response.map((r: Response) => r.json().data as Rest.SecurityTokenJson)
+        return xx;
     }
 
 /* Mit Promise        
