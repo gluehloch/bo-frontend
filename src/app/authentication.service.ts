@@ -66,14 +66,12 @@ export class AuthenticationService {
         return xx;
     }
 
-/* Mit Promise        
-    login(login: Login): Promise<Rest.SecurityTokenJson> {
+    loginPromise(login: Login): Promise<Rest.SecurityTokenJson> {
         return this.http.get(this.rootUrl + "login")
                   .toPromise()
                   .then(response => response.json().data as Rest.SecurityTokenJson)
                   .catch(this.handleError);
     }
-*/
 
     logout(login: Login): void {
 
