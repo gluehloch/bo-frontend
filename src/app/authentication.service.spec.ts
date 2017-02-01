@@ -12,6 +12,7 @@ import {
   Headers,
   BaseRequestOptions,
   Response,
+  ResponseType,
   HttpModule,
   Http,
   XHRBackend,
@@ -50,19 +51,20 @@ describe('AuthenticationService', () => {
     TestBed.compileComponents();
   });
 
-  describe('AuthenticationService # login', () => {
+  describe('AuthenticationService WITH MOCK # login', () => {
     it('should be defined and callable ...', async(inject(
       [AuthenticationService, MockBackend],
       (authenticationService: AuthenticationService, mockBackend: MockBackend) => {
         mockBackend.connections.subscribe((connection: MockConnection) => {
-          let mockResponseBody: Rest.SecurityTokenJson = {
+
+          const mockResponseBody: Rest.SecurityTokenJson = {
             nickname: "Frosch",
             role: USERROLE.USER.toString(),
             loginTime: "20170124183400",
             token: "4711"
           };
 
-          let response = new ResponseOptions({body: JSON.stringify(mockResponseBody)});
+          const response = new ResponseOptions({body: JSON.stringify(mockResponseBody), type: ResponseType.Cors, status: 200});
 
           connection.mockRespond(new Response(response));
         });   
@@ -71,23 +73,27 @@ describe('AuthenticationService', () => {
 
         let login = new Login("nickname", "password");
 
+/*
         authenticationService.loginPromise(login).then((value) => {
           expect(value).toBeDefined();
-        });
-
-        //let observer: Observable<Rest.SecurityTokenJson>;
-
-/*
-        const x = authenticationService.login(login).subscribe((value: Rest.SecurityTokenJson) => {
-          expect(value).toBeDefined();
-          expect(value.nickname).toEqual("FroschAAA"); // Muss 'Frosch' sein. Der Test sollte fehl schlagen.
-        });
-
-        authenticationService.login(login);
+        }).catch((reason => console.error("loginPromise goes wront. " + reason)));
 */
+
+        const x = authenticationService.login(login).subscribe(
+          response => {
+            console.info('INFO: authentication.login | response=[' + response + "]");
+            if (response) {
+              expect(response).toBeDefined();
+              expect(response.nickname).toEqual("FroschAAA");
+            }
+          }
+        );
+
+        console.log("Hallo Andre.");
+        authenticationService.login(login);
+
     })));
 
-/*
     it('should do something async', (done) => {
       setTimeout(() => {
         expect(true).toBe(true);
@@ -95,6 +101,5 @@ describe('AuthenticationService', () => {
       }, 2000);
     });
   });
-*/
 
 });

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { RequestOptions, Headers, Http, Response } from '@angular/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
@@ -61,16 +61,22 @@ export class AuthenticationService {
 
     /* Mit Observable */
     login(login: Login): Observable<Rest.SecurityTokenJson> {
-        let response = this.http.get(this.rootUrl + "login");
-        let xx = response.map((r: Response) => r.json().data as Rest.SecurityTokenJson)
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        let response = this.http.post(this.rootUrl + "login", login, options);
+
+        //let response = this.http.get(this.rootUrl + "login");
+        let xx = response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
+                    .catch(this.handleError);
         return xx;
     }
 
     loginPromise(login: Login): Promise<Rest.SecurityTokenJson> {
-        return this.http.get(this.rootUrl + "login")
-                  .toPromise()
-                  .then(response => response.json().data as Rest.SecurityTokenJson)
-                  .catch(this.handleError);
+        let response = this.http.post(this.rootUrl + "login", login);
+        return response.toPromise()
+                .then(response => response.json().data as Rest.SecurityTokenJson)
+                .catch(this.handleError);
     }
 
     logout(login: Login): void {
