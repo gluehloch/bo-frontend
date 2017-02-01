@@ -64,7 +64,11 @@ describe('AuthenticationService', () => {
             token: "4711"
           };
 
-          const response = new ResponseOptions({body: JSON.stringify(mockResponseBody), type: ResponseType.Cors, status: 200});
+          const response = new ResponseOptions({
+            body: JSON.stringify(mockResponseBody),
+            type: ResponseType.Cors,
+            status: 200
+          });
 
           connection.mockRespond(new Response(response));
         });   
@@ -73,33 +77,16 @@ describe('AuthenticationService', () => {
 
         let login = new Login("nickname", "password");
 
-/*
-        authenticationService.loginPromise(login).then((value) => {
-          expect(value).toBeDefined();
-        }).catch((reason => console.error("loginPromise goes wront. " + reason)));
-*/
-
         const x = authenticationService.login(login).subscribe(
           response => {
-            console.info('INFO: authentication.login | response=[' + response + "]");
-            if (response) {
-              expect(response).toBeDefined();
-              expect(response.nickname).toEqual("FroschAAA");
-            }
+            console.info('authentication: response=[' + response + "]");
+            expect(response).toBeDefined();
+            expect(response.nickname).toEqual("Frosch");
+            expect(response.role).toEqual(USERROLE.USER);
+            expect(response.token).toEqual("4711");
+            expect(response.loginTime).toEqual("20170124183400");
           }
         );
-
-        console.log("Hallo Andre.");
-        authenticationService.login(login);
-
     })));
-
-    it('should do something async', (done) => {
-      setTimeout(() => {
-        expect(true).toBe(true);
-        done();
-      }, 2000);
-    });
-  });
-
+  })
 });

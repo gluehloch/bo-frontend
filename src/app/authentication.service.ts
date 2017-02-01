@@ -54,46 +54,28 @@ var url = 'http://localhost:8080/betoffice-jweb/bo/office/';
 @Injectable()
 export class AuthenticationService {
 
+    // TODO Injectable
     private rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
 
     // TODO Injectable: , private rootUrl: URL
     constructor(private http: Http) { }
 
-    /* Mit Observable */
     login(login: Login): Observable<Rest.SecurityTokenJson> {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
-
         let response = this.http.post(this.rootUrl + "login", login, options);
 
-        //let response = this.http.get(this.rootUrl + "login");
-        let xx = response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
-                    .catch(this.handleError);
-        return xx;
-    }
-
-    loginPromise(login: Login): Promise<Rest.SecurityTokenJson> {
-        let response = this.http.post(this.rootUrl + "login", login);
-        return response.toPromise()
-                .then(response => response.json().data as Rest.SecurityTokenJson)
-                .catch(this.handleError);
+        return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
+                       .catch(this.handleError);
     }
 
     logout(login: Login): void {
 
     }
 
-/* Example:
-    getHeroes(): Promise<Hero[]> {
-        return this.http.get(this.heroesUrl)
-                  .toPromise()
-                  .then(response => response.json().data as Hero[])
-                  .catch(this.handleError);
-    }
-*/
-
     private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
+        // TODO Error handling
+        console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
 
