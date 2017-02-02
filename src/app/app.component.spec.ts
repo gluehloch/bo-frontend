@@ -2,7 +2,7 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { Authentication } from './authentication.service';
+import { Authentication } from './authentication/authentication.service';
 import { USERROLE } from './user-role.enum';
 
 describe('AppComponent', () => {

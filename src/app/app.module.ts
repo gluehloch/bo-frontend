@@ -5,7 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from './authentication/authentication.service';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule({
   imports: [
@@ -14,9 +15,10 @@ import { AuthenticationService } from './authentication.service';
     HttpModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    AuthenticationComponent
   ],
-  providers: [ AuthenticationService ],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 

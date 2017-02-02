@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
-import { USERROLE } from './user-role.enum';
+import { USERROLE } from '../user-role.enum';
 
 // Wie funktionieren Namespaces???
 /// reference path="./securitytoken.d";
