@@ -8,11 +8,6 @@ import 'rxjs/Rx';
 
 import { USERROLE } from '../user-role.enum';
 
-// Wie funktionieren Namespaces???
-/// reference path="./securitytoken.d";
-// declare var securitytoken: Rest.SecurityTokenJson;
-
-
 export class Login {
     nickname: string;
     password: string;

@@ -10,3 +10,9 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
+
+
+// TODO Brauch ich das fuer das Material Design???
+//import {platformBrowser} from '@angular/platform-browser';
+//import {MaterialAppModuleNgFactory} from './aot/app/app.module.ngfactory';
+//platformBrowser().bootstrapModuleFactory(MaterialAppModuleNgFactory);
