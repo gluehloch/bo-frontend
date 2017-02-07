@@ -1,3 +1,90 @@
-<p>
-  authentication works!
-</p>
+<div ng-controller="SessionCtrl" class="betoffice-app">
+  <h1>Session Verwaltung</h1>
+  <p ng-show="authentication.authenticate">
+    Du bist als {{authentication.nickname}} angemeldet.
+  </p>
+  <p ng-show="authentication.isAdmin()">
+    Du bist als Administrator angemeldet.
+  </p>
+  <p ng-show="!authentication.authenticate">
+    Du bist nicht angemeldet.
+  </p>
+
+  <div ng-show="!authentication.authenticate">
+    <div class="alert alert-danger" role="alert" ng-show="authentication.authenticationTries > 0 && !authentication.authenticate">
+        Der Login-Versuch ist fehlgeschlagen.
+    </div>
+    <form name="loginform" novalidate>
+      <div class="form-group">
+        <label for="inputNickname" class="sr-only" ng-class="{'has-warning': !authentication.authenticate}">Nickname</label>
+        <input type="text" id="inputNickname" class="form-control" placeholder="Nickname" required autofocus ng-model="authentication.nickname"/>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model="authentication.password"
+          ng-class="{'has-warning': !authentication.authenticate}"/>
+      </div>
+      <button
+        ng-disabled="loginform.$invalid"
+        class="btn btn-lg btn-primary btn-block"
+        type="submit"
+        ng-click="login(login.nickname, login.password, login.rememberme)">Sign in</button>
+    </form>
+  </div>
+
+  <div ng-show="authentication.authenticate">
+      Falls du dich ausloggen möchtest, dann kannst du das hier erledigen.
+      <form name="logoutform" novalidate>
+        <button
+          class="btn btn-lg btn-primary btn-block"
+          type="submit"
+          ng-click="logout()">Logout</button>
+      </form>
+  </div>
+
+</div>
+
+
+
+
+<!--
+<h1>Google Material Design</h1>
+
+<form class="example-form">
+  <md-input-container class="example-full-width">
+    <input md-input placeholder="Company (disabled)" disabled value="Google">
+  </md-input-container>
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><md-input-container class="example-full-width">
+      <input md-input placeholder="First name">
+    </md-input-container></td>
+    <td><md-input-container class="example-full-width">
+      <input md-input placeholder="Long Last Name That Will Be Truncated">
+    </md-input-container></td>
+  </tr></table>
+
+  <p>
+    <md-input-container class="example-full-width">
+      <textarea md-input placeholder="Address">1600 Amphitheatre Pkwy</textarea>
+    </md-input-container>
+    <md-input-container class="example-full-width">
+      <textarea md-input placeholder="Address 2"></textarea>
+    </md-input-container>
+  </p>
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><md-input-container class="example-full-width">
+      <input md-input placeholder="City">
+    </md-input-container></td>
+    <td><md-input-container class="example-full-width">
+      <input md-input placeholder="State">
+    </md-input-container></td>
+    <td><md-input-container class="example-full-width">
+      <input md-input #postalCode maxlength="5" placeholder="Postal Code" value="94043">
+      <md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
+    </md-input-container></td>
+  </tr></table>
+</form>
+-->
+
