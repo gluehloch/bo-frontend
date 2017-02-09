@@ -12,6 +12,9 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
 
+import { SeasonService } from './season/season.service';
+import { SeasonComponent } from './season/season.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -29,15 +32,20 @@ import { TippComponent } from './tipp/tipp.component';
       {
         path: 'tipp',
         component: TippComponent
+      },
+      {
+        path: 'season',
+        component: SeasonComponent
       }
     ])
   ],
   declarations: [
     AppComponent,
     AuthenticationComponent,
-    TippComponent
+    TippComponent,
+    SeasonComponent
   ],
-  providers: [AuthenticationService, TippService],
+  providers: [AuthenticationService, TippService, SeasonService],
   bootstrap: [AppComponent]
 })
 
