@@ -6,22 +6,62 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
-// TODO Wohin damit?
-var url = 'http://localhost:8080/betoffice-jweb/bo/office/';
+import { environment } from '../../environments/environment';
+
+import { USERROLE } from '../user-role.enum';
+import { Authentication } from '../authentication/authentication.service';
 
 @Injectable()
 export class SeasonService {
 
-  // TODO Injectable
-  private rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
+  private rootUrl = environment.rootUrl;
+  private options: RequestOptions;
 
-  // TODO Injectable: , private rootUrl: URL
-  constructor(private http: Http) { }
-
-  login() {
+  constructor(private http: Http) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    let response = this.http.post(this.rootUrl + "tipp", options);
+    this.options = new RequestOptions({ headers: headers });
+  }
+
+  findSeasons() {
+    return this.http.post(this.rootUrl + 'season/all', this.options);
+  }
+
+  findGroups(seasonId: number) {
+    return this.http.get(this.rootUrl + 'season/' + seasonId + '/group/all');
+  }
+
+  findCurrent(seasonId: number) {
+    return this.http.get(this.rootUrl + 'season/' + seasonId + "/current");
+  }
+
+  findRounds(seasonId: number, groupId: number) {
+    return this.http.get(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all');
+  }
+  
+  findRound(roundId: number, groupId: number) {
+    return this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/group/" + groupId);
+  }
+
+  nextRound(roundId: number) {
+    return this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/next");
+  }
+  
+  prevRound(roundId: number) {
+    return this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/prev");
+  }
+   
+  update(roundId: number, authentication: Authentication) {
+    return this.http.post(this.rootUrl + 'season/round/' + roundId + "/update",
+    {
+      token: authentication.token
+    });
+  }
+
+  createOrUpdate( roundId: number, authentication: Authentication) {
+    return this.http.post(this.rootUrl + 'season/round/' + roundId + "/create",
+    {
+      token: authentication.token
+    });
   }
 
   private handleError(error: any): Promise<any> {

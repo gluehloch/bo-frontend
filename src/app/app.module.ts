@@ -15,6 +15,9 @@ import { TippComponent } from './tipp/tipp.component';
 import { SeasonService } from './season/season.service';
 import { SeasonComponent } from './season/season.component';
 
+// TODO Injectable
+let rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
+
 @NgModule({
   imports: [
     BrowserModule,

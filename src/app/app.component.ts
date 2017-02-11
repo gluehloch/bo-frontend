@@ -8,5 +8,5 @@ import { RouterModule } from '@angular/router';
 })
 
 export class AppComponent {
-  title = 'betoffice 3000';
+  season = undefined;
 }
