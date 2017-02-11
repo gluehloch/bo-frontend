@@ -22,46 +22,64 @@ export class SeasonService {
     this.options = new RequestOptions({ headers: headers });
   }
 
-  findSeasons() {
-    return this.http.post(this.rootUrl + 'season/all', this.options);
+  findSeasons() : Observable<Array<Rest.SeasonJson>> {
+    let response = this.http.post(this.rootUrl + 'season/all', this.options);
+    return response.map((r: Response) => r.json() as Array<Rest.SeasonJson>)
+                   .catch(this.handleError);
   }
 
-  findGroups(seasonId: number) {
-    return this.http.get(this.rootUrl + 'season/' + seasonId + '/group/all');
+  findGroups(seasonId: number) : Observable<Array<Rest.GroupTypeJson>> {
+    let response = this.http.get(this.rootUrl + 'season/' + seasonId + '/group/all');
+    return response.map((r: Response) => r.json() as Array<Rest.GroupTypeJson>)
+                   .catch(this.handleError);
   }
 
-  findCurrent(seasonId: number) {
-    return this.http.get(this.rootUrl + 'season/' + seasonId + "/current");
+  findCurrent(seasonId: number) : Observable<Rest.RoundJson> {
+    let response = this.http.get(this.rootUrl + 'season/' + seasonId + "/current");
+    return response.map((r: Response) => r.json() as Array<Rest.RoundJson>)
+                   .catch(this.handleError);
   }
 
-  findRounds(seasonId: number, groupId: number) {
-    return this.http.get(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all');
+  findRounds(seasonId: number, groupId: number) : Observable<Array<Rest.RoundJson>> {
+    let response = this.http.get(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all');
+    return response.map((r: Response) => r.json() as Array<Rest.RoundJson>)
+                   .catch(this.handleError);
   }
   
-  findRound(roundId: number, groupId: number) {
-    return this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/group/" + groupId);
+  findRound(roundId: number, groupId: number) : Observable<Rest.RoundAndTableJson> {
+    let response = this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/group/" + groupId);
+    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
+                   .catch(this.handleError);
   }
 
-  nextRound(roundId: number) {
-    return this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/next");
+  nextRound(roundId: number) : Observable<Rest.RoundAndTableJson> {
+    let response = this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/next");
+    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
+                   .catch(this.handleError);
   }
   
-  prevRound(roundId: number) {
-    return this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/prev");
+  prevRound(roundId: number) : Observable<Rest.RoundAndTableJson> {
+    let response = this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/prev");
+    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
+                   .catch(this.handleError);
   }
    
-  update(roundId: number, authentication: Authentication) {
-    return this.http.post(this.rootUrl + 'season/round/' + roundId + "/update",
+  update(roundId: number, authentication: Authentication) : Observable<Rest.RoundAndTableJson> {
+    let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/update",
     {
       token: authentication.token
     });
+    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
+                   .catch(this.handleError);
   }
 
-  createOrUpdate( roundId: number, authentication: Authentication) {
-    return this.http.post(this.rootUrl + 'season/round/' + roundId + "/create",
+  createOrUpdate( roundId: number, authentication: Authentication) :  Observable<Rest.RoundAndTableJson> {
+    let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/create",
     {
       token: authentication.token
     });
+    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
+                   .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
