@@ -5,8 +5,9 @@
     <select name="selectSeason"
       ng-model="roundtable.selectedSeason"
       ng-change="seasonSelected()">
-      <option value="{{season.id}}"
-        ng-repeat="season in roundtable.seasons"
+      <option 
+        *ngFor="let season of roundtable.seasons"
+        value="{{season.id}}"
         ng-selected="season.id == roundtable.selectedSeason">
         {{season.name}} {{season.year}}
       </option>
