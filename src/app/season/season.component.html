@@ -13,6 +13,9 @@
       </option>
     </select>
     <br />
+
+<!--
+
     <label for="selectGroup">Gruppe auswählen:</label>
     <br />
     <select name="selectGroup"
@@ -36,6 +39,8 @@
         {{round.dateTime | date: 'dd.MM.yyyy HH:mm'}}
       </option>
     </select>
+-->
+  
   </form>
 
   <div ng-show="authentication.isAdmin()">
@@ -53,6 +58,8 @@
   </div>
 
   <hr />
+
+<!--
 
   <div ng-show="roundtable.table.roundJson != null">
     <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
@@ -72,6 +79,8 @@
          <td style="text-align:left">{{game.guestTeam.name}}</td>
        </tr>
     </table>
+-->
+
     <!-- TODO Currently disabled. Check the drop down box above!
     <div class="btn-group btn-group-justified" role="group">
       <div class="btn-group" role="group">
@@ -83,6 +92,7 @@
     </div>
     -->
 
+<!--
     <div class="alert alert-danger" ng-show="round.serviceResponseMessage.status == 'ERROR'">
       FEHLER: Dieser Spieltag existiert nicht!
     </div>
@@ -102,5 +112,6 @@
       </tr>
     </table>
   </div>
+-->
 
 </div>
