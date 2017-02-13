@@ -3,31 +3,32 @@
     <label for="selectSeason">Meisterschaft auswählen:</label>
     <br />
     <select name="selectSeason"
-      ng-model="roundtable.selectedSeason"
-      ng-change="seasonSelected()">
+      (change)="seasonSelected($event)"
+      [(ngModel)]="roundtable.selectedSeason">
       <option 
         *ngFor="let season of roundtable.seasons"
-        value="{{season.id}}"
-        ng-selected="season.id == roundtable.selectedSeason">
+        [value]="season.id">
         {{season.name}} {{season.year}}
+      </option>
+    </select>
+    <br />
+
+    <label for="selectGroup">Gruppe auswählen:</label>
+    <br />
+    <select name="selectGroup"
+      (change)="groupSelected($event)"
+      [(ngModel)]="roundtable.selectedGroup">
+      <option
+        *ngFor="let group of roundtable.groups"
+        [value]="group.id"
+        [selected]="group.id == roundtable.selectedGroup">
+        {{group.name}}
       </option>
     </select>
     <br />
 
 <!--
 
-    <label for="selectGroup">Gruppe auswählen:</label>
-    <br />
-    <select name="selectGroup"
-      ng-model="roundtable.selectedGroup"
-      ng-change="groupSelected()">
-      <option value="{{group.id}}"
-        ng-repeat="group in roundtable.groups"
-        ng-selected="group.id == roundtable.selectedGroup">
-        {{group.name}}
-      </option>
-    </select>
-    <br />
     <label for="selectRound">Runde auswählen:</label>
     <br />
     <select name="selectRound"
