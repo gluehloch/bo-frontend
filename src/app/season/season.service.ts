@@ -23,7 +23,7 @@ export class SeasonService {
   }
 
   findSeasons() : Observable<Array<Rest.SeasonJson>> {
-    let response = this.http.post(this.rootUrl + 'season/all', this.options);
+    let response = this.http.get(this.rootUrl + 'season/all', this.options);
     return response.map((r: Response) => r.json() as Array<Rest.SeasonJson>)
                    .catch(this.handleError);
   }
