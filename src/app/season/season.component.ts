@@ -30,15 +30,22 @@ export class SeasonComponent implements OnInit {
 
   ngOnInit() {
     this.findSeasons();
+
+/*
+      if (this.roundtable.seasons && this.roundtable.seasons.length > 0) {
+        this.findGroups();
+      }    
+
+      if (this.roundtable.groups && this.roundtable.groups.length > 0) {
+        this.findRounds();
+      }
+*/
   }
 
   findSeasons() {
     this.seasonService.findSeasons()
                       .subscribe((seasons: Rest.SeasonJson[]) => {
       this.roundtable.seasons = seasons;
-      if (this.roundtable.seasons && this.roundtable.seasons.length > 0) {
-        this.findGroups();
-      }
     });
   }
 
@@ -46,9 +53,6 @@ export class SeasonComponent implements OnInit {
     this.seasonService.findGroups(this.roundtable.selectedSeason.id)
                       .subscribe((groups: Rest.GroupTypeJson[]) => {
       this.roundtable.groups = groups;
-      if (this.roundtable.groups && this.roundtable.groups.length > 0) {
-        this.findRounds();
-      }
     });
   }
 
