@@ -3,8 +3,7 @@
     <label for="selectSeason">Meisterschaft auswählen:</label>
     <br />
     <select name="selectSeason"
-      (change)="seasonSelected($event)"
-      [(ngModel)]="roundtable.selectedSeason">
+      (change)="seasonSelected($event)">
       <option 
         *ngFor="let season of roundtable.seasons"
         [value]="season.id">
@@ -16,12 +15,10 @@
     <label for="selectGroup">Gruppe auswählen:</label>
     <br />
     <select name="selectGroup"
-      (change)="groupSelected($event)"
-      [(ngModel)]="roundtable.selectedGroup">
+      (change)="groupSelected($event)">
       <option
         *ngFor="let group of roundtable.groups"
-        [value]="group.id"
-        [selected]="group.id == roundtable.selectedGroup">
+        [value]="group.id">
         {{group.name}}
       </option>
     </select>
