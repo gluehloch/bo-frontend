@@ -4,6 +4,7 @@
     <br />
     <select name="selectSeason"
       (change)="seasonSelected($event)">
+      <!--[(ngModel)]="roundtable.selectedSeason"-->
       <option 
         *ngFor="let season of roundtable.seasons"
         [value]="season.id">
@@ -16,6 +17,7 @@
     <br />
     <select name="selectGroup"
       (change)="groupSelected($event)">
+      <!--[(ngModel)]="roundtable.selectedGroup" -->
       <option
         *ngFor="let group of roundtable.groups"
         [value]="group.id">
@@ -28,6 +30,7 @@
     <br />
     <select name="selectRound"
       (change)="roundSelected($event)">
+      <!--[(ngModel)]="roundtable.selectedRound"-->
       <option
         *ngFor="let round of roundtable.rounds"
         [value]="round.id">

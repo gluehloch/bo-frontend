@@ -49,18 +49,18 @@ export class SeasonComponent implements OnInit {
     });
   }
 
-  findGroups() {
-    this.seasonService.findGroups(this.roundtable.selectedSeason.id)
+  findGroups(seasonId: number) {
+    this.seasonService.findGroups(seasonId)
                       .subscribe((groups: Rest.GroupTypeJson[]) => {
       this.roundtable.groups = groups;
     });
   }
 
-  findRounds() {
-    this.seasonService.findRounds(
-      this.roundtable.selectedSeason.id, this.roundtable.selectedGroup.id).subscribe((rounds: Rest.RoundJson[]) =>
-        this.roundtable.rounds = rounds
-      );
+  findRounds(seasonId: number, groupId: number) {
+    this.seasonService.findRounds(seasonId, groupId)
+                      .subscribe((rounds: Rest.RoundJson[]) => {
+      this.roundtable.rounds = rounds;
+    });
   }
 
   findRoundAndTable() {
@@ -70,23 +70,23 @@ export class SeasonComponent implements OnInit {
   seasonSelected(event) {
     console.info('Selected season id: ' + event.target.value);
 
+    let selectedSeasonId = event.target.value;
     let selectedSeason = this.roundtable
                              .seasons
-                             .find(season => season.id == event.target.value);
-
+                             .find(season => season.id == selectedSeasonId);
     this.roundtable.selectedSeason = selectedSeason;
-    this.findGroups();
+    this.findGroups(selectedSeasonId);
   }
 
   groupSelected(event) {
     console.info('Selected group id: ' + event.target.value);
 
+    let selectedGroupId = event.target.value;
     let selectedGroup = this.roundtable
                             .groups
-                            .find(group => group.id == event.target.value);
-
+                            .find(group => group.id == selectedGroupId);
     this.roundtable.selectedGroup = selectedGroup;
-    this.findRounds();
+    this.findRounds(this.roundtable.selectedSeason.id, selectedGroupId);
   }
 
   roundSelected(event) {
