@@ -40,6 +40,7 @@
   
   </form>
 
+<!--
   <div ng-show="authentication.isAdmin()">
     <hr />
     <div class="form-group">
@@ -55,10 +56,9 @@
   </div>
 
   <hr />
+-->
 
-<!--
-
-  <div ng-show="roundtable.table.roundJson != null">
+  <div *ngIf="roundtable.table">
     <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
     <table class="table table-striped">
       <tr>
@@ -68,7 +68,7 @@
         <th>ES</th>
         <th style="text-align:left">Gastmannschaft</th>
       </tr>
-       <tr ng-repeat="game in roundtable.table.roundJson.games">
+       <tr *ngFor="let game of roundtable.table.roundJson.games">
          <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
          <td style="text-align:right">{{game.homeTeam.name}}</td>
          <td>({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}})</td>
@@ -76,7 +76,7 @@
          <td style="text-align:left">{{game.guestTeam.name}}</td>
        </tr>
     </table>
--->
+  </div>
 
     <!-- TODO Currently disabled. Check the drop down box above!
     <div class="btn-group btn-group-justified" role="group">

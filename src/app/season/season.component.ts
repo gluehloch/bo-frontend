@@ -11,7 +11,7 @@ export class Roundtable {
   selectedGroup: Rest.GroupTypeJson;
   rounds: Rest.RoundJson[];
   selectedRound: Rest.RoundJson;
-  table: Rest.RoundAndTableJson[];
+  table: Rest.RoundAndTableJson;
 };
 
 @Component({
@@ -25,21 +25,10 @@ export class SeasonComponent implements OnInit {
 
   constructor(private seasonService: SeasonService) {
     this.roundtable = new Roundtable();
-    //this.roundtable.seasons = new Array();
   }
 
   ngOnInit() {
     this.findSeasons();
-
-/*
-      if (this.roundtable.seasons && this.roundtable.seasons.length > 0) {
-        this.findGroups();
-      }    
-
-      if (this.roundtable.groups && this.roundtable.groups.length > 0) {
-        this.findRounds();
-      }
-*/
   }
 
   findSeasons() {
@@ -70,9 +59,14 @@ export class SeasonComponent implements OnInit {
     });
   }
 
-  findRoundAndTable() {
-
+  findRoundAndTable(roundId: number, groupId: number) {
+    this.seasonService.findRound(roundId, groupId)
+                      .subscribe((round: Rest.RoundAndTableJson) => {
+      this.roundtable.table = round;
+    });
   }
+
+  // ------------------------------------------------------------------------------
 
   seasonSelected(event) {
     console.info('Selected season id: ' + event.target.value);
@@ -104,7 +98,7 @@ export class SeasonComponent implements OnInit {
                             .find(round => round.id == event.target.value);
 
     this.roundtable.selectedRound = selectedRound;
-    this.findRoundAndTable();
+    this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
   }
 
   /*
