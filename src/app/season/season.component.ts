@@ -56,6 +56,8 @@ export class SeasonComponent implements OnInit {
                       .subscribe((rounds: Rest.RoundJson[]) => {
       this.roundtable.rounds = rounds;
       this.roundtable.selectedRound = rounds[0];
+
+      this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
     });
   }
 
