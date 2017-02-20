@@ -46,6 +46,9 @@ export class SeasonComponent implements OnInit {
     this.seasonService.findSeasons()
                       .subscribe((seasons: Rest.SeasonJson[]) => {
       this.roundtable.seasons = seasons;
+      this.roundtable.selectedSeason = seasons[0];
+
+      this.findGroups(this.roundtable.selectedSeason.id);
     });
   }
 
@@ -53,6 +56,9 @@ export class SeasonComponent implements OnInit {
     this.seasonService.findGroups(seasonId)
                       .subscribe((groups: Rest.GroupTypeJson[]) => {
       this.roundtable.groups = groups;
+      this.roundtable.selectedGroup = groups[0];
+
+      this.findRounds(this.roundtable.selectedSeason.id, this.roundtable.selectedGroup.id);
     });
   }
 
@@ -60,6 +66,7 @@ export class SeasonComponent implements OnInit {
     this.seasonService.findRounds(seasonId, groupId)
                       .subscribe((rounds: Rest.RoundJson[]) => {
       this.roundtable.rounds = rounds;
+      this.roundtable.selectedRound = rounds[0];
     });
   }
 
