@@ -93,14 +93,15 @@
     <div class="alert alert-danger" ng-show="round.serviceResponseMessage.status == 'ERROR'">
       FEHLER: Dieser Spieltag existiert nicht!
     </div>
-
+-->
+  <div *ngIf="roundtable.table">
     <table class="table table-striped">
       <th>Pos</th>
       <th>Team</th>
       <th>Punkte</th>
       <th>Tore</th>
       <th>g:r:v</th>
-      <tr ng-repeat="team in roundtable.table.groupTeamTableJsons.teamResultJsons">
+      <tr *ngFor="let team of roundtable.table.groupTeamTableJsons.teamResultJsons">
         <td>{{team.tablePosition}}</td>
         <td>{{team.teamName}}</td>
         <td>{{team.win * 3 + team.remis}}</td>
@@ -109,6 +110,5 @@
       </tr>
     </table>
   </div>
--->
 
 </div>
