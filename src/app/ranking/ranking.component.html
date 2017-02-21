@@ -1,1 +1,41 @@
-<h1>Spieler Ranking</h1>
+<div *ngIf="ranking">
+  <h1>{{ranking.season.name}} {{ranking.season.year}}</h1>
+  <h2>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy HH:mm' }}</h2>
+  <table class="table table-striped">
+    <tr>
+      <th>Platz</th>
+      <th>Name</th>
+      <th>Punkte</th>
+      <th>g</th>
+      <th>t</th>
+      <th>v</th>
+    </tr>
+    <tr *ngFor="let user of ranking.users">
+      <td>{{user.position}}</td>
+      <td>{{user.nickname}}
+        <!--
+        <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
+        -->
+      </td>
+      <td>{{user.points}}</td>
+      <td>{{user.win}}</td>
+      <td>{{user.toto}}</td>
+      <td>{{user.ticket}}</td>
+    </tr>
+  </table>
+
+<!--
+  <div class="btn-group btn-group-justified" role="group">
+    <div class="btn-group" role="group">
+      <button class="btn btn-default" type="submit" ng-click="last(ranking.round)" ng-show="ranking.round.index > 1">Letzter</button>
+    </div>
+    <div class="btn-group" role="group">
+      <button class="btn btn-default" type="submit" ng-click="next(ranking.round)" ng-show="!ranking.round.lastRound">Nächster</button>
+    </div>
+  </div>
+
+  <div class="alert alert-danger" ng-show="round.serviceResponseMessage.status == 'ERROR'">
+    FEHLER: Für die angeforderte Meisterschaft existiert keine Teilnehmübersicht!
+  </div>
+-->
+</div>
