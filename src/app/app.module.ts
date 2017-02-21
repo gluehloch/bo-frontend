@@ -15,6 +15,9 @@ import { TippComponent } from './tipp/tipp.component';
 import { SeasonService } from './season/season.service';
 import { SeasonComponent } from './season/season.component';
 
+import { RankingServive} from './ranking/ranking.service';
+import { RankingComponent } from './ranking/ranking.component';
+
 // TODO Injectable
 let rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
 
@@ -37,6 +40,10 @@ let rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
         component: TippComponent
       },
       {
+        path: 'ranking',
+        component: RankingComponent
+      }
+      {
         path: 'season',
         component: SeasonComponent
       }
@@ -46,9 +53,15 @@ let rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
     AppComponent,
     AuthenticationComponent,
     TippComponent,
-    SeasonComponent
+    SeasonComponent,
+    RankingComponent
   ],
-  providers: [AuthenticationService, TippService, SeasonService],
+  providers: [
+    AuthenticationService,
+    TippService,
+    SeasonService,
+    RankingService
+  ],
   bootstrap: [AppComponent]
 })
 

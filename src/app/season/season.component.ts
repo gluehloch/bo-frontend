@@ -103,19 +103,4 @@ export class SeasonComponent implements OnInit {
     this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
   }
 
-  /*
-    var callbackSeasons = function(seasons) {
-        $scope.roundtable.seasons = seasons;
-        $scope.roundtable.groups = [];
-        $scope.roundtable.selectedGroup = null;
-        $scope.roundtable.rounds = [];
-        $scope.roundtable.selectedRound = null;
-        $scope.roundtable.table = [];
-
-        if (seasons !== null && seasons.length > 0) {
-            $scope.roundtable.selectedSeason = seasons[seasons.length - 1].id;
-            $scope.seasonSelected();
-        }
-    };
-  */
 }
