@@ -6,6 +6,8 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
+import { environment } from '../../environments/environment';
+
 import { USERROLE } from '../user-role.enum';
 
 export class Login {
@@ -43,36 +45,34 @@ export class Authentication {
     }
 }
 
-// TODO Wohin damit?
-var url = 'http://localhost:8080/betoffice-jweb/bo/office/';
-
 @Injectable()
 export class AuthenticationService {
 
-    // TODO Injectable
-    private rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
+  private rootUrl = environment.rootUrl;
+  private options: RequestOptions;
 
-    // TODO Injectable: , private rootUrl: URL
-    constructor(private http: Http) { }
+  constructor(private http: Http) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    this.options = new RequestOptions({ headers: headers });
+  }
 
-    login(login: Login): Observable<Rest.SecurityTokenJson> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let response = this.http.post(this.rootUrl + "login", login, options);
+  login(login: Login): Observable<Rest.SecurityTokenJson> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    let response = this.http.post(this.rootUrl + "login", login, options);
 
-        return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
-                       .catch(this.handleError);
-    }
+    return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
+                .catch(this.handleError);
+  }
 
-    logout(login: Login): void {
+  logout(login: Login): void {
+  }
 
-    }
-
-    private handleError(error: any): Promise<any> {
-        // TODO Error handling
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
-    }
+  private handleError(error: any): Promise<any> {
+    // TODO Error handling
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
+  }
 
 }
 

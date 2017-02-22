@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { RankingService} from './ranking.service';
+import { RankingService } from './ranking.service';
 
 @Component({
   selector: 'ranking',

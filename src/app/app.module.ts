@@ -18,8 +18,8 @@ import { SeasonComponent } from './season/season.component';
 import { RankingService } from './ranking/ranking.service';
 import { RankingComponent } from './ranking/ranking.component';
 
-// TODO Injectable
-let rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
+import { SessionService } from './session/session.service';
+import { SessionComponent } from './session/session.component';
 
 @NgModule({
   imports: [
@@ -35,6 +35,16 @@ let rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
         path: 'login',
         component: AuthenticationComponent
       },
+      {
+        path: 'logout',
+        component: AuthenticationComponent
+      },
+      /* TODO Anzeige der Login/Logout Daten inklusive Tippzeitpunkte.
+      {
+        path: 'session',
+        component: SessionComponent
+      },
+      */>
       {
         path: 'tipp',
         component: TippComponent
@@ -54,13 +64,15 @@ let rootUrl = 'http://localhost:8080/betoffice-jweb/bo/office/';
     AuthenticationComponent,
     TippComponent,
     SeasonComponent,
-    RankingComponent
+    RankingComponent,
+    SessionComponent
   ],
   providers: [
     AuthenticationService,
     TippService,
     SeasonService,
-    RankingService
+    RankingService,
+    SeasonService
   ],
   bootstrap: [AppComponent]
 })
