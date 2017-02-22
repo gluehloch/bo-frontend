@@ -12,8 +12,8 @@ import { BetofficeService } from '../betoffice.service';
 import { USERROLE } from '../user-role.enum';
 
 export class Login {
-    nickname: string;
-    password: string;
+    readonly nickname: string;
+    readonly password: string;
 
     constructor(nickname: string, password: string) {
         this.nickname = nickname;
@@ -27,14 +27,14 @@ export class Logout {
 }
 
 export class Authentication {
-    nickname: string;
-    password: string;
+    readonly nickname: string;
+    readonly password: string;
     authenticate: boolean;
     rememberme: boolean;
     authenticationTries: number;
     /** sessionId - Ist aber eigentlich das 'token' aus dem Login-Request. Jetzt nach 'token' umbenannt. */
     token: string;
-    role: USERROLE = USERROLE.USER;
+    role: USERROLE;
 
     constructor(nickname : string, role : USERROLE) {
         this.nickname = nickname;
@@ -57,16 +57,14 @@ export class AuthenticationService extends BetofficeService {
     let response = this.http.post(this.rootUrl + "login", login, this.options);
 
     return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
-                .catch(this.handleError);
+                   .catch(this.handleError);
   }
 
-  logout(login: Login): void {
-  }
+  logout(logout: Logout): void {
+    let response = this.http.post(this.rootUrl + "logout", logout, this.options);
 
-  private handleError(error: any): Promise<any> {
-    // TODO Error handling
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+    response.map((r: Response) => r.json())
+            .catch(this.handleError);
   }
 
 }

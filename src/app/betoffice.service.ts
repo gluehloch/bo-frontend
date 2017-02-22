@@ -17,4 +17,12 @@ export abstract class BetofficeService {
     this.http = http;
   }
 
+  /**
+   * The default error handle. Should be overwritten.
+   */
+  protected handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
+  }
+
 }
