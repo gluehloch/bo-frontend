@@ -44,7 +44,7 @@ import { SessionComponent } from './session/session.component';
         path: 'session',
         component: SessionComponent
       },
-      */>
+      */
       {
         path: 'tipp',
         component: TippComponent
