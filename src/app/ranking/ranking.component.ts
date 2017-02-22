@@ -23,32 +23,18 @@ export class RankingComponent implements OnInit {
     });
   }
 
-/*
-  findSeasons() {
-    this.seasonService.findSeasons()
-                      .subscribe((seasons: Rest.SeasonJson[]) => {
-      this.roundtable.seasons = seasons;
-      this.roundtable.selectedSeason = seasons[0];
-
-      this.findGroups(this.roundtable.selectedSeason.id);
+  next(roundId: number) {
+    this.rankingService.nextRound(roundId)
+                       .subscribe((userTable: Rest.UserTableJson) => {
+      this.ranking = userTable;
     });
   }
-*/
 
-/*
-    var seasonRankingCallback = function(rankingTable) {
-        $scope.ranking = rankingTable;
-    };
-
-    $scope.next = function(round) {
-        rankingFactory.nextRound(seasonRankingCallback, round.id);
-    };
-
-    $scope.last = function(round) {
-        rankingFactory.prevRound(seasonRankingCallback, round.id);
-    };
-
-    rankingFactory.calculate(seasonRankingCallback, $routeParams.seasonId);
-*/
+  last(roundId: number) {
+    this.rankingService.preRound(roundId)
+                       .subscribe((userTable: Rest.UserTableJson) => {
+      this.ranking = userTable;
+    });
+  }
 
 }
