@@ -1,19 +1,18 @@
-<h1>Hier machst du dann dein Login</h1>
-<!--
-<div ng-controller="SessionCtrl" class="betoffice-app">
+<div class="betoffice-app">
   <h1>Session Verwaltung</h1>
-  <p ng-show="authentication.authenticate">
+  <p *ngIf="authentication.authenticate">
     Du bist als {{authentication.nickname}} angemeldet.
   </p>
-  <p ng-show="authentication.isAdmin()">
+  <p *ngIf="authentication.isAdmin()">
     Du bist als Administrator angemeldet.
   </p>
-  <p ng-show="!authentication.authenticate">
+  <p *ngIf="!authentication.authenticate">
     Du bist nicht angemeldet.
   </p>
 
-  <div ng-show="!authentication.authenticate">
-    <div class="alert alert-danger" role="alert" ng-show="authentication.authenticationTries > 0 && !authentication.authenticate">
+  <div *ngIf="!authentication.authenticate">
+    <div class="alert alert-danger" role="alert"
+        *ngIf="authentication.authenticationTries > 0 && !authentication.authenticate">
         Der Login-Versuch ist fehlgeschlagen.
     </div>
     <form name="loginform" novalidate>
@@ -30,19 +29,18 @@
         ng-disabled="loginform.$invalid"
         class="btn btn-lg btn-primary btn-block"
         type="submit"
-        ng-click="login(login.nickname, login.password, login.rememberme)">Sign in</button>
+        (click)="login(login.nickname, login.password, login.rememberme)">Sign in</button>
     </form>
   </div>
 
-  <div ng-show="authentication.authenticate">
+  <div *ngIf="authentication.authenticate">
       Falls du dich ausloggen möchtest, dann kannst du das hier erledigen.
       <form name="logoutform" novalidate>
         <button
           class="btn btn-lg btn-primary btn-block"
           type="submit"
-          ng-click="logout()">Logout</button>
+          (click)="logout()">Logout</button>
       </form>
   </div>
 
 </div>
--->

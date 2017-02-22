@@ -10,16 +10,13 @@ import { environment } from '../../environments/environment';
 
 import { USERROLE } from '../user-role.enum';
 import { Authentication } from '../authentication/authentication.service';
+import { BetofficeService } from '../betoffice.service';
 
 @Injectable()
-export class SeasonService {
+export class SeasonService extends BetofficeService {
 
-  private rootUrl = environment.rootUrl;
-  private options: RequestOptions;
-
-  constructor(private http: Http) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    this.options = new RequestOptions({ headers: headers });
+  constructor(http: Http) {
+    super(http);
   }
 
   findSeasons() : Observable<Array<Rest.SeasonJson>> {

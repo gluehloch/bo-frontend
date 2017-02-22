@@ -1,4 +1,5 @@
 export enum USERROLE {
     ADMIN,
-    USER
+    USER,
+    UNKNOWN
 }
