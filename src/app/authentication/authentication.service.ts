@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
 import { environment } from '../../environments/environment';
+import { BetofficeService } from '../betoffice.service';
 
 import { USERROLE } from '../user-role.enum';
 
@@ -46,20 +47,14 @@ export class Authentication {
 }
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService extends BetofficeService {
 
-  private rootUrl = environment.rootUrl;
-  private options: RequestOptions;
-
-  constructor(private http: Http) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    this.options = new RequestOptions({ headers: headers });
+  constructor(http: Http) {
+    super(http);
   }
 
   login(login: Login): Observable<Rest.SecurityTokenJson> {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    let response = this.http.post(this.rootUrl + "login", login, options);
+    let response = this.http.post(this.rootUrl + "login", login, this.options);
 
     return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
                 .catch(this.handleError);

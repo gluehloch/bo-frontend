@@ -14,6 +14,7 @@ export abstract class BetofficeService {
   constructor(http: Http) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     this.options = new RequestOptions({ headers: headers });
+    this.http = http;
   }
 
 }
