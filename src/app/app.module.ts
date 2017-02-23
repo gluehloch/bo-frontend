@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Router } from '@angular/router';
 
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 import { AppComponent } from './app.component';
 
 import { AuthenticationService } from './authentication/authentication.service';
@@ -68,6 +70,7 @@ import { SessionComponent } from './session/session.component';
     SessionComponent
   ],
   providers: [
+    CookieService,
     AuthenticationService,
     TippService,
     SeasonService,
