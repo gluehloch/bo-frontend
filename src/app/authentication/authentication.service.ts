@@ -26,7 +26,14 @@ export class Logout {
     token: string;
 }
 
-export class Authentication {
+export class Authentication implements Rest.SecurityTokenJson {
+
+/* SecurityTokenJson
+    private String nickname;
+    private String role;
+    private String loginTime;
+*/
+
     readonly nickname: string;
     readonly password: string;
     authenticate: boolean;
@@ -34,7 +41,8 @@ export class Authentication {
     authenticationTries: number;
     /** sessionId - Ist aber eigentlich das 'token' aus dem Login-Request. Jetzt nach 'token' umbenannt. */
     token: string;
-    role: USERROLE;
+    role: string;
+    userRole: USERROLE;
 
     constructor(nickname : string, role : USERROLE) {
         this.nickname = nickname;
@@ -42,7 +50,7 @@ export class Authentication {
     }
 
     isAdmin() {
-        return this.role === USERROLE.ADMIN;
+        return this.userRole === USERROLE.ADMIN;
     }
 }
 

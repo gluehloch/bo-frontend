@@ -13,14 +13,14 @@ import { AuthenticationService, Authentication } from './authentication.service'
 })
 export class AuthenticationComponent implements OnInit {
 
-  authentication: Authentication;
+  authentication: Rest.SecurityTokenJson;
 
   constructor(private cookieService: CookieService, private authenticationService: AuthenticationService) {
     this.authentication = new Authentication(undefined, USERROLE.UNKNOWN);
   }
 
   ngOnInit() {
-    let betofficeCookie: any = this.cookieService.getObject('betofficeCookie');
+    let betofficeCookie: any = this.cookieService.getObject('betofficeCookie2');
     if (betofficeCookie && <Authentication>betofficeCookie) {
       this.authentication = betofficeCookie;
     } else {
@@ -33,11 +33,17 @@ export class AuthenticationComponent implements OnInit {
     this.authenticationService.login({nickname:  nickname, password: password})
                               .subscribe((securityToken: Rest.SecurityTokenJson) => {
       if (securityToken.token == 'no_authorization') {
-
+        console.info('Login was not successful');
       } else {
-
+        console.info('Login success!');
+        this.authentication = securityToken;
       }
     });
+  }
+
+  logout() {
+    let betofficeCookie = this.cookieService.getObject('betofficeCookie2');
+    // TODO
   }
 
 }
