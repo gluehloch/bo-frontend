@@ -9,7 +9,7 @@ import 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 
 import { USERROLE } from '../user-role.enum';
-import { Authentication } from '../authentication/authentication.service';
+import { Authentication } from '../authentication/authentication.component';
 import { BetofficeService } from '../betoffice.service';
 
 @Injectable()
@@ -64,7 +64,7 @@ export class SeasonService extends BetofficeService {
   update(roundId: number, authentication: Authentication) : Observable<Rest.RoundAndTableJson> {
     let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/update",
     {
-      token: authentication.token
+      token: authentication.securityToken.token
     });
     return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
                    .catch(this.handleError);
@@ -73,7 +73,7 @@ export class SeasonService extends BetofficeService {
   createOrUpdate( roundId: number, authentication: Authentication) :  Observable<Rest.RoundAndTableJson> {
     let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/create",
     {
-      token: authentication.token
+      token: authentication.securityToken.token
     });
     return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
                    .catch(this.handleError);
