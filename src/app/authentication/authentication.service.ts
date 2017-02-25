@@ -12,46 +12,73 @@ import { BetofficeService } from '../betoffice.service';
 import { USERROLE } from '../user-role.enum';
 
 export class Login {
-    readonly nickname: string;
-    readonly password: string;
+  readonly nickname: string;
+  readonly password: string;
 
-    constructor(nickname: string, password: string) {
-        this.nickname = nickname;
-        this.password = password;
-    }
+  constructor(nickname: string, password: string) {
+    this.nickname = nickname;
+    this.password = password;
+  }
 }
 
 export class Logout {
-    nickname: string;
-    token: string;
+  nickname: string;
+  token: string;
 }
 
-export class Authentication implements Rest.SecurityTokenJson {
+export class Authentication {
 
-/* SecurityTokenJson
-    private String nickname;
-    private String role;
-    private String loginTime;
-*/
+  private _securityToken: Rest.SecurityTokenJson; 
 
-    readonly nickname: string;
-    readonly password: string;
-    authenticate: boolean;
-    rememberme: boolean;
-    authenticationTries: number;
-    /** sessionId - Ist aber eigentlich das 'token' aus dem Login-Request. Jetzt nach 'token' umbenannt. */
-    token: string;
-    role: string;
-    userRole: USERROLE;
+  set securityToken(securityToken: Rest.SecurityTokenJson) {
+    this._securityToken = securityToken;
+  }
+  
+  get securityToken() {
+    return this._securityToken;
+  }
 
-    constructor(nickname : string, role : USERROLE) {
-        this.nickname = nickname;
-        this.role = role;
+  // --------------------------------------------------------------------------
+
+  private _authenticationTries :number = 0;
+
+  get authenticationTries() {
+    return this.authenticationTries;
+  }
+
+  addLoginAttempt() {
+    this._authenticationTries++;
+  }
+
+  // --------------------------------------------------------------------------
+
+  isAuthenticated() {
+    return (this._securityToken && this._securityToken.token != 'no_authorization');
+  }
+
+  isAdmin() {
+    if (this._securityToken && this._securityToken.role) {
+        return this._securityToken.role === 'ADMIN'
+    } else {
+        return false;
     }
+  }
 
-    isAdmin() {
-        return this.userRole === USERROLE.ADMIN;
+  getUserRole() {
+    if (this._securityToken) {
+      switch (this._securityToken.role) {
+        case 'TIPPER':
+          return USERROLE.TIPPER;
+        case 'ADMIN':
+          return USERROLE.ADMIN;
+        case 'SEASON_ADMIN':
+          return USERROLE.SEASON_ADMIN;
+        default:
+          return USERROLE.UNKNOWN;
+      }
     }
+    return USERROLE.UNKNOWN;
+  }
 }
 
 @Injectable()
@@ -76,26 +103,3 @@ export class AuthenticationService extends BetofficeService {
   }
 
 }
-
-/*
-
-betofficeApp.factory('SessionFactory', ['$http', function($http) {
-    return {
-        login: function(callback, nickname, password) {
-            $http.post(url + 'login',
-                {
-                    nickname: nickname,
-                    password: password
-                }).success(callback);
-        },
-        logout: function(callback, nickname, token) {
-            $http.post(url + 'logout',
-                {
-                    nickname: nickname,
-                    token: token
-                }).success(callback);
-        }
-    };
-}]);
-
-*/

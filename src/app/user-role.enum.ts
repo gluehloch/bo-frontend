@@ -1,5 +1,6 @@
 export enum USERROLE {
+    TIPPER,
+    SEASON_ADMIN,
     ADMIN,
-    USER,
     UNKNOWN
 }

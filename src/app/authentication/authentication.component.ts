@@ -13,10 +13,11 @@ import { AuthenticationService, Authentication } from './authentication.service'
 })
 export class AuthenticationComponent implements OnInit {
 
-  authentication: Rest.SecurityTokenJson;
+  authentication: Authentication;
 
   constructor(private cookieService: CookieService, private authenticationService: AuthenticationService) {
-    this.authentication = new Authentication(undefined, USERROLE.UNKNOWN);
+    this.authentication = new Authentication();
+    this.authentication.securityToken = null;
   }
 
   ngOnInit() {
