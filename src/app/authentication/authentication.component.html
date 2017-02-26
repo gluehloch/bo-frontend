@@ -12,7 +12,7 @@
 
   <div *ngIf="!authentication.authenticated">
     <div class="alert alert-danger" role="alert"
-      *ngIf="authentication.authenticationTries > 0 && !authentication.authenticated">
+      *ngIf="authentication.authenticationTries > 0">
       Der Login-Versuch ist fehlgeschlagen.
     </div>
     <form name="loginform" novalidate>

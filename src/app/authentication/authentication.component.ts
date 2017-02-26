@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 import { CookieService } from 'angular2-cookie/core';
 
@@ -11,7 +11,8 @@ export class Authentication {
   nickname: string;
   password: string;
 
-  authenticated: boolean;
+  @Output()
+  authenticated = new EventEmitter<boolean>();
  
   // --------------------------------------------------------------------------
 
@@ -40,11 +41,12 @@ export class Authentication {
   // --------------------------------------------------------------------------
 
   setAuthenticated() {
-    this.authenticated = (this._securityToken && this._securityToken.token != 'no_authorization');
+    let loggedIn: boolean = (this._securityToken && this._securityToken.token != 'no_authorization');
+    this.authenticated.emit(loggedIn);
   }
 
   isAdmin() {
-    if (this._securityToken && this._securityToken.role) {
+    if (this.authenticated && this._securityToken && this._securityToken.role) {
         return this._securityToken.role === 'ADMIN'
     } else {
         return false;
