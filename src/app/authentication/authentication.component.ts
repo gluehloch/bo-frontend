@@ -71,6 +71,7 @@ export class Authentication {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.css']
@@ -126,6 +127,10 @@ export class AuthenticationComponent implements OnInit {
       this.authenticationService.logout(logout);
       this.authentication.securityToken = null;
     }
+  }
+
+  get diagnostic() {
+    return JSON.stringify(this.authentication);
   }
 
 }

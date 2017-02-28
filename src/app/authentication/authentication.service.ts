@@ -12,12 +12,12 @@ import { BetofficeService } from '../betoffice.service';
 import { USERROLE } from '../user-role.enum';
 
 
-export class Login {
+export interface Login {
   nickname: string;
   password: string;
 }
 
-export class Logout {
+export interface Logout {
   nickname: string;
   token: string;
 }
