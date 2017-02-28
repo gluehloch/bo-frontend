@@ -89,7 +89,6 @@ export class AuthenticationComponent implements OnInit {
     if (betofficeCookie && <Authentication>betofficeCookie) {
       this.authentication = betofficeCookie;
     } else {
-      this.authentication = new Authentication();
       this.authentication.securityToken = null; 
     }
 
@@ -119,12 +118,14 @@ export class AuthenticationComponent implements OnInit {
   }
 
   logout() {
-    let logout = {
-      nickname:  this.authentication.securityToken.nickname,
-      token: this.authentication.securityToken.token
-    };
-    this.authenticationService.logout(logout);
-    this.authentication.securityToken = null;
+    if (this.authentication.securityToken) {
+      let logout = {
+        nickname:  this.authentication.securityToken.nickname,
+        token: this.authentication.securityToken.token
+      };
+      this.authenticationService.logout(logout);
+      this.authentication.securityToken = null;
+    }
   }
 
 }
