@@ -8,11 +8,10 @@ import { AuthenticationService } from './authentication.service';
 
 export class Authentication {
 
-  nickname: string;
-  password: string;
+  nickname: string = 'Nickname';
+  password: string = 'Password';
 
-  @Output()
-  authenticated = new EventEmitter<boolean>();
+  authenticated: boolean = false;
  
   // --------------------------------------------------------------------------
 
@@ -42,10 +41,10 @@ export class Authentication {
 
   setAuthenticated() {
     let loggedIn: boolean = (this._securityToken && this._securityToken.token != 'no_authorization');
-    this.authenticated.emit(loggedIn);
+    this.authenticated = loggedIn;
   }
 
-  isAdmin() {
+  function isAdmin() {
     if (this.authenticated && this._securityToken && this._securityToken.role) {
         return this._securityToken.role === 'ADMIN'
     } else {
@@ -104,7 +103,7 @@ export class AuthenticationComponent implements OnInit {
 
     this.authenticationService.login(login)
                               .subscribe((securityToken: Rest.SecurityTokenJson) => {
-      this.authentication.addLoginAttempt;
+      this.authentication.addLoginAttempt();
       if (securityToken.token == 'no_authorization') {
         console.info('Login was not successful');
         this.authentication.securityToken = null;
@@ -114,7 +113,7 @@ export class AuthenticationComponent implements OnInit {
       }
       this.cookieService.putObject('betofficeCookie2', this.authentication);
 
-      this.authentication.setAuthenticated;
+      this.authentication.setAuthenticated();
     });
   }
 

@@ -3,7 +3,7 @@
   <p *ngIf="authentication.authenticated">
     Du bist als {{authentication.nickname}} angemeldet.
   </p>
-  <p *ngIf="authentication.isAdmin">
+  <p *ngIf="authentication.isAdmin()">
     Du bist als Administrator angemeldet.
   </p>
   <p *ngIf="!authentication.authenticated">
