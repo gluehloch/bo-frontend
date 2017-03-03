@@ -10,8 +10,6 @@ export class Authentication {
 
   nickname: string = 'Nickname';
   password: string = 'Password';
-
-  authenticated: boolean = false;
  
   // --------------------------------------------------------------------------
 
@@ -39,18 +37,29 @@ export class Authentication {
 
   // --------------------------------------------------------------------------
 
-  setAuthenticated() {
-    let loggedIn: boolean = (this._securityToken && this._securityToken.token != 'no_authorization');
-    this.authenticated = loggedIn;
+  private _authenticated: boolean = false;
+
+  get authenticated() {
+    return this._authenticated;
   }
 
-  function isAdmin() {
-    if (this.authenticated && this._securityToken && this._securityToken.role) {
-        return this._securityToken.role === 'ADMIN'
-    } else {
-        return false;
-    }
+  set authenticated(loggedIn: boolean) {
+    this._authenticated = loggedIn;
+  }  
+
+  // --------------------------------------------------------------------------
+
+  private _admin: boolean = false;
+
+  get admin() {
+    return _admin;
   }
+
+  set admin(admin: boolean) {
+    this._admin = admin;
+  }
+
+  // --------------------------------------------------------------------------
 
   getUserRole() {
     if (this._securityToken) {
@@ -92,7 +101,8 @@ export class AuthenticationComponent implements OnInit {
       this.authentication.securityToken = null; 
     }
 
-    this.authentication.setAuthenticated;
+    let loggedIn: boolean = (this.authentication.securityToken && this.authentication.securityToken.token != 'no_authorization');
+    this.authentication.authenticated = loggedIn;
   }
 
   login(nickname) {
@@ -107,13 +117,21 @@ export class AuthenticationComponent implements OnInit {
       if (securityToken.token == 'no_authorization') {
         console.info('Login was not successful');
         this.authentication.securityToken = null;
+        this.authentication.authenticated = false;
       } else {
         console.info('Login success!');
         this.authentication.securityToken = securityToken;
+        this.authentication.authenticated = true;
+
+        if (this.authentication.authenticated
+            && this.authentication.securityToken
+            && this.authentication.securityToken.role) {
+           this.authentication.admin = this.authentication.securityToken.role === 'ADMIN';
+        } else {
+          this.authentication.admin = false;
+        }
       }
       this.cookieService.putObject('betofficeCookie2', this.authentication);
-
-      this.authentication.setAuthenticated();
     });
   }
 
