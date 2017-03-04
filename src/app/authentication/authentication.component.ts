@@ -45,7 +45,7 @@ export class Authentication {
 
   set authenticated(loggedIn: boolean) {
     this._authenticated = loggedIn;
-  }  
+  }
 
   // --------------------------------------------------------------------------
 
