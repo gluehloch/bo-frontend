@@ -3,18 +3,18 @@
   <p *ngIf="authentication.authenticated">
     Du bist als {{authentication.nickname}} angemeldet.
   </p>
-  <p *ngIf="authentication.isAdmin()">
+  <p *ngIf="authentication.admin">
     Du bist als Administrator angemeldet.
   </p>
   <p *ngIf="!authentication.authenticated">
     Du bist nicht angemeldet.
   </p>
+  <div class="alert alert-danger" role="alert"
+    *ngIf="!authentication.authenticated && authentication.authenticationTries > 0">
+    Der Login-Versuch ist fehlgeschlagen.
+  </div>  
 
   <div *ngIf="!authentication.authenticated">
-    <div class="alert alert-danger" role="alert"
-      *ngIf="authentication.authenticationTries > 0">
-      Der Login-Versuch ist fehlgeschlagen.
-    </div>
     <form name="loginform" novalidate>
       <div class="form-group">
         <label for="nickname" class="sr-only" ng-class="{'has-warning': !authentication.authenticated}">Nickname</label>

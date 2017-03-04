@@ -31,8 +31,8 @@ export class Authentication {
     return this._authenticationTries;
   }
 
-  addLoginAttempt() {
-    this._authenticationTries++;
+  set authenticationTries(num: number) {
+    this._authenticationTries = num;
   }
 
   // --------------------------------------------------------------------------
@@ -52,7 +52,7 @@ export class Authentication {
   private _admin: boolean = false;
 
   get admin() {
-    return _admin;
+    return this._admin;
   }
 
   set admin(admin: boolean) {
@@ -113,7 +113,7 @@ export class AuthenticationComponent implements OnInit {
 
     this.authenticationService.login(login)
                               .subscribe((securityToken: Rest.SecurityTokenJson) => {
-      this.authentication.addLoginAttempt();
+      this.authentication.authenticationTries = this.authentication.authenticationTries + 1;
       if (securityToken.token == 'no_authorization') {
         console.info('Login was not successful');
         this.authentication.securityToken = null;
@@ -141,8 +141,13 @@ export class AuthenticationComponent implements OnInit {
         nickname:  this.authentication.securityToken.nickname,
         token: this.authentication.securityToken.token
       };
+
+      this.authentication.authenticationTries = 0;
       this.authenticationService.logout(logout);
       this.authentication.securityToken = null;
+      this.authentication.admin = false;
+      this.authentication.authenticated = false;
+      console.info('Logout successful.');
     }
   }
 
