@@ -41,7 +41,10 @@ export class TippComponent implements OnInit {
     this.tipp.authenticated = loggedIn;
 
     if (loggedIn) {
-        this.tippService.nextTippRound(callback, $routeParams.seasonId, betofficeCookie.nickname);
+        this.tippService.nextTippRound(4711, betofficeCookie.nickname)
+                        .subscribe((roundJson: Rest.RoundJson) => {
+                            
+        });
     }    
   }
 
