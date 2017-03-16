@@ -1,1 +1,78 @@
-<h1>Hier gibst du dann deinen Tipp ab.</h1>
+<div>
+
+  <div ng-show="!tipp.authenticated">
+    <div class="form-group">
+    <p class="alert alert-warning">
+      Du bist noch nicht angemeldet. <a href="#login">Hier</a></li> kannst du das nachholen.
+    </p>
+    </div>
+  </div>
+
+  <div ng-show="tipp.authenticated" class="form-group">
+    <div class="alert alert-success">
+      Du bist eingeloggt als {{tipp.nickname}}.
+    </div>
+  </div>
+
+  <div ng-show="tipp.authenticated && tipp.round === ''">
+    <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
+    <div>
+      Hier kannst du dir deinen letzten Tipp anschauen.
+    </div>
+  </div>
+
+  <div ng-show="login.loggedin && tipp.round">
+      <h1>{{tipp.round.seasonName}} {{tipp.round.seasonYear}}</h1>
+      <h2>{{tipp.round.index}}. Spieltag am {{tipp.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h2>
+      <form name="tippform" novalidate><!-- class="form-login" -->
+        <table class="table table-striped">
+          <tr>
+            <th class="hidden-xs" style="text-align:right">Datum</th>
+            <th style="text-align:right">Heimmannschaft</th>
+            <th style="text-align:left">Gastmannschaft</th>
+            <th class="hidden-xs">Tore</th>
+            <th colspan="2">Tipp</th>
+          </tr>
+          <tr ng-repeat="game in tipp.round.games">
+            <td class="hidden-xs" style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
+            <td style="text-align: right">{{game.homeTeam.name}}</td>
+            <td style="text-align: left">{{game.guestTeam.name}}</td>
+            <td class="hidden-xs">{{game.result.homeGoals}} : {{game.result.guestGoals}}</td>
+            <td>
+              <input class="form-control" id="{{tipp.round.id}}heim{{game.id}}" max="15" min="0" type="number" size="1"
+                ng-disabled="game.finished"
+                placeholder="{{game.result.homeGoals}}"
+                ng-model="game.tipp.homeGoals"/>
+            </td>
+            <td>
+              <input class="form-control" id="{{tipp.round.id}}gast{{game.id}}" max="15" min="0" type="number" size="1"
+                ng-disabled="game.finished"
+                placeholder="{{game.result.guestGoals}}"
+                ng-model="game.tipp.guestGoals"/>
+            </td>
+          </tr>
+        </table>
+        <div class="form-group">
+          <div class="btn-group btn-group-justified" role="group">
+            <div class="btn-group" role="group">
+              <button class="btn btn-default" type="submit" ng-click="last(tipp.round)" ng-show="tipp.round.index > 1">Letzter</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button class="btn btn-default" type="submit" ng-click="next(tipp.round)" ng-show="!tipp.round.lastRound">Nächster</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+            <div class="alert alert-success" ng-show="tipp.serviceResponseMessage.status == 'SUCCESS'">
+              Dein Tipp wurde erfolgreich gespeichert!
+            </div>
+            <div class="alert alert-danger" ng-show="tipp.serviceResponseMessage.status == 'ERROR'">
+              FEHLER: Dieser Spieltag existiert nicht!
+            </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="submitTipp()" ng-disabled="!login.loggedin || !tipp.round.tippable">
+            Tipp
+          </button>
+        </div>
+      </form>
+  </div>
+</div>
