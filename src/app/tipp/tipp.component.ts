@@ -37,7 +37,8 @@ export class TippComponent implements OnInit {
       this.tipp.securityToken = null;
     }
 
-    let loggedIn: boolean = (this.tipp.securityToken && this.tipp.securityToken.token != 'no_authorization');
+    let loggedIn: boolean = (
+      this.tipp.securityToken && this.tipp.securityToken.token != 'no_authorization');
     this.tipp.authenticated = loggedIn;
 
     if (loggedIn) {
@@ -51,7 +52,7 @@ export class TippComponent implements OnInit {
 
 
 
-
+/*
     $scope.next = function(round) {
         tippFactory.nextRound(callback, round.id, betofficeCookie.nickname);
     };
@@ -89,4 +90,5 @@ export class TippComponent implements OnInit {
 
         tippFactory.tipp(tippSubmitSuccessCallback, tipp);
     };
+*/
 }
