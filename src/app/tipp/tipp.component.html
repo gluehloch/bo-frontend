@@ -1,20 +1,24 @@
 <div>
 
-  <div ng-show="!tipp.authenticated">
+  <div *ngIf="!tipp.authenticated">
     <div class="form-group">
     <p class="alert alert-warning">
-      Du bist noch nicht angemeldet. <a href="#login">Hier</a> kannst du das nachholen.
+      Du bist noch nicht angemeldet.
+      <a routerLink="/login" routerLinkActive="active">Hier</a>
+      <!--
+      <a href="#login">Hier</a>
+      --> kannst du das nachholen.
     </p>
     </div>
   </div>
 
-  <div ng-show="tipp.authenticated" class="form-group">
+  <div *ngIf="tipp.authenticated" class="form-group">
     <div class="alert alert-success">
       Du bist eingeloggt als {{tipp.nickname}}.
     </div>
   </div>
 
-  <div ng-show="tipp.authenticated && tipp.round === ''">
+  <div *ngIf="tipp.authenticated && tipp.round === ''">
     <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
     <div>
       Hier kannst du dir deinen letzten Tipp anschauen.
