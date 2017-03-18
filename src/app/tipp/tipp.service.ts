@@ -15,33 +15,33 @@ export class TippService extends BetofficeService {
     super(http);
   }
 
-  nextTippRound(seasonId: number, nickName: string) : Observable<Rest.RoundJson> {
+  nextTippRound(seasonId: number, nickName: string) : Observable<Rest.TippRoundJson> {
     let response = this.http.get(this.rootUrl + 'tipp/' + seasonId + '/' + nickName + '/current');
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
+    return response.map((r: Response) => r.json() as Rest.TippRoundJson)
                    .catch(this.handleError);
   }
 
-  findTipp(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
+  findTipp(roundId: number, nickName: string) : Observable<Rest.TippRoundJson> {
     let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName);
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
+    return response.map((r: Response) => r.json() as Rest.TippRoundJson)
                    .catch(this.handleError);    
   }
    
-  nextRound(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
+  nextRound(roundId: number, nickName: string) : Observable<Rest.TippRoundJson> {
     let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/next");
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
+    return response.map((r: Response) => r.json() as Rest.TippRoundJson)
                    .catch(this.handleError);    
   }
   
-  prevRound(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
+  prevRound(roundId: number, nickName: string) : Observable<Rest.TippRoundJson> {
     let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/prev");
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
+    return response.map((r: Response) => r.json() as Rest.TippRoundJson)
                    .catch(this.handleError);    
   }
 
   tipp(tippRoundJson: Rest.SubmitTippRoundJson) : Observable<Rest.RoundJson> {
     let response = this.http.post(this.rootUrl + 'tipp/submit', tippRoundJson);
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
+    return response.map((r: Response) => r.json() as Rest.TippRoundJson)
                    .catch(this.handleError);    
   }
 

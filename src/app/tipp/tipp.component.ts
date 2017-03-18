@@ -6,12 +6,14 @@ import { USERROLE } from '../user-role.enum';
 import { Authentication } from '../authentication/authentication.component';
 import { TippService } from './tipp.service';
 
+import { environment } from '../../environments/environment';
 
 export class Tipp {
 
   nickname: string;
   securityToken: Rest.SecurityTokenJson;
   authenticated: boolean;
+  round: Rest.TippRoundJson;
 
 }
 
@@ -21,6 +23,8 @@ export class Tipp {
   styleUrls: ['./tipp.component.css']
 })
 export class TippComponent implements OnInit {
+
+  currentSeasonId = environment.currentSeasonId;
 
   tipp: Tipp;
 
@@ -42,10 +46,8 @@ export class TippComponent implements OnInit {
     this.tipp.authenticated = loggedIn;
 
     if (loggedIn) {
-        this.tippService.nextTippRound(4711, betofficeCookie.nickname)
-                        .subscribe((roundJson: Rest.RoundJson) => {
-                            
-        });
+      this.tippService.nextTippRound(this.currentSeasonId, betofficeCookie.nickname)
+                      .subscribe((roundJson: Rest.TippRoundJson) => { this.tipp.round = roundJson; });
     }    
   }
 

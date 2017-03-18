@@ -4,17 +4,14 @@
     <div class="form-group">
     <p class="alert alert-warning">
       Du bist noch nicht angemeldet.
-      <a routerLink="/login" routerLinkActive="active">Hier</a>
-      <!--
-      <a href="#login">Hier</a>
-      --> kannst du das nachholen.
+      <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
     </p>
     </div>
   </div>
 
   <div *ngIf="tipp.authenticated" class="form-group">
     <div class="alert alert-success">
-      Du bist eingeloggt als {{tipp.nickname}}.
+      Du bist eingeloggt als {{tipp.nickname}}. Es wird die Saison ID {{currentSeasonId}} getippt.
     </div>
   </div>
 
@@ -24,8 +21,8 @@
       Hier kannst du dir deinen letzten Tipp anschauen.
     </div>
   </div>
-<!--
-  <div ng-show="login.loggedin && tipp.round">
+
+  <div *ngIf="tipp.authenticated && tipp.round">
       <h1>{{tipp.round.seasonName}} {{tipp.round.seasonYear}}</h1>
       <h2>{{tipp.round.index}}. Spieltag am {{tipp.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h2>
       <form name="tippform" novalidate>
@@ -37,7 +34,7 @@
             <th class="hidden-xs">Tore</th>
             <th colspan="2">Tipp</th>
           </tr>
-          <tr ng-repeat="game in tipp.round.games">
+          <tr *ngFor="let game of tipp.round.gameTipps">
             <td class="hidden-xs" style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
             <td style="text-align: right">{{game.homeTeam.name}}</td>
             <td style="text-align: left">{{game.guestTeam.name}}</td>
@@ -79,5 +76,5 @@
         </div>
       </form>
   </div>
-  -->
+
 </div>
