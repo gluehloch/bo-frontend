@@ -37,9 +37,9 @@ export class SeasonService extends BetofficeService {
                    .catch(this.handleError);
   }
 
-  findRounds(seasonId: number, groupId: number) : Observable<Array<Rest.RoundJson>> {
+  findRounds(seasonId: number, groupId: number) : Observable<Rest.SeasonJson> {
     let response = this.http.get(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all');
-    return response.map((r: Response) => r.json() as Array<Rest.RoundJson>)
+    return response.map((r: Response) => r.json() as Rest.SeasonJson)
                    .catch(this.handleError);
   }
   

@@ -53,9 +53,9 @@ export class SeasonComponent implements OnInit {
 
   findRounds(seasonId: number, groupId: number) {
     this.seasonService.findRounds(seasonId, groupId)
-                      .subscribe((rounds: Rest.RoundJson[]) => {
-      this.roundtable.rounds = rounds;
-      this.roundtable.selectedRound = rounds[0];
+                      .subscribe((season: Rest.SeasonJson) => {
+      this.roundtable.rounds = season.rounds;
+      this.roundtable.selectedRound = season.rounds[0];
 
       this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
     });
