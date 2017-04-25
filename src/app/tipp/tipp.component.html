@@ -25,6 +25,7 @@
   <div *ngIf="tipp.authenticated && tipp.round">
       <h1>{{tipp.round.seasonName}} {{tipp.round.seasonYear}}</h1>
       <h2>{{tipp.round.index}}. Spieltag am {{tipp.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h2>
+      <p>Round ID {{tipp.round.id}}</p>
       <form name="tippform" novalidate>
         <table class="table table-striped">
           <tr>

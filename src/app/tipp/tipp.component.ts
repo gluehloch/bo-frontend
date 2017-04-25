@@ -47,7 +47,9 @@ export class TippComponent implements OnInit {
 
     if (loggedIn) {
       this.tippService.nextTippRound(this.currentSeasonId, betofficeCookie.nickname)
-                      .subscribe((roundJson: Rest.TippRoundJson) => { this.tipp.round = roundJson; });
+                      .subscribe((roundJson: Rest.TippRoundJson) => {
+                          this.tipp.round = roundJson;
+                        });
     }    
   }
 
