@@ -1,17 +1,6 @@
-// Generated using typescript-generator version 1.14.251 on 2017-03-15 08:40:59.
+// Generated using typescript-generator version 1.14.251 on 2017-04-25 19:18:20.
 
 declare namespace Rest {
-
-    interface AbstractRoundJson extends AbstractIdentifier {
-        seasonId: number;
-        seasonName: string;
-        seasonYear: string;
-        dateTime: Date;
-        index: number;
-        lastRound: boolean;
-        tippable: boolean;
-        games: GameJson[];
-    }
 
     interface GameJson extends AbstractOpenligaid {
         index: number;
@@ -23,6 +12,7 @@ declare namespace Rest {
         overtimeResult: GameResultJson;
         penaltyResult: GameResultJson;
         finished: boolean;
+        tipps: GameTippJson[];
     }
 
     interface GameResultJson extends Serializable {
@@ -30,7 +20,8 @@ declare namespace Rest {
         guestGoals: number;
     }
 
-    interface GameTippJson extends GameJson {
+    interface GameTippJson {
+        nickname: string;
         tipp: GameResultJson;
     }
 
@@ -52,7 +43,15 @@ declare namespace Rest {
         groupTeamTableJsons: GroupTeamTableJson;
     }
 
-    interface RoundJson extends AbstractRoundJson {
+    interface RoundJson extends AbstractIdentifier {
+        seasonId: number;
+        seasonName: string;
+        seasonYear: string;
+        dateTime: Date;
+        index: number;
+        lastRound: boolean;
+        tippable: boolean;
+        games: GameJson[];
     }
 
     interface SeasonJson extends AbstractIdentifier {
@@ -106,14 +105,6 @@ declare namespace Rest {
         guestTeamGoals: number;
     }
 
-    interface TeamsJson {
-        teamJsons: TeamJson[];
-    }
-
-    interface TippRoundJson extends AbstractRoundJson {
-        gameTipps: GameTippJson[];
-    }
-
     interface TokenJson extends Serializable {
         token: string;
     }
@@ -133,14 +124,14 @@ declare namespace Rest {
         users: UserJson[];
     }
 
-    interface AbstractIdentifier {
-        id: number;
-    }
-
     interface AbstractOpenligaid extends AbstractIdentifier, OpenligaObject {
     }
 
     interface Serializable {
+    }
+
+    interface AbstractIdentifier {
+        id: number;
     }
 
     interface OpenligaObject {
