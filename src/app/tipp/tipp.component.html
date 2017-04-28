@@ -47,7 +47,7 @@
                 max="15" min="0" type="number" size="1"
                 ng-disabled="game.finished"
                 placeholder="{{game.result.homeGoals}}"
-                [(ngModel)]="game.tipps[0]?.tipp.homeGoals"/>
+                [(ngModel)]="game.tipps[0].tipp.homeGoals"/>
             </td>
             <td>
               <input class="form-control"
@@ -56,7 +56,7 @@
                 max="15" min="0" type="number" size="1"
                 ng-disabled="game.finished"
                 placeholder="{{game.result.guestGoals}}"
-                [(ngModel)]="game.tipps[0]?.tipp.guestGoals"/>
+                [(ngModel)]="game.tipps[0].tipp.guestGoals"/>
             </td>
           </tr>
         </table>
@@ -64,22 +64,30 @@
           <div class="btn-group btn-group-justified" role="group">
             <div class="btn-group" role="group">
               <button class="btn btn-default" type="submit"
-                (click)="last()" ng-show="tipp.round.index > 1">Letzter</button>
+                (click)="last()" *ngIf="tipp.round.index > 1">Letzter</button>
             </div>
             <div class="btn-group" role="group">
               <button class="btn btn-default" type="submit"
-                (click)="next()" ng-show="!tipp.round.lastRound">Nächster</button>
+                (click)="next()" *ngIf="!tipp.round.lastRound">Nächster</button>
             </div>
           </div>
         </div>
         <div class="form-group">
-            <div class="alert alert-success" ng-show="tipp.serviceResponseMessage.status == 'SUCCESS'">
+          <!--
+          <div class="alert alert-success"
+              *ngIf="tipp.serviceResponseMessage.status == 'SUCCESS'">
               Dein Tipp wurde erfolgreich gespeichert!
-            </div>
-            <div class="alert alert-danger" ng-show="tipp.serviceResponseMessage.status == 'ERROR'">
-              FEHLER: Dieser Spieltag existiert nicht!
-            </div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="submitTipp()" ng-disabled="!login.loggedin || !tipp.round.tippable">
+          </div>
+          -->
+          <!--
+          <div class="alert alert-danger"
+            *ngIf="tipp.serviceResponseMessage.status == 'ERROR'">
+            FEHLER: Dieser Spieltag existiert nicht!
+          </div>
+          -->
+          <button class="btn btn-lg btn-primary btn-block" type="submit"
+              (click)="submitTipp()"
+              *ngIf="tipp.securityToken?.nickname && tipp.round.tippable">
             Tipp
           </button>
         </div>

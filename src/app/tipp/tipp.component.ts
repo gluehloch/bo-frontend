@@ -67,15 +67,28 @@ export class TippComponent implements OnInit {
                     });
   }
 
+  submitTipp() {
+    var submitTipp = {
+      nickname: this.tipp.securityToken.nickname,
+      token: this.tipp.securityToken.token,
+      roundId: this.tipp.round.id,
+      submitTippGames: []
+    };
+
+    this.tipp.round.games.forEach(game => {
+      submitTipp.submitTippGames.push(
+        { gameId: game.id, tippResult: {
+            homeGoals: game.tipps[0].tipp.homeGoals,
+            guestGoals: game.tipps[0].tipp.guestGoals }}
+      );
+    });
+
+    this.tippService.tipp(submitTipp)
+                     .subscribe((roundJson: Rest.RoundJson) => {
+                         this.tipp.round = roundJson;
+                     });
+  }
 /*
-    $scope.next = function(round) {
-        tippFactory.nextRound(callback, round.id, betofficeCookie.nickname);
-    };
-
-    $scope.last = function(round) {
-        tippFactory.prevRound(callback, round.id, betofficeCookie.nickname);
-    };
-
     var tippSubmitSuccessCallback = function(round) {
         $scope.tipp = {
             round: round,
