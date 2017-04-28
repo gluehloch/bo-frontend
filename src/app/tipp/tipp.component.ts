@@ -53,8 +53,19 @@ export class TippComponent implements OnInit {
     }    
   }
 
+  next() {
+    this.tippService.nextRound(this.tipp.round.id, this.tipp.nickname)
+                    .subscribe((roundJson: Rest.RoundJson) => {
+                        this.tipp.round = roundJson;
+                    });
+  }
 
-
+  last() {
+    this.tippService.prevRound(this.tipp.round.id, this.tipp.nickname)
+                    .subscribe((roundJson: Rest.RoundJson) => {
+                        this.tipp.round = roundJson;
+                    });
+  }
 
 /*
     $scope.next = function(round) {
