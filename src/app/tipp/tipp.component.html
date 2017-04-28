@@ -35,7 +35,7 @@
             <th class="hidden-xs">Tore</th>
             <th colspan="2">Tipp</th>
           </tr>
-          <tr *ngFor="let game of tipp.round.gameTipps">
+          <tr *ngFor="let game of tipp.round.games">
             <td class="hidden-xs" style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
             <td style="text-align: right">{{game.homeTeam.name}}</td>
             <td style="text-align: left">{{game.guestTeam.name}}</td>
@@ -44,13 +44,13 @@
               <input class="form-control" id="{{tipp.round.id}}heim{{game.id}}" max="15" min="0" type="number" size="1"
                 ng-disabled="game.finished"
                 placeholder="{{game.result.homeGoals}}"
-                ng-model="game.tipp.homeGoals"/>
+                ng-model="game.tipps[0].tipp.homeGoals"/>
             </td>
             <td>
               <input class="form-control" id="{{tipp.round.id}}gast{{game.id}}" max="15" min="0" type="number" size="1"
                 ng-disabled="game.finished"
                 placeholder="{{game.result.guestGoals}}"
-                ng-model="game.tipp.guestGoals"/>
+                ng-model="game.tipps[0].tipp.guestGoals"/>
             </td>
           </tr>
         </table>

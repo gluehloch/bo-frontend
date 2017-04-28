@@ -13,7 +13,7 @@ export class Tipp {
   nickname: string;
   securityToken: Rest.SecurityTokenJson;
   authenticated: boolean;
-  round: Rest.TippRoundJson;
+  round: Rest.RoundJson;
 
 }
 
@@ -47,7 +47,7 @@ export class TippComponent implements OnInit {
 
     if (loggedIn) {
       this.tippService.nextTippRound(this.currentSeasonId, betofficeCookie.nickname)
-                      .subscribe((roundJson: Rest.TippRoundJson) => {
+                      .subscribe((roundJson: Rest.RoundJson) => {
                           this.tipp.round = roundJson;
                         });
     }    
