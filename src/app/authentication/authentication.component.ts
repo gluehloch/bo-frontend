@@ -142,6 +142,8 @@ export class AuthenticationComponent implements OnInit {
         token: this.authentication.securityToken.token
       };
 
+      this.authenticationService.logout(logout);
+
       this.authentication.authenticationTries = 0;
       this.authenticationService.logout(logout);
       this.authentication.securityToken = null;

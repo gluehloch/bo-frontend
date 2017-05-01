@@ -15,7 +15,7 @@
     Der Login-Versuch ist fehlgeschlagen.
   </div>  
 
-  <div *ngIf="!authentication.authenticated">
+  <div [hidden]="authentication.authenticated">
     <form name="loginform" novalidate>
       <div class="form-group">
         <label for="nickname" class="sr-only" ng-class="{'has-warning': !authentication.authenticated}">Nickname</label>
@@ -36,7 +36,7 @@
     </form>
   </div>
 
-  <div *ngIf="authentication.authenticated">
+  <div [hidden]="!authentication.authenticated">
     Falls du dich ausloggen möchtest, dann kannst du das hier erledigen.
     <form name="logoutform" novalidate>
       <button

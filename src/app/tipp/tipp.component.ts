@@ -32,7 +32,7 @@ export class TippComponent implements OnInit {
     this.tipp = new Tipp();
   }
 
-  ngOnInit() {
+  findSecurityToken() {
     let betofficeCookie: any = this.cookieService.getObject('betofficeCookie2');
     if (betofficeCookie && <Authentication>betofficeCookie) {
       this.tipp.securityToken = betofficeCookie._securityToken;
@@ -40,13 +40,17 @@ export class TippComponent implements OnInit {
     } else {
       this.tipp.securityToken = null;
     }
+  }
+
+  ngOnInit() {
+    this.findSecurityToken();
 
     let loggedIn: boolean = (
       this.tipp.securityToken && this.tipp.securityToken.token != 'no_authorization');
     this.tipp.authenticated = loggedIn;
 
     if (loggedIn) {
-      this.tippService.nextTippRound(this.currentSeasonId, betofficeCookie.nickname)
+      this.tippService.nextTippRound(this.currentSeasonId, this.tipp.nickname)
                       .subscribe((roundJson: Rest.RoundJson) => {
                           this.tipp.round = roundJson;
                         });
