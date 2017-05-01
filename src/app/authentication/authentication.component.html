@@ -1,7 +1,8 @@
 <div>
   <h1>Session Verwaltung</h1>
   <p *ngIf="authentication.authenticated">
-    Du bist als {{authentication.nickname}} angemeldet.
+    Du bist als {{authentication.nickname}} angemeldet.<br/>
+    Dein Token lautet: <b>{{authentication.securityToken.token}}</b>
   </p>
   <p *ngIf="authentication.admin">
     Du bist als Administrator angemeldet.

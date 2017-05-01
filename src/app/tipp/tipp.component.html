@@ -11,7 +11,9 @@
 
   <div *ngIf="tipp.authenticated" class="form-group">
     <div class="alert alert-success">
-      Du bist eingeloggt als {{tipp.nickname}}. Es wird die Saison ID {{currentSeasonId}} getippt.
+      Du bist eingeloggt als {{tipp.nickname}}.<br/>
+      Es wird die Saison ID {{currentSeasonId}} getippt.<br/>
+      Token lautet: <b>{{tipp?.securityToken?.token}}</b>
     </div>
   </div>
 
