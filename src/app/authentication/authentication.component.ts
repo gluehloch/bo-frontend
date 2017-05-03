@@ -62,8 +62,8 @@ export class Authentication {
   // --------------------------------------------------------------------------
 
   getUserRole() {
-    if (this._securityToken) {
-      switch (this._securityToken.role) {
+    if (this.securityToken) {
+      switch (this.securityToken.role) {
         case 'TIPPER':
           return USERROLE.TIPPER;
         case 'ADMIN':
@@ -127,6 +127,7 @@ export class AuthenticationComponent implements OnInit {
             && this.authentication.securityToken
             && this.authentication.securityToken.role) {
            this.authentication.admin = this.authentication.securityToken.role === 'ADMIN';
+           // TODO TOKEN setzen???
         } else {
           this.authentication.admin = false;
         }
@@ -142,13 +143,15 @@ export class AuthenticationComponent implements OnInit {
         token: this.authentication.securityToken.token
       };
 
-      this.authenticationService.logout(logout);
+      this.authenticationService.logout(logout)
+                                .subscribe(() => console.debug("Service-Logout."));
 
       this.authentication.authenticationTries = 0;
-      this.authenticationService.logout(logout);
       this.authentication.securityToken = null;
       this.authentication.admin = false;
       this.authentication.authenticated = false;
+      this.cookieService.remove('betofficeCookie2');
+
       console.info('Logout successful.');
     }
   }
