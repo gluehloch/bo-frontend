@@ -144,15 +144,14 @@ export class AuthenticationComponent implements OnInit {
       };
 
       this.authenticationService.logout(logout)
-                                .subscribe(() => console.debug("Service-Logout."));
-
-      this.authentication.authenticationTries = 0;
-      this.authentication.securityToken = null;
-      this.authentication.admin = false;
-      this.authentication.authenticated = false;
-      this.cookieService.remove('betofficeCookie2');
-
-      console.info('Logout successful.');
+                                .subscribe((securityToken: Rest.SecurityTokenJson) => {
+        this.authentication.authenticationTries = 0;
+        this.authentication.securityToken = null;
+        this.authentication.admin = false;
+        this.authentication.authenticated = false;
+        this.cookieService.remove('betofficeCookie2');
+        console.info('Logout successful.');
+      });
     }
   }
 
