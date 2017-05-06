@@ -36,7 +36,7 @@ export class TippComponent implements OnInit {
     let betofficeCookie: any = this.cookieService.getObject('betofficeCookie2');
     if (betofficeCookie && <Authentication>betofficeCookie) {
       this.tipp.securityToken = betofficeCookie.securityToken;
-      this.tipp.nickname = betofficeCookie.securityToken.nickname;
+      this.tipp.nickname = betofficeCookie.nickname;
     } else {
       this.tipp.securityToken = null;
     }
