@@ -47,7 +47,7 @@
                 id="{{tipp.round.id}}heim{{game.id}}" 
                 name="{{tipp.round.id}}heim{{game.id}}"
                 max="15" min="0" type="number" size="1"
-                ng-disabled="game.finished"
+                [disabled]="game.finished"
                 placeholder="{{game.result.homeGoals}}"
                 [(ngModel)]="game.tipps[0].tipp.homeGoals"/>
             </td>
@@ -56,7 +56,7 @@
                 id="{{tipp.round.id}}gast{{game.id}}"
                 name="{{tipp.round.id}}gast{{game.id}}"
                 max="15" min="0" type="number" size="1"
-                ng-disabled="game.finished"
+                [disabled]="game.finished"
                 placeholder="{{game.result.guestGoals}}"
                 [(ngModel)]="game.tipps[0].tipp.guestGoals"/>
             </td>
