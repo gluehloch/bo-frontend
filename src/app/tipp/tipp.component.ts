@@ -11,7 +11,6 @@ import { environment } from '../../environments/environment';
 export class Tipp {
 
   nickname: string;
-  securityToken: Rest.SecurityTokenJson;
   authenticated: boolean;
   round: Rest.RoundJson;
 
@@ -32,18 +31,18 @@ export class TippComponent implements OnInit {
     this.tipp = new Tipp();
   }
 
-  findSecurityToken() {
-    let betofficeCookie: any = this.cookieService.getObject('betofficeCookie2');
-    if (betofficeCookie && <Authentication>betofficeCookie) {
-      this.tipp.securityToken = betofficeCookie.securityToken;
-      this.tipp.nickname = betofficeCookie.nickname;
+  checkAuthorization() {
+    if (this.tippService.isAuthorized) {
+      this.tipp.nickname = this.tippService.readCredentials().nickname;
+      this.tipp.authenticated = true;
     } else {
-      this.tipp.securityToken = null;
+      this.tipp.nickname = null;
+      this.tipp.authenticated = false;
     }
   }
 
   ngOnInit() {
-    this.findSecurityToken();
+    this.checkAuthorization();
 
     let loggedIn: boolean = (
       this.tipp.securityToken && this.tipp.securityToken.token != 'no_authorization');
