@@ -16,31 +16,31 @@ export class TippService extends BetofficeService {
   }
 
   nextTippRound(seasonId: number, nickName: string) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'tipp/' + seasonId + '/' + nickName + '/current');
+    let response = this.http.get(this.rootUrl + 'tipp/' + seasonId + '/' + nickName + '/current', this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
                    .catch(this.handleError);
   }
 
   findTipp(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName);
+    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName, this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
                    .catch(this.handleError);    
   }
    
   nextRound(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/next");
+    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/next", this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
                    .catch(this.handleError);    
   }
   
   prevRound(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/prev");
+    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/prev", this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
                    .catch(this.handleError);    
   }
 
   tipp(tippRoundJson: Rest.SubmitTippRoundJson) : Observable<Rest.RoundJson> {
-    let response = this.http.post(this.rootUrl + 'tipp/submit', tippRoundJson);
+    let response = this.http.post(this.rootUrl + 'tipp/submit', tippRoundJson, this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
                    .catch(this.handleError);    
   }

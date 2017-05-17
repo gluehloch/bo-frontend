@@ -31,13 +31,13 @@ export class AuthenticationService extends BetofficeService {
   }
 
   login(login: Login): Observable<Rest.SecurityTokenJson> {
-    let response = this.http.post(this.rootUrl + "login", login, this.options);
+    let response = this.http.post(this.rootUrl + "login", login, this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
                    .catch(this.handleError);
   }
 
   logout(logout: Logout): Observable<Rest.SecurityTokenJson> {
-    let response = this.http.post(this.rootUrl + "logout", logout, this.options);
+    let response = this.http.post(this.rootUrl + "logout", logout, this.createRequestOptions());
 
     return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
                    .catch(this.handleError);

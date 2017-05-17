@@ -1,5 +1,6 @@
 import { RequestOptions, Headers, Http, Response } from '@angular/http';
 
+import { USERROLE } from './user-role.enum';
 import { environment } from '../environments/environment';
 
 /**
@@ -49,9 +50,29 @@ export abstract class BetofficeService {
     localStorage.setItem("betofficeCredential", JSON.stringify(token));
   }
 
+  public clearCredentials() {
+    localStorage.removeItem("betofficeCredentials");
+  }
+
   public readCredentials() : Rest.SecurityTokenJson {
     var credentialsAsJson = localStorage.getItem("betofficeCredential");
     return JSON.parse(credentialsAsJson);
+  }
+
+  public getUserRole() {
+    if (this.isAuthorized()) {
+      switch (this.readCredentials().role) {
+        case 'TIPPER':
+          return USERROLE.TIPPER;
+        case 'ADMIN':
+          return USERROLE.ADMIN;
+        case 'SEASON_ADMIN':
+          return USERROLE.SEASON_ADMIN;
+        default:
+          return USERROLE.UNKNOWN;
+      }
+    }
+    return USERROLE.UNKNOWN;
   }
 
 }

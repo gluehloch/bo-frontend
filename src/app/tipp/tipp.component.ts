@@ -8,7 +8,7 @@ import { TippService } from './tipp.service';
 
 import { environment } from '../../environments/environment';
 
-export class Tipp {
+export class TippModel {
 
   nickname: string;
   authenticated: boolean;
@@ -25,60 +25,55 @@ export class TippComponent implements OnInit {
 
   currentSeasonId = environment.currentSeasonId;
 
-  tipp: Tipp;
+  tippModel: TippModel;
 
   constructor(private cookieService: CookieService, private tippService: TippService) {
-    this.tipp = new Tipp();
+    this.tippModel = new TippModel();
   }
 
   checkAuthorization() {
     if (this.tippService.isAuthorized) {
-      this.tipp.nickname = this.tippService.readCredentials().nickname;
-      this.tipp.authenticated = true;
+      this.tippModel.nickname = this.tippService.readCredentials().nickname;
+      this.tippModel.authenticated = true;
     } else {
-      this.tipp.nickname = null;
-      this.tipp.authenticated = false;
+      this.tippModel.nickname = null;
+      this.tippModel.authenticated = false;
     }
   }
 
   ngOnInit() {
     this.checkAuthorization();
 
-    let loggedIn: boolean = (
-      this.tipp.securityToken && this.tipp.securityToken.token != 'no_authorization');
-    this.tipp.authenticated = loggedIn;
-
-    if (loggedIn) {
-      this.tippService.nextTippRound(this.currentSeasonId, this.tipp.nickname)
+    if (this.tippModel.authenticated) {
+      this.tippService.nextTippRound(this.currentSeasonId, this.tippModel.nickname)
                       .subscribe((roundJson: Rest.RoundJson) => {
-                          this.tipp.round = roundJson;
+                          this.tippModel.round = roundJson;
                         });
     }    
   }
 
   next() {
-    this.tippService.nextRound(this.tipp.round.id, this.tipp.nickname)
+    this.tippService.nextRound(this.tippModel.round.id, this.tippModel.nickname)
                     .subscribe((roundJson: Rest.RoundJson) => {
-                        this.tipp.round = roundJson;
+                        this.tippModel.round = roundJson;
                     });
   }
 
   last() {
-    this.tippService.prevRound(this.tipp.round.id, this.tipp.nickname)
+    this.tippService.prevRound(this.tippModel.round.id, this.tippModel.nickname)
                     .subscribe((roundJson: Rest.RoundJson) => {
-                        this.tipp.round = roundJson;
+                        this.tippModel.round = roundJson;
                     });
   }
 
   submitTipp() {
     var submitTipp = {
-      nickname: this.tipp.securityToken.nickname,
-      token: this.tipp.securityToken.token,
-      roundId: this.tipp.round.id,
+      nickname: this.tippModel.nickname,
+      roundId: this.tippModel.round.id,
       submitTippGames: []
     };
 
-    this.tipp.round.games.forEach(game => {
+    this.tippModel.round.games.forEach(game => {
       submitTipp.submitTippGames.push(
         { gameId: game.id, tippResult: {
             homeGoals: game.tipps[0].tipp.homeGoals,
@@ -88,7 +83,7 @@ export class TippComponent implements OnInit {
 
     this.tippService.tipp(submitTipp)
                      .subscribe((roundJson: Rest.RoundJson) => {
-                         this.tipp.round = roundJson;
+                         this.tippModel.round = roundJson;
                      });
   }
 

@@ -17,19 +17,19 @@ export class RankingService extends BetofficeService {
   }
 
   calculate(seasonId: number) : Observable<Rest.UserTableJson> {
-    let response = this.http.get(this.rootUrl + 'ranking/season/' + seasonId);
+    let response = this.http.get(this.rootUrl + 'ranking/season/' + seasonId, this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.UserTableJson)
                    .catch(this.handleError);
   }
 
   nextRound(currentRoundId: number) {
-    let response = this.http.get(this.rootUrl + 'ranking/round/'  + currentRoundId + '/next');
+    let response = this.http.get(this.rootUrl + 'ranking/round/'  + currentRoundId + '/next', this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.UserTableJson)
                    .catch(this.handleError);
   }
 
   preRound(currentRoundId: number) {
-    let response = this.http.get(this.rootUrl + 'ranking/round/'  + currentRoundId + '/prev');
+    let response = this.http.get(this.rootUrl + 'ranking/round/'  + currentRoundId + '/prev', this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.UserTableJson)
                    .catch(this.handleError);
   }

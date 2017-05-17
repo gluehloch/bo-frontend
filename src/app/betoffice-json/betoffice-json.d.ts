@@ -75,7 +75,6 @@ declare namespace Rest {
 
     interface SubmitTippRoundJson extends Serializable {
         nickname: string;
-        token: string;
         roundId: number;
         submitTippGames: SubmitTippGameJson[];
     }

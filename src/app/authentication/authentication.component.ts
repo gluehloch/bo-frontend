@@ -2,25 +2,23 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 import { CookieService } from 'angular2-cookie/core';
 
-import { USERROLE } from '../user-role.enum';
-
 import { AuthenticationService } from './authentication.service';
 
-export class Authentication {
+class AuthenticationModel {
 
   nickname: string = 'Nickname';
   password: string = 'Password';
  
   // --------------------------------------------------------------------------
 
-  private _securityToken: Rest.SecurityTokenJson; 
+  private _token: string; 
 
-  set securityToken(securityToken: Rest.SecurityTokenJson) {
-    this._securityToken = securityToken;
+  set token(token: string) {
+    this._token = token;
   }
   
-  get securityToken() {
-    return this._securityToken;
+  get token() {
+    return this._token;
   }
 
   // --------------------------------------------------------------------------
@@ -61,21 +59,6 @@ export class Authentication {
 
   // --------------------------------------------------------------------------
 
-  getUserRole() {
-    if (this.securityToken) {
-      switch (this.securityToken.role) {
-        case 'TIPPER':
-          return USERROLE.TIPPER;
-        case 'ADMIN':
-          return USERROLE.ADMIN;
-        case 'SEASON_ADMIN':
-          return USERROLE.SEASON_ADMIN;
-        default:
-          return USERROLE.UNKNOWN;
-      }
-    }
-    return USERROLE.UNKNOWN;
-  }
 }
 
 @Component({
@@ -86,77 +69,71 @@ export class Authentication {
 })
 export class AuthenticationComponent implements OnInit {
 
-  authentication: Authentication;
+  authenticationModel: AuthenticationModel;
 
   constructor(private cookieService: CookieService, private authenticationService: AuthenticationService) {
-    this.authentication = new Authentication();
-    this.authentication.securityToken = null;
+    this.authenticationModel = new AuthenticationModel();
+    this.authenticationModel.token = null;
   }
 
   ngOnInit() {
-    let betofficeCookie: any = this.cookieService.getObject('betofficeCookie2');
-    if (betofficeCookie && <Authentication>betofficeCookie) {
-      this.authentication = betofficeCookie;
-    } else {
-      this.authentication.securityToken = null; 
-    }
+    this.init();
+  }
 
-    let loggedIn: boolean = (this.authentication.securityToken && this.authentication.securityToken.token != 'no_authorization');
-    this.authentication.authenticated = loggedIn;
+  init() {
+    if (this.authenticationService.isAuthorized()) {
+      let securityToken = this.authenticationService.readCredentials();
+      this.authenticationModel.authenticated = true;
+      this.authenticationModel.nickname = securityToken.nickname;
+      this.authenticationModel.token = securityToken.token;
+    } else {
+      this.authenticationModel.authenticated = false;
+      this.authenticationModel.nickname = null;
+      this.authenticationModel.token = null;      
+    }
   }
 
   login(nickname) {
     let login = {
-      nickname: this.authentication.nickname,
-      password: this.authentication.password
+      nickname: this.authenticationModel.nickname,
+      password: this.authenticationModel.password
     };
+
+    this.authenticationModel.authenticationTries = this.authenticationModel.authenticationTries + 1;
 
     this.authenticationService.login(login)
                               .subscribe((securityToken: Rest.SecurityTokenJson) => {
-      this.authentication.authenticationTries = this.authentication.authenticationTries + 1;
       if (securityToken.token == 'no_authorization') {
         console.info('Login was not successful');
-        this.authentication.securityToken = null;
-        this.authentication.authenticated = false;
+        this.authenticationService.clearCredentials();
       } else {
         console.info('Login success!');
-        this.authentication.securityToken = securityToken;
-        this.authentication.authenticated = true;
-
-        if (this.authentication.authenticated
-            && this.authentication.securityToken
-            && this.authentication.securityToken.role) {
-           this.authentication.admin = this.authentication.securityToken.role === 'ADMIN';
-           // TODO TOKEN setzen???
-        } else {
-          this.authentication.admin = false;
-        }
+        this.authenticationService.storeCredentials(securityToken);
       }
-      this.cookieService.putObject('betofficeCookie2', this.authentication);
+      this.init();
     });
   }
 
   logout() {
-    if (this.authentication.securityToken) {
+    this.authenticationModel.authenticationTries = 0;
+
+    if (this.authenticationService.isAuthorized()) {
       let logout = {
-        nickname:  this.authentication.securityToken.nickname,
-        token: this.authentication.securityToken.token
+        nickname:  this.authenticationModel.nickname,
+        token: this.authenticationModel.token
       };
 
       this.authenticationService.logout(logout)
                                 .subscribe((securityToken: Rest.SecurityTokenJson) => {
-        this.authentication.authenticationTries = 0;
-        this.authentication.securityToken = null;
-        this.authentication.admin = false;
-        this.authentication.authenticated = false;
-        this.cookieService.remove('betofficeCookie2');
+        this.authenticationService.clearCredentials();
+        this.init();
         console.info('Logout successful.');
       });
     }
   }
 
   get diagnostic() {
-    return JSON.stringify(this.authentication);
+    return JSON.stringify(this.authenticationModel);
   }
 
 }
