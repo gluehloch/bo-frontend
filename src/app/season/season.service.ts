@@ -9,7 +9,6 @@ import 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 
 import { USERROLE } from '../user-role.enum';
-import { Authentication } from '../authentication/authentication.component';
 import { BetofficeService } from '../betoffice.service';
 
 @Injectable()
@@ -61,20 +60,14 @@ export class SeasonService extends BetofficeService {
                    .catch(this.handleError);
   }
    
-  update(roundId: number, authentication: Authentication) : Observable<Rest.RoundAndTableJson> {
-    let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/update",
-    {
-      token: authentication.securityToken.token
-    }, this.createRequestOptions());
+  update(roundId: number) : Observable<Rest.RoundAndTableJson> {
+    let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/update", this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
                    .catch(this.handleError);
   }
 
-  createOrUpdate( roundId: number, authentication: Authentication) :  Observable<Rest.RoundAndTableJson> {
-    let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/create",
-    {
-      token: authentication.securityToken.token
-    }, this.createRequestOptions());
+  createOrUpdate( roundId: number) :  Observable<Rest.RoundAndTableJson> {
+    let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/create", this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
                    .catch(this.handleError);
   }

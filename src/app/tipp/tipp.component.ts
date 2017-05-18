@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
 
 import { USERROLE } from '../user-role.enum';
-import { Authentication } from '../authentication/authentication.component';
 import { TippService } from './tipp.service';
 
 import { environment } from '../../environments/environment';
@@ -32,7 +31,7 @@ export class TippComponent implements OnInit {
   }
 
   checkAuthorization() {
-    if (this.tippService.isAuthorized) {
+    if (this.tippService.isAuthorized()) {
       this.tippModel.nickname = this.tippService.readCredentials().nickname;
       this.tippModel.authenticated = true;
     } else {
