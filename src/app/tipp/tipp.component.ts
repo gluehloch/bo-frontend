@@ -13,6 +13,15 @@ export class TippModel {
   authenticated: boolean;
   round: Rest.RoundJson;
 
+  points: number;
+
+  calcPoints() {
+    this.points = 0;
+    for (let game of this.round.games) {
+      this.points = this.points + game.tipps[0].points;
+    }
+  }
+
 }
 
 @Component({
@@ -47,6 +56,7 @@ export class TippComponent implements OnInit {
       this.tippService.nextTippRound(this.currentSeasonId, this.tippModel.nickname)
                       .subscribe((roundJson: Rest.RoundJson) => {
                           this.tippModel.round = roundJson;
+                          this.tippModel.calcPoints();
                         });
     }    
   }
@@ -55,6 +65,7 @@ export class TippComponent implements OnInit {
     this.tippService.nextRound(this.tippModel.round.id, this.tippModel.nickname)
                     .subscribe((roundJson: Rest.RoundJson) => {
                         this.tippModel.round = roundJson;
+                        this.tippModel.calcPoints();
                     });
   }
 
@@ -62,6 +73,7 @@ export class TippComponent implements OnInit {
     this.tippService.prevRound(this.tippModel.round.id, this.tippModel.nickname)
                     .subscribe((roundJson: Rest.RoundJson) => {
                         this.tippModel.round = roundJson;
+                        this.tippModel.calcPoints();
                     });
   }
 
@@ -73,10 +85,11 @@ export class TippComponent implements OnInit {
     };
 
     this.tippModel.round.games.forEach(game => {
-      submitTipp.submitTippGames.push(
-        { gameId: game.id, tippResult: {
-            homeGoals: game.tipps[0].tipp.homeGoals,
-            guestGoals: game.tipps[0].tipp.guestGoals }}
+      submitTipp.submitTippGames.push({
+        gameId: game.id, tippResult: {
+          homeGoals: game.tipps[0].tipp.homeGoals,
+          guestGoals: game.tipps[0].tipp.guestGoals
+        }}
       );
     });
 

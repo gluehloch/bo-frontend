@@ -23,6 +23,7 @@ declare namespace Rest {
     interface GameTippJson {
         nickname: string;
         tipp: GameResultJson;
+        points: number;
     }
 
     interface GroupTeamTableJson {
