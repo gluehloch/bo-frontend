@@ -8,6 +8,8 @@ import { environment } from '../environments/environment';
  */
 export abstract class BetofficeService {
 
+  private static readonly BETOFFICE_CREDENTIAL = "betofficeCredential";
+
   protected rootUrl = environment.rootUrl;
   protected http: Http;
 
@@ -47,19 +49,19 @@ export abstract class BetofficeService {
   }
 
   public storeCredentials(token: Rest.SecurityTokenJson) {
-    localStorage.setItem("betofficeCredential", JSON.stringify(token));
+    localStorage.setItem(BetofficeService.BETOFFICE_CREDENTIAL, JSON.stringify(token));
   }
 
   public clearCredentials() {
-    localStorage.removeItem("betofficeCredentials");
+    localStorage.removeItem(BetofficeService.BETOFFICE_CREDENTIAL);
   }
 
   public readCredentials() : Rest.SecurityTokenJson {
-    var credentialsAsJson = localStorage.getItem("betofficeCredential");
+    var credentialsAsJson = localStorage.getItem(BetofficeService.BETOFFICE_CREDENTIAL);
     return JSON.parse(credentialsAsJson);
   }
 
-  public getUserRole() {
+  public getUserRole() : USERROLE {
     if (this.isAuthorized()) {
       switch (this.readCredentials().role) {
         case 'TIPPER':
