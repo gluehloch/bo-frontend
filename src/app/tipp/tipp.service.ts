@@ -24,25 +24,25 @@ export class TippService extends BetofficeService {
   findTipp(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
     let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName, this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
-                   .catch(this.handleError);    
+                   .catch(this.handleError);
   }
-   
+
   nextRound(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
     let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/next", this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
-                   .catch(this.handleError);    
+                   .catch(this.handleError);
   }
-  
+
   prevRound(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
     let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/prev", this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
-                   .catch(this.handleError);    
+                   .catch(this.handleError);
   }
 
   tipp(tippRoundJson: Rest.SubmitTippRoundJson) : Observable<Rest.RoundJson> {
     let response = this.http.post(this.rootUrl + 'tipp/submit', tippRoundJson, this.createRequestOptions());
     return response.map((r: Response) => r.json() as Rest.RoundJson)
-                   .catch(this.handleError);    
+                   .catch(this.handleError);
   }
 
 }
