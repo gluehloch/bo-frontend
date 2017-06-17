@@ -51,6 +51,10 @@ describe('AuthenticationService', () => {
     TestBed.compileComponents();
   });
 
+  describe('Simple test to learn testing', () => {
+    it('true is true', () => expect(true).toBe(true));
+  });
+
   describe('AuthenticationService WITH MOCK # login', () => {
     it('should be defined and callable ...', async(inject(
       [AuthenticationService, MockBackend],
@@ -59,7 +63,7 @@ describe('AuthenticationService', () => {
 
           const mockResponseBody: Rest.SecurityTokenJson = {
             nickname: "Frosch",
-            role: USERROLE.USER.toString(),
+            role: USERROLE.TIPPER.toString(),
             loginTime: "20170124183400",
             token: "4711"
           };
@@ -75,14 +79,17 @@ describe('AuthenticationService', () => {
 
         expect(authenticationService).toBeDefined();
 
-        let login = new Login("nickname", "password");
+        let login = {
+          nickname: "Nickname",
+          password: "Password"
+        };
 
         const x = authenticationService.login(login).subscribe(
           response => {
             console.info('authentication: response=[' + response + "]");
             expect(response).toBeDefined();
             expect(response.nickname).toEqual("Frosch");
-            expect(1).toEqual(USERROLE.USER);
+            expect(0).toEqual(USERROLE.TIPPER);
             expect(response.token).toEqual("4711");
             expect(response.loginTime).toEqual("20170124183400");
           }

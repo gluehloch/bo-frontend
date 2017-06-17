@@ -4,6 +4,8 @@ import { CookieService } from 'angular2-cookie/core';
 
 import { AuthenticationService } from './authentication.service';
 
+import { USERROLE } from '../user-role.enum';
+
 class AuthenticationModel {
 
   nickname: string = 'Nickname';
@@ -86,10 +88,12 @@ export class AuthenticationComponent implements OnInit {
       this.authenticationModel.authenticated = true;
       this.authenticationModel.nickname = securityToken.nickname;
       this.authenticationModel.token = securityToken.token;
+      this.authenticationModel.admin = (this.authenticationService.getUserRole() == USERROLE.ADMIN);
     } else {
       this.authenticationModel.authenticated = false;
       this.authenticationModel.nickname = null;
-      this.authenticationModel.token = null;      
+      this.authenticationModel.token = null;
+      this.authenticationModel.admin = false;      
     }
   }
 
