@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.14.251 on 2017-04-25 19:18:20.
+// Generated using typescript-generator version 1.14.251 on 2017-07-05 16:13:11.
 
 declare namespace Rest {
 
@@ -23,6 +23,7 @@ declare namespace Rest {
     interface GameTippJson {
         nickname: string;
         tipp: GameResultJson;
+        points: number;
     }
 
     interface GroupTeamTableJson {
@@ -36,6 +37,16 @@ declare namespace Rest {
 
     interface HistoryTeamVsTeamJson {
         teamVsTeamJsons: TeamVsTeamJson[];
+    }
+
+    interface PartyJson extends AbstractIdentifier {
+        nickname: string;
+        name: string;
+        surname: string;
+        mail: string;
+        phone: string;
+        password: string;
+        title: string;
     }
 
     interface RoundAndTableJson {
@@ -60,6 +71,10 @@ declare namespace Rest {
         seasonType: string;
         teamType: string;
         rounds: RoundJson[];
+    }
+
+    interface SeasonMemberJson extends AbstractIdentifier {
+        nickname: string;
     }
 
     interface SecurityTokenJson extends TokenJson {

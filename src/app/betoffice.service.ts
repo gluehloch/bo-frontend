@@ -11,6 +11,7 @@ export abstract class BetofficeService {
   private static readonly BETOFFICE_CREDENTIAL = "betofficeCredential";
 
   protected rootUrl = environment.rootUrl;
+  protected adminUrl = environment.adminUrl;
   protected http: Http;
 
   constructor(http: Http) {

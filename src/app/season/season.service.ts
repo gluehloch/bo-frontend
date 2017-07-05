@@ -19,7 +19,7 @@ export class SeasonService extends BetofficeService {
   }
 
   findSeasons() : Observable<Array<Rest.SeasonJson>> {
-    let response = this.http.get(this.rootUrl + 'season/all', this.createRequestOptions());
+    let response = this.http.get(this.rootUrl + 'season/list', this.createRequestOptions());
     return response.map((r: Response) => r.json() as Array<Rest.SeasonJson>)
                    .catch(this.handleError);
   }

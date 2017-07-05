@@ -22,15 +22,16 @@ export class UserModel {
 })
 export class UserComponent implements OnInit {
 
-  currentSeasonId = environment.currentSeasonId;
+  userModel: Array<Rest.PartyJson>;
 
-  userModel: UserModel;
-
-  constructor(private cookieService: CookieService, private userService: UserService) {
-    this.userModel = new UserModel();
+  constructor(private userService: UserService) {
+    this.users = new Array();
   }
 
   ngOnInit() {
+    this.userService.findUsers().subscribe((parties: Array<Rest.PartyJson>) => {
+      this.users = parties;
+    });
   }
 
 }

@@ -15,27 +15,21 @@ export class UserService extends BetofficeService {
     super(http);
   }
 
-  nextTippRound(seasonId: number, nickName: string) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'tipp/' + seasonId + '/' + nickName + '/current', this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
-                   .catch(this.handleError);
+  findUsers() : Observable<Array<Rest.PartyJson>> {
+    let response = this.http.get(this.adminUrl + 'user/list', this.createRequestOptions());
+    return response.map((r: Response) => r.json() as Array<Rest.PartyJson>)
+                   .catch(this.handleError);    
   }
 
-  findTipp(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
+  updateUser(party: Rest.PartyJson) : Observable<Rest.PartyJson> {
+    let response = this.http.post(this.adminUrl + 'user/update', party, this.createRequestOptions());
+    return response.map((r: Response) => r.json() as Rest.PartyJson)
                    .catch(this.handleError);    
   }
-   
-  nextRound(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/next", this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
-                   .catch(this.handleError);    
-  }
-  
-  prevRound(roundId: number, nickName: string) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'tipp/' + roundId + '/' + nickName + "/prev", this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundJson)
+
+  addUser(party: Rest.PartyJson) : Observable<Rest.PartyJson> {
+    let response = this.http.post(this.adminUrl + 'user/add', party, this.createRequestOptions());
+    return response.map((r: Response) => r.json() as Rest.PartyJson)
                    .catch(this.handleError);    
   }
 
