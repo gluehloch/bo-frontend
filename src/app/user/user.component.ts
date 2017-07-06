@@ -22,7 +22,7 @@ export class UserModel {
 })
 export class UserComponent implements OnInit {
 
-  userModel: Array<Rest.PartyJson>;
+  partiesModel: Array<Rest.PartyJson>;
 
   constructor(private userService: UserService) {
     this.users = new Array();
@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.userService.findUsers().subscribe((parties: Array<Rest.PartyJson>) => {
-      this.users = parties;
+      this.partiesModel = parties;
     });
   }
 
