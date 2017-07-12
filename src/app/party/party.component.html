@@ -1,0 +1,28 @@
+<h1>Teilnehmer</h1>
+
+ <div *ngIf="partiesModel.length != 0">
+    <table class="table table-striped">
+      <tr>
+        <th></th>
+        <th>Nickname</th>
+        <th>Name</th>
+        <th>Vorname</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Password</th>
+      </tr>
+       <tr *ngFor="let party of partiesModel">
+         <td>
+           <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="updateParty(party)">
+            Edit
+           </button>
+         </td>
+         <td>{{party.nickname}}</td>
+         <td>{{party.name}}</td>
+         <td>{{party.surname}}</td>
+         <td>{{party.phone}}</td>
+         <td>{{party.mail}}</td>
+         <td>{{party.password}}</td>
+       </tr>
+    </table>
+  </div>

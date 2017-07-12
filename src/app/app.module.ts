@@ -23,6 +23,9 @@ import { RankingComponent } from './ranking/ranking.component';
 import { SessionService } from './session/session.service';
 import { SessionComponent } from './session/session.component';
 
+import { PartyService } from './party/party.service';
+import { PartyComponent } from './party/party.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -58,6 +61,10 @@ import { SessionComponent } from './session/session.component';
       {
         path: 'season',
         component: SeasonComponent
+      },
+      {
+        path: 'chiefop/party',
+        component: PartyComponent
       }
     ])
   ],
@@ -67,7 +74,8 @@ import { SessionComponent } from './session/session.component';
     TippComponent,
     SeasonComponent,
     RankingComponent,
-    SessionComponent
+    SessionComponent,
+    PartyComponent
   ],
   providers: [
     CookieService,
@@ -75,7 +83,8 @@ import { SessionComponent } from './session/session.component';
     TippService,
     SeasonService,
     RankingService,
-    SeasonService
+    SeasonService,
+    PartyService
   ],
   bootstrap: [AppComponent]
 })
