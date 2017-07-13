@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CookieService } from 'angular2-cookie/core';
 
@@ -8,7 +9,7 @@ import { PartyService } from './party.service';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'user',
+  selector: 'party',
   templateUrl: './party.component.html',
   styleUrls: ['./party.component.css']
 })
@@ -16,7 +17,7 @@ export class PartyComponent implements OnInit {
 
   partiesModel: Array<Rest.PartyJson>;
 
-  constructor(private partyService: PartyService) {
+  constructor(private router: Router, private partyService: PartyService) {
     this.partiesModel = new Array();
   }
 
@@ -31,9 +32,7 @@ export class PartyComponent implements OnInit {
   }
 
   updateParty(party: Rest.PartyJson) {
-    this.partyService.updateParty(party).subscribe((party: Rest.PartyJson) => {
-      this.sortParties();        
-    });
+    this.router.navigate(['./chiefop/party/update', party.id]);
   }
 
   addParty(party: Rest.PartyJson) {

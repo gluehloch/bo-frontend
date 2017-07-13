@@ -25,6 +25,8 @@ import { SessionComponent } from './session/session.component';
 
 import { PartyService } from './party/party.service';
 import { PartyComponent } from './party/party.component';
+import { PartyUpdateService } from './party/update/partyupdate.service';
+import { PartyUpdateComponent } from './party/update/partyupdate.component';
 
 @NgModule({
   imports: [
@@ -65,6 +67,10 @@ import { PartyComponent } from './party/party.component';
       {
         path: 'chiefop/party',
         component: PartyComponent
+      },
+      {
+        path: 'chiefop/party/update/:id',
+        component: PartyUpdateComponent
       }
     ])
   ],
@@ -75,7 +81,8 @@ import { PartyComponent } from './party/party.component';
     SeasonComponent,
     RankingComponent,
     SessionComponent,
-    PartyComponent
+    PartyComponent,
+    PartyUpdateComponent
   ],
   providers: [
     CookieService,
@@ -84,7 +91,8 @@ import { PartyComponent } from './party/party.component';
     SeasonService,
     RankingService,
     SeasonService,
-    PartyService
+    PartyService,
+    PartyUpdateService
   ],
   bootstrap: [AppComponent]
 })
