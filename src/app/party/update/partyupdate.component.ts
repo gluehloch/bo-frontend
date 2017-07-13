@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 
 import { PartyUpdateService } from './partyupdate.service';
@@ -13,31 +13,19 @@ import { environment } from '../../../environments/environment';
 })
 export class PartyUpdateComponent implements OnInit {
 
-  partiesModel: Array<Rest.PartyJson>;
+  partyModel: Rest.PartyJson;
 
   constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
-    this.partiesModel = new Array();
-  }
-
-  private sortParties() {
-    this.partiesModel.sort((a, b) => a.nickname.localeCompare(b.nickname));
   }
 
   ngOnInit() {
-    /*
-    this.route.params.
-this.route.paramMap
-    .switchMap((params: ParamMap) =>
-      this.service.getHero(params.get('id')))
-    .subscribe((hero: Hero) => this.hero = hero);
-
-    let id = this.route.snapshot. 'id');
-    */
+    this.route.params.map(params => params['id']).subscribe((id) => {
+      this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => this.partyModel = party);
+    });
   }
 
   updateParty(party: Rest.PartyJson) {
     this.partyService.updateParty(party).subscribe((party: Rest.PartyJson) => {
-      this.sortParties();
     });
   }
 
