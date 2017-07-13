@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Router } from '@angular/router';
 
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { CookieModule } from 'ngx-cookie';
 
 import { AppComponent } from './app.component';
 
@@ -31,6 +31,7 @@ import { PartyUpdateComponent } from './party/update/partyupdate.component';
 @NgModule({
   imports: [
     BrowserModule,
+    CookieModule.forRoot(),
     FormsModule,
     HttpModule,
     RouterModule.forRoot([/*{
@@ -85,7 +86,6 @@ import { PartyUpdateComponent } from './party/update/partyupdate.component';
     PartyUpdateComponent
   ],
   providers: [
-    CookieService,
     AuthenticationService,
     TippService,
     SeasonService,

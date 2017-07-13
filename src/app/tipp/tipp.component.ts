@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { CookieService } from 'angular2-cookie/core';
+import { CookieService } from 'ngx-cookie';
 
 import { USERROLE } from '../user-role.enum';
 import { TippService } from './tipp.service';

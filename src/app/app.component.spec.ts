@@ -2,7 +2,7 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { Authentication } from './authentication/authentication.service';
+import { Login } from './authentication/authentication.service';
 import { USERROLE } from './user-role.enum';
 
 describe('AppComponent', () => {
@@ -35,9 +35,9 @@ describe('AppComponent', () => {
   }));
 
   it('class authentication is accessible', async(() => {
-    const froschAuthentication = new Authentication('Frosch', USERROLE.ADMIN);
+    const froschAuthentication = { nickname: 'Frosch', password: 'password' };
     expect(froschAuthentication.nickname).toEqual('Frosch');
-    expect(froschAuthentication.isAdmin).toBeTruthy();
+    expect(froschAuthentication.password).toEqual('password');
     expect("Frosch").toEqual("Frosch");
   }));
 });
