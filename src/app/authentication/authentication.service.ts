@@ -38,7 +38,6 @@ export class AuthenticationService extends BetofficeService {
 
   logout(logout: Logout): Observable<Rest.SecurityTokenJson> {
     let response = this.http.post(this.rootUrl + "logout", logout, this.createRequestOptions());
-
     return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
                    .catch(this.handleError);
   }

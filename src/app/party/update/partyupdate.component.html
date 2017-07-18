@@ -1,12 +1,35 @@
 <h1>Teilnehmer ändern</h1>
 
 <form name="partyupdateform" novalidate>
-{{party?.nickname}}
-         <!--
-         <td>{{party.name}}</td>
-         <td>{{party.surname}}</td>
-         <td>{{party.phone}}</td>
-         <td>{{party.mail}}</td>
-         <td>{{party.password}}</td>
--->
+  <div class="form-group">
+      <!-- ng-class="{'has-warning': party.nickname} -->
+    <label for="nickname" class="sr-only">Nickname</label>
+    <input class="form-control" id="nickname" name="nickname" [(ngModel)]="party.nickname"/>
+  </div>
+  <div class="form-group">
+    <label for="name" class="sr-only">Name</label>
+    <input class="form-control" id="name" name="name" [(ngModel)]="party.name"/>
+  </div>
+  <div class="form-group">
+    <label for="surnmae" class="sr-only">Vorname</label>
+    <input class="form-control" id="surname" name="surname" [(ngModel)]="party.surname"/>
+  </div>
+  <div class="form-group">
+    <label for="phone" class="sr-only">Telefon</label>
+    <input class="form-control" id="phone" name="phone" [(ngModel)]="party.phone"/>
+  </div>
+  <div class="form-group">
+    <label for="mail" class="sr-only">Mail</label>
+    <input class="form-control" id="mail" name="mail" [(ngModel)]="party.mail"/>
+  </div>
+  <div class="form-group">
+    <label for="password" class="sr-only">Passwort</label>
+    <input class="form-control" id="password" name="password" [(ngModel)]="party.password"/>
+  </div>
+
+  <button
+    ng-disabled="loginform.$invalid"
+    class="btn btn-lg btn-primary btn-block"
+    type="submit"
+    (click)="updateParty()">Speichern</button>
 </form>

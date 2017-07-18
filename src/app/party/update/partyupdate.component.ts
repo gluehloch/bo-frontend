@@ -13,20 +13,30 @@ import { environment } from '../../../environments/environment';
 })
 export class PartyUpdateComponent implements OnInit {
 
-  partyModel: Rest.PartyJson;
+  party: Rest.PartyJson;
 
   constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
+    let party = {
+      id: 0,
+      nickname: '',
+      surname: '',
+      name: '',
+      phone: '',
+      mail: '',
+      password: '',
+      title: ''
+    }
+    this.party = party;
   }
 
   ngOnInit() {
     this.route.params.map(params => params['id']).subscribe((id) => {
-      this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => this.partyModel = party);
+      this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => this.party = party);
     });
   }
 
-  updateParty(party: Rest.PartyJson) {
-    this.partyService.updateParty(party).subscribe((party: Rest.PartyJson) => {
-    });
+  updateParty() {
+    this.partyService.updateParty(this.party).subscribe((party: Rest.PartyJson) => this.party = party);
   }
 
 }
