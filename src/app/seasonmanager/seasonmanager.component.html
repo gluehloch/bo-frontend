@@ -1,0 +1,24 @@
+<h1>Meisterschaften Verwaltung</h1>
+
+<div *ngIf="seasons.length != 0">
+  <table class="table table-striped">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Jahr</th>
+      <th>Meisterschaft-Modus</th>
+      <th>Teilnehmer-Typ</th>
+    </tr>
+      <tr *ngFor="let season of seasons">
+        <td>
+          <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">
+          Edit
+          </button>
+        </td>
+        <td>{{season.name}}</td>
+        <td>{{season.year}}</td>
+        <td>{{season.seasonType}}</td>
+        <td>{{season.teamType}}</td>
+      </tr>
+  </table>
+</div>

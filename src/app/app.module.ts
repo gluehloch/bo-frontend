@@ -28,6 +28,11 @@ import { PartyComponent } from './party/party.component';
 import { PartyUpdateService } from './party/update/partyupdate.service';
 import { PartyUpdateComponent } from './party/update/partyupdate.component';
 
+import { SeasonManagerService } from './seasonmanager/seasonmanager.service';
+import { SeasonManagerComponent } from './seasonmanager/seasonmanager.component';
+import { SeasonManagerUpdateService } from './seasonmanager/update/seasonmanagerupdate.service';
+import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanagerupdate.component';
+
 @NgModule({
   imports: [
     BrowserModule,

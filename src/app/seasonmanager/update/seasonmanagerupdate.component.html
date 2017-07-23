@@ -1,0 +1,27 @@
+<h1>Meisterschaft Verwaltung</h1>
+
+<form name="seasonmanagerupdateform" novalidate>
+  <div class="form-group">
+      <!-- ng-class="{'has-warning': party.nickname} -->
+    <label for="name" class="sr-only">Name</label>
+    <input class="form-control" id="name" name="name" [(ngModel)]="season.name"/>
+  </div>
+  <div class="form-group">
+    <label for="name" class="sr-only">Jahrgang</label>
+    <input class="form-control" id="year" name="year" [(ngModel)]="season.year"/>
+  </div>
+  <div class="form-group">
+    <label for="surnmae" class="sr-only">Meisterschaftstyp</label>
+    <input class="form-control" id="seasonType" name="seasonType" [(ngModel)]="season.seasonType"/>
+  </div>
+  <div class="form-group">
+    <label for="phone" class="sr-only">Mannschaftstyp</label>
+    <input class="form-control" id="teamType" name="teamType" [(ngModel)]="season.teamType"/>
+  </div>
+
+  <button
+    ng-disabled="loginform.$invalid"
+    class="btn btn-lg btn-primary btn-block"
+    type="submit"
+    (click)="updateSeason()">Speichern</button>
+</form>
