@@ -77,6 +77,14 @@ import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanag
       {
         path: 'chiefop/party/update/:id',
         component: PartyUpdateComponent
+      },
+      {
+        path: 'chiefop/seasonmanager',
+        component: SeasonManagerComponent
+      },
+      {
+        path: 'chiefop/seasonmanager/update/:id',
+        component: SeasonManagerUpdateComponent
       }
     ])
   ],
@@ -88,7 +96,8 @@ import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanag
     RankingComponent,
     SessionComponent,
     PartyComponent,
-    PartyUpdateComponent
+    PartyUpdateComponent,
+    SeasonManagerUpdateComponent
   ],
   providers: [
     AuthenticationService,
@@ -97,7 +106,8 @@ import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanag
     RankingService,
     SeasonService,
     PartyService,
-    PartyUpdateService
+    PartyUpdateService,
+    SeasonManagerUpdateService
   ],
   bootstrap: [AppComponent]
 })

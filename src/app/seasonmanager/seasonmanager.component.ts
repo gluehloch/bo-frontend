@@ -26,7 +26,7 @@ export class SeasonManagerComponent implements OnInit {
   }
 
   updateSeason(season: Rest.SeasonJson) {
-    this.router.navigate(['./chiefop/seasonmanager/update', season.id]);
+    this.router.navigate(['./chiefop/season/update', season.id]);
   }
 
 }
