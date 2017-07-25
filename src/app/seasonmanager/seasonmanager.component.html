@@ -8,6 +8,8 @@
       <th>Jahr</th>
       <th>Meisterschaft-Modus</th>
       <th>Teilnehmer-Typ</th>
+      <th>OpenligaLeagueSeason</th>
+      <th>OpenligaLeagueShortcut</th>
     </tr>
       <tr *ngFor="let season of seasons">
         <td>
@@ -19,6 +21,8 @@
         <td>{{season.year}}</td>
         <td>{{season.seasonType}}</td>
         <td>{{season.teamType}}</td>
+        <td>{{season.openligaLeagueSeason}}</td>
+        <td>{{season.openligaLeagueShortcut}}</td>
       </tr>
   </table>
 </div>

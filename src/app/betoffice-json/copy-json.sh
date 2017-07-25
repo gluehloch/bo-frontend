@@ -1,1 +1,1 @@
-cp ../../../../betoffice-jweb-misc/target/typescript/securitytoken.d.ts .
+﻿cp "../../../../betoffice-jweb-misc/target/typescript/securitytoken.d.ts" .

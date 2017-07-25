@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'season-manager',
-  templateUrl: './partyupdate.component.html',
-  styleUrls: ['./partyupdate.component.css']
+  templateUrl: './seasonmanager.component.html',
+  styleUrls: ['./seasonmanager.component.css']
 })
 export class SeasonManagerComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class SeasonManagerComponent implements OnInit {
   }
 
   updateSeason(season: Rest.SeasonJson) {
-    this.router.navigate(['./chiefop/season/update', season.id]);
+    this.router.navigate(['./chiefop/seasonmanager/update', season.id]);
   }
 
 }

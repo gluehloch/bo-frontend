@@ -97,6 +97,7 @@ import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanag
     SessionComponent,
     PartyComponent,
     PartyUpdateComponent,
+    SeasonManagerComponent,
     SeasonManagerUpdateComponent
   ],
   providers: [
@@ -107,6 +108,7 @@ import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanag
     SeasonService,
     PartyService,
     PartyUpdateService,
+    SeasonManagerService,
     SeasonManagerUpdateService
   ],
   bootstrap: [AppComponent]

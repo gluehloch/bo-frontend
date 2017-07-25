@@ -7,16 +7,24 @@
     <input class="form-control" id="name" name="name" [(ngModel)]="season.name"/>
   </div>
   <div class="form-group">
-    <label for="name" class="sr-only">Jahrgang</label>
+    <label for="year" class="sr-only">Jahrgang</label>
     <input class="form-control" id="year" name="year" [(ngModel)]="season.year"/>
   </div>
   <div class="form-group">
-    <label for="surnmae" class="sr-only">Meisterschaftstyp</label>
+    <label for="seasonType" class="sr-only">Meisterschaftstyp</label>
     <input class="form-control" id="seasonType" name="seasonType" [(ngModel)]="season.seasonType"/>
   </div>
   <div class="form-group">
-    <label for="phone" class="sr-only">Mannschaftstyp</label>
+    <label for="teamType" class="sr-only">Mannschaftstyp</label>
     <input class="form-control" id="teamType" name="teamType" [(ngModel)]="season.teamType"/>
+  </div>
+  <div class="form-group">
+    <label for="openligaLeagueSeason" class="sr-only">Openleague League</label>
+    <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason" [(ngModel)]="season.openligaLeagueSeason"/>
+  </div>
+  <div class="form-group">
+    <label for="openligaLeagueShortcut" class="sr-only">Openleague Shortcut</label>
+    <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut" [(ngModel)]="season.openligaLeagueShortcut"/>
   </div>
 
   <button
