@@ -7,7 +7,7 @@ import { SeasonManagerUpdateService } from './seasonmanagerupdate.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'season-manager',
+  selector: 'season-manager-update',
   templateUrl: './seasonmanagerupdate.component.html',
   styleUrls: ['./seasonmanagerupdate.component.css']
 })

@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.14.251 on 2017-04-25 19:18:20.
+// Generated using typescript-generator version 1.14.251 on 2017-07-24 07:36:02.
 
 declare namespace Rest {
 
@@ -39,6 +39,16 @@ declare namespace Rest {
         teamVsTeamJsons: TeamVsTeamJson[];
     }
 
+    interface PartyJson extends AbstractIdentifier, Serializable {
+        nickname: string;
+        name: string;
+        surname: string;
+        mail: string;
+        phone: string;
+        password: string;
+        title: string;
+    }
+
     interface RoundAndTableJson {
         roundJson: RoundJson;
         groupTeamTableJsons: GroupTeamTableJson;
@@ -60,7 +70,13 @@ declare namespace Rest {
         year: string;
         seasonType: string;
         teamType: string;
+        openligaLeagueShortcut: string;
+        openligaLeagueSeason: string;
         rounds: RoundJson[];
+    }
+
+    interface SeasonMemberJson extends AbstractIdentifier {
+        nickname: string;
     }
 
     interface SecurityTokenJson extends TokenJson {

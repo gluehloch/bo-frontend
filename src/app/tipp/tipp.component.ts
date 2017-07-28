@@ -16,7 +16,7 @@ export class TippModel {
 
   calcPoints() {
     this.points = 0;
-    for (let game of this.round.games) {
+    for (const game of this.round.games) {
       this.points = this.points + game.tipps[0].points;
     }
   }
@@ -57,7 +57,7 @@ export class TippComponent implements OnInit {
                           this.tippModel.round = roundJson;
                           this.tippModel.calcPoints();
                         });
-    }    
+    }
   }
 
   next() {
@@ -77,7 +77,7 @@ export class TippComponent implements OnInit {
   }
 
   submitTipp() {
-    var submitTipp = {
+    const submitTipp = {
       nickname: this.tippModel.nickname,
       roundId: this.tippModel.round.id,
       submitTippGames: []
