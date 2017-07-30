@@ -16,6 +16,16 @@ export class SeasonManagerUpdateComponent implements OnInit {
   season: Rest.SeasonJson;
 
   constructor(private router: Router, private route: ActivatedRoute, private seasonManagerUpdateService: SeasonManagerUpdateService) {
+    this.season = {
+      name: '',
+      year: '',
+      rounds: [],
+      seasonType: null,
+      teamType: null,
+      openligaLeagueSeason: '',
+      openligaLeagueShortcut: '',
+      id: 0
+    };
   }
 
   ngOnInit() {
