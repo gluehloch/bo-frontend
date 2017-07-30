@@ -32,6 +32,8 @@ import { SeasonManagerService } from './seasonmanager/seasonmanager.service';
 import { SeasonManagerComponent } from './seasonmanager/seasonmanager.component';
 import { SeasonManagerUpdateService } from './seasonmanager/update/seasonmanagerupdate.service';
 import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanagerupdate.component';
+import { SeasonManagerCreateService } from './seasonmanager/create/seasonmanagercreate.service';
+import { SeasonManagerCreateComponent } from './seasonmanager/create/seasonmanagercreate.component';
 
 @NgModule({
   imports: [
@@ -83,6 +85,10 @@ import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanag
         component: SeasonManagerComponent
       },
       {
+        path: 'chiefop/seasonmanager/create',
+        component: SeasonManagerCreateComponent
+      },
+      {
         path: 'chiefop/seasonmanager/update/:id',
         component: SeasonManagerUpdateComponent
       }
@@ -98,7 +104,8 @@ import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanag
     PartyComponent,
     PartyUpdateComponent,
     SeasonManagerComponent,
-    SeasonManagerUpdateComponent
+    SeasonManagerUpdateComponent,
+    SeasonManagerCreateComponent
   ],
   providers: [
     AuthenticationService,
@@ -109,7 +116,8 @@ import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanag
     PartyService,
     PartyUpdateService,
     SeasonManagerService,
-    SeasonManagerUpdateService
+    SeasonManagerUpdateService,
+    SeasonManagerCreateService
   ],
   bootstrap: [AppComponent]
 })
