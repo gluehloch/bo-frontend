@@ -29,4 +29,8 @@ export class SeasonManagerComponent implements OnInit {
     this.router.navigate(['./chiefop/seasonmanager/update', season.id]);
   }
 
+  createSeason() {
+    this.router.navigate(['./chiefop/seasonmanager/create']);
+  }
+
 }
