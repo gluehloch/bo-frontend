@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 
 import { SeasonManagerCreateService } from './seasonmanagercreate.service';
+import { CreateSeasonModel } from './CreateSeasonModel';
 
 import { environment } from '../../../environments/environment';
 
@@ -11,12 +12,13 @@ import { environment } from '../../../environments/environment';
   templateUrl: './seasonmanagercreate.component.html',
   styleUrls: ['./seasonmanagercreate.component.css']
 })
+
 export class SeasonManagerCreateComponent implements OnInit {
 
-  season: Rest.SeasonJson;
+  model: CreateSeasonModel;
 
   constructor(private router: Router, private route: ActivatedRoute, private seasonManagerCreateService: SeasonManagerCreateService) {
-    this.season = {
+    this.model.season = {
       id: 0,
       name: '',
       openligaLeagueSeason: '',
@@ -26,14 +28,16 @@ export class SeasonManagerCreateComponent implements OnInit {
       rounds: [],
       year: ''
     };
+    this.model.submitted = false;
   }
 
   ngOnInit() {
   }
 
   createSeason(season: Rest.SeasonJson) {
-    this.seasonManagerCreateService.createSeason(this.season).subscribe(
-      (storedSeason: Rest.SeasonJson) => this.season = storedSeason
+    this.model.submitted = true;
+    this.seasonManagerCreateService.createSeason(this.model.season).subscribe(
+      (storedSeason: Rest.SeasonJson) => this.model.season = storedSeason
     );
   }
 

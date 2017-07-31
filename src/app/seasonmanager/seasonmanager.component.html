@@ -1,8 +1,10 @@
 <h1>Meisterschaften Verwaltung</h1>
 
 <div>
-  <a class="btn btn-primary" (click)="createSeason()">Neue Meisterschaft</a>
+  <a class="btn btn-secondary btn-sm" (click)="createSeason()">Neue Meisterschaft</a>
 </div>
+
+<hr/>
 
 <div *ngIf="seasons.length != 0">
   <table class="table table-striped">
