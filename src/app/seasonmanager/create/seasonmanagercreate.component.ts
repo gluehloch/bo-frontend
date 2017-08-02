@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 
 import { SeasonManagerCreateService } from './seasonmanagercreate.service';
-import { CreateSeasonModel } from './CreateSeasonModel';
+import { CreateSeasonModel } from './create-season-model';
 
 import { environment } from '../../../environments/environment';
 
