@@ -18,6 +18,7 @@ export class SeasonManagerCreateComponent implements OnInit {
   model: CreateSeasonModel;
 
   constructor(private router: Router, private route: ActivatedRoute, private seasonManagerCreateService: SeasonManagerCreateService) {
+    this.model = new CreateSeasonModel();
     this.model.season = {
       id: 0,
       name: '',
