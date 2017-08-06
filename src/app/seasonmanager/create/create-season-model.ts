@@ -8,8 +8,4 @@ export class CreateSeasonModel {
   submitted: boolean;
   season: Rest.SeasonJson;
 
-  isSubmiited(): boolean {
-    return this.submitted;
-  }
-
 }
