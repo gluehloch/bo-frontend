@@ -5,6 +5,8 @@ import { CookieService } from 'ngx-cookie';
 import { SeasonManagerCreateService } from './seasonmanagercreate.service';
 import { CreateSeasonModel } from './create-season-model';
 
+import { SeasonType, TeamType } from '../../betoffice-json/betofficetype';
+
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -24,8 +26,8 @@ export class SeasonManagerCreateComponent implements OnInit {
       name: '',
       openligaLeagueSeason: '',
       openligaLeagueShortcut: '',
-      teamType: null,
-      seasonType: null,
+      teamType: 'DFB',
+      seasonType: 'LEAGUE',
       rounds: [],
       year: ''
     };
@@ -35,7 +37,7 @@ export class SeasonManagerCreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  createSeason(season: Rest.SeasonJson) {
+  createSeason() {
     this.model.submitted = true;
     this.seasonManagerCreateService.createSeason(this.model.season).subscribe(
       (storedSeason: Rest.SeasonJson) => this.model.season = storedSeason

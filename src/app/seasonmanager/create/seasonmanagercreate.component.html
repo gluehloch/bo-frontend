@@ -1,6 +1,6 @@
 <h1>Meisterschaften neu anlegen</h1>
 
-<form name="seasonmanagerupdateform" novalidate ng-disabled="submitted">
+<form #createSeason name="seasonmanagerupdateform" novalidate>
   <div class="form-group">
     <label for="id">ID</label>
     <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="model.season.id"/>
@@ -8,27 +8,23 @@
   <div class="form-group">
       <!-- ng-class="{'has-warning': party.nickname} -->
     <label for="name">Name</label>
-    <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name"/>
+    <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name" required />
   </div>
   <div class="form-group">
     <label for="year">Jahrgang</label>
-    <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year"/>
+    <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year" required />
   </div>
   <div class="form-group">
     <label for="seasonType">Meisterschaftstyp</label>
-    <input class="form-control" id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType"/>
+    <select id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType">
+      <option *ngFor="let seasonType of model.seasonTypes">{{seasonType}}</option>
+    </select>
   </div>
   <div class="form-group">
     <label for="teamType">Mannschaftstyp</label>
-    <!--
-    <input class="form-control" id="teamType" name="teamType" [(ngModel)]="season.teamType"/>
-    -->
-
-    <!-- [(ngModel)]="model.season.teamType" -->
-    <select id="teamType" name="teamType">
-      <option *ngFor="let teamType of model.teamTypes" [value]="teamType">{{teamType}}</option>
+    <select id="teamType" name="teamType" [(ngModel)]="model.season.teamType">
+      <option *ngFor="let teamType of model.teamTypes">{{teamType}}</option>
     </select>
-
   </div>
   <div class="form-group">
     <label for="openligaLeagueSeason">Openleague League</label>
@@ -40,7 +36,7 @@
   </div>
 
   <button
-    ng-disabled="loginform.$invalid"
+    [ngClass]="{'active': !model.submitted, 'disabled': model.submitted}"
     class="btn btn-lg btn-primary btn-block"
     type="submit"
     (click)="createSeason()">Neu Anlegen</button>
