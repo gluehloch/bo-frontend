@@ -1,6 +1,6 @@
 <h1>Meisterschaften neu anlegen</h1>
 
-<form #createSeason="ngForm" name="seasonmanagerupdateform" (ngSubmit)="createSeason()">
+<form #createSeasonForm="ngForm" name="seasonmanagerupdateform" >
   <div class="form-group">
     <label for="id">ID</label>
     <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="model.season.id"/>
@@ -36,7 +36,7 @@
   </div>
 
   <button
-    [disabled]="!createSeason.form.valid"
+    [disabled]="!createSeasonForm.form.valid"
     class="btn btn-lg btn-primary btn-block"
     type="submit"
     (click)="createSeason()">Neu Anlegen</button>
