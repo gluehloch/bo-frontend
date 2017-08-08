@@ -36,7 +36,7 @@
   </div>
 
   <button
-    [disabled]="!createSeasonForm.form.valid"
+    [disabled]="!createSeasonForm.form.valid || model.submitted"
     class="btn btn-lg btn-primary btn-block"
     type="submit"
     (click)="createSeason()">Neu Anlegen</button>
