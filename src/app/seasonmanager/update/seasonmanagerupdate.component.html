@@ -37,10 +37,15 @@
   <hr/>
 
   <h3>Teilnehmer Zuordnung</h3>
-
-  Die aktiven Teilnehmer
+  <h4>Die aktiven Teilnehmer</h4>
   <table>
     <tr *ngFor="let party of model.parties">
+      <td>{{party.nickname}}</td>
+    </tr>
+  </table>
+  <h4>Die anderen, potentiellen Teilnehmer</h4>
+  <table>
+    <tr *ngFor="let party of model.potentialParties">
       <td>{{party.nickname}}</td>
     </tr>
   </table>
