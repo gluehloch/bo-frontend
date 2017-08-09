@@ -17,18 +17,18 @@
       <th>OpenligaLeagueSeason</th>
       <th>OpenligaLeagueShortcut</th>
     </tr>
-      <tr *ngFor="let season of seasons">
-        <td>
-          <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">
-          Edit
-          </button>
-        </td>
-        <td>{{season.name}}</td>
-        <td>{{season.year}}</td>
-        <td>{{season.seasonType}}</td>
-        <td>{{season.teamType}}</td>
-        <td>{{season.openligaLeagueSeason}}</td>
-        <td>{{season.openligaLeagueShortcut}}</td>
-      </tr>
+    <tr *ngFor="let season of seasons">
+      <td>
+        <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">
+        Edit
+        </button>
+      </td>
+      <td>{{season.name}}</td>
+      <td>{{season.year}}</td>
+      <td>{{season.seasonType}}</td>
+      <td>{{season.teamType}}</td>
+      <td>{{season.openligaLeagueSeason}}</td>
+      <td>{{season.openligaLeagueShortcut}}</td>
+    </tr>
   </table>
 </div>

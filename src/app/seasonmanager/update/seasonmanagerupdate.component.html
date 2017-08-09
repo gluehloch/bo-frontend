@@ -1,39 +1,69 @@
 <h1>Meisterschaft Verwaltung</h1>
 
-<form name="seasonmanagerupdateform" novalidate>
+<form #updateSeasonForm="ngForm" name="seasonmanagerupdateform">
   <div class="form-group">
     <label for="id">ID</label>
-    <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="season.id"/>
+    <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="model.season.id"/>
   </div>
   <div class="form-group">
       <!-- ng-class="{'has-warning': party.nickname} -->
     <label for="name">Name</label>
-    <input class="form-control" id="name" name="name" [(ngModel)]="season.name"/>
+    <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name" required/>
   </div>
   <div class="form-group">
     <label for="year">Jahrgang</label>
-    <input class="form-control" id="year" name="year" [(ngModel)]="season.year"/>
+    <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year" required/>
   </div>
   <div class="form-group">
     <label for="seasonType">Meisterschaftstyp</label>
-    <input class="form-control" id="seasonType" name="seasonType" [(ngModel)]="season.seasonType"/>
+    <input class="form-control" id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType" disabled/>
   </div>
   <div class="form-group">
     <label for="teamType">Mannschaftstyp</label>
-    <input class="form-control" id="teamType" name="teamType" [(ngModel)]="season.teamType"/>
+    <input class="form-control" id="teamType" name="teamType" [(ngModel)]="model.season.teamType" disabled/>
   </div>
   <div class="form-group">
     <label for="openligaLeagueSeason">Openleague League</label>
-    <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason" [(ngModel)]="season.openligaLeagueSeason"/>
+    <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason" [(ngModel)]="model.season.openligaLeagueSeason"/>
   </div>
   <div class="form-group">
     <label for="openligaLeagueShortcut">Openleague Shortcut</label>
-    <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut" [(ngModel)]="season.openligaLeagueShortcut"/>
+    <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut" [(ngModel)]="model.season.openligaLeagueShortcut"/>
   </div>
-
   <button
-    ng-disabled="loginform.$invalid"
+    [disabled]="!updateSeasonForm.form.valid || model.submitted"
     class="btn btn-lg btn-primary btn-block"
-    type="submit"
     (click)="updateSeason()">Speichern</button>
+  <hr/>
+
+  <h3>Teilnehmer Zuordnung</h3>
+
+  Die aktiven Teilnehmer
+  <table>
+    <tr *ngFor="let party of model.parties">
+      <td>{{party.nickname}}</td>
+    </tr>
+  </table>
+  <!--
+  <button
+    [disabled]="!updateUserSeasonForm.form.valid || model.submitted"
+    class="btn btn-lg btn-primary btn-block"
+    (click)="updateUserSeason()">Speichern</button>
+  <hr/>
+
+  <h3>Ligenzuordnung</h3>
+  <button
+    [disabled]="!updateLeagueSeasonForm.form.valid || model.submitted"
+    class="btn btn-lg btn-primary btn-block"
+    (click)="updateLeagueSeason()">Speichern</button>
+  <hr/>
+
+  <h3>Mannschaftszuordnung zu Ligen</h3>
+  <button
+    [disabled]="!updateTeamLeagueSeasonForm.form.valid || model.submitted"
+    class="btn btn-lg btn-primary btn-block"
+    (click)="updateTeamLeagueSeason()">Speichern</button>
+  <hr/>
+  -->
+
 </form>

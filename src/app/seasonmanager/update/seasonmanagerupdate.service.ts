@@ -28,4 +28,16 @@ export class SeasonManagerUpdateService extends BetofficeService {
                    .catch(this.handleError);
   }
 
+  findParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
+    const response = this.http.get(this.adminUrl + 'season/' + seasonId + '/user', this.createRequestOptions());
+    return response.map((r: Response) => r.json() as Array<Rest.SeasonMemberJson>)
+                   .catch(this.handleError);
+  }
+
+  findPotentialParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
+    const response = this.http.get(this.adminUrl + 'season/' + seasonId + '/potentialuser', this.createRequestOptions());
+    return response.map((r: Response) => r.json() as Array<Rest.SeasonMemberJson>)
+                   .catch(this.handleError);    
+  }
+ 
 }
