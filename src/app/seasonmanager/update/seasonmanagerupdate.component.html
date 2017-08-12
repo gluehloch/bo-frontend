@@ -23,12 +23,12 @@
     <input class="form-control" id="teamType" name="teamType" [(ngModel)]="model.season.teamType" disabled/>
   </div>
   <div class="form-group">
-    <label for="openligaLeagueSeason">Openleague League</label>
-    <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason" [(ngModel)]="model.season.openligaLeagueSeason"/>
-  </div>
-  <div class="form-group">
     <label for="openligaLeagueShortcut">Openleague Shortcut</label>
     <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut" [(ngModel)]="model.season.openligaLeagueShortcut"/>
+  </div>
+  <div class="form-group">
+    <label for="openligaLeagueSeason">Openleague Jahrgang/League</label>
+    <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason" [(ngModel)]="model.season.openligaLeagueSeason"/>
   </div>
   <button
     [disabled]="!updateSeasonForm.form.valid || model.submitted"
@@ -43,7 +43,7 @@
       <td>{{party.nickname}}</td>
     </tr>
   </table>
-  <h4>Die anderen, potentiellen Teilnehmer</h4>
+  <h4>Die potentiellen Teilnehmer</h4>
   <table>
     <tr *ngFor="let party of model.potentialParties">
       <td>{{party.nickname}}</td>

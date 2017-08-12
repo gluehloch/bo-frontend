@@ -9,6 +9,6 @@ export const environment = {
   rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
   adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
 
-  currentSeasonId: 25
+  currentSeasonId: 26
 
 };
