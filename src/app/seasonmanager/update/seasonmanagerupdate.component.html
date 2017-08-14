@@ -38,17 +38,22 @@
 
   <h3>Teilnehmer Zuordnung</h3>
   <h4>Die aktiven Teilnehmer</h4>
-  <table>
-    <tr *ngFor="let party of model.parties">
-      <td>{{party.nickname}}</td>
-    </tr>
-  </table>
-  <h4>Die potentiellen Teilnehmer</h4>
-  <table>
-    <tr *ngFor="let party of model.potentialParties">
-      <td>{{party.nickname}}</td>
-    </tr>
-  </table>
+  <form #updateUserForm="ngForm" name="seasonmangeruserupdateform">
+    <table>
+      <tr *ngFor="let party of model.parties">
+        <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}"/></td>
+        <td>{{party.nickname}}</td>
+      </tr>
+    </table>
+    <h4>Die potentiellen Teilnehmer</h4>
+    <table>
+      <tr *ngFor="let party of model.potentialParties">
+        <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}"/></td>
+        <td>{{party.nickname}}</td>
+      </tr>
+    </table>
+  </form>
+
   <!--
   <button
     [disabled]="!updateUserSeasonForm.form.valid || model.submitted"
