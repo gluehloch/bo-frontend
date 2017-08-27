@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+
+// import {HTTP_INTERCEPTORS} from '@angular/common/http';
+
 import { RouterModule, Router } from '@angular/router';
 
 import { CookieModule } from 'ngx-cookie';

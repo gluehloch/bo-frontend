@@ -22,12 +22,20 @@ export abstract class BetofficeService {
    * The default error handle. Should be overwritten.
    */
   protected handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+    /*
+    if (error.status == 403) {
+      console.info('Access denied. Renew your authentification.');
+    } else {
+      console.error('Unknwon Error status: ', error.status);
+    }
+    return Promise.reject(error);
+    */
+    return Promise.reject(error.message);
   }
 
   private createHeader(): Headers {
     const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Access-Control-Allow-Origin', '*');
     return headers;
   }
 
