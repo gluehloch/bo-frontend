@@ -17,7 +17,7 @@ export class RankingComponent implements OnInit {
 
   ngOnInit() {
     // TODO Die Meisterschaft ist hier fest verdrahtet (=> 25).
-    this.rankingService.calculate(25)
+    this.rankingService.calculate(26)
                        .subscribe((userTable: Rest.UserTableJson) => {
       this.ranking = userTable;
     });

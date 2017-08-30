@@ -15,7 +15,7 @@ export class Roundtable {
 };
 
 @Component({
-  selector: 'season',
+  selector: 'seasons',
   templateUrl: './season.component.html',
   styleUrls: ['./season.component.css']
 })
