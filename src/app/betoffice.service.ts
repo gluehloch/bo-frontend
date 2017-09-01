@@ -24,6 +24,8 @@ export abstract class BetofficeService {
   protected handleError(error: any): Promise<any> {
     if (error.status == 403) {
       console.info('Access denied. Renew your authentification.');
+      // The authentication token timed out. So it is better to remove the token now.
+      this.clearCredentials();
     } else {
       console.error('Unknwon Error status: ', error.status);
     }
