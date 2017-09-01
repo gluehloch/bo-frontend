@@ -33,7 +33,7 @@ export abstract class BetofficeService {
 
   private createHeader(): Headers {
     const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Access-Control-Allow-Origin', '*');
+    // headers.append('Access-Control-Allow-Origin', '*');
     return headers;
   }
 
