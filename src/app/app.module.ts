@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
+import {HttpClientModule} from '@angular/common/http';
+
 // import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { RouterModule, Router } from '@angular/router';
@@ -41,6 +43,7 @@ import { SeasonManagerCreateComponent } from './seasonmanager/create/seasonmanag
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     CookieModule.forRoot(),
     FormsModule,
     HttpModule,

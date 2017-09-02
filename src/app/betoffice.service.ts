@@ -1,4 +1,5 @@
-import { RequestOptions, Headers, Http, Response } from '@angular/http';
+// import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { USERROLE } from './user-role.enum';
 import { environment } from '../environments/environment';
@@ -12,9 +13,9 @@ export abstract class BetofficeService {
 
   protected rootUrl = environment.rootUrl;
   protected adminUrl = environment.adminUrl;
-  protected http: Http;
+  protected http: HttpClient;
 
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     this.http = http;
   }
 
@@ -33,22 +34,16 @@ export abstract class BetofficeService {
     // return Promise.reject(error.message);
   }
 
-  private createHeader(): Headers {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    // headers.append('Access-Control-Allow-Origin', '*');
-    return headers;
-  }
-
-  public createRequestOptions(): RequestOptions {
-    const headers = this.createHeader();
+  public createHeader(): HttpHeaders {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});   
     const credentials = this.readCredentials();
+
     if (credentials && credentials.token) {
       headers.append('betofficeToken', credentials.token);
       headers.append('betofficeNickname', credentials.nickname);
     }
 
-    const options = new RequestOptions({ headers: headers });
-    return options;
+    return headers;
   }
 
   public isAuthorized() {
