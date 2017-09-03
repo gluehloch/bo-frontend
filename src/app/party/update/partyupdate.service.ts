@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
@@ -11,20 +11,16 @@ import { BetofficeService } from '../../betoffice.service';
 @Injectable()
 export class PartyUpdateService extends BetofficeService {
 
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
   findParty(partyId: number) : Observable<Rest.PartyJson> {
-    let response = this.http.get(this.adminUrl + 'user/' + partyId, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Array<Rest.PartyJson>)
-                   .catch(this.handleError);
+    return this.http.get<Rest.PartyJson>(this.adminUrl + 'user/' + partyId, {headers: this.createHeader()});
   }
 
   updateParty(party: Rest.PartyJson) : Observable<Rest.PartyJson> {
-    let response = this.http.post(this.adminUrl + 'user/update', party, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.PartyJson)
-                   .catch(this.handleError);    
+    return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/update', party, {headers: this.createHeader()});
   }
 
 }
