@@ -36,6 +36,7 @@ export abstract class BetofficeService {
 
   public createHeader(): HttpHeaders {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});   
+    headers.append('Access-Control-Allow-Origin', '*');
     const credentials = this.readCredentials();
 
     if (credentials && credentials.token) {
