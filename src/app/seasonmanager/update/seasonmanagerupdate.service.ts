@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -12,32 +12,24 @@ import { BetofficeService } from '../../betoffice.service';
 @Injectable()
 export class SeasonManagerUpdateService extends BetofficeService {
 
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
   findSeason(seasonId: number): Observable<Rest.SeasonJson> {
-    const response = this.http.get(this.adminUrl + 'season/' + seasonId, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Array<Rest.SeasonJson>)
-                   .catch(this.handleError);
+    return this.http.get<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId, {headers: this.createHeader()});
   }
 
   updateSeason(season: Rest.SeasonJson): Observable<Rest.SeasonJson> {
-    const response = this.http.post(this.adminUrl + 'season/update', season, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.SeasonJson)
-                   .catch(this.handleError);
+    return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/update', season, {headers: this.createHeader()});
   }
 
   findParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
-    const response = this.http.get(this.adminUrl + 'season/' + seasonId + '/user', this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Array<Rest.SeasonMemberJson>)
-                   .catch(this.handleError);
+    return this.http.get<Array<Rest.SeasonMemberJson>>(this.adminUrl + 'season/' + seasonId + '/user', {headers: this.createHeader()});
   }
 
   findPotentialParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
-    const response = this.http.get(this.adminUrl + 'season/' + seasonId + '/potentialuser', this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Array<Rest.SeasonMemberJson>)
-                   .catch(this.handleError);    
+    return this.http.get<Array<Rest.SeasonMemberJson>>(this.adminUrl + 'season/' + seasonId + '/potentialuser', {headers: this.createHeader()});
   }
  
 }

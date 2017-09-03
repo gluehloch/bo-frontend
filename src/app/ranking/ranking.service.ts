@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
@@ -12,26 +12,20 @@ import { BetofficeService } from '../betoffice.service';
 @Injectable()
 export class RankingService extends BetofficeService {
 
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
   calculate(seasonId: number) : Observable<Rest.UserTableJson> {
-    let response = this.http.get(this.rootUrl + 'ranking/season/' + seasonId, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.UserTableJson)
-                   .catch(this.handleError);
+    return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/season/' + seasonId, {headers: this.createHeader()});
   }
 
   nextRound(currentRoundId: number) {
-    let response = this.http.get(this.rootUrl + 'ranking/round/'  + currentRoundId + '/next', this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.UserTableJson)
-                   .catch(this.handleError);
+    return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/round/'  + currentRoundId + '/next', {headers: this.createHeader()});
   }
 
   preRound(currentRoundId: number) {
-    let response = this.http.get(this.rootUrl + 'ranking/round/'  + currentRoundId + '/prev', this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.UserTableJson)
-                   .catch(this.handleError);
+    return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/round/'  + currentRoundId + '/prev', {headers: this.createHeader()});
   }
 
 }

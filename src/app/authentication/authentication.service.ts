@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
@@ -26,20 +26,16 @@ export interface Logout {
 @Injectable()
 export class AuthenticationService extends BetofficeService {
 
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
   login(login: Login): Observable<Rest.SecurityTokenJson> {
-    let response = this.http.post(this.rootUrl + "login", login, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
-                   .catch(this.handleError);
+    return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "login", login, {headers: this.createHeader()});
   }
 
   logout(logout: Logout): Observable<Rest.SecurityTokenJson> {
-    let response = this.http.post(this.rootUrl + "logout", logout, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.SecurityTokenJson)
-                   .catch(this.handleError);
+    return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "logout", logout, {headers: this.createHeader()});
   }
 
 }

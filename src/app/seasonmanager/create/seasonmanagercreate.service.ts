@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
@@ -11,14 +11,12 @@ import { BetofficeService } from '../../betoffice.service';
 @Injectable()
 export class SeasonManagerCreateService extends BetofficeService {
 
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
   createSeason(season: Rest.SeasonJson): Observable<Rest.SeasonJson> {
-    const response = this.http.post(this.adminUrl + 'season/create', season, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.SeasonJson)
-                   .catch(this.handleError);
+    return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/create', season, {headers: this.createHeader()});
   }
 
 }

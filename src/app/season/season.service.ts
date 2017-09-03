@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
@@ -14,62 +14,44 @@ import { BetofficeService } from '../betoffice.service';
 @Injectable()
 export class SeasonService extends BetofficeService {
 
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
   findSeasons() : Observable<Array<Rest.SeasonJson>> {
-    let response = this.http.get(this.rootUrl + 'season/list', this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Array<Rest.SeasonJson>)
-                   .catch(this.handleError);
+    return this.http.get<Array<Rest.SeasonJson>>(this.rootUrl + 'season/list', {headers: this.createHeader()});
   }
 
   findGroups(seasonId: number) : Observable<Array<Rest.GroupTypeJson>> {
-    let response = this.http.get(this.rootUrl + 'season/' + seasonId + '/group/all', this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Array<Rest.GroupTypeJson>)
-                   .catch(this.handleError);
+    return this.http.get<Array<Rest.GroupTypeJson>>(this.rootUrl + 'season/' + seasonId + '/group/all', {headers: this.createHeader()});
   }
 
   findCurrent(seasonId: number) : Observable<Rest.RoundJson> {
-    let response = this.http.get(this.rootUrl + 'season/' + seasonId + "/current", this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Array<Rest.RoundJson>)
-                   .catch(this.handleError);
+    return this.http.get<Rest.RoundJson>(this.rootUrl + 'season/' + seasonId + "/current", {headers: this.createHeader()});
   }
 
   findRounds(seasonId: number, groupId: number) : Observable<Rest.SeasonJson> {
-    let response = this.http.get(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all', this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.SeasonJson)
-                   .catch(this.handleError);
+    return this.http.get<Rest.SeasonJson>(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all', {headers: this.createHeader()});
   }
   
   findRound(roundId: number, groupId: number) : Observable<Rest.RoundAndTableJson> {
-    let response = this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/group/" + groupId, this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
-                   .catch(this.handleError);
+    return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/group/" + groupId, {headers: this.createHeader()});
   }
 
   nextRound(roundId: number) : Observable<Rest.RoundAndTableJson> {
-    let response = this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/next", this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
-                   .catch(this.handleError);
+    return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/next", {headers: this.createHeader()});
   }
   
   prevRound(roundId: number) : Observable<Rest.RoundAndTableJson> {
-    let response = this.http.get(this.rootUrl + 'season/roundtable/' + roundId + "/prev", this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
-                   .catch(this.handleError);
+    return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/prev", {headers: this.createHeader()});
   }
    
   update(roundId: number) : Observable<Rest.RoundAndTableJson> {
-    let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/update", this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
-                   .catch(this.handleError);
+    return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/update", {headers: this.createHeader()});
   }
 
   createOrUpdate( roundId: number) :  Observable<Rest.RoundAndTableJson> {
-    let response = this.http.post(this.rootUrl + 'season/round/' + roundId + "/create", this.createRequestOptions());
-    return response.map((r: Response) => r.json() as Rest.RoundAndTableJson)
-                   .catch(this.handleError);
+    return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/create", {headers: this.createHeader()});
   }
 
 }
