@@ -95,9 +95,12 @@ export class TippComponent implements OnInit {
 
     this.tippService.tipp(submitTipp)
                      .subscribe(
-                       (roundJson: Rest.RoundJson) => {
+                       roundJson => {
+                         console.log(roundJson);
                          this.tippModel.round = roundJson;
-                       },
+                       }
+                       /*
+                       ,
                        (err: HttpErrorResponse) => {
                         if (err.error instanceof Error) {
                           // A client-side or network error occurred. Handle it accordingly.
@@ -108,6 +111,7 @@ export class TippComponent implements OnInit {
                           console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
                         }
                       }
+                      */
                      );
   }
 

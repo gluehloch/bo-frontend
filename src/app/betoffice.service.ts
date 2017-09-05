@@ -35,13 +35,13 @@ export abstract class BetofficeService {
   }
 
   public createHeader(): HttpHeaders {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});   
-    headers.append('Access-Control-Allow-Origin', '*');
-    const credentials = this.readCredentials();
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    headers = headers.append('Access-Control-Allow-Origin', '*');
 
+    const credentials = this.readCredentials();
     if (credentials && credentials.token) {
-      headers.append('betofficeToken', credentials.token);
-      headers.append('betofficeNickname', credentials.nickname);
+      headers = headers.append('betofficeToken', credentials.token);
+      headers = headers.append('betofficeNickname', credentials.nickname);
     }
 
     return headers;
