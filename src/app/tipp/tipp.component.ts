@@ -94,25 +94,21 @@ export class TippComponent implements OnInit {
     });
 
     this.tippService.tipp(submitTipp)
-                     .subscribe(
-                       roundJson => {
-                         console.log(roundJson);
+                    .subscribe((roundJson: Rest.RoundJson) => {
                          this.tippModel.round = roundJson;
-                       }
-                       /*
-                       ,
-                       (err: HttpErrorResponse) => {
-                        if (err.error instanceof Error) {
-                          // A client-side or network error occurred. Handle it accordingly.
-                          console.log('An error occurred:', err.error.message);
-                        } else {
-                          // The backend returned an unsuccessful response code.
-                          // The response body may contain clues as to what went wrong,
-                          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-                        }
+                    },
+                    (err: HttpErrorResponse) => {
+                      if (err.status == 403) {
+                        console.log('Access denied.');
+                      } else if (err.error instanceof Error) {
+                        // A client-side or network error occurred. Handle it accordingly.
+                        console.log('An error occurred:', err.error.message);
+                      } else {
+                        // The backend returned an unsuccessful response code.
+                        // The response body may contain clues as to what went wrong,
+                        console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
                       }
-                      */
-                     );
+                    });
   }
 
 }
