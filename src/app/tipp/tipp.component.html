@@ -83,22 +83,27 @@
           </div>
         </div>
         <div class="form-group">
-          <!--
+
           <div class="alert alert-success"
-              *ngIf="tipp.serviceResponseMessage.status == 'SUCCESS'">
-              Dein Tipp wurde erfolgreich gespeichert!
+            *ngIf="this.submitButtonModel.responseStatusCode == 200">
+            Dein Tipp wurde erfolgreich gespeichert!
           </div>
-          -->
-          <!--
+
           <div class="alert alert-danger"
-            *ngIf="tipp.serviceResponseMessage.status == 'ERROR'">
-            FEHLER: Dieser Spieltag existiert nicht!
+            *ngIf="this.submitButtonModel.responseStatusCode == 403">
+            Dein Authentifizierungstoken ist abgelaufen. Melde dich bitte neu an.
+            <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
           </div>
-          -->
+
           <button class="btn btn-lg btn-primary btn-block" type="submit"
               (click)="submitTipp()"
               *ngIf="tippModel.authenticated && tippModel.round.tippable">
             Tipp
+            <!--
+            <span ng-show="'1' == '1'">
+              <i class="glyphicon glyphicon-refresh spinning"></i>
+          </span>
+        -->            
           </button>
         </div>
       </form>

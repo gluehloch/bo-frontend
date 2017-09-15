@@ -7,12 +7,17 @@ import { TippService } from './tipp.service';
 
 import { environment } from '../../environments/environment';
 
+export class SubmitButtonModel {
+  pressed: boolean;
+  responseStatusCode: number; // HTTP Status Code 200 ok, > 400 problems
+  responseErrorMessage: String; // An error message
+}
+
 export class TippModel {
 
   nickname: string;
   authenticated: boolean;
   round: Rest.RoundJson;
-
   points: number;
 
   calcPoints() {
@@ -34,9 +39,11 @@ export class TippComponent implements OnInit {
   currentSeasonId = environment.currentSeasonId;
 
   tippModel: TippModel;
+  submitButtonModel: SubmitButtonModel;
 
   constructor(private cookieService: CookieService, private tippService: TippService) {
     this.tippModel = new TippModel();
+    this.submitButtonModel = new SubmitButtonModel();
   }
 
   checkAuthorization() {
@@ -78,6 +85,10 @@ export class TippComponent implements OnInit {
   }
 
   submitTipp() {
+    this.submitButtonModel.pressed = true;
+    this.submitButtonModel.responseStatusCode = 0;
+    this.submitButtonModel.responseErrorMessage = '';
+
     const submitTipp = {
       nickname: this.tippModel.nickname,
       roundId: this.tippModel.round.id,
@@ -96,10 +107,16 @@ export class TippComponent implements OnInit {
     this.tippService.tipp(submitTipp)
                     .subscribe((roundJson: Rest.RoundJson) => {
                          this.tippModel.round = roundJson;
+                         this.submitButtonModel.pressed = false;
+                         this.submitButtonModel.responseStatusCode = 200;
                     },
                     (err: HttpErrorResponse) => {
+                      this.submitButtonModel.pressed = false;
+                      this.submitButtonModel.responseStatusCode = err.status;
+                      this.submitButtonModel.responseErrorMessage = err.error;
                       if (err.status == 403) {
                         console.log('Access denied.');
+                        this.tippService.clearCredentials();
                       } else if (err.error instanceof Error) {
                         // A client-side or network error occurred. Handle it accordingly.
                         console.log('An error occurred:', err.error.message);
