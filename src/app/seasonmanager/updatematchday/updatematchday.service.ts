@@ -6,13 +6,13 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
-import { USERROLE } from '../user-role.enum';
-import { BetofficeService } from '../betoffice.service';
+import { USERROLE } from '../../user-role.enum';
+import { BetofficeService } from '../../betoffice.service';
 
 @Injectable()
-export class SeasonService extends BetofficeService {
+export class UpdateMatchdayService extends BetofficeService {
 
   constructor(http: HttpClient) {
     super(http);
@@ -45,15 +45,17 @@ export class SeasonService extends BetofficeService {
   prevRound(roundId: number) : Observable<Rest.RoundAndTableJson> {
     return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/prev", {headers: this.createHeader()});
   }
-  
-  /* Is not in usage anymore.
+   
   update(roundId: number) : Observable<Rest.RoundAndTableJson> {
     return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/update", {headers: this.createHeader()});
   }
 
-  createOrUpdate( roundId: number) :  Observable<Rest.RoundAndTableJson> {
+  createOrUpdate(roundId: number) : Observable<Rest.RoundAndTableJson> {
     return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/create", {headers: this.createHeader()});
   }
-  */
+
+  updateMatchday(round: Rest.RoundJson) {
+
+  }
 
 }

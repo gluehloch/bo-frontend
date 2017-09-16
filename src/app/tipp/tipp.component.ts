@@ -14,7 +14,6 @@ export class SubmitButtonModel {
 }
 
 export class TippModel {
-
   nickname: string;
   authenticated: boolean;
   round: Rest.RoundJson;
@@ -26,7 +25,6 @@ export class TippModel {
       this.points = this.points + game.tipps[0].points;
     }
   }
-
 }
 
 @Component({

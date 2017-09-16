@@ -1,0 +1,137 @@
+<div>
+  <form #selectSeasonAndGroup="ngForm" name="selectSeasonAndGroup">
+    <label for="selectSeason">Meisterschaft auswählen:</label>
+    <br />
+    <select name="selectSeason"
+      (change)="seasonSelected($event)">
+      <!--[(ngModel)]="roundtable.selectedSeason"-->
+      <option 
+        *ngFor="let season of roundtable.seasons"
+        [value]="season.id">
+        {{season.name}} {{season.year}}
+      </option>
+    </select>
+    <br />
+
+    <label for="selectGroup">Gruppe auswählen:</label>
+    <br />
+    <select name="selectGroup"
+      (change)="groupSelected($event)">
+      <!--[(ngModel)]="roundtable.selectedGroup" -->
+      <option
+        *ngFor="let group of roundtable.groups"
+        [value]="group.id">
+        {{group.name}}
+      </option>
+    </select>
+    <br />
+
+    <label for="selectRound">Runde auswählen:</label>
+    <br />
+    <select name="selectRound"
+      (change)="roundSelected($event)">
+      <!--[(ngModel)]="roundtable.selectedRound"-->
+      <option
+        *ngFor="let round of roundtable.rounds"
+        [value]="round.id">
+        {{round.dateTime | date: 'dd.MM.yyyy HH:mm'}}
+      </option>
+    </select>
+  
+  </form>
+
+<!--
+  <div ng-show="authentication.isAdmin()">
+    <hr />
+    <div class="form-group">
+      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="update()">
+        Aktualisieren per Openligadb
+      </button>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="createOrUpdate()">
+        Nächsten Spieltag per Openligadb anlegen.
+      </button>
+    </div>
+  </div>
+
+  <hr />
+-->
+
+  <form #updateMatchday="ngForm" name="upateMatchday">
+    <div *ngIf="roundtable.table">
+      <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
+      <table class="table table-striped">
+        <tr>
+          <th>F</th>
+          <th style="text-align:right">Datum</th>
+          <th style="text-align:right">Heimmannschaft</th>
+          <th>HZ H</th>
+          <th>HZ G</th>
+          <th>ES H</th>
+          <th>ES G</th>
+          <th style="text-align:left">Gastmannschaft</th>
+        </tr>
+        <tr *ngFor="let game of roundtable.table.roundJson.games">
+          <td><input type="checkbox" id="{{game.id}}Finished" name="{{game.id}}Finished" [(ngModel)]="game.finished"/></td>
+          <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
+          <td style="text-align:right">{{game.homeTeam.name}}</td>
+          <td>
+            <input max="15" min="0" type="number" size="1"
+              class="form-control" id="{{game.id}}HalfTimeHomeGoals" name="{{game.id}}HalfTimeHomeGoals" [(ngModel)]="game.halfTimeResult.homeGoals" />
+          </td>
+          <td>
+            <input max="15" min="0" type="number" size="1"
+              class="form-control" id="{{game.id}}HalfTimeGuestGoals" name="{{game.id}}HalfTimeGuestGoals" [(ngModel)]="game.halfTimeResult.guestGoals" />
+          </td>
+          <td>
+            <input max="15" min="0" type="number" size="1"
+              class="form-control" id="{{game.id}}HomeGoals" name="{{game.id}}HomeGoals" [(ngModel)]="game.result.homeGoals" />
+          </td>
+          <td>
+            <input max="15" min="0" type="number" size="1"
+              class="form-control" id="{{game.id}}GuestGoals" name="{{game.id}}GuestGoals" [(ngModel)]="game.result.guestGoals" />
+          </td>
+          <td style="text-align:left">{{game.guestTeam.name}}</td>
+        </tr>
+      </table>
+      <button
+        class="btn btn-lg btn-primary btn-block"
+        (click)="updateMatchdDay(roundtable)">Speichern</button>
+    </div>
+  </form>
+
+    <!-- TODO Currently disabled. Check the drop down box above!
+    <div class="btn-group btn-group-justified" role="group">
+      <div class="btn-group" role="group">
+        <button class="btn btn-default" type="submit" ng-click="last(round)" ng-show="round.index > 1">Letzter</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button class="btn btn-default" type="submit" ng-click="next(round)" ng-show="!round.lastRound">Nächster</button>
+      </div>
+    </div>
+    -->
+
+<!--
+    <div class="alert alert-danger" ng-show="round.serviceResponseMessage.status == 'ERROR'">
+      FEHLER: Dieser Spieltag existiert nicht!
+    </div>
+-->
+  <div *ngIf="roundtable.table">
+    <table class="table table-striped">
+      <th>Pos</th>
+      <th>Team</th>
+      <th>Punkte</th>
+      <th>Tore</th>
+      <th>g:r:v</th>
+      <tr *ngFor="let team of roundtable.table.groupTeamTableJsons.teamResultJsons">
+        <td>{{team.tablePosition}}</td>
+        <td>{{team.teamName}}</td>
+        <td>{{team.win * 3 + team.remis}}</td>
+        <td>{{team.posGoals}}:{{team.negGoals}}</td>
+        <td>{{team.win}}:{{team.remis}}:{{team.lost}} </td>
+      </tr>
+    </table>
+  </div>
+
+</div>

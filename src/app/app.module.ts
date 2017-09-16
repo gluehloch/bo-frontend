@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 // import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
@@ -39,6 +39,8 @@ import { SeasonManagerUpdateService } from './seasonmanager/update/seasonmanager
 import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanagerupdate.component';
 import { SeasonManagerCreateService } from './seasonmanager/create/seasonmanagercreate.service';
 import { SeasonManagerCreateComponent } from './seasonmanager/create/seasonmanagercreate.component';
+import { UpdateMatchdayService } from './seasonmanager/updatematchday/updatematchday.service';
+import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatematchday.component';
 
 @NgModule({
   imports: [
@@ -97,6 +99,10 @@ import { SeasonManagerCreateComponent } from './seasonmanager/create/seasonmanag
       {
         path: 'chiefop/seasonmanager/update/:id',
         component: SeasonManagerUpdateComponent
+      },
+      {
+        path: 'chiefop/seasonmanager/updatematchday/:id',
+        component: UpdateMatchdayComponent
       }
     ])
   ],
@@ -111,7 +117,8 @@ import { SeasonManagerCreateComponent } from './seasonmanager/create/seasonmanag
     PartyUpdateComponent,
     SeasonManagerComponent,
     SeasonManagerUpdateComponent,
-    SeasonManagerCreateComponent
+    SeasonManagerCreateComponent,
+    UpdateMatchdayComponent
   ],
   providers: [
     AuthenticationService,
@@ -123,7 +130,8 @@ import { SeasonManagerCreateComponent } from './seasonmanager/create/seasonmanag
     PartyUpdateService,
     SeasonManagerService,
     SeasonManagerUpdateService,
-    SeasonManagerCreateService
+    SeasonManagerCreateService,
+    UpdateMatchdayService
   ],
   bootstrap: [AppComponent]
 })

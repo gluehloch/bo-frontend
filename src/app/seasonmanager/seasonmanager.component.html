@@ -20,7 +20,10 @@
     <tr *ngFor="let season of seasons">
       <td>
         <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">
-        Edit
+          Edit
+        </button>
+        <button class="btn btn-primary btn-sm" type="submit" (click)="updateMatchday(season)">
+          Spieltag
         </button>
       </td>
       <td>{{season.name}}</td>
