@@ -118,8 +118,11 @@ export class UpdateMatchdayComponent implements OnInit {
     this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
   }
 
-  updateMatchdDay(roundtable: Rest.RoundJson) {
-
+  updateMatchdDay() {
+    console.info('Update round ' + this.roundtable.selectedRound.id);
+    this.seasonService.updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup).subscribe((round: Rest.RoundAndTableJson) => {
+      this.roundtable.table = round;
+    });
   }
 
 }
