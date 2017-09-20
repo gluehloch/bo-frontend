@@ -47,11 +47,11 @@ export class UpdateMatchdayService extends BetofficeService {
   }
   
   updateByOpenligaDb(roundId: number, groupId: number) : Observable<Rest.RoundAndTableJson> {
-    return this.http.post<Rest.RoundAndTableJson>(this.adminUrl + 'season/round/' + roundId + '/group/' + groupId + '/ligadbupdate', {headers: this.createHeader()});
+    return this.http.post<Rest.RoundAndTableJson>(this.adminUrl + 'season/round/' + roundId + '/group/' + groupId + '/ligadbupdate', null, {headers: this.createHeader()});
   }
 
   createOrUpdateByOpenligaDb(roundId: number, groupId: number) : Observable<Rest.RoundAndTableJson> {
-    return this.http.post<Rest.RoundAndTableJson>(this.adminUrl + 'season/round/' + roundId + '/group/' + groupId + '/ligadbcreate', {headers: this.createHeader()});
+    return this.http.post<Rest.RoundAndTableJson>(this.adminUrl + 'season/round/' + roundId + '/group/' + groupId + '/ligadbcreate', null, {headers: this.createHeader()});
   }
 
   updateMatchday(round: Rest.RoundJson, group: Rest.GroupTypeJson) : Observable<Rest.RoundAndTableJson> {
