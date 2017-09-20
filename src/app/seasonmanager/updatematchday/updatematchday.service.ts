@@ -45,19 +45,16 @@ export class UpdateMatchdayService extends BetofficeService {
   prevRound(roundId: number) : Observable<Rest.RoundAndTableJson> {
     return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/prev", {headers: this.createHeader()});
   }
-   
-/* --- Update und Create fuer OpenligaDB : TODO Ist noch einzubauen ---
-  update(roundId: number) : Observable<Rest.RoundAndTableJson> {
-    return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/update", {headers: this.createHeader()});
+  
+  updateByOpenligaDb(roundId: number, groupId: number) : Observable<Rest.RoundAndTableJson> {
+    return this.http.post<Rest.RoundAndTableJson>(this.adminUrl + 'season/round/' + roundId + '/group/' + groupId + '/ligadbupdate', {headers: this.createHeader()});
   }
 
-  createOrUpdate(roundId: number) : Observable<Rest.RoundAndTableJson> {
-    return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/create", {headers: this.createHeader()});
+  createOrUpdateByOpenligaDb(roundId: number, groupId: number) : Observable<Rest.RoundAndTableJson> {
+    return this.http.post<Rest.RoundAndTableJson>(this.adminUrl + 'season/round/' + roundId + '/group/' + groupId + '/ligadbcreate', {headers: this.createHeader()});
   }
-*/
 
   updateMatchday(round: Rest.RoundJson, group: Rest.GroupTypeJson) : Observable<Rest.RoundAndTableJson> {
-    // TODO URL Aufrufen....
     return this.http.post<Rest.RoundAndTableJson>(this.adminUrl + 'season/round/' + round.id + '/group/' + group.id + '/update', round, {headers: this.createHeader()});
   }
 

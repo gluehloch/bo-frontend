@@ -24,7 +24,7 @@ export class UpdateMatchdayComponent implements OnInit {
 
   roundtable: Roundtable;
 
-  constructor(private router: Router, private route: ActivatedRoute, private seasonService: UpdateMatchdayService) {
+  constructor(private router: Router, private route: ActivatedRoute, private updateMatchdayService: UpdateMatchdayService) {
     this.roundtable = new Roundtable();
   }
 
@@ -47,7 +47,7 @@ export class UpdateMatchdayComponent implements OnInit {
   }
 
   findSeasons() {
-    this.seasonService.findSeasons()
+    this.updateMatchdayService.findSeasons()
                       .subscribe((seasons: Rest.SeasonJson[]) => {
       this.roundtable.seasons = seasons;
       this.roundtable.selectedSeason = seasons[0];
@@ -57,7 +57,7 @@ export class UpdateMatchdayComponent implements OnInit {
   }
 
   findGroups(seasonId: number) {
-    this.seasonService.findGroups(seasonId)
+    this.updateMatchdayService.findGroups(seasonId)
                       .subscribe((groups: Rest.GroupTypeJson[]) => {
       this.roundtable.groups = groups;
       this.roundtable.selectedGroup = groups[0];
@@ -67,7 +67,7 @@ export class UpdateMatchdayComponent implements OnInit {
   }
 
   findRounds(seasonId: number, groupId: number) {
-    this.seasonService.findRounds(seasonId, groupId)
+    this.updateMatchdayService.findRounds(seasonId, groupId)
                       .subscribe((season: Rest.SeasonJson) => {
       this.roundtable.rounds = season.rounds;
       this.roundtable.selectedRound = season.rounds[0];
@@ -77,7 +77,7 @@ export class UpdateMatchdayComponent implements OnInit {
   }
 
   findRoundAndTable(roundId: number, groupId: number) {
-    this.seasonService.findRound(roundId, groupId)
+    this.updateMatchdayService.findRound(roundId, groupId)
                       .subscribe((round: Rest.RoundAndTableJson) => {
       this.roundtable.table = round;
     });
@@ -120,7 +120,21 @@ export class UpdateMatchdayComponent implements OnInit {
 
   updateMatchdDay() {
     console.info('Update round ' + this.roundtable.selectedRound.id);
-    this.seasonService.updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup).subscribe((round: Rest.RoundAndTableJson) => {
+    this.updateMatchdayService.updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup).subscribe((round: Rest.RoundAndTableJson) => {
+      this.roundtable.table = round;
+    });
+  }
+
+  updateOpenligaDb() {
+    console.info('Update with OpenligaDB round ' + this.roundtable.selectedRound.id);
+    this.updateMatchdayService.updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id).subscribe((round: Rest.RoundAndTableJson) => {
+      this.roundtable.table = round;
+    });
+  }
+
+  createOpenligaDb() {
+    console.info('Create with OpenligaDB.');
+    this.updateMatchdayService.createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id).subscribe((round: Rest.RoundAndTableJson) => {
       this.roundtable.table = round;
     });
   }
