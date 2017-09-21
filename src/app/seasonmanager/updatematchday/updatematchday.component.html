@@ -95,15 +95,25 @@
           <td style="text-align:left">{{game.guestTeam.name}}</td>
         </tr>
       </table>
-      <button
-        class="btn btn-lg btn-primary btn-block"
-        (click)="updateMatchdDay()">Speichern</button>
-      <button
-        class="btn btn-lg btn-primary btn-block"
-        (click)="updateOpenligaDb()">Update mit OpenligaDB</button>
-      <button
-        class="btn btn-lg btn-primary btn-block"
-        (click)="createOpenligaDb()">Anlegen mit OpenligaDB</button>
+      <div class="row">
+        <div class="col">
+          <button
+            class="btn btn-lg btn-primary btn-block"
+            (click)="updateMatchdDay()">Speichern</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">     
+          <button
+            class="btn btn-lg btn-secondary btn-block"
+            (click)="updateOpenligaDb()">Update mit OpenligaDB</button>
+        </div>
+        <div class="col">
+          <button
+            class="btn btn-lg btn-secondary btn-block"
+            (click)="createOpenligaDb()">Anlegen mit OpenligaDB</button>
+        </div>
+      </div>
     </div>
   </form>
 
