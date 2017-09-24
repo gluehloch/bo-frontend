@@ -1,10 +1,10 @@
 <div>
   <form #selectSeasonAndGroup="ngForm" name="selectSeasonAndGroup">
+    <!--
     <label for="selectSeason">Meisterschaft auswählen:</label>
     <br />
     <select name="selectSeason"
       (change)="seasonSelected($event)">
-      <!--[(ngModel)]="roundtable.selectedSeason"-->
       <option 
         *ngFor="let season of roundtable.seasons"
         [value]="season.id">
@@ -12,12 +12,12 @@
       </option>
     </select>
     <br />
+    -->
 
     <label for="selectGroup">Gruppe auswählen:</label>
     <br />
     <select name="selectGroup"
       (change)="groupSelected($event)">
-      <!--[(ngModel)]="roundtable.selectedGroup" -->
       <option
         *ngFor="let group of roundtable.groups"
         [value]="group.id">
@@ -30,7 +30,6 @@
     <br />
     <select name="selectRound"
       (change)="roundSelected($event)">
-      <!--[(ngModel)]="roundtable.selectedRound"-->
       <option
         *ngFor="let round of roundtable.rounds"
         [value]="round.id">

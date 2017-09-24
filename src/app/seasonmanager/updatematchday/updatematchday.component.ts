@@ -6,7 +6,6 @@ import { USERROLE } from '../../user-role.enum';
 import { UpdateMatchdayService } from './updatematchday.service';
 
 export class Roundtable {
-  seasons: Rest.SeasonJson[];
   selectedSeason: Rest.SeasonJson;
   groups: Rest.GroupTypeJson[];
   selectedGroup: Rest.GroupTypeJson;
@@ -29,23 +28,21 @@ export class UpdateMatchdayComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.findSeasons();
-
-    /* Falls ein Meisterschaftsparameter vorhanden ist, könnte hier auch gleich die
-       richtige Meisterschaft selektiert werden.
-    this.route.params.map(params => params['id']).subscribe((id) => {
-      this.seasonManagerUpdateService.findSeason(id).subscribe(
-        (season: Rest.SeasonJson) => this.model.season = season);
-
+    this.route.params.map(params => params['id']).subscribe((seasonId) => {
+      //this.updateMatchdayService.findRounds(seasonId);
+      //this.roundtable.selectedSeason = season;
+      //this.findGroups(season.id);
+/*
       this.seasonManagerUpdateService.findParties(id).subscribe(
         (parties: Array<Rest.SeasonMemberJson>) => this.model.parties = parties);
 
       this.seasonManagerUpdateService.findPotentialParties(id).subscribe(
         (parties: Array<Rest.SeasonMemberJson>) => this.model.potentialParties = parties);
+*/
     });
-    */
-  }
 
+  }
+/*
   findSeasons() {
     this.updateMatchdayService.findSeasons()
                       .subscribe((seasons: Rest.SeasonJson[]) => {
@@ -55,6 +52,7 @@ export class UpdateMatchdayComponent implements OnInit {
       this.findGroups(this.roundtable.selectedSeason.id);
     });
   }
+*/
 
   findGroups(seasonId: number) {
     this.updateMatchdayService.findGroups(seasonId)
@@ -84,17 +82,6 @@ export class UpdateMatchdayComponent implements OnInit {
   }
 
   // ------------------------------------------------------------------------------
-
-  seasonSelected(event) {
-    console.info('Selected season id: ' + event.target.value);
-
-    let selectedSeasonId = event.target.value;
-    let selectedSeason = this.roundtable
-                             .seasons
-                             .find(season => season.id == selectedSeasonId);
-    this.roundtable.selectedSeason = selectedSeason;
-    this.findGroups(selectedSeasonId);
-  }
 
   groupSelected(event) {
     console.info('Selected group id: ' + event.target.value);
