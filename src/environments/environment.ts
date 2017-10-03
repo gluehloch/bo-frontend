@@ -11,6 +11,8 @@ export const environment = {
 
   rootUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/office/',
   adminUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/chiefoperator/',
+  // rootUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/office/',
+  // adminUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/chiefoperator/',
   // Laptop (W550s) IP Adresse: 192.168.0.110
 
   currentSeasonId: 26
