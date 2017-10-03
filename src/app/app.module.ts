@@ -18,6 +18,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
+import { TippSmallComponent } from './tipp/tipp-small.component';
 
 import { SeasonService } from './season/season.service';
 import { SeasonComponent } from './season/season.component';
@@ -73,6 +74,10 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
         component: TippComponent
       },
       {
+        path: 'tipp-small',
+        component: TippSmallComponent
+      },      
+      {
         path: 'ranking',
         component: RankingComponent
       },
@@ -110,6 +115,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     AppComponent,
     AuthenticationComponent,
     TippComponent,
+    TippSmallComponent,
     SeasonComponent,
     RankingComponent,
     SessionComponent,
