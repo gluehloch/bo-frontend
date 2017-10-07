@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 
 import { AuthenticationService } from './authentication.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 import { USERROLE } from '../user-role.enum';
 
@@ -72,13 +73,14 @@ export class AuthenticationComponent implements OnInit {
 
   authenticationModel: AuthenticationModel;
 
-  constructor(private cookieService: CookieService, private authenticationService: AuthenticationService) {
+  constructor(private cookieService: CookieService, private authenticationService: AuthenticationService, private navigationRouterService: NavigationRouterService) {
     this.authenticationModel = new AuthenticationModel();
     this.authenticationModel.token = null;
   }
 
   ngOnInit() {
     this.init();
+    this.navigationRouterService.activate('LOGIN');
   }
 
   init() {

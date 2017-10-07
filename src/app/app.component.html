@@ -1,26 +1,12 @@
 <div class="container">
-
-<h1>{{title}}</h1>
-<p>Hier kommt dann die Tipper Tabelle hin.</p>
-
-<nav>
-  <ul>
-    <li>
-      <a routerLink="/login">Login</a>
-    </li>
-    <li>
-      <a routerLink="/tipp">Tipp</a>
-    </li>
-    <li>
-      <a routerLink="/tipp-small">Tipp (Mobile)</a>
-    </li>    
-    <li>
-      <a routerLink="/ranking">Teilnehmer</a>
-    </li>
-    <li>
-      <a routerLink="/season">Meisterschaften</a>
-    </li>
-  </ul>
+  <nav class="nav nav-pills nav-fill">
+    <a class="nav-item nav-link active" routerLink="/login" [class.active]="login">Login</a>
+    <a class="nav-item nav-link" routerLink="/tipp" [class.active]="tipp">Tipp</a>
+    <a class="nav-item nav-link" routerLink="/tipp-small" [class.active]="tippMobile">Tipp (Mobile)</a>
+    <a class="nav-item nav-link" routerLink="/ranking" [class.active]="teilnehmer">Teilnehmer</a>
+    <a class="nav-item nav-link" routerLink="/season" [class.active]="meisterschaften">Meisterschaften</a>
+  </nav>
+  <hr/>
   <ul>
     <li>
       <a routerLink="/chiefop/party">Admin: Teilnehmer</a>
@@ -29,8 +15,5 @@
       <a routerLink="/chiefop/seasonmanager">Admin: Meisterschaft</a>
     </li>
   </ul>
-</nav>
-
-<router-outlet></router-outlet>
-
+  <router-outlet></router-outlet>
 </div>

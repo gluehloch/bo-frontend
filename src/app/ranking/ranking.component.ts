@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RankingService } from './ranking.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 @Component({
   selector: 'ranking',
@@ -11,7 +12,7 @@ export class RankingComponent implements OnInit {
 
   ranking: Rest.UserTableJson;
 
-  constructor(private rankingService: RankingService) {
+  constructor(private rankingService: RankingService, private navigationRouterService: NavigationRouterService) {
     this.rankingService = rankingService;
   }
 
@@ -21,6 +22,8 @@ export class RankingComponent implements OnInit {
                        .subscribe((userTable: Rest.UserTableJson) => {
       this.ranking = userTable;
     });
+
+    this.navigationRouterService.activate('TEILNEHMER');
   }
 
   next(roundId: number) {

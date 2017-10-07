@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 @Component({
   selector: 'tipp',
@@ -11,8 +12,12 @@ import { TippService } from './tipp.service';
 })
 export class TippComponent extends TippCommonComponent {
 
-  constructor(cookieService: CookieService, tippService: TippService) {
-    super(cookieService,  tippService);
+  constructor(cookieService: CookieService, tippService: TippService, navigationRouterService: NavigationRouterService) {
+    super(cookieService,  tippService, navigationRouterService);
+  }
+
+  ngOnInit() {
+    this.navigationRouterService.activate('TIPP');
   }
 
 }

@@ -24,8 +24,8 @@
   </div>
 
   <div *ngIf="tippModel.authenticated && tippModel.round">
-      <h1>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h1>
-      <h2>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h2>
+      <h2>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h2>
+      <h3>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy'}}</h3>
       <p>Round ID {{tippModel.round.id}}</p>
       <form name="tippform" novalidate>
         <table class="table table-striped">

@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie';
 
 import { USERROLE } from '../user-role.enum';
 import { TippService } from './tipp.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 
@@ -34,11 +35,13 @@ export class TippCommonComponent implements OnInit {
 
   tippModel: TippModel;
   submitButtonModel: SubmitButtonModel;
+  navigationRouterService: NavigationRouterService;
 
-  constructor(private cookieService: CookieService, private tippService: TippService) {
+  constructor(private cookieService: CookieService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
     this.tippModel = new TippModel();
     this.submitButtonModel = new SubmitButtonModel();
     this.submitButtonModel.progress = 0;
+    this.navigationRouterService = navigationRouterService;
   }
 
   sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
