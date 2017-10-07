@@ -1,10 +1,30 @@
-<div class="container">
-  <nav class="nav nav-pills nav-fill">
-    <a class="nav-item nav-link active" routerLink="/login" [class.active]="login">Login</a>
-    <a class="nav-item nav-link" routerLink="/tipp" [class.active]="tipp">Tipp</a>
-    <a class="nav-item nav-link" routerLink="/tipp-small" [class.active]="tippMobile">Tipp (Mobile)</a>
-    <a class="nav-item nav-link" routerLink="/ranking" [class.active]="teilnehmer">Teilnehmer</a>
-    <a class="nav-item nav-link" routerLink="/season" [class.active]="meisterschaften">Meisterschaften</a>
+  <!-- class="nav nav-pills nav-fill" -->
+  <!-- navbar navbar-expand-lg navbar-light bg-light -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <button class="navbar-toggler" type="button"
+      data-toggle="collapse" data-target="#navbarCollapse"
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" [class.active]="login">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" [class.active]="tipp">
+          <a class="nav-link" routerLink="/tipp">Tipp</a>
+        </li>
+        <li class="nav-item" [class.active]="tippMobile">
+          <a class="nav-link" routerLink="/tipp-small">Tipp (Mobile)</a>
+        </li>
+        <li class="nav-item" [class.active]="teilnehmer">
+          <a class="nav-link" routerLink="/ranking">Teilnehmer</a>
+        </li>
+        <li class="nav-item" [class.active]="meisterschaften">
+          <a class="nav-link" routerLink="/season">Meisterschaften</a>
+        </li>
+      </ul>
+    </div>
   </nav>
   <hr/>
   <ul>
@@ -15,5 +35,6 @@
       <a routerLink="/chiefop/seasonmanager">Admin: Meisterschaft</a>
     </li>
   </ul>
+<div class="container">
   <router-outlet></router-outlet>
 </div>
