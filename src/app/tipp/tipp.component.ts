@@ -4,8 +4,6 @@ import { CookieService } from 'ngx-cookie';
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
 
-import { environment } from '../../environments/environment';
-
 @Component({
   selector: 'tipp',
   templateUrl: './tipp.component.html',

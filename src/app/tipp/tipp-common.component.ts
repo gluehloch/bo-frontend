@@ -41,8 +41,12 @@ export class TippCommonComponent implements OnInit {
     this.submitButtonModel.progress = 0;
   }
 
-  sortGames() {
-    this.tippModel.round.games = this.tippModel.round.games.sort((g1, g2) => { return g1.dateTime.getTime() - g2.dateTime.getTime()});
+  sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
+    return games.sort((g1, g2) => {
+      let date1 = new Date(g1.dateTime);
+      let date2 = new Date(g2.dateTime);
+      return date1.getTime() - date2.getTime();
+    });
   }
 
   checkAuthorization() {
@@ -61,9 +65,9 @@ export class TippCommonComponent implements OnInit {
     if (this.tippModel.authenticated) {
       this.tippService.nextTippRound(this.currentSeasonId, this.tippModel.nickname)
                       .subscribe((roundJson: Rest.RoundJson) => {
+                          roundJson.games = this.sortGames(roundJson.games);
                           this.tippModel.round = roundJson;
                           this.tippModel.calcPoints();
-                          this.sortGames();
                         });
     }
   }
@@ -71,6 +75,7 @@ export class TippCommonComponent implements OnInit {
   next() {
     this.tippService.nextRound(this.tippModel.round.id, this.tippModel.nickname)
                     .subscribe((roundJson: Rest.RoundJson) => {
+                        roundJson.games = this.sortGames(roundJson.games);
                         this.tippModel.round = roundJson;
                         this.tippModel.calcPoints();
                     });
@@ -79,6 +84,7 @@ export class TippCommonComponent implements OnInit {
   last() {
     this.tippService.prevRound(this.tippModel.round.id, this.tippModel.nickname)
                     .subscribe((roundJson: Rest.RoundJson) => {
+                        roundJson.games = this.sortGames(roundJson.games);
                         this.tippModel.round = roundJson;
                         this.tippModel.calcPoints();
                     });
