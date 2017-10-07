@@ -78,6 +78,7 @@ export class TippCommonComponent implements OnInit {
                         roundJson.games = this.sortGames(roundJson.games);
                         this.tippModel.round = roundJson;
                         this.tippModel.calcPoints();
+                        this.submitButtonModel.responseStatusCode = 0;
                     });
   }
 
@@ -87,6 +88,7 @@ export class TippCommonComponent implements OnInit {
                         roundJson.games = this.sortGames(roundJson.games);
                         this.tippModel.round = roundJson;
                         this.tippModel.calcPoints();
+                        this.submitButtonModel.responseStatusCode = 0;
                     });
   }
 
