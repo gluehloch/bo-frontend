@@ -18,6 +18,7 @@ export class TippSmallComponent extends TippCommonComponent {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     this.navigationRouterService.activate('TIPPMOBILE');
   }
 
