@@ -11,8 +11,7 @@
 
   <div *ngIf="tippModel.authenticated" class="form-group">
     <div class="alert alert-success">
-      Du bist eingeloggt als {{tippModel.nickname}}.<br/>
-      Es wird die Saison ID {{currentSeasonId}} getippt.<br/>
+      Du bist eingeloggt als {{tippModel.nickname}}.
     </div>
   </div>
 
@@ -61,36 +60,8 @@
                 [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
                 {{game.tipps[0].points}}
             </div>
-            </div>
-            <!--
-            <div class="row">
-              <div class="col-4" style="text-align: right; padding: .5rem .75rem">{{game.guestTeam.name}}</div>
-              <div class="col-2" style="padding: .5rem .75rem">{{game.result.guestGoals}}</div>
-              <div class="col-3">
-                <input class="form-control"
-                  id="{{tippModel.round.id}}gast{{game.id}}"
-                  name="{{tippModel.round.id}}gast{{game.id}}"
-                  max="15" min="0" type="number" size="1"
-                  [disabled]="game.finished"
-                  placeholder="{{game.result.guestGoals}}"
-                  [(ngModel)]="game.tipps[0].tipp.guestGoals"
-                  style="text-align:right"/>
-              </div>
-              <div class="col-2"
-                [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
-                {{game.tipps[0].points}}
-              </div>
-            </div>
-            -->
-            <!--
-            <div class="row">
-                <div class="col">
-                  <hr />
-                </div>
-              </div>
-            -->
           </div>
-
+        </div>
         <hr/>
         <!-- Naechster und Letzer Spieltag -->
         <div class="row">
