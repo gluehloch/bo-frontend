@@ -41,6 +41,10 @@ export class TippCommonComponent implements OnInit {
     this.submitButtonModel.progress = 0;
   }
 
+  sortGames() {
+    this.tippModel.round.games = this.tippModel.round.games.sort((g1, g2) => { return g1.dateTime.getTime() - g2.dateTime.getTime()});
+  }
+
   checkAuthorization() {
     if (this.tippService.isAuthorized()) {
       this.tippModel.nickname = this.tippService.readCredentials().nickname;
@@ -59,6 +63,7 @@ export class TippCommonComponent implements OnInit {
                       .subscribe((roundJson: Rest.RoundJson) => {
                           this.tippModel.round = roundJson;
                           this.tippModel.calcPoints();
+                          this.sortGames();
                         });
     }
   }

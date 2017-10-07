@@ -31,7 +31,7 @@ export class TippModel {
 @Component({
   selector: 'tipp-small',
   templateUrl: './tipp-small.component.html',
-  styleUrls: ['./tipp.component.css']
+  styleUrls: ['./tipp-small.component.css']
 })
 export class TippSmallComponent implements OnInit {
 

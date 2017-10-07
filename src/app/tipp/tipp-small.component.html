@@ -26,29 +26,46 @@
   <div *ngIf="tippModel.authenticated && tippModel.round">
       <h3>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h3>
       <h4>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h4>
-      <p>Round ID {{tippModel.round.id}}</p>
       <form name="tippform" novalidate>
           <div *ngFor="let game of tippModel.round.games">
-            <div class="row">
-              <div class="col" style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+            <div class="row" style="border-top:solid; background-color: greenyellow">
+              <div class="col-12" style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+            </div>
+            <div class="row" style="background-color: #F5F5F5">
+              <div class="col-5" style="text-align: right; padding: .5rem .75rem">{{game.homeTeam.name}}</div>
+              <div class="col-5" style="text-align: left; padding: .5rem .75rem">{{game.guestTeam.name}}</div>
+              <div class="col-2" style="padding: .5rem .75rem">{{game.result.homeGoals}}:{{game.result.guestGoals}}</div>
             </div>
             <div class="row">
-              <div class="col-6" style="text-align: right; vertical-align: center">{{game.homeTeam.name}}</div>
-              <div class="col-3">{{game.result.homeGoals}}</div>
-              <div class="col-3">
-                  <input class="form-control"
-                    id="{{tippModel.round.id}}heim{{game.id}}" 
-                    name="{{tippModel.round.id}}heim{{game.id}}"
-                    max="15" min="0" type="number" size="1"
-                    [disabled]="game.finished"
-                    placeholder="{{game.result.homeGoals}}"
-                    [(ngModel)]="game.tipps[0].tipp.homeGoals"/>
+              <div class="col-5">
+                <input class="form-control"
+                  id="{{tippModel.round.id}}heim{{game.id}}" 
+                  name="{{tippModel.round.id}}heim{{game.id}}"
+                  max="15" min="0" type="number" size="1"
+                  [disabled]="game.finished"
+                  placeholder="{{game.result.homeGoals}}"
+                  [(ngModel)]="game.tipps[0].tipp.homeGoals"
+                  style="text-align:right"/>
               </div>
-              <div class="col-2"></div>   
+              <div class="col-5">
+                <input class="form-control"
+                  id="{{tippModel.round.id}}gast{{game.id}}"
+                  name="{{tippModel.round.id}}gast{{game.id}}"
+                  max="15" min="0" type="number" size="1"
+                  [disabled]="game.finished"
+                  placeholder="{{game.result.guestGoals}}"
+                  [(ngModel)]="game.tipps[0].tipp.guestGoals"
+                  style="text-align:right"/>
+              </div>
+              <div class="col-2" style="padding: .5rem .75rem; text-align: right"
+                [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
+                {{game.tipps[0].points}}
             </div>
+            </div>
+            <!--
             <div class="row">
-              <div class="col-6" style="text-align: right">{{game.guestTeam.name}}</div>
-              <div class="col-2">{{game.result.guestGoals}}</div>
+              <div class="col-4" style="text-align: right; padding: .5rem .75rem">{{game.guestTeam.name}}</div>
+              <div class="col-2" style="padding: .5rem .75rem">{{game.result.guestGoals}}</div>
               <div class="col-3">
                 <input class="form-control"
                   id="{{tippModel.round.id}}gast{{game.id}}"
@@ -56,21 +73,33 @@
                   max="15" min="0" type="number" size="1"
                   [disabled]="game.finished"
                   placeholder="{{game.result.guestGoals}}"
-                  [(ngModel)]="game.tipps[0].tipp.guestGoals"/>
+                  [(ngModel)]="game.tipps[0].tipp.guestGoals"
+                  style="text-align:right"/>
               </div>
               <div class="col-2"
                 [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
                 {{game.tipps[0].points}}
               </div>
             </div>
+            -->
+            <!--
+            <div class="row">
+                <div class="col">
+                  <hr />
+                </div>
+              </div>
+            -->
           </div>
-          <div class="row">
-              <div class="col" colspan="6" style="text-align:right; font-weight: bold">Gesamt</div>
-              <div class="col" style="text-align:right; font-weight: bold">{{tippModel.points}}</div>
-          </div>          
 
+        <hr/>
         <!-- Naechster und Letzer Spieltag -->
-
+        <div class="row">
+          <div class="col">
+            <div class="alert alert-primary" role="alert" style="text-align: center">
+              Punktzahl Spieltag: <b>{{tippModel.points}}</b>
+            </div>  
+          </div>
+        </div>
         <div class="row form-group">
           <div class="col">     
             <button 
