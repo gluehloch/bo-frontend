@@ -12,7 +12,6 @@
   <div *ngIf="tippModel.authenticated" class="form-group">
     <div class="alert alert-success">
       Du bist eingeloggt als {{tippModel.nickname}}.<br/>
-      Es wird die Saison ID {{currentSeasonId}} getippt.<br/>
     </div>
   </div>
 
@@ -26,7 +25,6 @@
   <div *ngIf="tippModel.authenticated && tippModel.round">
       <h2>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h2>
       <h3>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy'}}</h3>
-      <p>Round ID {{tippModel.round.id}}</p>
       <form name="tippform" novalidate>
         <table class="table table-striped">
           <tr>
@@ -65,14 +63,22 @@
               {{game.tipps[0].points}}
             </td>
           </tr>
+          <!--
           <tr>
             <td colspan="6" style="text-align:right; font-weight: bold">Gesamt</td>
             <td style="text-align:right; font-weight: bold">{{tippModel.points}}</td>
           </tr>
+          -->
         </table>
 
         <!-- Naechster und Letzer Spieltag -->
-
+        <div class="row">
+          <div class="col">
+            <div class="alert alert-primary" role="alert" style="text-align: center">
+              Punktzahl Spieltag: <b>{{tippModel.points}}</b>
+            </div>  
+          </div>
+        </div>
         <div class="row form-group">
           <div class="col">     
             <button 

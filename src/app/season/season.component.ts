@@ -36,7 +36,7 @@ export class SeasonComponent implements OnInit {
   findSeasons() {
     this.seasonService.findSeasons()
                       .subscribe((seasons: Rest.SeasonJson[]) => {
-      this.roundtable.seasons = seasons;
+      this.roundtable.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
       this.roundtable.selectedSeason = seasons[0];
 
       this.findGroups(this.roundtable.selectedSeason.id);

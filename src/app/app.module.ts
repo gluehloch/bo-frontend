@@ -78,7 +78,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
       {
         path: 'tipp-small',
         component: TippSmallComponent
-      },      
+      },
       {
         path: 'ranking',
         component: RankingComponent
