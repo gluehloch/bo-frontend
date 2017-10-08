@@ -73,7 +73,10 @@ export class AuthenticationComponent implements OnInit {
 
   authenticationModel: AuthenticationModel;
 
-  constructor(private cookieService: CookieService, private authenticationService: AuthenticationService, private navigationRouterService: NavigationRouterService) {
+  constructor(
+      private cookieService: CookieService,
+      private authenticationService: AuthenticationService,
+      private navigationRouterService: NavigationRouterService) {
     this.authenticationModel = new AuthenticationModel();
     this.authenticationModel.token = null;
   }
@@ -114,6 +117,7 @@ export class AuthenticationComponent implements OnInit {
       } else {
         console.info('Login success!');
         this.authenticationService.storeCredentials(securityToken);
+        this.navigationRouterService.login();
       }
       this.init();
     });
@@ -132,6 +136,7 @@ export class AuthenticationComponent implements OnInit {
                                 .subscribe((securityToken: Rest.SecurityTokenJson) => {
         this.authenticationService.clearCredentials();
         this.init();
+        this.navigationRouterService.logout();
         console.info('Logout successful.');
       });
     }

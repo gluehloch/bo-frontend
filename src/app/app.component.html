@@ -1,6 +1,6 @@
   <!-- class="nav nav-pills nav-fill" -->
   <!-- navbar navbar-expand-lg navbar-light bg-light -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 fixed-top">
     <button class="navbar-toggler" type="button"
       data-toggle="collapse" data-target="#navbarCollapse"
       aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,18 +23,15 @@
         <li class="nav-item" [class.active]="meisterschaften">
           <a class="nav-link" routerLink="/season">Meisterschaften</a>
         </li>
+        <li class="nav-item" *ngIf="admin">
+          <a class="nav-link" routerLink="/chiefop/party">OP Teilnehmer</a>
+        </li>
+        <li class="nav-item" *ngIf="admin">
+          <a class="nav-link" routerLink="/chiefop/seasonmanager">OP Meisterschaft</a>
+        </li>
       </ul>
     </div>
   </nav>
-  <hr/>
-  <ul>
-    <li>
-      <a routerLink="/chiefop/party">Admin: Teilnehmer</a>
-    </li>
-    <li>
-      <a routerLink="/chiefop/seasonmanager">Admin: Meisterschaft</a>
-    </li>
-  </ul>
-<div class="container">
+<div class="container" style="padding-top: 5em">
   <router-outlet></router-outlet>
 </div>
