@@ -1,6 +1,6 @@
 <div *ngIf="ranking">
-  <h1>{{ranking.season.name}} {{ranking.season.year}}</h1>
-  <h2>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy HH:mm' }}</h2>
+  <h3>{{ranking.season.name}} {{ranking.season.year}}</h3>
+  <h4>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy' }}</h4>
   <table class="table table-striped">
     <tr>
       <th>Platz</th>
@@ -23,19 +23,12 @@
       <td>{{user.ticket}}</td>
     </tr>
   </table>
-
-  <div class="btn-group btn-group-justified" role="group">
-    <div class="btn-group" role="group">
-      <button class="btn btn-default" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">Letzter</button>
+  <div class="row form-group">
+    <div class="col">
+      <button class="btn btn-lg btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">Letzter</button>
     </div>
-    <div class="btn-group" role="group">
-      <button class="btn btn-default" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>
+    <div class="col">
+      <button class="btn btn-lg btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>
     </div>
   </div>
-
-<!--
-  <div class="alert alert-danger" ng-show="round.serviceResponseMessage.status == 'ERROR'">
-    FEHLER: Für die angeforderte Meisterschaft existiert keine Teilnehmübersicht!
-  </div>
--->
 </div>

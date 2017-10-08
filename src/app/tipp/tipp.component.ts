@@ -3,8 +3,7 @@ import { CookieService } from 'ngx-cookie';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
-
-import { environment } from '../../environments/environment';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 @Component({
   selector: 'tipp',
@@ -13,8 +12,13 @@ import { environment } from '../../environments/environment';
 })
 export class TippComponent extends TippCommonComponent {
 
-  constructor(cookieService: CookieService, tippService: TippService) {
-    super(cookieService,  tippService);
+  constructor(cookieService: CookieService, tippService: TippService, navigationRouterService: NavigationRouterService) {
+    super(cookieService,  tippService, navigationRouterService);
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.navigationRouterService.activate('TIPP');
   }
 
 }

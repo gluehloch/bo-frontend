@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { USERROLE } from '../user-role.enum';
 
 import { SeasonService} from './season.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 export class Roundtable {
   seasons: Rest.SeasonJson[];
@@ -23,18 +24,19 @@ export class SeasonComponent implements OnInit {
 
   roundtable: Roundtable;
 
-  constructor(private seasonService: SeasonService) {
+  constructor(private seasonService: SeasonService, private navigationRouterService: NavigationRouterService) {
     this.roundtable = new Roundtable();
   }
 
   ngOnInit() {
     this.findSeasons();
+    this.navigationRouterService.activate('MEISTERSCHAFTEN');
   }
 
   findSeasons() {
     this.seasonService.findSeasons()
                       .subscribe((seasons: Rest.SeasonJson[]) => {
-      this.roundtable.seasons = seasons;
+      this.roundtable.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
       this.roundtable.selectedSeason = seasons[0];
 
       this.findGroups(this.roundtable.selectedSeason.id);

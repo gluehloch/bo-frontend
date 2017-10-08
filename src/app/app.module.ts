@@ -13,6 +13,8 @@ import { CookieModule } from 'ngx-cookie';
 
 import { AppComponent } from './app.component';
 
+import { NavigationRouterService } from './navigationrouter.service';
+
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
 
@@ -76,7 +78,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
       {
         path: 'tipp-small',
         component: TippSmallComponent
-      },      
+      },
       {
         path: 'ranking',
         component: RankingComponent
