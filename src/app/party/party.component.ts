@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie';
 
 import { USERROLE } from '../user-role.enum';
 import { PartyService } from './party.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 
@@ -16,7 +17,10 @@ export class PartyComponent implements OnInit {
 
   partiesModel: Array<Rest.PartyJson>;
 
-  constructor(private router: Router, private partyService: PartyService) {
+  constructor(
+      private router: Router,
+      private partyService: PartyService,
+      private navigationRouterService: NavigationRouterService) {
     this.partiesModel = new Array();
   }
 
@@ -28,6 +32,7 @@ export class PartyComponent implements OnInit {
     this.partyService.findParties().subscribe((parties: Array<Rest.PartyJson>) => {
       this.partiesModel = parties;
     });
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_TEILNEHMER);
   }
 
   updateParty(party: Rest.PartyJson) {

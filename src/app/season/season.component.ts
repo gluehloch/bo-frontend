@@ -30,7 +30,7 @@ export class SeasonComponent implements OnInit {
 
   ngOnInit() {
     this.findSeasons();
-    this.navigationRouterService.activate('MEISTERSCHAFTEN');
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_MEISTERSCHAFTEN);
   }
 
   findSeasons() {

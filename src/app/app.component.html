@@ -1,37 +1,35 @@
-  <!-- class="nav nav-pills nav-fill" -->
-  <!-- navbar navbar-expand-lg navbar-light bg-light -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 fixed-top">
-    <button class="navbar-toggler" type="button"
-      data-toggle="collapse" data-target="#navbarCollapse"
-      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" [class.active]="login">
-          <a class="nav-link" routerLink="/login">Login</a>
-        </li>
-        <li class="nav-item" [class.active]="tipp">
-          <a class="nav-link" routerLink="/tipp">Tipp</a>
-        </li>
-        <li class="nav-item" [class.active]="tippMobile">
-          <a class="nav-link" routerLink="/tipp-small">Tipp (Mobile)</a>
-        </li>
-        <li class="nav-item" [class.active]="teilnehmer">
-          <a class="nav-link" routerLink="/ranking">Teilnehmer</a>
-        </li>
-        <li class="nav-item" [class.active]="meisterschaften">
-          <a class="nav-link" routerLink="/season">Meisterschaften</a>
-        </li>
-        <li class="nav-item" *ngIf="admin">
-          <a class="nav-link" routerLink="/chiefop/party">OP Teilnehmer</a>
-        </li>
-        <li class="nav-item" *ngIf="admin">
-          <a class="nav-link" routerLink="/chiefop/seasonmanager">OP Meisterschaft</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 fixed-top">
+  <button class="navbar-toggler" type="button"
+    data-toggle="collapse" data-target="#navbarCollapse"
+    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [class.active]="login">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item" [class.active]="tipp">
+        <a class="nav-link" routerLink="/tipp">Tipp</a>
+      </li>
+      <li class="nav-item" [class.active]="tippMobile">
+        <a class="nav-link" routerLink="/tipp-small">Tipp (Mobile)</a>
+      </li>
+      <li class="nav-item" [class.active]="teilnehmer">
+        <a class="nav-link" routerLink="/ranking">Teilnehmer</a>
+      </li>
+      <li class="nav-item" [class.active]="meisterschaften">
+        <a class="nav-link" routerLink="/season">Meisterschaften</a>
+      </li>
+      <li class="nav-item" *ngIf="admin">
+        <a class="nav-link" routerLink="/chiefop/party">OP Teilnehmer</a>
+      </li>
+      <li class="nav-item" *ngIf="admin">
+        <a class="nav-link" routerLink="/chiefop/seasonmanager">OP Meisterschaft</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 <div class="container" style="padding-top: 5em">
   <router-outlet></router-outlet>
 </div>

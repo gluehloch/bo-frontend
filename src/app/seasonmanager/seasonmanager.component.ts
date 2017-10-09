@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 
 import { SeasonManagerService } from './seasonmanager.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 
@@ -15,7 +16,11 @@ export class SeasonManagerComponent implements OnInit {
 
   seasons: Array<Rest.SeasonJson>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private seasonManagerService: SeasonManagerService) {
+  constructor(
+      private router: Router,
+      private route: ActivatedRoute,
+      private seasonManagerService: SeasonManagerService,
+      private navigationRouterService: NavigationRouterService) {
     this.seasons = new Array<Rest.SeasonJson>();
   }
 
@@ -24,6 +29,7 @@ export class SeasonManagerComponent implements OnInit {
       this.seasonManagerService.findSeasons().subscribe(
         (seasons: Array<Rest.SeasonJson>) => this.seasons = seasons.sort((s1, s2) => s2.id - s1.id));
     });
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MEISTERSCHAFTEN);
   }
 
   updateSeason(season: Rest.SeasonJson) {
