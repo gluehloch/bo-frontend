@@ -27,7 +27,7 @@
       <h4>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h4>
       <form name="tippform" novalidate>
           <div *ngFor="let game of tippModel.round.games">
-            <div class="row" style="border-top:solid; background-color: greenyellow">
+            <div class="row" style="border-top:solid; background-color: #F3EEB5">
               <div class="col-12" style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
             </div>
             <div class="row" style="background-color: #F5F5F5">
