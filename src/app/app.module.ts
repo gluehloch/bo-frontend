@@ -15,6 +15,9 @@ import { AppComponent } from './app.component';
 
 import { NavigationRouterService } from './navigationrouter.service';
 
+import { HomeService } from './home/home.service';
+import { HomeComponent } from './home/home.component';
+
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
 
@@ -52,11 +55,20 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     CookieModule.forRoot(),
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([/*{
+    RouterModule.forRoot([
+      /*
+      {
         path: '',
-        redirectTo: 'dashboard',
-        component: DashboardComponent
+        redirectTo: 'home'
       },*/
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'home',
+        component: HomeComponent
+      },
       {
         path: 'login',
         component: AuthenticationComponent
@@ -115,6 +127,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
   ],
   declarations: [
     AppComponent,
+    HomeComponent,
     AuthenticationComponent,
     TippComponent,
     TippSmallComponent,
@@ -129,6 +142,8 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     UpdateMatchdayComponent
   ],
   providers: [
+    HomeService,
+    NavigationRouterService,
     AuthenticationService,
     TippService,
     SeasonService,

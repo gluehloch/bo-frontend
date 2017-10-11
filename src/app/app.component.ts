@@ -16,6 +16,7 @@ export class AppComponent {
   season = undefined;
 
   // Activated view
+  home: boolean = true;
   login: boolean = false;
   tipp: boolean = false;
   tippMobile: boolean = false;
@@ -44,7 +45,17 @@ export class AppComponent {
     navigationRouterService.navigationActivated$.subscribe(
       activatedRoute => {
         console.log('Activated route: ' + activatedRoute);
-        if (activatedRoute === NavigationRouterService.ROUTE_LOGIN) {
+        if (activatedRoute === NavigationRouterService.ROUTE_HOME) {
+          this.home = true;
+          this.login = false;
+          this.tipp = false;
+          this.tippMobile = false;
+          this.teilnehmer = false;
+          this.meisterschaften = false;
+          this.adminMeisterschaften = false;
+          this.adminTeilnehmer = false;          
+        } else if (activatedRoute === NavigationRouterService.ROUTE_LOGIN) {
+          this.home = false;
           this.login = true;
           this.tipp = false;
           this.tippMobile = false;
@@ -53,6 +64,7 @@ export class AppComponent {
           this.adminMeisterschaften = false;
           this.adminTeilnehmer = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_TIPP) {
+          this.home = false;
           this.login = false;
           this.tipp = true;
           this.tippMobile = false;
@@ -61,6 +73,7 @@ export class AppComponent {
           this.adminMeisterschaften = false;
           this.adminTeilnehmer = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_TIPPMOBILE) {
+          this.home = false;
           this.login = false;
           this.tipp = false;
           this.tippMobile = true;
@@ -69,6 +82,7 @@ export class AppComponent {
           this.adminMeisterschaften = false;
           this.adminTeilnehmer = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_TEILNEHMER) {
+          this.home = false;
           this.login = false;
           this.tipp = false;
           this.tippMobile = false;
@@ -77,6 +91,7 @@ export class AppComponent {
           this.adminMeisterschaften = false;
           this.adminTeilnehmer = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_MEISTERSCHAFTEN) {
+          this.home = false;
           this.login = false;
           this.tipp = false;
           this.tippMobile = false;
@@ -85,6 +100,7 @@ export class AppComponent {
           this.adminMeisterschaften = false;
           this.adminTeilnehmer = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_MEISTERSCHAFTEN) {
+          this.home = false;
           this.login = false;
           this.tipp = false;
           this.tippMobile = false;
@@ -93,6 +109,7 @@ export class AppComponent {
           this.adminMeisterschaften = true;
           this.adminTeilnehmer = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_TEILNEHMER) {
+          this.home = false;
           this.login = false;
           this.tipp = false;
           this.tippMobile = false;

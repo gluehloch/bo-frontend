@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class NavigationRouterService {
 
+  public static readonly ROUTE_HOME = 'HOME';
   public static readonly ROUTE_LOGIN = 'LOGIN';
   public static readonly ROUTE_TIPP = 'TIPP';
   public static readonly ROUTE_TIPPMOBILE = 'TIPPMOBILE';
