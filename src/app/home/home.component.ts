@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { RankingService } from '../ranking/ranking.service';
+import { HomeService } from './home.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
@@ -13,15 +13,19 @@ import { environment } from '../../environments/environment';
 export class HomeComponent implements OnInit {
 
   currentSeasonId = environment.currentSeasonId;
-  ranking: Rest.UserTableJson;
+  teilnehmer: Rest.UserTableJson;
 
   constructor(
-      private rankingService: RankingService,
+      private homeService: HomeService,
       private navigationRouterService: NavigationRouterService) {
-    this.rankingService = rankingService;
   }
 
   ngOnInit() {
+    this.homeService.calculate(this.currentSeasonId)
+                       .subscribe((userTable: Rest.UserTableJson) => {
+      this.teilnehmer = userTable;
+    });
+
     this.navigationRouterService.activate(NavigationRouterService.ROUTE_HOME);
   }
 

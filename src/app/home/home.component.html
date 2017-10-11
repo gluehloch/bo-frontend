@@ -5,8 +5,29 @@
   eine Email an andre.winkler at web.de 
 </p>
 <p>
-  Zum <a href="login">Login</a>.
+  Hier geht es zum <a routerLink="/login">Login</a>. Die aktuelle
+  Rangliste findet sich im Detail<a routerLink="/ranking">hier</a>.
+  In der nächsten Ausbaustufe finden sich dann dort detailierte
+  Informationen.
 </p>
+<table class="table table-striped table-sm">
+  <tr>
+    <th>Platz</th>
+    <th>Name</th>
+    <th>Punkte</th>
+    <th>g</th>
+    <th>t</th>
+    <th>v</th>
+  </tr>
+  <tr *ngFor="let user of teilnehmer?.users">
+    <td>{{user.position}}</td>
+    <td>{{user.nickname}}</td>
+    <td>{{user.points}}</td>
+    <td>{{user.win}}</td>
+    <td>{{user.toto}}</td>
+    <td>{{user.ticket}}</td>
+  </tr>
+</table>
 <p>    
   Die letzte Umstellung der Tippseite erfolgte auf Basis von AngularJS
   und einem auf Tomcat installierten Webservice. Die Client-Codebasis empfand
