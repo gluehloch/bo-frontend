@@ -6,7 +6,7 @@ import { USERROLE } from '../../user-role.enum';
 import { UpdateMatchdayService } from './updatematchday.service';
 
 export class Roundtable {
-  selectedSeason: Rest.SeasonJson;
+  seasonId: number;
   groups: Rest.GroupTypeJson[];
   selectedGroup: Rest.GroupTypeJson;
   rounds: Rest.RoundJson[];
@@ -29,6 +29,9 @@ export class UpdateMatchdayComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.map(params => params['id']).subscribe((seasonId) => {
+      this.roundtable.seasonId = seasonId;
+      console.log('Update a match day of season ' + this.roundtable.seasonId);
+      this.findGroups(this.roundtable.seasonId);
       //this.updateMatchdayService.findRounds(seasonId);
       //this.roundtable.selectedSeason = season;
       //this.findGroups(season.id);
@@ -60,7 +63,7 @@ export class UpdateMatchdayComponent implements OnInit {
       this.roundtable.groups = groups;
       this.roundtable.selectedGroup = groups[0];
 
-      this.findRounds(this.roundtable.selectedSeason.id, this.roundtable.selectedGroup.id);
+      this.findRounds(this.roundtable.seasonId, this.roundtable.selectedGroup.id);
     });
   }
 
@@ -91,7 +94,7 @@ export class UpdateMatchdayComponent implements OnInit {
                             .groups
                             .find(group => group.id == selectedGroupId);
     this.roundtable.selectedGroup = selectedGroup;
-    this.findRounds(this.roundtable.selectedSeason.id, selectedGroupId);
+    this.findRounds(this.roundtable.seasonId, selectedGroupId);
   }
 
   roundSelected(event) {

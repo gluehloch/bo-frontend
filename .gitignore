@@ -40,3 +40,7 @@ testem.log
 .DS_Store
 Thumbs.db
 /nbproject
+
+# Environment definition
+src/environments/environment.ts
+

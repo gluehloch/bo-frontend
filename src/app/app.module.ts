@@ -13,11 +13,17 @@ import { CookieModule } from 'ngx-cookie';
 
 import { AppComponent } from './app.component';
 
+import { NavigationRouterService } from './navigationrouter.service';
+
+import { HomeService } from './home/home.service';
+import { HomeComponent } from './home/home.component';
+
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
 
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
+import { TippSmallComponent } from './tipp/tipp-small.component';
 
 import { SeasonService } from './season/season.service';
 import { SeasonComponent } from './season/season.component';
@@ -49,11 +55,20 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     CookieModule.forRoot(),
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([/*{
+    RouterModule.forRoot([
+      /*
+      {
         path: '',
-        redirectTo: 'dashboard',
-        component: DashboardComponent
+        redirectTo: 'home'
       },*/
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'home',
+        component: HomeComponent
+      },
       {
         path: 'login',
         component: AuthenticationComponent
@@ -71,6 +86,10 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
       {
         path: 'tipp',
         component: TippComponent
+      },
+      {
+        path: 'tipp-small',
+        component: TippSmallComponent
       },
       {
         path: 'ranking',
@@ -108,8 +127,10 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
   ],
   declarations: [
     AppComponent,
+    HomeComponent,
     AuthenticationComponent,
     TippComponent,
+    TippSmallComponent,
     SeasonComponent,
     RankingComponent,
     SessionComponent,
@@ -121,6 +142,8 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     UpdateMatchdayComponent
   ],
   providers: [
+    HomeService,
+    NavigationRouterService,
     AuthenticationService,
     TippService,
     SeasonService,

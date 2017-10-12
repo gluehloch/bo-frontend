@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 
 import { AuthenticationService } from './authentication.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 import { USERROLE } from '../user-role.enum';
 
@@ -72,13 +73,17 @@ export class AuthenticationComponent implements OnInit {
 
   authenticationModel: AuthenticationModel;
 
-  constructor(private cookieService: CookieService, private authenticationService: AuthenticationService) {
+  constructor(
+      private cookieService: CookieService,
+      private authenticationService: AuthenticationService,
+      private navigationRouterService: NavigationRouterService) {
     this.authenticationModel = new AuthenticationModel();
     this.authenticationModel.token = null;
   }
 
   ngOnInit() {
     this.init();
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_LOGIN);
   }
 
   init() {
@@ -112,6 +117,7 @@ export class AuthenticationComponent implements OnInit {
       } else {
         console.info('Login success!');
         this.authenticationService.storeCredentials(securityToken);
+        this.navigationRouterService.login();
       }
       this.init();
     });
@@ -130,6 +136,7 @@ export class AuthenticationComponent implements OnInit {
                                 .subscribe((securityToken: Rest.SecurityTokenJson) => {
         this.authenticationService.clearCredentials();
         this.init();
+        this.navigationRouterService.logout();
         console.info('Logout successful.');
       });
     }

@@ -1,0 +1,46 @@
+<h2>Tippdiekistebier | TDKB</h2>
+<p>
+  Der beste Tipper erhält am Ende der Meisterschaft eine Kiste Bier.
+  Zur Zeit gibt es keine öffentliche Anmeldeseite. Bei Interesse bitte
+  eine Email an andre.winkler at web.de 
+</p>
+<p>
+  Hier geht es zum <a routerLink="/login">Login</a>. Die aktuelle
+  Rangliste findet sich im Detail<a routerLink="/ranking">hier</a>.
+  In der nächsten Ausbaustufe finden sich dann dort detailierte
+  Informationen.
+</p>
+<table class="table table-striped table-sm">
+  <tr>
+    <th>Platz</th>
+    <th>Name</th>
+    <th>Punkte</th>
+    <th>g</th>
+    <th>t</th>
+    <th>v</th>
+  </tr>
+  <tr *ngFor="let user of teilnehmer?.users">
+    <td>{{user.position}}</td>
+    <td>{{user.nickname}}</td>
+    <td>{{user.points}}</td>
+    <td>{{user.win}}</td>
+    <td>{{user.toto}}</td>
+    <td>{{user.ticket}}</td>
+  </tr>
+</table>
+<p>    
+  Die letzte Umstellung der Tippseite erfolgte auf Basis von AngularJS
+  und einem auf Tomcat installierten Webservice. Die Client-Codebasis empfand
+  ich allerdings als sehr unhandlich. Als die Seite das erste Release
+  vollzogen hatte, tauchte Angular.io 2.0 auf. Statt Javascript war
+  nun Typescript angesagt. Der Umstellungsaufwand war immens, da alles
+  in der knappen Freizeit erfolgte. Und heute (Stand 11.10.2017) ist
+  es geschafft. Meine Hoffnung ist, das die derzeitige technische Basis
+  etwas mehr Bestand hat, so das ich mich wieder mehr den Funktionen
+  widmen kann.
+</p>
+<h3>Werbung</h3>
+<p>
+  Werbung muss auch sein: <a href="http://go.andrewinkler.80647.digistore24.com/">Hattwigs Akademie</a>
+  Hier können alle Gewinne sinnvoll reinvestiert werden.
+</p>

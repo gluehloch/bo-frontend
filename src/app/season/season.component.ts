@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { USERROLE } from '../user-role.enum';
 
 import { SeasonService} from './season.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 export class Roundtable {
   seasons: Rest.SeasonJson[];
@@ -23,18 +24,27 @@ export class SeasonComponent implements OnInit {
 
   roundtable: Roundtable;
 
-  constructor(private seasonService: SeasonService) {
+  constructor(private seasonService: SeasonService, private navigationRouterService: NavigationRouterService) {
     this.roundtable = new Roundtable();
   }
 
   ngOnInit() {
     this.findSeasons();
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_MEISTERSCHAFTEN);
+  }
+
+  private sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
+    return games.sort((g1, g2) => {
+      let date1 = new Date(g1.dateTime);
+      let date2 = new Date(g2.dateTime);
+      return date1.getTime() - date2.getTime();
+    });
   }
 
   findSeasons() {
     this.seasonService.findSeasons()
                       .subscribe((seasons: Rest.SeasonJson[]) => {
-      this.roundtable.seasons = seasons;
+      this.roundtable.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
       this.roundtable.selectedSeason = seasons[0];
 
       this.findGroups(this.roundtable.selectedSeason.id);
@@ -56,7 +66,6 @@ export class SeasonComponent implements OnInit {
                       .subscribe((season: Rest.SeasonJson) => {
       this.roundtable.rounds = season.rounds;
       this.roundtable.selectedRound = season.rounds[0];
-
       this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
     });
   }
@@ -65,6 +74,7 @@ export class SeasonComponent implements OnInit {
     this.seasonService.findRound(roundId, groupId)
                       .subscribe((round: Rest.RoundAndTableJson) => {
       this.roundtable.table = round;
+      this.roundtable.table.roundJson.games = this.sortGames(this.roundtable.table.roundJson.games);
     });
   }
 
