@@ -27,12 +27,16 @@
       <h4>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h4>
       <form name="tippform" novalidate>
           <div *ngFor="let game of tippModel.round.games; let index = index">
-            <div *ngIf="index === 0" style="border-top:solid; background-color: #F3EEB5">
-                <div class="col-12" style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+
+            <div class="row">
+              <div class="col-12" *ngIf="index === 0" style="border-top:solid; background-color: #F3EEB5">
+                  <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+              </div>
+              <div class="col-12" *ngIf="index > 0 && (tippModel.round.games[index].dateTime !== tippModel.round.games[index - 1].dateTime)" style="border-top:solid; background-color: #F3EEB5">
+                <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+              </div>
             </div>
-            <div *ngIf="index > 0 && (tippModel.round.games[index].dateTime !== tippModel.round.games[index - 1].dateTime)"  class="row" style="border-top:solid; background-color: #F3EEB5">
-              <div class="col-12" style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
-            </div>
+
             <div class="row" style="background-color: #F5F5F5">
               <div class="col-5" style="text-align: right; padding: .5rem .75rem">{{game.homeTeam.name}}</div>
               <div class="col-5" style="text-align: left; padding: .5rem .75rem">{{game.guestTeam.name}}</div>
