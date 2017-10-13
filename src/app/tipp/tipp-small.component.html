@@ -63,12 +63,13 @@
                   [(ngModel)]="game.tipps[0].tipp.guestGoals"
                   style="text-align:right"/>
               </div>
-              <div class="col-2" style="padding: .5rem .75rem; text-align: right"
+              <div *ngIf="game.finished" class="col-2" style="padding: .5rem .75rem; text-align: right"
                 [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
                 {{game.tipps[0].points}}
+              </div>
+              <div *ngIf="!game.finished" class="col-2"></div>
             </div>
           </div>
-        </div>
         <hr/>
         <!-- Naechster und Letzer Spieltag -->
         <div class="row">
