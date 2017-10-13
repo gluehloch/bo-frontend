@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -host 192.168.0.110",
+    "start": "ng serve",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": {
       "protractor": {
@@ -31,15 +31,14 @@
   },
   "private": true,
   "dependencies": {
-    
-    "@angular/common": "^4.3.6",
-    "@angular/compiler": "^4.3.6",
-    "@angular/core": "^4.3.6",
-    "@angular/forms": "^4.3.6",
-    "@angular/http": "^4.3.6",
-    "@angular/platform-browser": "^4.3.6",
-    "@angular/platform-browser-dynamic": "^4.3.6",
-    "@angular/router": "^4.3.6",
+    "@angular/common": "^4.4.5",
+    "@angular/compiler": "^4.4.5",
+    "@angular/core": "^4.4.5",
+    "@angular/forms": "^4.4.5",
+    "@angular/http": "^4.4.5",
+    "@angular/platform-browser": "^4.4.5",
+    "@angular/platform-browser-dynamic": "^4.4.5",
+    "@angular/router": "^4.4.5",
 
     "core-js": "^2.4.1",
     "jshint": "^2.9.4",
@@ -48,8 +47,8 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "^1.2.1",
-    "@angular/compiler-cli": "^4.0.0",
+    "@angular/cli": "^1.4.7",
+    "@angular/compiler-cli": "^4.4.5",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",
     "codelyzer": "~2.0.0",
@@ -63,6 +62,6 @@
     "protractor": "~5.1.0",
     "ts-node": "2.0.0",
     "tslint": "^4.5.0",
-    "typescript": "~2.4.0"
+    "typescript": "~2.5.3"
   }
 }
