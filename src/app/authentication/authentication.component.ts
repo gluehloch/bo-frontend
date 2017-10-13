@@ -83,7 +83,7 @@ export class AuthenticationComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    this.navigationRouterService.activate('LOGIN');
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_LOGIN);
   }
 
   init() {

@@ -30,7 +30,15 @@ export class SeasonComponent implements OnInit {
 
   ngOnInit() {
     this.findSeasons();
-    this.navigationRouterService.activate('MEISTERSCHAFTEN');
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_MEISTERSCHAFTEN);
+  }
+
+  private sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
+    return games.sort((g1, g2) => {
+      let date1 = new Date(g1.dateTime);
+      let date2 = new Date(g2.dateTime);
+      return date1.getTime() - date2.getTime();
+    });
   }
 
   findSeasons() {
@@ -58,7 +66,6 @@ export class SeasonComponent implements OnInit {
                       .subscribe((season: Rest.SeasonJson) => {
       this.roundtable.rounds = season.rounds;
       this.roundtable.selectedRound = season.rounds[0];
-
       this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
     });
   }
@@ -67,6 +74,7 @@ export class SeasonComponent implements OnInit {
     this.seasonService.findRound(roundId, groupId)
                       .subscribe((round: Rest.RoundAndTableJson) => {
       this.roundtable.table = round;
+      this.roundtable.table.roundJson.games = this.sortGames(this.roundtable.table.roundJson.games);
     });
   }
 
