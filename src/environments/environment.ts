@@ -5,7 +5,7 @@
 
 export const environment = {
 
-  production: false,
+  production: true,
   //rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
   //adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
 
@@ -13,10 +13,12 @@ export const environment = {
   //adminUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/chiefoperator/',
 
   // Der wacken2016/stauder PC
-  rootUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/office/',
-  adminUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/chiefoperator/',
+  // rootUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/office/',
+  // adminUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/chiefoperator/',
   // Laptop (W550s) IP Adresse: 192.168.0.110
 
+  rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
+  adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
   currentSeasonId: 26
 
 };
