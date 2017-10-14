@@ -118,6 +118,7 @@ export class TippCommonComponent implements OnInit {
 
     this.tippService.tipp(submitTipp)
                     .subscribe((roundJson: Rest.RoundJson) => {
+                         roundJson.games = this.sortGames(roundJson.games);
                          this.tippModel.round = roundJson;
                          this.submitButtonModel.pressed = false;
                          this.submitButtonModel.responseStatusCode = 200;
