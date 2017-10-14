@@ -1,6 +1,26 @@
 # Testangie
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.25.5.
+Momentan arbeitet diese Projekt mit angular-cli 1.4.7. Um alte Resistanten los zu werden, empfiehlt es
+sich, die folgenden Befehle auszuführen:
+
+Falls noch eine alte BETA Version vorhanden ist:
+
+```
+npm uninstall -g angular-cli
+npm uninstall --save-dev angular-cli
+```
+Ansonsten angular-cli aus dem globalen Namensraum entfernen:
+```
+npm uninstall -g @angular/cli
+npm cache clean
+npm install -g @angular/cli@latest
+```
+Und um die neueste Version in das Projekt einzubinden:
+```
+rm -rf node_modules dist # use rmdir on Windows
+npm install --save-dev @angular/cli@latest
+npm install
+```
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
