@@ -1,7 +1,7 @@
 <div *ngIf="ranking">
   <h3>{{ranking.season.name}} {{ranking.season.year}}</h3>
   <h4>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy' }}</h4>
-  <table class="table table-striped">
+  <table class="table table-striped table-sm">
     <tr>
       <th>Platz</th>
       <th>Name</th>
@@ -10,7 +10,7 @@
       <th>t</th>
       <th>v</th>
     </tr>
-    <tr *ngFor="let user of ranking.users">
+    <tr *ngFor="let user of ranking?.users">
       <td>{{user.position}}</td>
       <td>{{user.nickname}}
         <!--
@@ -23,6 +23,30 @@
       <td>{{user.ticket}}</td>
     </tr>
   </table>
+
+  <table class="table table-striped table-sm">
+    <tr>
+      <th>Platz</th>
+      <th>Name</th>
+      <th>Punkte</th>
+      <th>g</th>
+      <th>t</th>
+      <th>v</th>
+    </tr>
+    <tr *ngFor="let user of rankingRound?.users">
+      <td>{{user.position}}</td>
+      <td>{{user.nickname}}
+        <!--
+        <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
+        -->
+      </td>
+      <td>{{user.points}}</td>
+      <td>{{user.win}}</td>
+      <td>{{user.toto}}</td>
+      <td>{{user.ticket}}</td>
+    </tr>
+  </table>
+
   <div class="row form-group">
     <div class="col">
       <button class="btn btn-lg btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">Letzter</button>
