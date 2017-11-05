@@ -10,40 +10,31 @@
       <th>t</th>
       <th>v</th>
     </tr>
+    <tr><td colspan="6"><b>Gesamtwertung</b></td></tr>
     <tr *ngFor="let user of ranking?.users">
-      <td>{{user.position}}</td>
+      <td style="text-align: right">{{user.position}}</td>
       <td>{{user.nickname}}
         <!--
         <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
         -->
       </td>
-      <td>{{user.points}}</td>
-      <td>{{user.win}}</td>
-      <td>{{user.toto}}</td>
-      <td>{{user.ticket}}</td>
+      <td style="text-align: right">{{user.points}}</td>
+      <td style="text-align: right">{{user.win}}</td>
+      <td style="text-align: right">{{user.toto}}</td>
+      <td style="text-align: right">{{user.ticket}}</td>
     </tr>
-  </table>
-
-  <table class="table table-striped table-sm">
-    <tr>
-      <th>Platz</th>
-      <th>Name</th>
-      <th>Punkte</th>
-      <th>g</th>
-      <th>t</th>
-      <th>v</th>
-    </tr>
+    <tr><td colspan="6"><b>Spieltagswertung</b></td></tr>
     <tr *ngFor="let user of rankingRound?.users">
-      <td>{{user.position}}</td>
+      <td style="text-align: right">{{user.position}}</td>
       <td>{{user.nickname}}
         <!--
         <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
         -->
       </td>
-      <td>{{user.points}}</td>
-      <td>{{user.win}}</td>
-      <td>{{user.toto}}</td>
-      <td>{{user.ticket}}</td>
+      <td style="text-align: right">{{user.points}}</td>
+      <td style="text-align: right">{{user.win}}</td>
+      <td style="text-align: right">{{user.toto}}</td>
+      <td style="text-align: right">{{user.ticket}}</td>
     </tr>
   </table>
 

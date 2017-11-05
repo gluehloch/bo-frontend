@@ -38,6 +38,10 @@ export class RankingComponent implements OnInit {
     this.rankingService.nextRound(roundId)
                        .subscribe((userTable: Rest.UserTableJson) => {
       this.ranking = userTable;
+      this.rankingService.calculateRoundOnly(this.ranking.round.id)
+                         .subscribe((userTable: Rest.UserTableJson) => {
+         this.rankingRound = userTable;
+      });
     });
   }
 
@@ -45,6 +49,10 @@ export class RankingComponent implements OnInit {
     this.rankingService.preRound(roundId)
                        .subscribe((userTable: Rest.UserTableJson) => {
       this.ranking = userTable;
+      this.rankingService.calculateRoundOnly(this.ranking.round.id)
+                         .subscribe((userTable: Rest.UserTableJson) => {
+         this.rankingRound = userTable;
+      });
     });
   }
 
