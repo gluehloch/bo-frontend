@@ -60,19 +60,17 @@
 
   <div *ngIf="roundtable.table">
     <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
-    <table class="table table-striped table-sm">
+    <table class="table table-striped table-sm table-responsive">
       <tr>
         <th style="text-align:right">Datum</th>
         <th style="text-align:right">Heimmannschaft</th>
-        <th>HZ</th>
-        <th>ES</th>
+        <th>Ergebnis</th>
         <th style="text-align:left">Gastmannschaft</th>
       </tr>
        <tr *ngFor="let game of roundtable.table.roundJson.games">
          <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
          <td style="text-align:right">{{game.homeTeam.name}}</td>
-         <td>({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}})</td>
-         <td>{{game.result.homeGoals}}:{{game.result.guestGoals}}</td>
+         <td>({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}}) {{game.result.homeGoals}}:{{game.result.guestGoals}}</td>
          <td style="text-align:left">{{game.guestTeam.name}}</td>
        </tr>
     </table>
@@ -101,7 +99,7 @@
       <th>Punkte</th>
       <th>Tore</th>
       <th>g:r:v</th>
-      <tr *ngFor="let team of roundtable.table.groupTeamTableJsons.teamResultJsons">
+      <tr *ngFor="let team of roundtable.table.groupTeamTableJsons.teamResultJsons; index as i" [ngClass]="getColor(i)">
         <td>{{team.tablePosition}}</td>
         <td>{{team.teamName}}</td>
         <td>{{team.win * 3 + team.remis}}</td>

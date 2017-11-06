@@ -60,7 +60,7 @@
   <form #updateMatchday="ngForm" name="upateMatchday">
     <div *ngIf="roundtable.table">
       <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
-      <table class="table table-striped">
+      <table class="table table-striped table-sm">
         <tr>
           <th>F</th>
           <th style="text-align:right">Datum</th>
@@ -97,17 +97,17 @@
       <div class="row">
         <div class="col">
           <button
-            class="btn btn-lg btn-primary btn-block"
+            class="btn btn-md btn-primary btn-block"
             (click)="updateMatchdDay()">Speichern</button>
         </div>
         <div class="col">     
           <button
-            class="btn btn-lg btn-secondary btn-block"
+            class="btn btn-md btn-secondary btn-block"
             (click)="updateOpenligaDb()">Update mit OpenligaDB</button>
         </div>
         <div class="col">
           <button
-            class="btn btn-lg btn-secondary btn-block"
+            class="btn btn-md btn-secondary btn-block"
             (click)="createOpenligaDb()">Anlegen mit OpenligaDB</button>
         </div>
       </div>
@@ -132,7 +132,7 @@
     </div>
 -->
   <div *ngIf="roundtable.table">
-    <table class="table table-striped">
+    <table class="table table-striped table-sm">
       <th>Pos</th>
       <th>Team</th>
       <th>Punkte</th>

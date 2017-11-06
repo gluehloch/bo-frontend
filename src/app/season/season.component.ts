@@ -113,4 +113,15 @@ export class SeasonComponent implements OnInit {
     this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
   }
 
+  getColor(i: number) {
+    if (i == 0) {
+      return 'table-success';
+    } else if (i >= 1 && i <= 3) {
+      return 'table-info';
+    } else if (i >= 4 && i <= 5) {
+      return 'table-warning';
+    } else if (i >= 15 && i <= 17) {
+      return 'table-danger';
+    }
+  }
 }
