@@ -14,33 +14,41 @@ export class RankingComponent implements OnInit {
 
   currentSeasonId = environment.currentSeasonId;
   ranking: Rest.UserTableJson;
+  rankingRound: Rest.UserTableJson;
 
   constructor(
       private rankingService: RankingService,
       private navigationRouterService: NavigationRouterService) {
-    this.rankingService = rankingService;
   }
 
   ngOnInit() {
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_TEILNEHMER);
+
     this.rankingService.calculate(this.currentSeasonId)
                        .subscribe((userTable: Rest.UserTableJson) => {
-      this.ranking = userTable;
+      this.calculatRoundRankingOnly(userTable);
     });
-
-    this.navigationRouterService.activate(NavigationRouterService.ROUTE_TEILNEHMER);
   }
 
   next(roundId: number) {
     this.rankingService.nextRound(roundId)
                        .subscribe((userTable: Rest.UserTableJson) => {
-      this.ranking = userTable;
+      this.calculatRoundRankingOnly(userTable);
     });
   }
 
   last(roundId: number) {
     this.rankingService.preRound(roundId)
                        .subscribe((userTable: Rest.UserTableJson) => {
-      this.ranking = userTable;
+      this.calculatRoundRankingOnly(userTable);
+    });
+  }
+
+  private calculatRoundRankingOnly(userTable: Rest.UserTableJson) {
+    this.ranking = userTable;
+    this.rankingService.calculateRoundOnly(this.ranking.round.id)
+                       .subscribe((userTable: Rest.UserTableJson) => {
+       this.rankingRound = userTable;
     });
   }
 

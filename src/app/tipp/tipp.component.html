@@ -58,9 +58,11 @@
                 placeholder="{{game.result.guestGoals}}"
                 [(ngModel)]="game.tipps[0].tipp.guestGoals"/>
             </td>
-            <td style="text-align:right"
-            [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
+            <td *ngIf="game.finished" style="text-align:right"
+              [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
               {{game.tipps[0].points}}
+            </td>
+            <td *ngIf="!game.finished">
             </td>
           </tr>
           <!--
