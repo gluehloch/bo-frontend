@@ -64,13 +64,13 @@
       <tr>
         <th style="text-align:right">Datum</th>
         <th style="text-align:right">Heimmannschaft</th>
-        <th>Ergebnis</th>
+        <th style="text-align:center">Ergebnis</th>
         <th style="text-align:left">Gastmannschaft</th>
       </tr>
        <tr *ngFor="let game of roundtable.table.roundJson.games">
          <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
          <td style="text-align:right">{{game.homeTeam.name}}</td>
-         <td>({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}}) {{game.result.homeGoals}}:{{game.result.guestGoals}}</td>
+         <td style="text-align:center">({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}}) {{game.result.homeGoals}}:{{game.result.guestGoals}}</td>
          <td style="text-align:left">{{game.guestTeam.name}}</td>
        </tr>
     </table>
