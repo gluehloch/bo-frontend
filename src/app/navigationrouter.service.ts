@@ -7,11 +7,9 @@ export class NavigationRouterService {
   public static readonly ROUTE_HOME = 'HOME';
   public static readonly ROUTE_LOGIN = 'LOGIN';
   public static readonly ROUTE_TIPP = 'TIPP';
-  public static readonly ROUTE_TIPPMOBILE = 'TIPPMOBILE';
   public static readonly ROUTE_TEILNEHMER = 'TEILNEHMER';
   public static readonly ROUTE_MEISTERSCHAFTEN = 'MEISTERSCHAFTEN';
-  public static readonly ROUTE_ADMIN_TEILNEHMER = 'ADMIN_TEILNEHMER';
-  public static readonly ROUTE_ADMIN_MEISTERSCHAFTEN = 'ADMIN_MEISTERSCHAFTEN';
+  public static readonly ROUTE_ADMIN_MENU = 'ADMIN_MENU';
   
   // Observable string sources
   private navigationSource = new Subject<string>();

@@ -33,7 +33,7 @@
       <!--[(ngModel)]="roundtable.selectedRound"-->
       <option
         *ngFor="let round of roundtable.rounds"
-        [value]="round.id">
+        [value]="round.id"  [selected]="roundtable.selectedRound.id == round.id">
         {{round.dateTime | date: 'dd.MM.yyyy HH:mm'}}
       </option>
     </select>

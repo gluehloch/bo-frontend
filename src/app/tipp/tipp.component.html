@@ -22,6 +22,10 @@
     </div>
   </div>
 
+  <div>
+    <p>Hier geht es zu der <a routerLink="/tipp-small">mobilen Variante</a> der Tippseite.</p>
+  </div>  
+
   <div *ngIf="tippModel.authenticated && tippModel.round">
       <h2>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h2>
       <h3>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy'}}</h3>

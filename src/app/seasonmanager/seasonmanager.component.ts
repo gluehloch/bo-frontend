@@ -29,7 +29,7 @@ export class SeasonManagerComponent implements OnInit {
       this.seasonManagerService.findSeasons().subscribe(
         (seasons: Array<Rest.SeasonJson>) => this.seasons = seasons.sort((s1, s2) => s2.id - s1.id));
     });
-    this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MEISTERSCHAFTEN);
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
   }
 
   updateSeason(season: Rest.SeasonJson) {

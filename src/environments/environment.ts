@@ -5,9 +5,12 @@
 
 export const environment = {
 
-  production: true,
-  rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
-  adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
+  production: false,
+  // rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
+  // adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
+
+  rootUrl: 'http://192.168.0.136:8080/betoffice-jweb/bo/office/',
+  adminUrl: 'http://192.168.0.136:8080/betoffice-jweb/bo/chiefoperator/',  
 
   //rootUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/office/',
   //adminUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/chiefoperator/',

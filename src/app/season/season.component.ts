@@ -65,7 +65,24 @@ export class SeasonComponent implements OnInit {
     this.seasonService.findRounds(seasonId, groupId)
                       .subscribe((season: Rest.SeasonJson) => {
       this.roundtable.rounds = season.rounds;
-      this.roundtable.selectedRound = season.rounds[0];
+
+      if (season.rounds != null && season.rounds.length > 0) {
+        let now = new Date();
+        let possibleSelectedRound = null;
+        season.rounds.forEach(round => {
+          let roundDate = new Date(round.dateTime)
+          if (roundDate < now) {
+            possibleSelectedRound = round;
+          }
+        });
+
+        if (possibleSelectedRound != null) {
+          this.roundtable.selectedRound = possibleSelectedRound;
+        } else {
+          this.roundtable.selectedRound = season.rounds[0];
+        }
+      }
+
       this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
     });
   }

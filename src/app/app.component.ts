@@ -19,11 +19,9 @@ export class AppComponent {
   home: boolean = true;
   login: boolean = false;
   tipp: boolean = false;
-  tippMobile: boolean = false;
   teilnehmer: boolean = false;
   meisterschaften: boolean = false;
-  adminTeilnehmer: boolean = false;
-  adminMeisterschaften: boolean = false;
+  adminmenu: boolean = false;
 
   // Session role
   admin: boolean = false;
@@ -49,74 +47,44 @@ export class AppComponent {
           this.home = true;
           this.login = false;
           this.tipp = false;
-          this.tippMobile = false;
           this.teilnehmer = false;
           this.meisterschaften = false;
-          this.adminMeisterschaften = false;
-          this.adminTeilnehmer = false;          
+          this.adminmenu = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_LOGIN) {
           this.home = false;
           this.login = true;
           this.tipp = false;
-          this.tippMobile = false;
           this.teilnehmer = false;
           this.meisterschaften = false;
-          this.adminMeisterschaften = false;
-          this.adminTeilnehmer = false;
+          this.adminmenu = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_TIPP) {
           this.home = false;
           this.login = false;
           this.tipp = true;
-          this.tippMobile = false;
           this.teilnehmer = false;
           this.meisterschaften = false;
-          this.adminMeisterschaften = false;
-          this.adminTeilnehmer = false;
-        } else if (activatedRoute === NavigationRouterService.ROUTE_TIPPMOBILE) {
-          this.home = false;
-          this.login = false;
-          this.tipp = false;
-          this.tippMobile = true;
-          this.teilnehmer = false;
-          this.meisterschaften = false;
-          this.adminMeisterschaften = false;
-          this.adminTeilnehmer = false;
+          this.adminmenu = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_TEILNEHMER) {
           this.home = false;
           this.login = false;
           this.tipp = false;
-          this.tippMobile = false;
           this.teilnehmer = true;
           this.meisterschaften = false;
-          this.adminMeisterschaften = false;
-          this.adminTeilnehmer = false;
+          this.adminmenu = false;
         } else if (activatedRoute === NavigationRouterService.ROUTE_MEISTERSCHAFTEN) {
           this.home = false;
           this.login = false;
           this.tipp = false;
-          this.tippMobile = false;
           this.teilnehmer = false;
           this.meisterschaften = true;
-          this.adminMeisterschaften = false;
-          this.adminTeilnehmer = false;
-        } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_MEISTERSCHAFTEN) {
+          this.adminmenu = false;
+        } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_MENU) {
           this.home = false;
           this.login = false;
           this.tipp = false;
-          this.tippMobile = false;
           this.teilnehmer = false;
           this.meisterschaften = false;
-          this.adminMeisterschaften = true;
-          this.adminTeilnehmer = false;
-        } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_TEILNEHMER) {
-          this.home = false;
-          this.login = false;
-          this.tipp = false;
-          this.tippMobile = false;
-          this.teilnehmer = false;
-          this.meisterschaften = false;
-          this.adminMeisterschaften = false;
-          this.adminTeilnehmer = true;
+          this.adminmenu = true;
         }
       }
     );

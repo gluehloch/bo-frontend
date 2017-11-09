@@ -13,22 +13,28 @@
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
       <li class="nav-item" [class.active]="tipp">
-        <a class="nav-link" routerLink="/tipp">Tipp</a>
+        <a class="nav-link" routerLink="/tipp-small">Tipp</a>
       </li>
+      <!--
       <li class="nav-item" [class.active]="tippMobile">
         <a class="nav-link" routerLink="/tipp-small">Tipp (Mobile)</a>
       </li>
+      -->
       <li class="nav-item" [class.active]="teilnehmer">
         <a class="nav-link" routerLink="/ranking">Teilnehmer</a>
       </li>
       <li class="nav-item" [class.active]="meisterschaften">
         <a class="nav-link" routerLink="/season">Meisterschaften</a>
       </li>
-      <li class="nav-item" *ngIf="admin">
-        <a class="nav-link" routerLink="/chiefop/party">OP Teilnehmer</a>
-      </li>
-      <li class="nav-item" *ngIf="admin">
-        <a class="nav-link" routerLink="/chiefop/seasonmanager">OP Meisterschaft</a>
+
+      <li class="nav-item dropdown" *ngIf="admin">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+          aria-haspopup="true" aria-expanded="false" [class.active]="adminmenu">Admin</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" routerLink="/chiefop/party">Teilnehmer</a>
+          <a class="dropdown-item" routerLink="/chiefop/seasonmanager">Meisterschaft</a>
+          <!--<div class="dropdown-divider"></div>-->
+        </div>
       </li>
     </ul>
   </div>

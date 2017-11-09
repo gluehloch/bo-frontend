@@ -63,6 +63,7 @@ export class TippCommonComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.navigationRouterService.activate(NavigationRouterService.ROUTE_TIPP);
     this.checkAuthorization();
 
     if (this.tippModel.authenticated) {

@@ -19,15 +19,5 @@ export class HomeService extends BetofficeService {
   calculate(seasonId: number) : Observable<Rest.UserTableJson> {
     return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/season/' + seasonId, {headers: this.createHeader()});
   }
-  
-  /*
-  nextRound(currentRoundId: number) {
-    return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/round/'  + currentRoundId + '/next', {headers: this.createHeader()});
-  }
-
-  preRound(currentRoundId: number) {
-    return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/round/'  + currentRoundId + '/prev', {headers: this.createHeader()});
-  }
-  */
 
 }
