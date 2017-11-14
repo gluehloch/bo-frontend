@@ -39,6 +39,9 @@ import { PartyComponent } from './party/party.component';
 import { PartyUpdateService } from './party/update/partyupdate.service';
 import { PartyUpdateComponent } from './party/update/partyupdate.component';
 
+import { TeamComponent } from './team/team.component';
+import { TeamService} from './team/team.service';
+
 import { SeasonManagerService } from './seasonmanager/seasonmanager.service';
 import { SeasonManagerComponent } from './seasonmanager/seasonmanager.component';
 import { SeasonManagerUpdateService } from './seasonmanager/update/seasonmanagerupdate.service';
@@ -104,6 +107,10 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
         component: PartyComponent
       },
       {
+        path: 'chiefop/team',
+        component: TeamComponent
+      },
+      {
         path: 'chiefop/party/update/:id',
         component: PartyUpdateComponent
       },
@@ -136,6 +143,8 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     SessionComponent,
     PartyComponent,
     PartyUpdateComponent,
+    TeamComponent,
+    TeamService,
     SeasonManagerComponent,
     SeasonManagerUpdateComponent,
     SeasonManagerCreateComponent,
@@ -151,6 +160,8 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     SeasonService,
     PartyService,
     PartyUpdateService,
+    TeamComponent,
+    TeamService,
     SeasonManagerService,
     SeasonManagerUpdateService,
     SeasonManagerCreateService,
