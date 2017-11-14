@@ -39,8 +39,8 @@ export class TeamComponent implements OnInit {
   }
 
   addTeam(team: Rest.TeamJson) {
-    this.teamService.addTeam(team).subscribe((team: Rest.TeamJson) => {
-      this.teamsModel.push(team);
+    this.teamService.addTeam(team).subscribe((updatedTeam: Rest.TeamJson) => {
+      this.teamsModel.push(updatedTeam);
       this.sortTeams();
     });
   }
