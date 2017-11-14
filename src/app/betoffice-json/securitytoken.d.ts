@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.14.251 on 2017-07-24 07:36:02.
+// Generated using typescript-generator version 1.14.251 on 2017-11-14 07:39:14.
 
 declare namespace Rest {
 
@@ -65,7 +65,7 @@ declare namespace Rest {
         games: GameJson[];
     }
 
-    interface SeasonJson extends AbstractIdentifier {
+    interface SeasonJson extends AbstractIdentifier, Serializable {
         name: string;
         year: string;
         seasonType: string;
@@ -99,6 +99,8 @@ declare namespace Rest {
     interface TeamJson extends AbstractOpenligaid {
         name: string;
         longName: string;
+        shortName: string;
+        xshortName: string;
         logo: string;
         type: string;
     }
