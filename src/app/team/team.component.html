@@ -10,7 +10,7 @@
         <th>Superkurz</th>
         <th>Logo</th>
         <th>Typ</th>
-        <th>Standort</th>
+        <!--<th>Standort</th>-->
         <th>Openliga ID</th>
       </tr>
        <tr *ngFor="let team of teamsModel">
@@ -20,11 +20,12 @@
            </button>
          </td>
          <td>{{team.name}}</td>
-         <td>{{team.name}}</td>
-         <td>{{team.surname}}</td>
-         <td>{{team.phone}}</td>
-         <td>{{team.mail}}</td>
-         <td>{{team.password}}</td>
+         <td>{{team.longname}}</td>
+         <td>{{team.shortname}}</td>
+         <td>{{team.xshortname}}</td>
+         <td>{{team.logo}}</td>
+         <td>{{team.type}}</td>
+         <td>{{team.openligaid}}</td>
        </tr>
     </table>
   </div>
