@@ -9,8 +9,8 @@ import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'teams',
-  templateUrl: './teams.component.html',
-  styleUrls: ['./teams.component.css']
+  templateUrl: './team.component.html',
+  styleUrls: ['./team.component.css']
 })
 export class TeamComponent implements OnInit {
 
