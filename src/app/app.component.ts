@@ -16,15 +16,15 @@ export class AppComponent {
   season = undefined;
 
   // Activated view
-  home: boolean = true;
-  login: boolean = false;
-  tipp: boolean = false;
-  teilnehmer: boolean = false;
-  meisterschaften: boolean = false;
-  adminmenu: boolean = false;
+  home = true;
+  login = false;
+  tipp =  false;
+  teilnehmer = false;
+  meisterschaften = false;
+  adminmenu = false;
 
   // Session role
-  admin: boolean = false;
+  admin = false;
 
   constructor(
       private navigationRouterService: NavigationRouterService,
@@ -36,7 +36,7 @@ export class AppComponent {
         if (loginOrLogout === 'login') {
           this.admin = authenticationService.getUserRole() === USERROLE.ADMIN;
         } else if (loginOrLogout === 'logout') {
-          this.admin = false
+          this.admin = false;
         }
     });
 
