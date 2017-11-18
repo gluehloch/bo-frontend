@@ -2,41 +2,41 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 
-import { PartyUpdateService } from './partyupdate.service';
+import { TeamUpdateService } from './teamupdate.service';
 
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'teamupdate',
-  templateUrl: './partyupdate.component.html',
-  styleUrls: ['./partyupdate.component.css']
+  templateUrl: './teamupdate.component.html',
+  styleUrls: ['./teamupdate.component.css']
 })
-export class PartyUpdateComponent implements OnInit {
+export class TeamUpdateComponent implements OnInit {
 
-  party: Rest.PartyJson;
+  team: Rest.TeamJson;
 
-  constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
-    const party = {
+  constructor(private router: Router, private route: ActivatedRoute, private teamService: TeamUpdateService) {
+    const team = {
       id: 0,
-      nickname: '',
-      surname: '',
       name: '',
-      phone: '',
-      mail: '',
-      password: '',
-      title: ''
+      longName: '',
+      shortName: '',
+      xshortName: '',
+      logo: '',
+      type: '',
+      openligaid: 0
     }
-    this.party = party;
+    this.team = team;
   }
 
   ngOnInit() {
     this.route.params.map(params => params['id']).subscribe((id) => {
-      this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => this.party = party);
+      this.teamService.findTeam(id).subscribe((team: Rest.TeamJson) => this.team = team);
     });
   }
 
-  updateParty() {
-    this.partyService.updateParty(this.party).subscribe((party: Rest.PartyJson) => this.party = party);
+  updateTeam() {
+    this.teamService.updateTeam(this.team).subscribe((team: Rest.TeamJson) => this.team = team);
   }
 
 }
