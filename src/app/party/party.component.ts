@@ -31,8 +31,8 @@ export class PartyComponent implements OnInit {
   ngOnInit() {
     this.partyService.findParties().subscribe((parties: Array<Rest.PartyJson>) => {
       this.partiesModel = parties;
+      this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
     });
-    this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
   }
 
   updateParty(party: Rest.PartyJson) {

@@ -30,7 +30,6 @@ export class SeasonComponent implements OnInit {
 
   ngOnInit() {
     this.findSeasons();
-    this.navigationRouterService.activate(NavigationRouterService.ROUTE_MEISTERSCHAFTEN);
   }
 
   private sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
@@ -44,6 +43,7 @@ export class SeasonComponent implements OnInit {
   findSeasons() {
     this.seasonService.findSeasons()
                       .subscribe((seasons: Rest.SeasonJson[]) => {
+      this.navigationRouterService.activate(NavigationRouterService.ROUTE_MEISTERSCHAFTEN);
       this.roundtable.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
       this.roundtable.selectedSeason = seasons[0];
 

@@ -30,7 +30,11 @@ export class TeamComponent implements OnInit {
   ngOnInit() {
     this.teamService.findTeams().subscribe((teams: Array<Rest.TeamJson>) => {
       this.teamsModel = teams;
+      this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
     });
+  }
+
+  onInit() {
     this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
   }
 

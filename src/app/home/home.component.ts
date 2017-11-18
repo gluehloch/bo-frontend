@@ -24,9 +24,8 @@ export class HomeComponent implements OnInit {
     this.homeService.calculate(this.currentSeasonId)
                        .subscribe((userTable: Rest.UserTableJson) => {
       this.teilnehmer = userTable;
+      this.navigationRouterService.activate(NavigationRouterService.ROUTE_HOME);
     });
-
-    this.navigationRouterService.activate(NavigationRouterService.ROUTE_HOME);
   }
 
 }

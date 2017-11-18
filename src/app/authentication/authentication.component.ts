@@ -8,24 +8,24 @@ import { USERROLE } from '../user-role.enum';
 
 class AuthenticationModel {
 
-  nickname: string = 'Nickname';
-  password: string = 'Password';
- 
+  nickname = 'Nickname';
+  password = 'Password';
+
   // --------------------------------------------------------------------------
 
-  private _token: string; 
+  private _token: string;
 
   set token(token: string) {
     this._token = token;
   }
-  
+
   get token() {
     return this._token;
   }
 
   // --------------------------------------------------------------------------
 
-  private _authenticationTries :number = 0;
+  private _authenticationTries = 0;
 
   get authenticationTries() {
     return this._authenticationTries;
@@ -37,7 +37,7 @@ class AuthenticationModel {
 
   // --------------------------------------------------------------------------
 
-  private _authenticated: boolean = false;
+  private _authenticated = false;
 
   get authenticated() {
     return this._authenticated;
@@ -49,7 +49,7 @@ class AuthenticationModel {
 
   // --------------------------------------------------------------------------
 
-  private _admin: boolean = false;
+  private _admin = false;
 
   get admin() {
     return this._admin;
@@ -88,7 +88,7 @@ export class AuthenticationComponent implements OnInit {
 
   init() {
     if (this.authenticationService.isAuthorized()) {
-      let securityToken = this.authenticationService.readCredentials();
+      const securityToken = this.authenticationService.readCredentials();
       this.authenticationModel.authenticated = true;
       this.authenticationModel.nickname = securityToken.nickname;
       this.authenticationModel.token = securityToken.token;
@@ -97,7 +97,7 @@ export class AuthenticationComponent implements OnInit {
       this.authenticationModel.authenticated = false;
       this.authenticationModel.nickname = null;
       this.authenticationModel.token = null;
-      this.authenticationModel.admin = false;      
+      this.authenticationModel.admin = false;
     }
   }
 

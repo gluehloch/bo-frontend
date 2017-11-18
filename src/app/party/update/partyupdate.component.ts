@@ -16,7 +16,7 @@ export class PartyUpdateComponent implements OnInit {
   party: Rest.PartyJson;
 
   constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
-    let party = {
+    const party = {
       id: 0,
       nickname: '',
       surname: '',

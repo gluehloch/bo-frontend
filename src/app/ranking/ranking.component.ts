@@ -22,11 +22,10 @@ export class RankingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.navigationRouterService.activate(NavigationRouterService.ROUTE_TEILNEHMER);
-
     this.rankingService.calculate(this.currentSeasonId)
                        .subscribe((userTable: Rest.UserTableJson) => {
       this.calculatRoundRankingOnly(userTable);
+      this.navigationRouterService.activate(NavigationRouterService.ROUTE_TEILNEHMER);
     });
   }
 
