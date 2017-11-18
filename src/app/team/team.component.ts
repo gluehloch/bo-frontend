@@ -34,10 +34,6 @@ export class TeamComponent implements OnInit {
     });
   }
 
-  onInit() {
-    this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
-  }
-
   updateTeam(team: Rest.TeamJson) {
     this.router.navigate(['./chiefop/team/update', team.id]);
   }
