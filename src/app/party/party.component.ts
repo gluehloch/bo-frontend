@@ -40,8 +40,8 @@ export class PartyComponent implements OnInit {
   }
 
   addParty(party: Rest.PartyJson) {
-    this.partyService.addParty(party).subscribe((party: Rest.PartyJson) => {
-      this.partiesModel.push(party);
+    this.partyService.addParty(party).subscribe((updatedParty: Rest.PartyJson) => {
+      this.partiesModel.push(updatedParty);
       this.sortParties();
     });
   }

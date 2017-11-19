@@ -15,12 +15,16 @@ export class TeamUpdateComponent implements OnInit {
 
   team: Rest.TeamJson;
 
-  constructor(
-      private router: Router,
-      private route: ActivatedRoute,
-      private teamService: TeamUpdateService) {
+  constructor(private router: Router, private route: ActivatedRoute, private teamService: TeamUpdateService) {
     const team = {
-      id: 0
+      id: 0,
+      name: '',
+      longName: '',
+      shortName: '',
+      xshortName: '',
+      logo: '',
+      type: '',
+      openligaid: 0
     }
     this.team = team;
   }

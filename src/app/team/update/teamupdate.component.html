@@ -1,39 +1,41 @@
-<h1>Teilnehmer ändern</h1>
-
-<form name="partyupdateform" novalidate>
+<h1>Mannschaft ändern</h1>
+<form name="teamupdateform" novalidate>
   <div class="form-group">
     <label for="id">ID</label>
-    <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="party.id"/>
-  </div>
-  <div class="form-group">
-      <!-- ng-class="{'has-warning': party.nickname} -->
-    <label for="nickname">Nickname</label>
-    <input class="form-control" id="nickname" name="nickname" [(ngModel)]="party.nickname"/>
+    <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="team.id"/>
   </div>
   <div class="form-group">
     <label for="name">Name</label>
-    <input class="form-control" id="name" name="name" [(ngModel)]="party.name"/>
+    <input class="form-control" id="name" name="name" [(ngModel)]="team.name"/>
   </div>
   <div class="form-group">
-    <label for="surnmae">Vorname</label>
-    <input class="form-control" id="surname" name="surname" [(ngModel)]="party.surname"/>
+    <label for="longName">Langname</label>
+    <input class="form-control" id="longName" name="longName" [(ngModel)]="team.longName"/>
   </div>
   <div class="form-group">
-    <label for="phone">Telefon</label>
-    <input class="form-control" id="phone" name="phone" [(ngModel)]="party.phone"/>
+    <label for="shortName">Kurzname</label>
+    <input class="form-control" id="shortName" name="shortName" [(ngModel)]="team.shortName"/>
   </div>
   <div class="form-group">
-    <label for="mail">Mail</label>
-    <input class="form-control" id="mail" name="mail" [(ngModel)]="party.mail"/>
+    <label for="xshortName">Abkürzung</label>
+    <input class="form-control" id="xshortName" name="xshortName" [(ngModel)]="team.xshortName"/>
   </div>
   <div class="form-group">
-    <label for="password">Passwort</label>
-    <input class="form-control" id="password" name="password" [(ngModel)]="party.password"/>
+    <label for="logo">Logo</label>
+    <input class="form-control" id="logo" name="logo" [(ngModel)]="team.logo"/>
+  </div>
+  <div class="form-group">
+    <label for="type">Typ</label>
+    <input class="form-control" id="type" name="type" [(ngModel)]="team.type"/>
+  </div>
+  <div class="form-group">
+    <label for="openligaid">OpenLiga ID</label>
+    <input class="form-control" id="openligaid" name="openligaid" [(ngModel)]="team.openligaid"/>
   </div>
 
   <button
-    ng-disabled="loginform.$invalid"
+    ng-disabled="teamupdateform.$invalid"
     class="btn btn-lg btn-primary btn-block"
     type="submit"
-    (click)="updateParty()">Speichern</button>
+    (click)="updateTeam()">Speichern</button>
 </form>

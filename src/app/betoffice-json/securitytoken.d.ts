@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.14.251 on 2017-11-14 07:39:14.
+// Generated using typescript-generator version 1.14.251 on 2017-11-18 19:32:16.
 
 declare namespace Rest {
 
