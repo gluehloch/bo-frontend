@@ -9,7 +9,7 @@ import 'rxjs/Rx';
 import { BetofficeService } from '../../betoffice.service';
 
 @Injectable()
-export class PartyUpdateService extends BetofficeService {
+export class TeamUpdateService extends BetofficeService {
 
   constructor(http: HttpClient) {
     super(http);
