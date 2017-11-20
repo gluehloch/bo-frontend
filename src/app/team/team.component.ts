@@ -14,7 +14,9 @@ import { environment } from '../../environments/environment';
 })
 export class TeamComponent implements OnInit {
 
+  // Team Types: DFB, FIFA
   teamsModel: Array<Rest.TeamJson>;
+  dfbFilter = false;
 
   constructor(
       private router: Router,
@@ -43,6 +45,10 @@ export class TeamComponent implements OnInit {
       this.teamsModel.push(updatedTeam);
       this.sortTeams();
     });
+  }
+
+  changeDfbFilter(value: boolean) {
+    this.dfbFilter = value;
   }
 
 }

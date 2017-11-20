@@ -1,31 +1,38 @@
 <h1>Mannschaften</h1>
-
- <div *ngIf="teamsModel.length != 0">
-    <table class="table table-striped table-sm">
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Langname</th>
-        <th>Kurzname</th>
-        <th>Superkurz</th>
-        <th>Logo</th>
-        <th>Typ</th>
-        <!--<th>Standort</th>-->
-        <th>Openliga ID</th>
+<div *ngIf="teamsModel.length != 0">
+  <form>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input #dfbFilter type="checkbox" class="form-check-input"
+          (change)="changeDfbFilter(dfbFilter.checked)">
+          DFB Mannschaften
+      </label>
+    </div>
+  </form>
+  <table class="table table-striped table-sm">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Langname</th>
+      <th>Kurzname</th>
+      <th>Superkurz</th>
+      <th>Logo</th>
+      <th>Typ</th>
+      <th>Openliga ID</th>
+    </tr>
+      <tr *ngFor="let team of teamsModel">
+        <td>
+          <button class="btn btn-primary btn-sm" type="submit" (click)="updateTeam(team)">
+          Edit
+          </button>
+        </td>
+        <td>{{team.name}}</td>
+        <td>{{team.longName}}</td>
+        <td>{{team.shortName}}</td>
+        <td>{{team.xshortName}}</td>
+        <td>{{team.logo}}</td>
+        <td>{{team.type}}</td>
+        <td>{{team.openligaid}}</td>
       </tr>
-       <tr *ngFor="let team of teamsModel">
-         <td>
-           <button class="btn btn-primary btn-sm" type="submit" (click)="updateTeam(team)">
-            Edit
-           </button>
-         </td>
-         <td>{{team.name}}</td>
-         <td>{{team.longName}}</td>
-         <td>{{team.shortName}}</td>
-         <td>{{team.xshortName}}</td>
-         <td>{{team.logo}}</td>
-         <td>{{team.type}}</td>
-         <td>{{team.openligaid}}</td>
-       </tr>
-    </table>
-  </div>
+  </table>
+</div>

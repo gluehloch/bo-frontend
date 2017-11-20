@@ -43,6 +43,7 @@ import { TeamComponent } from './team/team.component';
 import { TeamService} from './team/team.service';
 import { TeamUpdateComponent } from './team/update/teamupdate.component';
 import { TeamUpdateService} from './team/update/teamupdate.service';
+import { TeamFilter } from './team/teamFilter.pipe';
 
 import { SeasonManagerService } from './seasonmanager/seasonmanager.service';
 import { SeasonManagerComponent } from './seasonmanager/seasonmanager.component';
@@ -151,6 +152,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     PartyUpdateComponent,
     TeamComponent,
     TeamUpdateComponent,
+    TeamFilter,
     SeasonManagerComponent,
     SeasonManagerUpdateComponent,
     SeasonManagerCreateComponent,
