@@ -6,6 +6,7 @@ import { TeamService } from './team.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
+import { DefaultIterableDifferFactory } from '@angular/core/src/change_detection/differs/default_iterable_differ';
 
 @Component({
   selector: 'teams',
@@ -16,7 +17,7 @@ export class TeamComponent implements OnInit {
 
   // Team Types: DFB, FIFA
   teamsModel: Array<Rest.TeamJson>;
-  dfbFilter = false;
+  dfbFilter: string;
 
   constructor(
       private router: Router,
@@ -48,7 +49,11 @@ export class TeamComponent implements OnInit {
   }
 
   changeDfbFilter(value: boolean) {
-    this.dfbFilter = value;
+    if (!this.dfbFilter) {
+      this.dfbFilter = 'DFB';
+    } else {
+      this.dfbFilter = '';
+    }
   }
 
 }
