@@ -92,7 +92,7 @@ export class AuthenticationComponent implements OnInit {
       this.authenticationModel.authenticated = true;
       this.authenticationModel.nickname = securityToken.nickname;
       this.authenticationModel.token = securityToken.token;
-      this.authenticationModel.admin = (this.authenticationService.getUserRole() == USERROLE.ADMIN);
+      this.authenticationModel.admin = (this.authenticationService.getUserRole() === USERROLE.ADMIN);
     } else {
       this.authenticationModel.authenticated = false;
       this.authenticationModel.nickname = null;
