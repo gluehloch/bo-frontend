@@ -67,10 +67,10 @@ export class SeasonComponent implements OnInit {
       this.roundtable.rounds = season.rounds;
 
       if (season.rounds != null && season.rounds.length > 0) {
-        let now = new Date();
+        const now = new Date();
         let possibleSelectedRound = null;
         season.rounds.forEach(round => {
-          let roundDate = new Date(round.dateTime)
+          const roundDate = new Date(round.dateTime);
           if (roundDate < now) {
             possibleSelectedRound = round;
           }

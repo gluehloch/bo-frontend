@@ -20,7 +20,8 @@
       <th>Typ</th>
       <th>Openliga ID</th>
     </tr>
-      <tr *ngFor="let team of teamsModel | teamFilter">
+      <!-- | teamFilter: 'DFB' -->
+      <tr *ngFor="let team of teamsModel">
         <td>
           <button class="btn btn-primary btn-sm" type="submit" (click)="updateTeam(team)">
           Edit
