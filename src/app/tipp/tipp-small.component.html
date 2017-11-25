@@ -58,7 +58,7 @@
             </div>
             <div *ngIf="!game.finished" class="row">
               <div class="col-2"></div>
-              <div class="col-3">
+              <div class="col-4">
                 <input class="form-control"
                   id="{{tippModel.round.id}}heim{{game.id}}" 
                   name="{{tippModel.round.id}}heim{{game.id}}"
@@ -68,7 +68,7 @@
                   [(ngModel)]="game.tipps[0].tipp.homeGoals"
                   style="text-align:right"/>
               </div>
-              <div class="col-3">
+              <div class="col-4">
                 <input class="form-control"
                   id="{{tippModel.round.id}}gast{{game.id}}"
                   name="{{tippModel.round.id}}gast{{game.id}}"
