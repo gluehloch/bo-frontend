@@ -15,6 +15,8 @@ import { AppComponent } from './app.component';
 
 import { NavigationRouterService } from './navigationrouter.service';
 
+import { NavbarComponent } from './navbar/navbar.component';
+
 import { HomeService } from './home/home.service';
 import { HomeComponent } from './home/home.component';
 
@@ -141,6 +143,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
   ],
   declarations: [
     AppComponent,
+    NavbarComponent,
     HomeComponent,
     AuthenticationComponent,
     TippComponent,
