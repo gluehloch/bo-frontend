@@ -41,13 +41,14 @@
               </div>
             </div>
 
-            <div class="row" style="background-color: #F5F5F5">
+            <div class="row" style="background-color: #F5F5F5; border-top:solid 1px; border-top-color: lightslategray">
               <div class="col-5" style="text-align: right; padding: .5rem .75rem">{{game.homeTeam.shortName}}</div>
-              <div class="col-2" style="text-align: center; padding: .5rem .75rem">({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}}) {{game.result.homeGoals}}:{{game.result.guestGoals}}</div>
+              <div *ngIf="game.finished" class="col-2" style="text-align: center; padding: .5rem .75rem">({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}}) {{game.result.homeGoals}}:{{game.result.guestGoals}}</div>
+              <div *ngIf="!game.finished" class="col-2" style="text-align: center; padding: .5rem .75rem">{{game.result.homeGoals}}:{{game.result.guestGoals}}</div>
               <div class="col-5" style="text-align: left; padding: .5rem .75rem">{{game.guestTeam.shortName}}</div>
             </div>
             <div *ngIf="game.finished" class="row"
-            [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
+              [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
               <div class="col-5"></div>
               <div class="col-2" style="text-align: center; padding: .5rem .75rem">{{game.tipps[0].tipp.homeGoals}}:{{game.tipps[0].tipp.guestGoals}}</div>
               <!-- {{game.tipps[0].points}} -->
