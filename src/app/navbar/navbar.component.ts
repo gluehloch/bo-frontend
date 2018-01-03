@@ -20,7 +20,7 @@ export class NavbarComponent {
   meisterschaften = false;
   adminmenu = false;
 
-  showNavbar = false;
+  show = false;
 
   // Session role
   admin = false;
@@ -89,8 +89,8 @@ export class NavbarComponent {
     );
   }
 
-  toggleState() {
-    this.showNavbar = !this.showNavbar;
+  toggleCollapse() {
+    this.show = !this.show;
   }
 
 }
