@@ -102,7 +102,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   login(nickname) {
-    let login = {
+    const login = {
       nickname: this.authenticationModel.nickname,
       password: this.authenticationModel.password
     };
@@ -111,7 +111,7 @@ export class AuthenticationComponent implements OnInit {
 
     this.authenticationService.login(login)
                               .subscribe((securityToken: Rest.SecurityTokenJson) => {
-      if (securityToken.token == 'no_authorization') {
+      if (securityToken.token === 'no_authorization') {
         console.info('Login was not successful');
         this.authenticationService.clearCredentials();
       } else {
@@ -127,7 +127,7 @@ export class AuthenticationComponent implements OnInit {
     this.authenticationModel.authenticationTries = 0;
 
     if (this.authenticationService.isAuthorized()) {
-      let logout = {
+      const logout = {
         nickname:  this.authenticationModel.nickname,
         token: this.authenticationModel.token
       };

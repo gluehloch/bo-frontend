@@ -10,7 +10,7 @@ export class NavigationRouterService {
   public static readonly ROUTE_TEILNEHMER = 'TEILNEHMER';
   public static readonly ROUTE_MEISTERSCHAFTEN = 'MEISTERSCHAFTEN';
   public static readonly ROUTE_ADMIN_MENU = 'ADMIN_MENU';
-  
+
   // Observable string sources
   private navigationSource = new Subject<string>();
   private sessionSource = new Subject<string>();
