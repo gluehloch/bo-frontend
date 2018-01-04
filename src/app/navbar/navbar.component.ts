@@ -7,8 +7,7 @@ import { USERROLE } from '../user-role.enum';
 
 @Component({
     selector: 'bo-navbar',
-    templateUrl: './navbar.component.html',
-    providers: [NavigationRouterService, AuthenticationService]
+    templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
 
