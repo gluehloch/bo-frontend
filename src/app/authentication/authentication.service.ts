@@ -22,7 +22,6 @@ export interface Logout {
   token: string;
 }
 
-
 @Injectable()
 export class AuthenticationService extends BetofficeService {
 
