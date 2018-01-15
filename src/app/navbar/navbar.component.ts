@@ -19,6 +19,8 @@ export class NavbarComponent {
   meisterschaften = false;
   adminmenu = false;
 
+  // The show attribute of the collapsable navbar
+  // collapse = 'closed';
   show = false;
 
   // Session role
@@ -40,6 +42,7 @@ export class NavbarComponent {
 
     navigationRouterService.navigationActivated$.subscribe(
       activatedRoute => {
+        this.toggleCollapse();
         console.log('Activated route: ' + activatedRoute);
         if (activatedRoute === NavigationRouterService.ROUTE_HOME) {
           this.home = true;
@@ -89,7 +92,8 @@ export class NavbarComponent {
   }
 
   toggleCollapse() {
-    this.show = !this.show;
+    this.show = this.show ? false : true;
+    // this.collapse = this.collapse === 'open' ? 'closed' : 'open';
   }
 
 }

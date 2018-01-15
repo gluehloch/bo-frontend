@@ -1,19 +1,21 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 fixed-top">
   <button
-    (click)="toggleCollapse()"
     class="navbar-toggler"
-    type="button">
-<!-- Da Angular hier die Kontrolle uebnernimmt, kann das folgende entfallen.
-     Damit gibt es aber auch keine Animation mehr.
+    type="button"
+    (click)="toggleCollapse()">
+<!--
     data-toggle="collapse"
     data-target="#navbarCollapse"
     aria-controls="navbarCollapse"
     aria-expanded="false"
-    aria-label="Toggle navigation"
+    aria-label="Toggle navigation">
+<!-- Da Angular hier die Kontrolle uebnernimmt, kann das folgende entfallen.
+     Damit gibt es aber auch keine Animation mehr.
 -->          
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse" [class.show]="show">
+  <!-- [class.show]="show" -->
+  <div #navbaritems class="collapse navbar-collapse" id="navbarCollapse" [class.show]="show">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" [class.active]="home">
         <a class="nav-link" routerLink="/home">Home</a>
