@@ -49,7 +49,7 @@ export class NavbarComponent {
 
     navigationRouterService.navigationActivated$.subscribe(
       activatedRoute => {
-        this.toggleCollapse();
+        this.closeCollapse();
         console.log('Activated route: ' + activatedRoute);
         if (activatedRoute === NavigationRouterService.ROUTE_HOME) {
           this.home = true;
@@ -101,6 +101,10 @@ export class NavbarComponent {
   toggleCollapse() {
     this.show = this.show ? false : true;
     // this.collapse = this.collapse === 'open' ? 'closed' : 'open';
+  }
+
+  closeCollapse() {
+    this.show = false;
   }
 
 }
