@@ -20,6 +20,7 @@ export class SeasonManagerUpdateComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private seasonManagerUpdateService: SeasonManagerUpdateService) {
     this.model = new UpdateSeasonModel();
+    this.model.parties = [];
     this.model.season = {
       id: 0,
       name: '',

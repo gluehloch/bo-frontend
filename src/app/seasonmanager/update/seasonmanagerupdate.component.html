@@ -40,6 +40,9 @@
   <h3>Teilnehmer Zuordnung</h3>
   <h4>Die aktiven Teilnehmer</h4>
   <form #updateUserForm="ngForm" name="seasonmangeruserupdateform">
+    <div *ngIf="model.parties.length == 0" class="alert alert-info">
+      Keine Teilnehmer zugeordnet.
+    </div>
     <table>
       <tr *ngFor="let party of model.parties">
         <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}"/></td>
