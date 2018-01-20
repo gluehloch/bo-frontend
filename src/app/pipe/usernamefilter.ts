@@ -10,8 +10,7 @@ export class UsernameFilter implements PipeTransform {
       return usernames;
     }
     return usernames.filter(user => {
-      const index = user.nickname.indexOf(filter);
-      return index !== -1;
+      return user.nickname.indexOf(filter) !== -1;
     });
   }
 }

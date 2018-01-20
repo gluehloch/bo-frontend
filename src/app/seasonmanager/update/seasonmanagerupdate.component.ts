@@ -53,4 +53,12 @@ export class SeasonManagerUpdateComponent implements OnInit {
       (season: Rest.SeasonJson) => this.model.season = season);
   }
 
+  addUserSeason() {
+
+  }
+
+  removeUserSeason() {
+
+  }
+
 }

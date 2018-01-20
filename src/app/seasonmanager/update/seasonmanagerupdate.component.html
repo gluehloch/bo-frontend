@@ -32,7 +32,7 @@
   </div>
   <button
     [disabled]="!updateSeasonForm.form.valid || model.submitted"
-    class="btn btn-lg btn-primary btn-block"
+    class="btn btn-md btn-primary btn-block"
     (click)="updateSeason()">Speichern</button>
 </form>
 
@@ -49,6 +49,10 @@
       <td>{{party.nickname}}</td>
     </tr>
   </table>
+  <button *ngIf="model.parties.length > 0"
+      [disabled]="!updateUserForm.form.valid || model.submitted"
+      class="btn btn-md btn-primary btn-block"
+      (click)="removeUserSeason()">Entfernen</button>  
   <h4>Die potentiellen Teilnehmer</h4>
   <div *ngIf="model.potentialParties.length == 0" class="alert alert-info">
     Keine potentiellen Teilnehmer vorhanden.
@@ -60,10 +64,10 @@
       <td>{{party.nickname}}</td>
     </tr>
   </table>
-  <button
+  <button *ngIf="model.potentialParties.length > 0"
     [disabled]="!updateUserForm.form.valid || model.submitted"
-    class="btn btn-lg btn-primary btn-block"
-    (click)="updateUserSeason()">Speichern</button>
+    class="btn btn-md btn-primary btn-block"
+    (click)="addUserSeason()">Hinzufuegen</button>
 </form>
 
   <!--
