@@ -18,6 +18,8 @@ import { NavigationRouterService } from './navigationrouter.service';
 
 import { NavbarComponent } from './navbar/navbar.component';
 
+import { UsernameFilter } from './pipe/usernamefilter';
+
 import { HomeService } from './home/home.service';
 import { HomeComponent } from './home/home.component';
 
@@ -146,6 +148,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
   declarations: [
     AppComponent,
     NavbarComponent,
+    UsernameFilter,
     HomeComponent,
     AuthenticationComponent,
     TippComponent,
