@@ -29,7 +29,8 @@ export class SeasonManagerUpdateService extends BetofficeService {
   }
 
   findPotentialParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
-    return this.http.get<Array<Rest.SeasonMemberJson>>(this.adminUrl + 'season/' + seasonId + '/potentialuser', {headers: this.createHeader()});
+    return this.http.get<Array<Rest.SeasonMemberJson>>(
+      this.adminUrl + 'season/' + seasonId + '/potentialuser', {headers: this.createHeader()});
   }
- 
+
 }

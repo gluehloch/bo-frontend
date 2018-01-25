@@ -1,4 +1,4 @@
-import { SeasonType, TeamType } from './../../betoffice-json/betofficetype';
+import { CheckableParty } from './checkable-party';
 
 export class UpdateSeasonModel {
 
@@ -9,10 +9,10 @@ export class UpdateSeasonModel {
   season: Rest.SeasonJson;
 
   /** all users not associated with the selected season */
-  potentialParties: Array<Rest.SeasonMemberJson>;
+  potentialParties: Array<CheckableParty>;
 
   /** all uses associated with the selected season */
-  parties: Array<Rest.SeasonMemberJson> = [];
+  parties: Array<CheckableParty> = [];
 
   /** Filter to sort out not wanted users */
   potentialUserFilter: string;

@@ -38,6 +38,7 @@
 
 <hr/>
 <h3>Teilnehmer Zuordnung</h3>
+
 <h4>Die aktiven Teilnehmer</h4>
 <form #updateUserForm="ngForm" name="seasonmangeruserupdateform">
   <div *ngIf="model.parties.length == 0" class="alert alert-info">
@@ -52,7 +53,8 @@
   <button *ngIf="model.parties.length > 0"
       [disabled]="!updateUserForm.form.valid || model.submitted"
       class="btn btn-md btn-primary btn-block"
-      (click)="removeUserSeason()">Entfernen</button>  
+      (click)="removeUserSeason()">Entfernen</button>
+
   <h4>Die potentiellen Teilnehmer</h4>
   <div *ngIf="model.potentialParties.length == 0" class="alert alert-info">
     Keine potentiellen Teilnehmer vorhanden.

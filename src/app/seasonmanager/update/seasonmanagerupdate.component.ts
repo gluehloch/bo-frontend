@@ -8,6 +8,8 @@ import { UpdateSeasonModel } from './update-season-model';
 import { SeasonType, TeamType } from '../../betoffice-json/betofficetype';
 
 import { environment } from '../../../environments/environment';
+import { forEach } from '@angular/router/src/utils/collection';
+import { CheckableParty } from 'app/seasonmanager/update/checkable-party';
 
 @Component({
   selector: 'season-manager-update',
@@ -18,7 +20,11 @@ export class SeasonManagerUpdateComponent implements OnInit {
 
   model: UpdateSeasonModel;
 
-  constructor(private router: Router, private route: ActivatedRoute, private seasonManagerUpdateService: SeasonManagerUpdateService) {
+  constructor(
+      private router: Router,
+      private route: ActivatedRoute,
+      private seasonManagerUpdateService: SeasonManagerUpdateService) {
+
     this.model = new UpdateSeasonModel();
     this.model.parties = [];
     this.model.potentialParties = [];
@@ -35,16 +41,32 @@ export class SeasonManagerUpdateComponent implements OnInit {
     this.model.submitted = false;
   }
 
+  private fromPartyToCheckableParty(party: Rest.SeasonMemberJson): CheckableParty {
+    const checkableParty = new CheckableParty();
+    checkableParty.id = party.id;
+    checkableParty.nickname = party.nickname;
+    checkableParty.checked = false;
+    return checkableParty;
+  }
+
   ngOnInit() {
     this.route.params.map(params => params['id']).subscribe((id) => {
       this.seasonManagerUpdateService.findSeason(id).subscribe(
         (season: Rest.SeasonJson) => this.model.season = season);
 
       this.seasonManagerUpdateService.findParties(id).subscribe(
-        (parties: Array<Rest.SeasonMemberJson>) => this.model.parties = parties);
+        (parties: Array<Rest.SeasonMemberJson>) => {
+          for (const party of parties) {
+            this.model.parties.push(this.fromPartyToCheckableParty(party));
+          }
+        });
 
       this.seasonManagerUpdateService.findPotentialParties(id).subscribe(
-        (parties: Array<Rest.SeasonMemberJson>) => this.model.potentialParties = parties);
+        (parties: Array<Rest.SeasonMemberJson>) => {
+          for (const party of parties) {
+            this.model.potentialParties.push(this.fromPartyToCheckableParty(party));
+          }
+        });
     });
   }
 
