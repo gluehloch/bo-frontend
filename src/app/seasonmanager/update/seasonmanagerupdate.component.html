@@ -46,7 +46,7 @@
   </div>
   <table *ngIf="model.parties.length > 0">
     <tr *ngFor="let party of model.parties">
-      <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}"/></td>
+      <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}" [(ngModel)]="party.checked"/></td>
       <td>{{party.nickname}}</td>
     </tr>
   </table>
@@ -62,7 +62,7 @@
   <input class="form-control" id="potentialUserFiler" name="potentialUserFilter" [(ngModel)]="model.potentialUserFilter"/>
   <table *ngIf="model.potentialParties.length > 0">
     <tr *ngFor="let party of model.potentialParties | usernamefilter: model.potentialUserFilter">
-      <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}"/></td>
+      <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}" [(ngModel)]="party.checked"/></td>
       <td>{{party.nickname}}</td>
     </tr>
   </table>

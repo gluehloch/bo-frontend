@@ -76,11 +76,15 @@ export class SeasonManagerUpdateComponent implements OnInit {
   }
 
   addUserSeason() {
-
+    this.model.parties.forEach(party => {
+      console.log(party.nickname + ' => '  + party.checked);
+    });
   }
 
   removeUserSeason() {
-
+    this.model.parties.forEach(party => {
+      console.log(party.nickname + ' => '  + party.checked);
+    });
   }
 
 }
