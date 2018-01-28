@@ -1,5 +1,31 @@
 <h1>Meisterschaft Verwaltung</h1>
 
+<!-- Modale Dialoge -->
+<div class="modal fade" id="confirmDeleteAction" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteAction" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteActionLLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bist du sicher, dass die folgenden Teilnehmer entfernt werden sollen?
+        <table *ngIf="model.parties.length > 0">
+          <tr *ngFor="let party of model.parties">
+            <td *ngIf="party.checked">{{party.nickname}}</td>
+          </tr>
+        </table>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="removeUserSeason()">Speichern</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <form #updateSeasonForm="ngForm" name="seasonmanagerupdateform">
   <div class="form-group">
     <label for="id">ID</label>
@@ -53,7 +79,7 @@
   <button *ngIf="model.parties.length > 0"
       [disabled]="!updateUserForm.form.valid || model.submitted"
       class="btn btn-md btn-primary btn-block"
-      (click)="removeUserSeason()">Entfernen</button>
+      data-toggle="modal" data-target="#confirmDeleteAction">Entfernen</button>
 
   <hr/>
   <h4>Die potentiellen Teilnehmer</h4>
