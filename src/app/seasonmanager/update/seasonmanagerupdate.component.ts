@@ -76,7 +76,7 @@ export class SeasonManagerUpdateComponent implements OnInit {
   }
 
   addUserSeason() {
-    this.model.parties.forEach(party => {
+    this.model.potentialParties.forEach(party => {
       console.log(party.nickname + ' => '  + party.checked);
     });
   }
