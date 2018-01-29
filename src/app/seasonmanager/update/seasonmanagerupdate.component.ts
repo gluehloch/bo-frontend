@@ -12,7 +12,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { CheckableParty } from 'app/seasonmanager/update/checkable-party';
 
 @Component({
-  selector: 'season-manager-update',
+  selector: 'app-season-manager-update',
   templateUrl: './seasonmanagerupdate.component.html',
   styleUrls: ['./seasonmanagerupdate.component.css']
 })
@@ -76,15 +76,33 @@ export class SeasonManagerUpdateComponent implements OnInit {
   }
 
   addUserSeason() {
+    const members: Array<Rest.SeasonMemberJson> = [];
     this.model.potentialParties.forEach(party => {
-      console.log(party.nickname + ' => '  + party.checked);
+       if (party.checked) {
+        const member: Rest.SeasonMemberJson = {
+          id: party.id,
+          nickname: party.nickname
+        };
+        members.push(member);
+      }
     });
+
+    this.seasonManagerUpdateService.addUser(this.model.season.id, members);
   }
 
   removeUserSeason() {
+    const members: Array<Rest.SeasonMemberJson> = [];
     this.model.parties.forEach(party => {
-      console.log(party.nickname + ' => '  + party.checked);
+       if (party.checked) {
+        const member: Rest.SeasonMemberJson = {
+          id: party.id,
+          nickname: party.nickname
+        };
+        members.push(member);
+      }
     });
+
+    this.seasonManagerUpdateService.removeUser(this.model.season.id, members);
   }
 
 }

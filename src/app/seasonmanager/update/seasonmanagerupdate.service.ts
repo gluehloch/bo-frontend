@@ -33,4 +33,14 @@ export class SeasonManagerUpdateService extends BetofficeService {
       this.adminUrl + 'season/' + seasonId + '/potentialuser', {headers: this.createHeader()});
   }
 
+  addUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
+    return this.http.post<Array<Rest.SeasonMemberJson>>(
+      this.adminUrl + 'season/' + seasonId + '/user/add', members, {headers: this.createHeader()});
+  }
+
+  removeUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
+    return this.http.post<Array<Rest.SeasonMemberJson>>(
+      this.adminUrl + 'season/' + seasonId + '/user/remove', members, {headers: this.createHeader()});
+  }
+
 }
