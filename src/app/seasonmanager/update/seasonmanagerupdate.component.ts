@@ -49,15 +49,9 @@ export class SeasonManagerUpdateComponent implements OnInit {
     return checkableParty;
   }
 
-  private mapParties(parties: Array<Rest.SeasonMemberJson>) {
+  private mapParties(parties: Array<Rest.SeasonMemberJson>, modelParties: Array<CheckableParty>) {
     for (const party of parties) {
-      this.model.parties.push(this.fromPartyToCheckableParty(party));
-    }
-  }
-
-  private mapPotentialParties(parties: Array<Rest.SeasonMemberJson>) {
-    for (const party of parties) {
-      this.model.potentialParties.push(this.fromPartyToCheckableParty(party));
+      modelParties.push(this.fromPartyToCheckableParty(party));
     }
   }
 
@@ -68,26 +62,11 @@ export class SeasonManagerUpdateComponent implements OnInit {
 
       this.seasonManagerUpdateService
           .findParties(id)
-          .subscribe(parties => this.mapParties(parties));
-
-      /*
-        (parties: Array<Rest.SeasonMemberJson>) => {
-          for (const party of parties) {
-            this.model.parties.push(this.fromPartyToCheckableParty(party));
-          }
-        });
-        */
+          .subscribe(parties => this.mapParties(parties, this.model.parties));
 
       this.seasonManagerUpdateService
           .findPotentialParties(id)
-          .subscribe(parties => this.mapPotentialParties(parties));
-        /*
-        (parties: Array<Rest.SeasonMemberJson>) => {
-          for (const party of parties) {
-            this.model.potentialParties.push(this.fromPartyToCheckableParty(party));
-          }
-        });
-        */
+          .subscribe(parties => this.mapParties(parties, this.model.potentialParties));
     });
   }
 
@@ -110,7 +89,10 @@ export class SeasonManagerUpdateComponent implements OnInit {
 
     this.seasonManagerUpdateService
         .addUser(this.model.season.id, members)
-        .subscribe(parties => this.mapParties(parties));
+        .subscribe(parties => {
+          this.mapParties(parties, this.model.parties);
+          // this.model.potentialParties.indexOf();
+        });
   }
 
   removeUserSeason() {
@@ -127,7 +109,7 @@ export class SeasonManagerUpdateComponent implements OnInit {
 
     this.seasonManagerUpdateService
         .removeUser(this.model.season.id, members)
-        .subscribe(parties => this.mapParties(parties));
+        .subscribe(parties => this.mapParties(parties, this.model.parties));
   }
 
 }

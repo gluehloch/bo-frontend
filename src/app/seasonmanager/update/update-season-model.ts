@@ -9,7 +9,7 @@ export class UpdateSeasonModel {
   season: Rest.SeasonJson;
 
   /** all users not associated with the selected season */
-  potentialParties: Array<CheckableParty>;
+  potentialParties: Array<CheckableParty> = [];
 
   /** all uses associated with the selected season */
   parties: Array<CheckableParty> = [];
