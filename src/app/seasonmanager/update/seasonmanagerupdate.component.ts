@@ -55,7 +55,7 @@ export class SeasonManagerUpdateComponent implements OnInit {
     }
   }
 
-  private findCheckedParties(parties: Array<Rest.SeasonMemberJson>): Array<Rest.SeasonMemberJson> {
+  private collectCheckedParties(parties: Array<Rest.SeasonMemberJson>): Array<Rest.SeasonMemberJson> {
     const checkedParties: Array<Rest.SeasonMemberJson> = [];
     this.model.potentialParties.forEach(party => {
       if (party.checked) {
@@ -66,7 +66,19 @@ export class SeasonManagerUpdateComponent implements OnInit {
         checkedParties.push(member);
       }
     });
-   return checkedParties;
+    return checkedParties;
+  }
+
+  private findParties(id: number) {
+    this.seasonManagerUpdateService
+        .findParties(id)
+        .subscribe(parties => this.mapParties(parties, this.model.parties));
+  }
+
+  private findPotentialParties(id: number) {
+    this.seasonManagerUpdateService
+        .findPotentialParties(id)
+        .subscribe(parties => this.mapParties(parties, this.model.potentialParties));
   }
 
   ngOnInit() {
@@ -74,13 +86,8 @@ export class SeasonManagerUpdateComponent implements OnInit {
       this.seasonManagerUpdateService.findSeason(id).subscribe(
         (season: Rest.SeasonJson) => this.model.season = season);
 
-      this.seasonManagerUpdateService
-          .findParties(id)
-          .subscribe(parties => this.mapParties(parties, this.model.parties));
-
-      this.seasonManagerUpdateService
-          .findPotentialParties(id)
-          .subscribe(parties => this.mapParties(parties, this.model.potentialParties));
+      this.findParties(id);
+      this.findPotentialParties(id);
     });
   }
 
@@ -90,19 +97,21 @@ export class SeasonManagerUpdateComponent implements OnInit {
   }
 
   addUserSeason() {
-    const members = this.findCheckedParties(this.model.potentialParties);
+    const members = this.collectCheckedParties(this.model.potentialParties);
 
     this.seasonManagerUpdateService
         .addUser(this.model.season.id, members)
         .subscribe(parties => this.mapParties(parties, this.model.parties));
+    this.findPotentialParties(this.model.season.id);
   }
 
   removeUserSeason() {
-    const members = this.findCheckedParties(this.model.parties);
+    const members = this.collectCheckedParties(this.model.parties);
 
     this.seasonManagerUpdateService
         .removeUser(this.model.season.id, members)
         .subscribe(parties => this.mapParties(parties, this.model.parties));
+    this.findPotentialParties(this.model.season.id);
   }
 
 }
