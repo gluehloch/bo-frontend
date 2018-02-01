@@ -55,6 +55,20 @@ export class SeasonManagerUpdateComponent implements OnInit {
     }
   }
 
+  private findCheckedParties(parties: Array<Rest.SeasonMemberJson>): Array<Rest.SeasonMemberJson> {
+    const checkedParties: Array<Rest.SeasonMemberJson> = [];
+    this.model.potentialParties.forEach(party => {
+      if (party.checked) {
+        const member: Rest.SeasonMemberJson = {
+          id: party.id,
+          nickname: party.nickname
+        };
+        checkedParties.push(member);
+      }
+    });
+   return checkedParties;
+  }
+
   ngOnInit() {
     this.route.params.map(params => params['id']).subscribe((id) => {
       this.seasonManagerUpdateService.findSeason(id).subscribe(
@@ -76,36 +90,15 @@ export class SeasonManagerUpdateComponent implements OnInit {
   }
 
   addUserSeason() {
-    const members: Array<Rest.SeasonMemberJson> = [];
-    this.model.potentialParties.forEach(party => {
-       if (party.checked) {
-        const member: Rest.SeasonMemberJson = {
-          id: party.id,
-          nickname: party.nickname
-        };
-        members.push(member);
-      }
-    });
+    const members = this.findCheckedParties(this.model.potentialParties);
 
     this.seasonManagerUpdateService
         .addUser(this.model.season.id, members)
-        .subscribe(parties => {
-          this.mapParties(parties, this.model.parties);
-          // this.model.potentialParties.indexOf();
-        });
+        .subscribe(parties => this.mapParties(parties, this.model.parties));
   }
 
   removeUserSeason() {
-    const members: Array<Rest.SeasonMemberJson> = [];
-    this.model.parties.forEach(party => {
-       if (party.checked) {
-        const member: Rest.SeasonMemberJson = {
-          id: party.id,
-          nickname: party.nickname
-        };
-        members.push(member);
-      }
-    });
+    const members = this.findCheckedParties(this.model.parties);
 
     this.seasonManagerUpdateService
         .removeUser(this.model.season.id, members)
