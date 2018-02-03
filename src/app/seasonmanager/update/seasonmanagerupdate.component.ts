@@ -50,6 +50,7 @@ export class SeasonManagerUpdateComponent implements OnInit {
   }
 
   private mapParties(parties: Array<Rest.SeasonMemberJson>, modelParties: Array<CheckableParty>) {
+    modelParties.length = 0;
     for (const party of parties) {
       modelParties.push(this.fromPartyToCheckableParty(party));
     }
@@ -101,8 +102,12 @@ export class SeasonManagerUpdateComponent implements OnInit {
 
     this.seasonManagerUpdateService
         .addUser(this.model.season.id, members)
-        .subscribe(parties => this.mapParties(parties, this.model.parties));
-    this.findPotentialParties(this.model.season.id);
+        .subscribe(
+          parties => {
+            this.mapParties(parties, this.model.parties);
+            this.findPotentialParties(this.model.season.id);
+          },
+          error => console.log(error));
   }
 
   removeUserSeason() {
