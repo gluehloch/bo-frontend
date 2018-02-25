@@ -56,9 +56,9 @@ export class SeasonManagerUpdateComponent implements OnInit {
     }
   }
 
-  private collectCheckedParties(parties: Array<Rest.SeasonMemberJson>): Array<Rest.SeasonMemberJson> {
+  private collectCheckedParties(parties: Array<CheckableParty>): Array<Rest.SeasonMemberJson> {
     const checkedParties: Array<Rest.SeasonMemberJson> = [];
-    this.model.potentialParties.forEach(party => {
+    parties.forEach(party => {
       if (party.checked) {
         const member: Rest.SeasonMemberJson = {
           id: party.id,
