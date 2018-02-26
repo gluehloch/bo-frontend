@@ -110,22 +110,25 @@ export class UpdateMatchdayComponent implements OnInit {
 
   updateMatchdDay() {
     console.info('Update round ' + this.roundtable.selectedRound.id);
-    this.updateMatchdayService.updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup).subscribe((round: Rest.RoundAndTableJson) => {
-      this.roundtable.table = round;
+    this.updateMatchdayService.updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup)
+      .subscribe((round: Rest.RoundAndTableJson) => {
+        this.roundtable.table = round;
     });
   }
 
   updateOpenligaDb() {
     console.info('Update with OpenligaDB round ' + this.roundtable.selectedRound.id);
-    this.updateMatchdayService.updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id).subscribe((round: Rest.RoundAndTableJson) => {
-      this.roundtable.table = round;
+    this.updateMatchdayService.updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
+      .subscribe((round: Rest.RoundAndTableJson) => {
+        this.roundtable.table = round;
     });
   }
 
   createOpenligaDb() {
     console.info('Create with OpenligaDB.');
-    this.updateMatchdayService.createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id).subscribe((round: Rest.RoundAndTableJson) => {
-      this.roundtable.table = round;
+    this.updateMatchdayService.createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
+      .subscribe((round: Rest.RoundAndTableJson) => {
+        this.roundtable.table = round;
     });
   }
 
