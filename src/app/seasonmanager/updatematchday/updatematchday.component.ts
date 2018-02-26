@@ -15,7 +15,7 @@ export class Roundtable {
 };
 
 @Component({
-  selector: 'seasons',
+  selector: 'app-seasons',
   templateUrl: './updatematchday.component.html',
   styleUrls: ['./updatematchday.component.css']
 })
@@ -32,9 +32,9 @@ export class UpdateMatchdayComponent implements OnInit {
       this.roundtable.seasonId = seasonId;
       console.log('Update a match day of season ' + this.roundtable.seasonId);
       this.findGroups(this.roundtable.seasonId);
-      //this.updateMatchdayService.findRounds(seasonId);
-      //this.roundtable.selectedSeason = season;
-      //this.findGroups(season.id);
+      // this.updateMatchdayService.findRounds(seasonId);
+      // this.roundtable.selectedSeason = season;
+      // this.findGroups(season.id);
 /*
       this.seasonManagerUpdateService.findParties(id).subscribe(
         (parties: Array<Rest.SeasonMemberJson>) => this.model.parties = parties);
@@ -89,10 +89,10 @@ export class UpdateMatchdayComponent implements OnInit {
   groupSelected(event) {
     console.info('Selected group id: ' + event.target.value);
 
-    let selectedGroupId = event.target.value;
-    let selectedGroup = this.roundtable
+    const selectedGroupId = event.target.value;
+    const selectedGroup = this.roundtable
                             .groups
-                            .find(group => group.id == selectedGroupId);
+                            .find(group => group.id === selectedGroupId);
     this.roundtable.selectedGroup = selectedGroup;
     this.findRounds(this.roundtable.seasonId, selectedGroupId);
   }
@@ -100,9 +100,9 @@ export class UpdateMatchdayComponent implements OnInit {
   roundSelected(event) {
     console.info('Selected round id: ' + event.target.value);
 
-    let selectedRound = this.roundtable
+    const selectedRound = this.roundtable
                             .rounds
-                            .find(round => round.id == event.target.value);
+                            .find(round => round.id === event.target.value);
 
     this.roundtable.selectedRound = selectedRound;
     this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
