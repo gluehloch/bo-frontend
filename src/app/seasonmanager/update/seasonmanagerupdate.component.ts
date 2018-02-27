@@ -115,8 +115,11 @@ export class SeasonManagerUpdateComponent implements OnInit {
 
     this.seasonManagerUpdateService
         .removeUser(this.model.season.id, members)
-        .subscribe(parties => this.mapParties(parties, this.model.parties));
-    this.findPotentialParties(this.model.season.id);
+        .subscribe(
+          parties => {
+            this.mapParties(parties, this.model.parties);
+            this.findPotentialParties(this.model.season.id);
+        });
   }
 
 }
