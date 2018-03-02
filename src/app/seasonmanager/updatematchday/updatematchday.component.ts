@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { USERROLE } from '../../user-role.enum';
 
 import { UpdateMatchdayService } from './updatematchday.service';
+import { ModalService } from './../../modal/modal.service';
 
 export class Roundtable {
   seasonId: number;
@@ -23,7 +24,11 @@ export class UpdateMatchdayComponent implements OnInit {
 
   roundtable: Roundtable;
 
-  constructor(private router: Router, private route: ActivatedRoute, private updateMatchdayService: UpdateMatchdayService) {
+  constructor(
+      private router: Router,
+      private route: ActivatedRoute,
+      private updateMatchdayService: UpdateMatchdayService,
+      private modalService: ModalService) {
     this.roundtable = new Roundtable();
   }
 
@@ -119,9 +124,14 @@ export class UpdateMatchdayComponent implements OnInit {
   updateOpenligaDb() {
     console.info('Update with OpenligaDB round ' + this.roundtable.selectedRound.id);
     this.updateMatchdayService.updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
-      .subscribe((round: Rest.RoundAndTableJson) => {
-        this.roundtable.table = round;
-    });
+      .subscribe(
+        success => (round: Rest.RoundAndTableJson) => {
+          this.roundtable.table = round;
+        },
+        error => {
+          this.modalService.open('4711');
+        }
+      );
   }
 
   createOpenligaDb() {

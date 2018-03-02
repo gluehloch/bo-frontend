@@ -19,12 +19,15 @@ import { NavigationRouterService } from './navigationrouter.service';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import { UsernameFilter } from './pipe/usernamefilter';
+import { ModalService } from './modal/modal.service';
 
 import { HomeService } from './home/home.service';
 import { HomeComponent } from './home/home.component';
 
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
+
+import { AuthenticationWarningComponent } from './authenticationwarning/authenticationwarning.component';
 
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
@@ -150,6 +153,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     NavbarComponent,
     UsernameFilter,
     HomeComponent,
+    AuthenticationWarningComponent,
     AuthenticationComponent,
     TippComponent,
     TippSmallComponent,
@@ -181,7 +185,8 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     SeasonManagerService,
     SeasonManagerUpdateService,
     SeasonManagerCreateService,
-    UpdateMatchdayService
+    UpdateMatchdayService,
+    ModalService
   ],
   bootstrap: [AppComponent]
 })
