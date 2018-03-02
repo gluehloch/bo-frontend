@@ -97,7 +97,7 @@ export class UpdateMatchdayComponent implements OnInit {
     const selectedGroupId = event.target.value;
     const selectedGroup = this.roundtable
                             .groups
-                            .find(group => group.id == selectedGroupId);
+                            .find(group => group.id === parseInt(selectedGroupId, 10));
     this.roundtable.selectedGroup = selectedGroup;
     this.findRounds(this.roundtable.seasonId, selectedGroupId);
   }
@@ -105,9 +105,10 @@ export class UpdateMatchdayComponent implements OnInit {
   roundSelected(event) {
     console.info('Selected round id: ' + event.target.value);
 
+    const selectedRoundId = event.target.value;
     const selectedRound = this.roundtable
                             .rounds
-                            .find(round => round.id == event.target.value);
+                            .find(round => round.id === parseInt(selectedRoundId, 10));
 
     this.roundtable.selectedRound = selectedRound;
     this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
