@@ -2,7 +2,8 @@ import { Component, ElementRef, EventEmitter, Input, Output, OnInit, OnDestroy }
 
 import { ModalService } from './../modal/modal.service';
 
-import * as $ from 'jquery';
+declare var jquery: any;
+declare var $: any;
 
 @Component({
     moduleId: module.id,
@@ -13,7 +14,7 @@ export class AuthenticationWarningComponent implements OnInit, OnDestroy  {
 
   @Input() id: string;
 
-  private element: jQuery;
+  private element: any;
 
   constructor(private modalService: ModalService, private el: ElementRef) {
     this.element = $(el.nativeElement);
