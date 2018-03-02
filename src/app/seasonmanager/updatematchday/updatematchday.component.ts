@@ -117,9 +117,14 @@ export class UpdateMatchdayComponent implements OnInit {
   updateMatchDay() {
     console.info('Update round ' + this.roundtable.selectedRound.id);
     this.updateMatchdayService.updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup)
-      .subscribe((round: Rest.RoundAndTableJson) => {
-        this.roundtable.table = round;
-    });
+      .subscribe(
+        success => (round: Rest.RoundAndTableJson) => {
+          this.roundtable.table = round;
+        },
+        error => {
+          this.modalService.open(error.status);
+        }
+      );
   }
 
   updateOpenligaDb() {
@@ -138,9 +143,14 @@ export class UpdateMatchdayComponent implements OnInit {
   createOpenligaDb() {
     console.info('Create with OpenligaDB.');
     this.updateMatchdayService.createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
-      .subscribe((round: Rest.RoundAndTableJson) => {
-        this.roundtable.table = round;
-    });
+      .subscribe(
+        success => (round: Rest.RoundAndTableJson) => {
+          this.roundtable.table = round;
+        },
+        error => {
+          this.modalService.open('4711');
+        }
+      );
   }
 
 }

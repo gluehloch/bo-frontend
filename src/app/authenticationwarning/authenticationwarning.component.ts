@@ -15,6 +15,7 @@ export class AuthenticationWarningComponent implements OnInit, OnDestroy  {
   @Input() id: string;
 
   private element: any;
+  private httpError: any;
 
   constructor(private modalService: ModalService, private el: ElementRef) {
     this.element = $(el.nativeElement);
@@ -31,7 +32,8 @@ export class AuthenticationWarningComponent implements OnInit, OnDestroy  {
     // this.element.remove();
   }
 
-  open() {
+  open(httpError: any) {
+    this.httpError = httpError;
     // this.modalService.open(this.id);
     $('#confirmDeleteAction').modal();
   }

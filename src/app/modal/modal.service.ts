@@ -15,10 +15,10 @@ export class ModalService {
         this.modal = null;
     }
 
-    open(id: string) {
+    open(httpError: any) {
         // open modal specified by id
         // let modal: any = find(this.modals, { id: id });
-        this.modal.open();
+        this.modal.open(httpError);
     }
 
     close(id: string) {
