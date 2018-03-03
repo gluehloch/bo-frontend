@@ -122,7 +122,7 @@ export class UpdateMatchdayComponent implements OnInit {
           this.roundtable.table = round;
         },
         error => {
-          this.modalService.open(error.status);
+          this.modalService.open('AuthenticationWarningComponent', error.status);
         }
       );
   }
@@ -135,7 +135,7 @@ export class UpdateMatchdayComponent implements OnInit {
           this.roundtable.table = round;
         },
         error => {
-          this.modalService.open('4711');
+          this.modalService.open('AuthenticationWarningComponent', error.status);
         }
       );
   }
@@ -148,7 +148,7 @@ export class UpdateMatchdayComponent implements OnInit {
           this.roundtable.table = round;
         },
         error => {
-          this.modalService.open('4711');
+          this.modalService.open('AuthenticationWarningComponent', error.status);
         }
       );
   }

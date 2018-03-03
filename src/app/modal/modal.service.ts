@@ -1,29 +1,32 @@
+import * as _ from 'lodash';
+
+/**
+ * Verwaltet Referenzen zu modalen Dialogen. Dieser Service verbindet
+ * zwei Controller mit einander.
+ */
 export class ModalService {
-    // private modals: any[] = [];
-    private modal: any;
+    private modals: any[] = [];
 
     add(modal: any) {
-        // add modal to array of active modals
-        // this.modals.push(modal);
-        this.modal = modal;
+        const doubleCheck = _.find(this.modals, {id: modal.id})
+        if (doubleCheck === undefined || doubleCheck === null) {
+            this.modals.push(modal);
+        } else {
+            throw new Error('Modal with id=[' + modal.id + '] already there.');
+        }
     }
 
-    remove(id: string) {
-        // remove modal from array of active modals
-        // let modalToRemove = find(this.modals, { id: id });
-        // this.modals = without(this.modals, modalToRemove);
-        this.modal = null;
+    remove(modal: any) {
+        const removed = _.remove(this.modals, e => { return e.id === modal.id });
     }
 
-    open(httpError: any) {
-        // open modal specified by id
-        // let modal: any = find(this.modals, { id: id });
-        this.modal.open(httpError);
+    open(id: string, message?: any) {
+        const modal: any = _.find(this.modals, { id: id });
+        modal.open(message);
     }
 
     close(id: string) {
-        // close modal specified by id
-        // let modal: any = find(this.modals, { id: id });
-        this.modal.close();
+        const modal: any = _.find(this.modals, { id: id });
+        modal.close();
     }
 }

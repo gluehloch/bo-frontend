@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ModalService } from './../modal/modal.service';
 
@@ -12,35 +13,42 @@ declare var $: any;
   })
 export class AuthenticationWarningComponent implements OnInit, OnDestroy  {
 
-  @Input() id: string;
+    // Exampel or an input element
+    // @Input() id: string;
 
-  private element: any;
-  private httpError: any;
+    private static readonly ID = 'AuthenticationWarningComponent';
+    private static readonly HTML_ELEMENT_ID = '#authenticationWarning';
 
-  constructor(private modalService: ModalService, private el: ElementRef) {
-    this.element = $(el.nativeElement);
+    private element: any;
+    private httpError: any;
 
-    this.modalService.add(this);
-  }
+    readonly id = AuthenticationWarningComponent.ID;
 
-  ngOnInit() {
-    // $('#confirmDeleteAction').modal();
-  }
+    constructor(private router: Router, private modalService: ModalService, private el: ElementRef) {
+        this.element = $(el.nativeElement);
+    }
 
-  ngOnDestroy() {
-    // this.modalService.remove(this.id);
-    // this.element.remove();
-  }
+    ngOnInit() {
+        this.modalService.add(this);
+    }
 
-  open(httpError: any) {
-    this.httpError = httpError;
-    // this.modalService.open(this.id);
-    $('#confirmDeleteAction').modal();
-  }
+    ngOnDestroy() {
+        this.modalService.remove(this);
+    }
 
-  close() {
-    this.modalService.close(this.id);
-    $('#confirmDeleteAction').modal();
-  }
+    open(httpError: any) {
+        this.httpError = httpError;
+        $(AuthenticationWarningComponent.HTML_ELEMENT_ID).modal('show');
+    }
+
+    close() {
+        $(AuthenticationWarningComponent.HTML_ELEMENT_ID).modal('hide');
+    }
+
+    gotoLoginDialog() {
+        this.close();
+        this.router.navigate(['./login']);
+    }
+
 
 }

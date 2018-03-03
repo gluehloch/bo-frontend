@@ -46,8 +46,8 @@ export class TippCommonComponent implements OnInit {
 
   sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
     return games.sort((g1, g2) => {
-      let date1 = new Date(g1.dateTime);
-      let date2 = new Date(g2.dateTime);
+      const date1 = new Date(g1.dateTime);
+      const date2 = new Date(g2.dateTime);
       return date1.getTime() - date2.getTime();
     });
   }
