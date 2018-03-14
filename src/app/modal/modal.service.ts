@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 
 /**
- * Verwaltet Referenzen zu modalen Dialogen. Dieser Service verbindet
- * zwei Controller mit einander.
+ * Verwaltet Referenzen zu modalen Dialogen. Dieser Service dient als
+ * Bindeglied zwischen zwei verschiedenen Controllern.
  */
 export class ModalService {
     private modals: any[] = [];
