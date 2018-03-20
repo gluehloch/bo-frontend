@@ -5,8 +5,6 @@ import { CookieService } from 'ngx-cookie';
 import { SeasonManagerUpdateService } from './seasonmanagerupdate.service';
 import { UpdateSeasonModel } from './update-season-model';
 
-import { SeasonType, TeamType } from '../../betoffice-json/betofficetype';
-
 import { environment } from '../../../environments/environment';
 import { forEach } from '@angular/router/src/utils/collection';
 import { CheckableParty } from 'app/seasonmanager/update/checkable-party';
@@ -33,6 +31,7 @@ export class SeasonManagerUpdateComponent implements OnInit {
       name: '',
       openligaLeagueSeason: '',
       openligaLeagueShortcut: '',
+      currentRoundId: 0,
       teamType: 'DFB',
       seasonType: 'LEAGUE',
       rounds: [],

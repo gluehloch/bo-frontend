@@ -16,11 +16,11 @@ export class RankingService extends BetofficeService {
     super(http);
   }
 
-  calculate(seasonId: number) : Observable<Rest.UserTableJson> {
+  calculate(seasonId: number): Observable<Rest.UserTableJson> {
     return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/season/' + seasonId, {headers: this.createHeader()});
   }
 
-  calculateRoundOnly(roundId: number) : Observable<Rest.UserTableJson> {
+  calculateRoundOnly(roundId: number): Observable<Rest.UserTableJson> {
     return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/roundonly/' + roundId, {headers: this.createHeader()});
   }
 

@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.14.251 on 2017-11-18 19:32:16.
+// Generated using typescript-generator version 1.14.251 on 2018-03-20 07:22:37.
 
 declare namespace Rest {
 
@@ -72,6 +72,7 @@ declare namespace Rest {
         teamType: string;
         openligaLeagueShortcut: string;
         openligaLeagueSeason: string;
+        currentRoundId: number;
         rounds: RoundJson[];
     }
 

@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -7,150 +9,138 @@ import { UpdateMatchdayService } from './updatematchday.service';
 import { ModalService } from './../../modal/modal.service';
 
 export class Roundtable {
-  seasonId: number;
-  groups: Rest.GroupTypeJson[];
-  selectedGroup: Rest.GroupTypeJson;
-  rounds: Rest.RoundJson[];
-  selectedRound: Rest.RoundJson;
-  table: Rest.RoundAndTableJson;
+    seasonId: number;
+    groups: Rest.GroupTypeJson[];
+    selectedGroup: Rest.GroupTypeJson;
+    rounds: Rest.RoundJson[];
+    selectedRound: Rest.RoundJson;
+    table: Rest.RoundAndTableJson;
 };
 
 @Component({
-  selector: 'app-seasons',
-  templateUrl: './updatematchday.component.html',
-  styleUrls: ['./updatematchday.component.css']
+    selector: 'app-seasons',
+    templateUrl: './updatematchday.component.html',
+    styleUrls: ['./updatematchday.component.css']
 })
 export class UpdateMatchdayComponent implements OnInit {
 
-  roundtable: Roundtable;
+    roundtable: Roundtable;
 
-  constructor(
-      private router: Router,
-      private route: ActivatedRoute,
-      private updateMatchdayService: UpdateMatchdayService,
-      private modalService: ModalService) {
-    this.roundtable = new Roundtable();
-  }
+    constructor(private router: Router,
+        private route: ActivatedRoute,
+        private updateMatchdayService: UpdateMatchdayService,
+        private modalService: ModalService) {
 
-  ngOnInit() {
-    this.route.params.map(params => params['id']).subscribe((seasonId) => {
-      this.roundtable.seasonId = seasonId;
-      console.log('Update a match day of season ' + this.roundtable.seasonId);
-      this.findGroups(this.roundtable.seasonId);
-      // this.updateMatchdayService.findRounds(seasonId);
-      // this.roundtable.selectedSeason = season;
-      // this.findGroups(season.id);
-/*
-      this.seasonManagerUpdateService.findParties(id).subscribe(
-        (parties: Array<Rest.SeasonMemberJson>) => this.model.parties = parties);
+        this.roundtable = new Roundtable();
+    }
 
-      this.seasonManagerUpdateService.findPotentialParties(id).subscribe(
-        (parties: Array<Rest.SeasonMemberJson>) => this.model.potentialParties = parties);
-*/
-    });
+    ngOnInit() {
+        this.route.params.map(params => params['id']).subscribe((seasonId) => {
+            this.roundtable.seasonId = seasonId;
+            console.log('Update a match day of season ' + this.roundtable.seasonId);
+            this.findGroups(this.roundtable.seasonId);
+        });
+    }
 
-  }
-/*
-  findSeasons() {
-    this.updateMatchdayService.findSeasons()
-                      .subscribe((seasons: Rest.SeasonJson[]) => {
-      this.roundtable.seasons = seasons;
-      this.roundtable.selectedSeason = seasons[0];
+    private findGroups(seasonId: number) {
+        this.updateMatchdayService.findGroups(seasonId)
+                                  .subscribe((groups: Rest.GroupTypeJson[]) => {
+                                      this.roundtable.groups = groups;
+                                      this.roundtable.selectedGroup = groups[0];
+                                      this.findRounds(this.roundtable.seasonId, this.roundtable.selectedGroup.id);
+                                  });
+    }
 
-      this.findGroups(this.roundtable.selectedSeason.id);
-    });
-  }
-*/
+    private findRounds(seasonId: number, groupId: number) {
+            // TODO Den aktuellen Spieltag ermitteln. ....
+            /*
+            this.updateMatchdayService.findCurrent(this.roundtable.seasonId)
+                                      .subscribe((round: Rest.RoundJson) => {
+                                          // TODO
+                                      });
+            */
 
-  findGroups(seasonId: number) {
-    this.updateMatchdayService.findGroups(seasonId)
-                      .subscribe((groups: Rest.GroupTypeJson[]) => {
-      this.roundtable.groups = groups;
-      this.roundtable.selectedGroup = groups[0];
+        this.updateMatchdayService.findRounds(seasonId, groupId)
+                                  .subscribe((season: Rest.SeasonJson) => {
+                                      this.roundtable.rounds = season.rounds;
+                                      const index = _.findIndex(this.roundtable.rounds, e => { return e.id === season.currentRoundId});
+                                      this.roundtable.selectedRound = season.rounds[index];
+                                      this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+                                  });
+    }
 
-      this.findRounds(this.roundtable.seasonId, this.roundtable.selectedGroup.id);
-    });
-  }
+    private findRoundAndTable(roundId: number, groupId: number) {
+        this.updateMatchdayService.findRound(roundId, groupId)
+                                  .subscribe((round: Rest.RoundAndTableJson) => {
+                                      this.roundtable.table = round;
+                                  });
+    }
 
-  findRounds(seasonId: number, groupId: number) {
-    this.updateMatchdayService.findRounds(seasonId, groupId)
-                      .subscribe((season: Rest.SeasonJson) => {
-      this.roundtable.rounds = season.rounds;
-      this.roundtable.selectedRound = season.rounds[0];
+    // ------------------------------------------------------------------------------
 
-      this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
-    });
-  }
+    groupSelected(event) {
+        // console.info('Selected group id: ' + event.target.value);
 
-  findRoundAndTable(roundId: number, groupId: number) {
-    this.updateMatchdayService.findRound(roundId, groupId)
-                      .subscribe((round: Rest.RoundAndTableJson) => {
-      this.roundtable.table = round;
-    });
-  }
+        const selectedGroupId = event.target.value;
+        const selectedGroup = this.roundtable.groups
+                                  .find(group => group.id === parseInt(selectedGroupId, 10));
+        this.roundtable.selectedGroup = selectedGroup;
+        this.findRounds(this.roundtable.seasonId, selectedGroupId);
+    }
 
-  // ------------------------------------------------------------------------------
+    roundSelected(event) {
+        // console.info('Selected round id: ' + event.target.value);
 
-  groupSelected(event) {
-    console.info('Selected group id: ' + event.target.value);
+        const selectedRoundId = event.target.value;
+        const selectedRound = this.roundtable.rounds
+                                  .find(round => round.id === parseInt(selectedRoundId, 10));
 
-    const selectedGroupId = event.target.value;
-    const selectedGroup = this.roundtable
-                            .groups
-                            .find(group => group.id === parseInt(selectedGroupId, 10));
-    this.roundtable.selectedGroup = selectedGroup;
-    this.findRounds(this.roundtable.seasonId, selectedGroupId);
-  }
+        this.roundtable.selectedRound = selectedRound;
+        this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+    }
 
-  roundSelected(event) {
-    console.info('Selected round id: ' + event.target.value);
+    updateMatchDay() {
+        // console.info('Update round ' + this.roundtable.selectedRound.id);
 
-    const selectedRoundId = event.target.value;
-    const selectedRound = this.roundtable
-                            .rounds
-                            .find(round => round.id === parseInt(selectedRoundId, 10));
+        this.updateMatchdayService
+            .updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup)
+            .subscribe(
+                success => (round: Rest.RoundAndTableJson) => {
+                    this.roundtable.table = round;
+                },
+                error => {
+                    this.modalService.open('AuthenticationWarningComponent', error.status);
+                }
+            );
+    }
 
-    this.roundtable.selectedRound = selectedRound;
-    this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
-  }
+    updateOpenligaDb() {
+        // console.info('Update with OpenligaDB round ' + this.roundtable.selectedRound.id);
 
-  updateMatchDay() {
-    console.info('Update round ' + this.roundtable.selectedRound.id);
-    this.updateMatchdayService.updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup)
-      .subscribe(
-        success => (round: Rest.RoundAndTableJson) => {
-          this.roundtable.table = round;
-        },
-        error => {
-          this.modalService.open('AuthenticationWarningComponent', error.status);
-        }
-      );
-  }
+       this.updateMatchdayService
+           .updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
+           .subscribe(
+               success => (round: Rest.RoundAndTableJson) => {
+                   this.roundtable.table = round;
+               },
+               error => {
+                   this.modalService.open('AuthenticationWarningComponent', error.status);
+               }
+           );
+    }
 
-  updateOpenligaDb() {
-    console.info('Update with OpenligaDB round ' + this.roundtable.selectedRound.id);
-    this.updateMatchdayService.updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
-      .subscribe(
-        success => (round: Rest.RoundAndTableJson) => {
-          this.roundtable.table = round;
-        },
-        error => {
-          this.modalService.open('AuthenticationWarningComponent', error.status);
-        }
-      );
-  }
+    createOpenligaDb() {
+        // console.info('Create with OpenligaDB.');
 
-  createOpenligaDb() {
-    console.info('Create with OpenligaDB.');
-    this.updateMatchdayService.createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
-      .subscribe(
-        success => (round: Rest.RoundAndTableJson) => {
-          this.roundtable.table = round;
-        },
-        error => {
-          this.modalService.open('AuthenticationWarningComponent', error.status);
-        }
-      );
-  }
-
+        this.updateMatchdayService
+            .createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
+            .subscribe(
+                success => (round: Rest.RoundAndTableJson) => {
+                    this.roundtable.table = round;
+                },
+                error => {
+                    this.modalService.open('AuthenticationWarningComponent', error.status);
+                }
+            );
+    }
 }

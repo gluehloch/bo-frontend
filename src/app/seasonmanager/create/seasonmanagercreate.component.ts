@@ -10,7 +10,7 @@ import { SeasonType, TeamType } from '../../betoffice-json/betofficetype';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'season-manager-create',
+  selector: 'app-season-manager-create',
   templateUrl: './seasonmanagercreate.component.html',
   styleUrls: ['./seasonmanagercreate.component.css']
 })
@@ -26,6 +26,7 @@ export class SeasonManagerCreateComponent implements OnInit {
       name: '',
       openligaLeagueSeason: '',
       openligaLeagueShortcut: '',
+      currentRoundId: 0,
       teamType: 'DFB',
       seasonType: 'LEAGUE',
       rounds: [],
