@@ -52,14 +52,6 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     private findRounds(seasonId: number, groupId: number) {
-            // TODO Den aktuellen Spieltag ermitteln. ....
-            /*
-            this.updateMatchdayService.findCurrent(this.roundtable.seasonId)
-                                      .subscribe((round: Rest.RoundJson) => {
-                                          // TODO
-                                      });
-            */
-
         this.updateMatchdayService.findRounds(seasonId, groupId)
                                   .subscribe((season: Rest.SeasonJson) => {
                                       this.roundtable.rounds = season.rounds;
