@@ -55,8 +55,12 @@ export class UpdateMatchdayComponent implements OnInit {
         this.updateMatchdayService.findRounds(seasonId, groupId)
                                   .subscribe((season: Rest.SeasonJson) => {
                                       this.roundtable.rounds = season.rounds;
-                                      const index = _.findIndex(this.roundtable.rounds, e => { return e.id === season.currentRoundId});
-                                      this.roundtable.selectedRound = season.rounds[index];
+                                      if (season.currentRoundId) {
+                                          const index = _.findIndex(this.roundtable.rounds, e => { return e.id === season.currentRoundId});
+                                          this.roundtable.selectedRound = season.rounds[index];
+                                      } else {
+                                          this.roundtable.selectedRound = season.rounds[0];
+                                      }
                                       this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
                                   });
     }
