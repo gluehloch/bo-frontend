@@ -33,19 +33,28 @@
           <div *ngFor="let game of tippModel.round.games; let index = index">
 
             <div class="row">
-              <div class="col-12" *ngIf="index === 0" style="border-top:solid; background-color: lightgrey; border-top-color: lightskyblue">
+              <div class="col-12" *ngIf="index === 0" style="border-top:solid">
                   <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
               </div>
-              <div class="col-12" *ngIf="index > 0 && (tippModel.round.games[index].dateTime !== tippModel.round.games[index - 1].dateTime)" style="border-top:solid; border-top-color: lightskyblue; background-color: lightgrey">
+              <div class="col-12" *ngIf="index > 0 && (tippModel.round.games[index].dateTime !== tippModel.round.games[index - 1].dateTime)"
+                style="border-top:solid; border-top-color: lightslategray">
                 <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
               </div>
             </div>
 
-            <div class="row" style="background-color: #F5F5F5; border-top:solid 1px; border-top-color: lightslategray">
-              <div class="col-5" style="text-align: right; padding: .5rem .75rem">{{game.homeTeam.shortName}}</div>
-              <div *ngIf="game.finished" class="col-2" style="text-align: center; padding: .5rem .75rem">({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}}) {{game.result.homeGoals}}:{{game.result.guestGoals}}</div>
-              <div *ngIf="!game.finished" class="col-2" style="text-align: center; padding: .5rem .75rem">{{game.result.homeGoals}}:{{game.result.guestGoals}}</div>
-              <div class="col-5" style="text-align: left; padding: .5rem .75rem">{{game.guestTeam.shortName}}</div>
+            <div class="row" style="border-top:solid 1px">
+              <div class="col-5" style="text-align: right; padding: .5rem .75rem">
+                {{game.homeTeam.shortName}}
+              </div>
+              <div *ngIf="game.finished" class="col-2" style="text-align: center; padding: .5rem .75rem">
+                {{game.result.homeGoals}}:{{game.result.guestGoals}} ({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}})
+              </div>
+              <div *ngIf="!game.finished" class="col-2" style="text-align: center; padding: .5rem .75rem">
+                {{game.result.homeGoals}}:{{game.result.guestGoals}}
+              </div>
+              <div class="col-5" style="text-align: left; padding: .5rem .75rem">
+                {{game.guestTeam.shortName}}
+              </div>
             </div>
             <div *ngIf="game.finished" class="row"
               [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
@@ -56,7 +65,7 @@
             </div>
             <div *ngIf="!game.finished" class="row">
               <div class="col-2"></div>
-              <div class="col-4">
+              <div class="col-4" style="padding: .5rem .75rem">
                 <input class="form-control"
                   id="{{tippModel.round.id}}heim{{game.id}}" 
                   name="{{tippModel.round.id}}heim{{game.id}}"
@@ -66,7 +75,7 @@
                   [(ngModel)]="game.tipps[0].tipp.homeGoals"
                   style="text-align:right"/>
               </div>
-              <div class="col-4">
+              <div class="col-4" style="padding: .5rem .75rem">
                 <input class="form-control"
                   id="{{tippModel.round.id}}gast{{game.id}}"
                   name="{{tippModel.round.id}}gast{{game.id}}"
