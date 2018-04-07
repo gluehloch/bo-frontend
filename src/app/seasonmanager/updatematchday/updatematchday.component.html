@@ -1,10 +1,8 @@
 <app-authentication-warning></app-authentication-warning>
 <div>
   <form #selectSeasonAndGroup="ngForm" name="selectSeasonAndGroup">
-
     <label for="selectGroup">Gruppe auswählen:</label>
-    <br />
-    <select name="selectGroup"
+    <select name="selectGroup" class="form-control form-control-sm"
       (change)="groupSelected($event)">
       <option
         *ngFor="let group of roundtable.groups"
@@ -12,11 +10,9 @@
         {{group.name}}
       </option>
     </select>
-    <br />
 
     <label for="selectRound">Runde auswählen:</label>
-    <br />
-    <select name="selectRound"
+    <select name="selectRound" class="form-control form-control-sm"
       (change)="roundSelected($event)">
       <option
         *ngFor="let round of roundtable.rounds"
@@ -24,8 +20,7 @@
         [selected]="roundtable?.selectedRound?.id == round.id">
         {{round.dateTime | date: 'dd.MM.yyyy HH:mm'}}
       </option>
-    </select>
-  
+    </select>  
   </form>
 
   <form #updateMatchday="ngForm" name="upateMatchday">
