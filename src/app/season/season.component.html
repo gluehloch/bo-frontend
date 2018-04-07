@@ -1,21 +1,27 @@
 <div>
   <form name="selectSeasonAndGroup">
+    <!--
+    <div class="dropdown" name="selectSeason">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{season?.name}} {{season?.year}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a *ngFor="let season of roundtable.seasons" class="dropdown-item" (click)="seasonSelected(season)">{{season.name}} {{season.year}}</a>
+      </div>
+    </div>
+    -->
     <label for="selectSeason">Meisterschaft auswählen:</label>
-    <br />
-    <select name="selectSeason"
+    <select name="selectSeason" class="form-control form-control-sm"
       (change)="seasonSelected($event)">
-      <!--[(ngModel)]="roundtable.selectedSeason"-->
       <option 
         *ngFor="let season of roundtable.seasons"
         [value]="season.id">
         {{season.name}} {{season.year}}
       </option>
     </select>
-    <br />
 
     <label for="selectGroup">Gruppe auswählen:</label>
-    <br />
-    <select name="selectGroup"
+    <select name="selectGroup" class="form-control form-control-sm"
       (change)="groupSelected($event)">
       <!--[(ngModel)]="roundtable.selectedGroup" -->
       <option
@@ -24,11 +30,9 @@
         {{group.name}}
       </option>
     </select>
-    <br />
 
     <label for="selectRound">Runde auswählen:</label>
-    <br />
-    <select name="selectRound"
+    <select name="selectRound" class="form-control form-control-sm"
       (change)="roundSelected($event)">
       <!--[(ngModel)]="roundtable.selectedRound"-->
       <option
