@@ -19,48 +19,25 @@
         {{season.name}} {{season.year}}
       </option>
     </select>
-
     <label for="selectGroup">Gruppe auswählen:</label>
     <select name="selectGroup" class="form-control form-control-sm"
       (change)="groupSelected($event)">
-      <!--[(ngModel)]="roundtable.selectedGroup" -->
       <option
         *ngFor="let group of roundtable.groups"
         [value]="group.id">
         {{group.name}}
       </option>
     </select>
-
     <label for="selectRound">Runde auswählen:</label>
     <select name="selectRound" class="form-control form-control-sm"
       (change)="roundSelected($event)">
-      <!--[(ngModel)]="roundtable.selectedRound"-->
       <option
         *ngFor="let round of roundtable.rounds"
         [value]="round.id"  [selected]="roundtable.selectedRound.id == round.id">
         {{round.dateTime | date: 'dd.MM.yyyy HH:mm'}}
       </option>
-    </select>
-  
+    </select>  
   </form>
-
-<!--
-  <div ng-show="authentication.isAdmin()">
-    <hr />
-    <div class="form-group">
-      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="update()">
-        Aktualisieren per Openligadb
-      </button>
-    </div>
-    <div class="form-group">
-      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="createOrUpdate()">
-        Nächsten Spieltag per Openligadb anlegen.
-      </button>
-    </div>
-  </div>
-
-  <hr />
--->
 
   <div *ngIf="roundtable.table">
     <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
@@ -74,7 +51,11 @@
        <tr *ngFor="let game of roundtable.table.roundJson.games">
          <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
          <td style="text-align:right">{{game.homeTeam.name}}</td>
-         <td style="text-align:center">({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}}) {{game.result.homeGoals}}:{{game.result.guestGoals}}</td>
+         <td style="text-align:center">
+           ({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}})
+           (n.V. {{game.overtimeResult.homeGoals}}:{{game.overtimeResult.guestGoals}})
+           (n.E. {{game.penaltyResult.homeGoals}}:{{game.penaltyResult.guestGoals}})
+           {{game.result.homeGoals}}:{{game.result.guestGoals}}</td>
          <td style="text-align:left">{{game.guestTeam.name}}</td>
        </tr>
     </table>
