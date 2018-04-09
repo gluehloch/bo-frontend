@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.14.251 on 2018-03-21 19:00:05.
+// Generated using typescript-generator version 1.14.251 on 2018-04-08 14:59:58.
 
 declare namespace Rest {
 
@@ -12,6 +12,7 @@ declare namespace Rest {
         overtimeResult: GameResultJson;
         penaltyResult: GameResultJson;
         finished: boolean;
+        ko: boolean;
         tipps: GameTippJson[];
     }
 

@@ -29,18 +29,21 @@
       <table class="table table-striped table-sm">
         <tr>
           <th>F</th>
+          <th>KO</th>
           <th style="text-align:right">Datum</th>
-          <th style="text-align:right">Heimmannschaft</th>
+          <th style="text-align:right">Heim</th>
+          <th style="text-align:left">Gast</th>
           <th>HZ H</th>
           <th>HZ G</th>
           <th>ES H</th>
           <th>ES G</th>
-          <th style="text-align:left">Gastmannschaft</th>
         </tr>
         <tr *ngFor="let game of roundtable.table.roundJson.games">
           <td><input type="checkbox" id="{{game.id}}Finished" name="{{game.id}}Finished" [(ngModel)]="game.finished"/></td>
+          <td><input type="checkbox" id="{{game.id}}Ko" name="{{game.id}}ko" [(ngModel)]="game.ko"></td>
           <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
           <td style="text-align:right">{{game.homeTeam.name}}</td>
+          <td style="text-align:left">{{game.guestTeam.name}}</td>
           <td>
             <input max="15" min="0" type="number" size="1"
               class="form-control" id="{{game.id}}HalfTimeHomeGoals" name="{{game.id}}HalfTimeHomeGoals" [(ngModel)]="game.halfTimeResult.homeGoals" />
@@ -57,7 +60,6 @@
             <input max="15" min="0" type="number" size="1"
               class="form-control" id="{{game.id}}GuestGoals" name="{{game.id}}GuestGoals" [(ngModel)]="game.result.guestGoals" />
           </td>
-          <td style="text-align:left">{{game.guestTeam.name}}</td>
         </tr>
       </table>
       <div class="row">
