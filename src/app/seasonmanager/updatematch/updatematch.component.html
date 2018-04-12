@@ -1,0 +1,77 @@
+<app-authentication-warning></app-authentication-warning>
+<div>
+    <form #updateMatchForm="ngForm" name="updateMatchForm">
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="number" disabled="true" class="form-control" id="id" name="id" [(ngModel)]="game.id"/>
+        </div>
+        <div class="form-group">
+            <label for="finished">Beendet</label>
+            <input type="checkbox" class="form-control" id="finished" name="finished" [(ngModel)]="game.finished" required />
+        </div>
+        <div class="form-group">
+            <label for="ko">KO</label>
+            <input class="form-control" id="ko" name="ko" [(ngModel)]="game.ko" required />
+        </div>
+        <div class="form-group">
+            <label for="dateTime">Datum</label>
+            <input type="text" disabled="true" class="form-control" id="dateTime" name="dateTime" [(ngModel)]="game.dateTime"/>
+        </div>
+        <div class="form-group">
+            <label for="homeTeam">Heimmannschaft</label>
+            <input type="text" disabled="true" class="form-control" id="homeTeam" name="homeTeam" [(ngModel)]="game.homeTeam.shotName"/>
+        </div>
+        <div>
+            <label for="guestTeam">Gastmannschaft</label>
+            <input type="text" disabled="true" class="form-control" id="guestTeam" name="guestTeam" [(ngModel)]="game.guestTeam.shortName"/>
+        </div>
+        <!-- Halbzeit Tore -->
+        <div>
+            <label for="homeHalfTimeResult">Halbzeit Heim</label>
+            <input type="number" class="form-control" id="homeHalfTimeResult" name="homeHalfTimeResult" [(ngModel)]="game.halfTimeResult.homeGoals"/>
+        </div>
+        <div>
+            <label for="guestHalfTimeResult">Halbzeit Gast</label>
+            <input type="number" class="form-control" id="guestHalfTimeResult" name="guestHalfTimeResult" [(ngModel)]="game.halfTimeResult.guestGoals"/>
+        </div>
+        <!-- Tore nach 90 Minuten -->
+        <div>
+            <label for="homeResult">Heim</label>
+            <input type="number" class="form-control" id="homeResult" name="homeResult" [(ngModel)]="game.result.homeGoals"/>
+        </div>
+        <div>
+            <label for="guestResult">Gast</label>
+            <input type="number" class="form-control" id="guestResult" name="guestResult" [(ngModel)]="game.result.guestGoals"/>
+        </div>
+        <!-- Tore nach Verlängerung -->
+        <div>
+            <label for="homeOvertimeResult">Heim</label>
+            <input type="number" class="form-control" id="homeOvertimeResult" name="homeOvertimeResult" [(ngModel)]="game.overttimeResult.homeGoals"/>
+        </div>
+        <div>
+            <label for="guestOvertimeResult">Gast</label>
+            <input type="number" class="form-control" id="guestOvertimeResult" name="guestOvertimeResult" [(ngModel)]="game.overtimeResult.guestGoals"/>
+        </div>
+        <!-- Tore nach Elfmeterschiessen -->
+        <div>
+            <label for="homePenaltyResult">Heim</label>
+            <input type="number" class="form-control" id="homePenaltyResult" name="homePenaltyResult" [(ngModel)]="game.penaltyResult.homeGoals"/>
+        </div>
+        <div>
+            <label for="guestPenaltyResult">Gast</label>
+            <input type="number" class="form-control" id="guestPenaltyResult" name="guestPenaltyResult" [(ngModel)]="game.penaltyResult.guestGoals"/>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button [disabled]="!updateMatchForm.form.valid || model.submitted"
+                    class="btn btn-lg btn-primary btn-block"
+                    type="submit"
+                    (click)="updateGame()">Spiel speichern</button>
+            </div>
+            <div class="col">     
+                <button class="btn btn-md btn-secondary btn-block"
+                    (click)="resetGame()">Zurücksetzten</button>
+            </div>
+        </div>
+    </form>    
+</div>
