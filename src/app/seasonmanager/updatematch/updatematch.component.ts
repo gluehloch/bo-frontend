@@ -10,7 +10,7 @@ import { ModalService } from './../../modal/modal.service';
 
 
 @Component({
-    selector: 'app-seasons',
+    selector: 'app-match-detail',
     templateUrl: './updatematch.component.html',
     styleUrls: ['./updatematch.component.css']
 })

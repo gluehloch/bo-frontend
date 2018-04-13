@@ -59,8 +59,12 @@ import { SeasonManagerUpdateService } from './seasonmanager/update/seasonmanager
 import { SeasonManagerUpdateComponent } from './seasonmanager/update/seasonmanagerupdate.component';
 import { SeasonManagerCreateService } from './seasonmanager/create/seasonmanagercreate.service';
 import { SeasonManagerCreateComponent } from './seasonmanager/create/seasonmanagercreate.component';
+
 import { UpdateMatchdayService } from './seasonmanager/updatematchday/updatematchday.service';
 import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatematchday.component';
+
+import { UpdateMatchService } from './seasonmanager/updatematch/updatematch.service';
+import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.component';
 
 @NgModule({
   imports: [
@@ -145,6 +149,10 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
       {
         path: 'chiefop/seasonmanager/updatematchday/:id',
         component: UpdateMatchdayComponent
+      },
+      {
+        path: 'chiefop/seasonmanager/updatematch/:id',
+        component: UpdateMatchComponent
       }
     ])
   ],
@@ -168,7 +176,8 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     SeasonManagerComponent,
     SeasonManagerUpdateComponent,
     SeasonManagerCreateComponent,
-    UpdateMatchdayComponent
+    UpdateMatchdayComponent,
+    UpdateMatchComponent
   ],
   providers: [
     HomeService,
@@ -186,6 +195,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
     SeasonManagerUpdateService,
     SeasonManagerCreateService,
     UpdateMatchdayService,
+    UpdateMatchService,
     ModalService
   ],
   bootstrap: [AppComponent]

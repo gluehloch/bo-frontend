@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 // TODO Was ist das hier?
-import 'rxjs/add/operator/toPromise';
+// import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx';
+// import 'rxjs/Rx';
 
 import { environment } from '../../../environments/environment';
 
