@@ -18,6 +18,11 @@ export class UpdateMatchService extends BetofficeService {
         super(http);
     }
 
+    findMatch(matchId: number): Observable<Rest.GameJson> {
+        return this.http.get<Rest.GameJson>(
+            this.rootUrl + '...' + matchId, {headers: this.createHeader()});
+    }
+
     nextRound(roundId: number): Observable<Rest.RoundAndTableJson> {
         return this.http.get<Rest.RoundAndTableJson>(
             this.rootUrl + 'season/roundtable/' + roundId + '/next', {headers: this.createHeader()});

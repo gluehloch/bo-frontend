@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 // TODO Was ist das hier?
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { BetofficeService } from '../betoffice.service';
@@ -15,15 +15,15 @@ export class PartyService extends BetofficeService {
     super(http);
   }
 
-  findParties() : Observable<Array<Rest.PartyJson>> {
+  findParties(): Observable<Array<Rest.PartyJson>> {
     return this.http.get<Array<Rest.PartyJson>>(this.adminUrl + 'user/list', {headers: this.createHeader()});
   }
 
-  updateParty(party: Rest.PartyJson) : Observable<Rest.PartyJson> {
+  updateParty(party: Rest.PartyJson): Observable<Rest.PartyJson> {
     return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/update', party, {headers: this.createHeader()});
   }
 
-  addParty(party: Rest.PartyJson) : Observable<Rest.PartyJson> {
+  addParty(party: Rest.PartyJson): Observable<Rest.PartyJson> {
     return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/add', party, {headers: this.createHeader()});
   }
 

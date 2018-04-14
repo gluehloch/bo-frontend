@@ -16,29 +16,37 @@ import { ModalService } from './../../modal/modal.service';
 })
 export class UpdateMatchComponent implements OnInit {
 
-    // roundtable: Roundtable;
+    match: Rest.GameJson;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
         private updateMatchService: UpdateMatchService,
         private modalService: ModalService) {
-
-        // this.roundtable = new Roundtable();
     }
 
     ngOnInit() {
-        /*
-        this.route.params.map(params => params['id']).subscribe((seasonId) => {
-            this.roundtable.seasonId = seasonId;
-            console.log('Update a match day of season ' + this.roundtable.seasonId);
-            this.findGroups(this.roundtable.seasonId);
+        this.route.params.map(params => params['id']).subscribe((matchId) => {
+            this.findMatch(matchId);
         });
-        */
     }
 
     // ------------------------------------------------------------------------------
 
-    updateGame() {
+    private findMatch(matchId: number) {
+        this.updateMatchService
+            .findMatch(matchId)
+            .subscribe(
+                success => (match: Rest.GameJson) => {
+                    this.match = match;
+                },
+                error => {
+                    // TODO Error handling not implemented.
+                    // this.modalService.open
+                }
+            );
+    }
+
+    updateMatch() {
         // console.info('Update round ' + this.roundtable.selectedRound.id);
 
         /*
@@ -55,7 +63,7 @@ export class UpdateMatchComponent implements OnInit {
         */
     }
 
-    resetGame() {
+    resetMatch() {
         // NULL
     }
 

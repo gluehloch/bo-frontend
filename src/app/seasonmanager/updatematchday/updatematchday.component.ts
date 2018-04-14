@@ -95,6 +95,10 @@ export class UpdateMatchdayComponent implements OnInit {
         this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
     }
 
+    updateMatch(game: Rest.GameJson) {
+        this.router.navigate(['./chiefop/seasonmanager/updatematch', game.id]);
+    }
+
     updateMatchDay() {
         // console.info('Update round ' + this.roundtable.selectedRound.id);
 

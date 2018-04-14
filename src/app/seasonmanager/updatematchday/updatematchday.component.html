@@ -28,6 +28,7 @@
       <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
       <table class="table table-striped table-sm">
         <tr>
+          <th></th>
           <th>F</th>
           <th>KO</th>
           <th style="text-align:right">Datum</th>
@@ -39,6 +40,9 @@
           <th>ES G</th>
         </tr>
         <tr *ngFor="let game of roundtable.table.roundJson.games">
+          <td>
+            <button class="btn btn-primary btn-sm" type="submit" (click)="updateMatch(game)">Edit</button>
+          </td>
           <td><input type="checkbox" id="{{game.id}}Finished" name="{{game.id}}Finished" [(ngModel)]="game.finished"/></td>
           <td><input type="checkbox" id="{{game.id}}Ko" name="{{game.id}}ko" [(ngModel)]="game.ko"></td>
           <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
