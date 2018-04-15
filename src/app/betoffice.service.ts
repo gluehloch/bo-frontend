@@ -24,7 +24,7 @@ export abstract class BetofficeService {
    */
   protected handleError(error: any): Promise<any> {
     if (error.status === 403) {
-      console.info('Access denied. Renew your authentification.');
+      console.log('Access denied. Renew your authentification.');
       // The authentication token timed out. So it is better to remove the token now.
       this.clearCredentials();
     } else {
@@ -36,6 +36,10 @@ export abstract class BetofficeService {
 
   public createHeader(): HttpHeaders {
     let headers = new HttpHeaders()
+      // TODO Is this necessary? All this no caching parameters?
+      .append('Cache-Control', 'no-cache, no-store, must-revalidate')
+      .append('Pragma', 'no-cache')
+      .append('Expires', '0')
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Origin', '*');
 

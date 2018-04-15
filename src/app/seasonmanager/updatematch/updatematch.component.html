@@ -3,74 +3,74 @@
     <form #updateMatchForm="ngForm" name="updateMatchForm">
         <div class="form-group">
             <label for="id">ID</label>
-            <input type="number" disabled="true" class="form-control" id="id" name="id" [(ngModel)]="game.id"/>
+            <input type="number" disabled="true" class="form-control" id="id" name="id" [(ngModel)]="matchModel.match.id"/>
         </div>
         <div class="form-group">
             <label for="finished">Beendet</label>
-            <input type="checkbox" class="form-control" id="finished" name="finished" [(ngModel)]="game.finished" required />
+            <input type="checkbox" class="form-control" id="finished" name="finished" [(ngModel)]="matchModel.match.finished" required />
         </div>
         <div class="form-group">
             <label for="ko">KO</label>
-            <input class="form-control" id="ko" name="ko" [(ngModel)]="game.ko" required />
+            <input class="form-control" id="ko" name="ko" [(ngModel)]="matchModel.match.ko" required />
         </div>
         <div class="form-group">
             <label for="dateTime">Datum</label>
-            <input type="text" disabled="true" class="form-control" id="dateTime" name="dateTime" [(ngModel)]="game.dateTime"/>
+            <input type="text" disabled="true" class="form-control" id="dateTime" name="dateTime" [(ngModel)]="matchModel.match.dateTime"/>
         </div>
         <div class="form-group">
             <label for="homeTeam">Heimmannschaft</label>
-            <input type="text" disabled="true" class="form-control" id="homeTeam" name="homeTeam" [(ngModel)]="game.homeTeam.shotName"/>
+            <input type="text" disabled="true" class="form-control" id="homeTeam" name="homeTeam" [(ngModel)]="matchModel.match.homeTeam.shotName"/>
         </div>
         <div>
             <label for="guestTeam">Gastmannschaft</label>
-            <input type="text" disabled="true" class="form-control" id="guestTeam" name="guestTeam" [(ngModel)]="game.guestTeam.shortName"/>
+            <input type="text" disabled="true" class="form-control" id="guestTeam" name="guestTeam" [(ngModel)]="matchModel.match.guestTeam.shortName"/>
         </div>
         <!-- Halbzeit Tore -->
         <div>
             <label for="homeHalfTimeResult">Halbzeit Heim</label>
-            <input type="number" class="form-control" id="homeHalfTimeResult" name="homeHalfTimeResult" [(ngModel)]="game.halfTimeResult.homeGoals"/>
+            <input type="number" class="form-control" id="homeHalfTimeResult" name="homeHalfTimeResult" [(ngModel)]="matchModel.match.halfTimeResult.homeGoals"/>
         </div>
         <div>
             <label for="guestHalfTimeResult">Halbzeit Gast</label>
-            <input type="number" class="form-control" id="guestHalfTimeResult" name="guestHalfTimeResult" [(ngModel)]="game.halfTimeResult.guestGoals"/>
+            <input type="number" class="form-control" id="guestHalfTimeResult" name="guestHalfTimeResult" [(ngModel)]="matchModel.match.halfTimeResult.guestGoals"/>
         </div>
         <!-- Tore nach 90 Minuten -->
         <div>
             <label for="homeResult">Heim</label>
-            <input type="number" class="form-control" id="homeResult" name="homeResult" [(ngModel)]="game.result.homeGoals"/>
+            <input type="number" class="form-control" id="homeResult" name="homeResult" [(ngModel)]="matchModel.match.result.homeGoals"/>
         </div>
         <div>
             <label for="guestResult">Gast</label>
-            <input type="number" class="form-control" id="guestResult" name="guestResult" [(ngModel)]="game.result.guestGoals"/>
+            <input type="number" class="form-control" id="guestResult" name="guestResult" [(ngModel)]="matchModel.match.result.guestGoals"/>
         </div>
         <!-- Tore nach Verlängerung -->
         <div>
             <label for="homeOvertimeResult">Heim</label>
-            <input type="number" class="form-control" id="homeOvertimeResult" name="homeOvertimeResult" [(ngModel)]="game.overttimeResult.homeGoals"/>
+            <input type="number" class="form-control" id="homeOvertimeResult" name="homeOvertimeResult" [(ngModel)]="matchModel.match.overttimeResult.homeGoals"/>
         </div>
         <div>
             <label for="guestOvertimeResult">Gast</label>
-            <input type="number" class="form-control" id="guestOvertimeResult" name="guestOvertimeResult" [(ngModel)]="game.overtimeResult.guestGoals"/>
+            <input type="number" class="form-control" id="guestOvertimeResult" name="guestOvertimeResult" [(ngModel)]="matchModel.match.overtimeResult.guestGoals"/>
         </div>
         <!-- Tore nach Elfmeterschiessen -->
         <div>
             <label for="homePenaltyResult">Heim</label>
-            <input type="number" class="form-control" id="homePenaltyResult" name="homePenaltyResult" [(ngModel)]="game.penaltyResult.homeGoals"/>
+            <input type="number" class="form-control" id="homePenaltyResult" name="homePenaltyResult" [(ngModel)]="matchModel.match.penaltyResult.homeGoals"/>
         </div>
         <div>
             <label for="guestPenaltyResult">Gast</label>
-            <input type="number" class="form-control" id="guestPenaltyResult" name="guestPenaltyResult" [(ngModel)]="game.penaltyResult.guestGoals"/>
+            <input type="number" class="form-control" id="guestPenaltyResult" name="guestPenaltyResult" [(ngModel)]="matchModel.match.penaltyResult.guestGoals"/>
         </div>
         <div class="row">
             <div class="col">
-                <button [disabled]="!updateMatchForm.form.valid || model.submitted"
+                <button [disabled]="!updateMatchForm.valid || model.submitted"
                     class="btn btn-lg btn-primary btn-block"
                     type="submit"
-                    (click)="updateGame()">Spiel speichern</button>
+                    (click)="updateMatch()">Spiel speichern</button>
             </div>
             <div class="col">     
                 <button class="btn btn-md btn-secondary btn-block"
-                    (click)="resetGame()">Zurücksetzten</button>
+                    (click)="resetMatch()">Zurücksetzten</button>
             </div>
         </div>
     </form>    

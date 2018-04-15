@@ -7,7 +7,11 @@ import { USERROLE } from '../../user-role.enum';
 
 import { UpdateMatchService } from './updatematch.service';
 import { ModalService } from './../../modal/modal.service';
+import { ResponseType } from '@angular/http';
 
+class MatchModel {
+    match: Rest.GameJson;
+}
 
 @Component({
     selector: 'app-match-detail',
@@ -16,12 +20,15 @@ import { ModalService } from './../../modal/modal.service';
 })
 export class UpdateMatchComponent implements OnInit {
 
-    match: Rest.GameJson;
+    matchModel: MatchModel;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
         private updateMatchService: UpdateMatchService,
         private modalService: ModalService) {
+
+        this.matchModel = new MatchModel();
+        this.matchModel.match = null;
     }
 
     ngOnInit() {
@@ -33,15 +40,17 @@ export class UpdateMatchComponent implements OnInit {
     // ------------------------------------------------------------------------------
 
     private findMatch(matchId: number) {
+        console.log('Match loading: ' + matchId);
         this.updateMatchService
             .findMatch(matchId)
             .subscribe(
                 success => (match: Rest.GameJson) => {
-                    this.match = match;
+                    console.log('Match loaded: ' + match)
+                    this.matchModel.match = match;
                 },
-                error => {
+                error => (msg) => {
+                    console.error('Ein Fehler: ' + msg);
                     // TODO Error handling not implemented.
-                    // this.modalService.open
                 }
             );
     }
