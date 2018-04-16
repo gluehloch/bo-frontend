@@ -11,6 +11,9 @@ import { ResponseType } from '@angular/http';
 
 class MatchModel {
     match: Rest.GameJson;
+
+    // TODO Some common form disabling/submitting mechanism?
+    submitted: false;
 }
 
 @Component({
@@ -44,8 +47,8 @@ export class UpdateMatchComponent implements OnInit {
         this.updateMatchService
             .findMatch(matchId)
             .subscribe(
-                success => (match: Rest.GameJson) => {
-                    console.log('Match loaded: ' + match)
+                (match: Rest.GameJson) => {
+                    console.log('Match loaded: ' + match);
                     this.matchModel.match = match;
                 },
                 error => (msg) => {
