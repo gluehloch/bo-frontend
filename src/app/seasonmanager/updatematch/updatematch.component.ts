@@ -51,8 +51,9 @@ export class UpdateMatchComponent implements OnInit {
                     console.log('Match loaded: ' + match);
                     this.matchModel.match = match;
                 },
-                error => (msg) => {
-                    console.error('Ein Fehler: ' + msg);
+                (error) => {
+                    console.error('Ein Fehler: ' + error);
+                    console.dir(error);
                     // TODO Error handling not implemented.
                 }
             );

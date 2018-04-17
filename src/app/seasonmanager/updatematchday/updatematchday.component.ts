@@ -105,10 +105,10 @@ export class UpdateMatchdayComponent implements OnInit {
         this.updateMatchdayService
             .updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup)
             .subscribe(
-                success => (round: Rest.RoundAndTableJson) => {
+                (round: Rest.RoundAndTableJson) => {
                     this.roundtable.table = round;
                 },
-                error => {
+                (error) => {
                     this.modalService.open('AuthenticationWarningComponent', error.status);
                 }
             );
@@ -120,10 +120,11 @@ export class UpdateMatchdayComponent implements OnInit {
        this.updateMatchdayService
            .updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
            .subscribe(
-               success => (round: Rest.RoundAndTableJson) => {
+               (round: Rest.RoundAndTableJson) => {
                    this.roundtable.table = round;
                },
-               error => {
+               (error) => {
+                   console.dir(error);
                    this.modalService.open('AuthenticationWarningComponent', error.status);
                }
            );
@@ -135,10 +136,11 @@ export class UpdateMatchdayComponent implements OnInit {
         this.updateMatchdayService
             .createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
             .subscribe(
-                success => (round: Rest.RoundAndTableJson) => {
+                (round: Rest.RoundAndTableJson) => {
                     this.roundtable.table = round;
                 },
-                error => {
+                (error) => {
+                    console.dir(error);
                     this.modalService.open('AuthenticationWarningComponent', error.status);
                 }
             );
