@@ -3,7 +3,7 @@
     <p>Bitte warten ...</p>
 </div>
 <div *ngIf="matchModel.match">
-    <form #updateMatchForm="ngForm" name="updateMatchForm">
+    <form #updateMatchForm="ngForm" name="updateMatchForm" (ngSubmit)="updateMatch()">
         <div class="form-group">
             <label for="id">ID</label>
             <input type="number" readonly class="form-control" id="id" name="id" [(ngModel)]="matchModel.match.id"/>
@@ -119,17 +119,18 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <button [disabled]="!updateMatchForm.valid || matchModel.submitted"
-                class="btn btn-lg btn-primary btn-block"
+        <div class="form-row">
+            <div class="col">
+                <button class="btn btn-lg btn-primary btn-block"
                 type="submit"
-                (click)="updateMatch()">Spiel speichern</button>
-        </div>
-        <div class="form-group">
-            <button [disabled]="!updateMatchForm.valid || matchModel.submitted"
-                class="btn btn-lg btn-secondary btn-block"
-                type="button"
-                (click)="resetMatch()">Zurücksetzten</button>
+                    class="btn btn-primary"
+                    (click)="updateMatch()">Spiel speichern</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-lg btn-secondary btn-block"
+                    class="btn btn-secondary"
+                    (click)="resetMatch()">Zurücksetzten</button>
+            </div>
         </div>
     </form>    
 </div>

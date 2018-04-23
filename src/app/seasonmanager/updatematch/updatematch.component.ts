@@ -60,20 +60,19 @@ export class UpdateMatchComponent implements OnInit {
     }
 
     updateMatch() {
-        // console.info('Update round ' + this.roundtable.selectedRound.id);
-
-        /*
-        this.updateMatchdayService
-            .updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup)
+        console.dir('Update match ' + this.matchModel.match);
+        this.updateMatchService
+            .updateMatch(this.matchModel.match)
             .subscribe(
-                success => (round: Rest.RoundAndTableJson) => {
-                    this.roundtable.table = round;
+                (match: Rest.GameJson) => {
+
                 },
-                error => {
-                    this.modalService.open('AuthenticationWarningComponent', error.status);
+                (error) => {
+                    console.error('Ein Fehler: ' + error);
+                    console.dir(error);
+                    // TODO Error handling not implemented.
                 }
             );
-        */
     }
 
     resetMatch() {
