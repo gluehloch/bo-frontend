@@ -41,7 +41,7 @@
         </tr>
         <tr *ngFor="let game of roundtable.table.roundJson.games">
           <td>
-            <button class="btn btn-primary btn-sm" (click)="updateMatch(game)">Edit</button>
+            <button type="button" class="btn btn-primary btn-sm" (click)="updateMatch(game)">Edit</button>
           </td>
           <td><input type="checkbox" id="{{game.id}}Finished" name="{{game.id}}Finished" [(ngModel)]="game.finished"/></td>
           <td><input type="checkbox" id="{{game.id}}Ko" name="{{game.id}}ko" [(ngModel)]="game.ko"></td>
@@ -68,17 +68,17 @@
       </table>
       <div class="row">
         <div class="col">
-          <button
-            class="btn btn-md btn-primary btn-block" type="submit"
+          <button type="button"
+            class="btn btn-md btn-primary btn-block"
             (click)="updateMatchDay()">Speichern</button>
         </div>
         <div class="col">     
-          <button
+          <button type="button"
             class="btn btn-md btn-secondary btn-block"
             (click)="updateOpenligaDb()">Update mit OpenligaDB</button>
         </div>
         <div class="col">
-          <button
+          <button type="button"
             class="btn btn-md btn-secondary btn-block"
             (click)="createOpenligaDb()">Neu anlegen mit OpenligaDB</button>
         </div>

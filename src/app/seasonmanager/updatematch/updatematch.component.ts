@@ -48,7 +48,7 @@ export class UpdateMatchComponent implements OnInit {
             .findMatch(matchId)
             .subscribe(
                 (match: Rest.GameJson) => {
-                    console.log('Match loaded: ' + match);
+                    console.dir('Match loaded.', match);
                     this.matchModel.match = match;
                 },
                 (error) => {
@@ -65,7 +65,8 @@ export class UpdateMatchComponent implements OnInit {
             .updateMatch(this.matchModel.match)
             .subscribe(
                 (match: Rest.GameJson) => {
-
+                    console.dir('Match reload.', match);
+                    this.matchModel.match = match;
                 },
                 (error) => {
                     console.error('Ein Fehler: ' + error);
@@ -76,6 +77,20 @@ export class UpdateMatchComponent implements OnInit {
     }
 
     resetMatch() {
+        this.updateMatchService
+            .findMatch(this.matchModel.match.id)
+            .subscribe(
+                (match: Rest.GameJson) => {
+                    this.matchModel.match = match;
+                },
+                (error) => {
+                    console.error('Ein Fehler', error);
+                    console.dir(error);
+                }
+            );
+    }
+
+    backToRoundView() {
         // NULL
     }
 

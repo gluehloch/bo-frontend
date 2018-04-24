@@ -122,14 +122,22 @@
         <div class="form-row">
             <div class="col">
                 <button class="btn btn-lg btn-primary btn-block"
-                type="submit"
-                    class="btn btn-primary"
+                    type="button"
                     (click)="updateMatch()">Spiel speichern</button>
             </div>
             <div class="col">
                 <button class="btn btn-lg btn-secondary btn-block"
-                    class="btn btn-secondary"
+                    type="button"
                     (click)="resetMatch()">Zurücksetzten</button>
+            </div>
+            <!-- class="btn btn-secondary", class="btn btn-primary" -->
+        </div>
+
+        <div class="form-row">
+            <div class="col">
+                <button class="btn btn-lg btn-secondary btn-block"
+                    type="button"
+                    (click)="backToRoundView()">Zurück</button>
             </div>
         </div>
     </form>    
