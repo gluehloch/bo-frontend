@@ -91,7 +91,7 @@ export class UpdateMatchComponent implements OnInit {
     }
 
     backToRoundView() {
-        // NULL
+        this.router.navigate(['chiefop/seasonmanager/updatematchday', this.matchModel.match.roundId]);
     }
 
 }

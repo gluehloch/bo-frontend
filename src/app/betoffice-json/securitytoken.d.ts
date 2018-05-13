@@ -1,9 +1,10 @@
-// Generated using typescript-generator version 1.14.251 on 2018-04-08 14:59:58.
+// Generated using typescript-generator version 1.14.251 on 2018-05-12 17:16:11.
 
 declare namespace Rest {
 
     interface GameJson extends AbstractOpenligaid {
         index: number;
+        roundId: number;
         dateTime: Date;
         homeTeam: TeamJson;
         guestTeam: TeamJson;
