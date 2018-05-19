@@ -95,6 +95,8 @@ export class UpdateMatchComponent implements OnInit {
     backToRoundView() {
         // Leider kenne ich hier die Season ID nicht.
         this.router.navigate(['./chiefop/seasonmanager/updatematchday', 'TODO: seasonId']);
+        // Das funktioniert leider auch nicht...
+        // this.router.navigate(['chiefop/seasonmanager/updatematchday', this.matchModel.match.roundId]);
     }
 
 }
