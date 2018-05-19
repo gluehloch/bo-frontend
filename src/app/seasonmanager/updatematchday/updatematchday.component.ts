@@ -57,7 +57,14 @@ export class UpdateMatchdayComponent implements OnInit {
                                       this.roundtable.rounds = season.rounds;
                                       if (season.currentRoundId) {
                                           const index = _.findIndex(this.roundtable.rounds, e => { return e.id === season.currentRoundId});
-                                          this.roundtable.selectedRound = season.rounds[index];
+                                          if (index === -1) {
+                                              // In der Gruppenphase kann es durchaus moeglich sein,
+                                              // dass fuer den aktuellen Spieltag in dieser Gruppe kein Spieltag
+                                              // vorgesehen ist. Mmh. Das ist jetzt bloed. Also default:
+                                              this.roundtable.selectedRound = season.rounds[0];
+                                          } else {
+                                              this.roundtable.selectedRound = season.rounds[index];
+                                          }
                                       } else {
                                           this.roundtable.selectedRound = season.rounds[0];
                                       }
