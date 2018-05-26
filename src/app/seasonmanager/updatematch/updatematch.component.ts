@@ -35,6 +35,7 @@ export class UpdateMatchComponent implements OnInit {
     }
 
     ngOnInit() {
+        // this.route.paramMap.forEach
         this.route.params.map(params => params['id']).subscribe((matchId) => {
             this.findMatch(matchId);
         });
@@ -69,6 +70,7 @@ export class UpdateMatchComponent implements OnInit {
                     this.matchModel.match = match;
                 },
                 (error) => {
+                    this.modalService.open('AuthenticationWarningComponent', error.status);
                     console.error('Ein Fehler: ' + error);
                     console.dir(error);
                     // TODO Error handling not implemented.
@@ -91,7 +93,10 @@ export class UpdateMatchComponent implements OnInit {
     }
 
     backToRoundView() {
-        this.router.navigate(['chiefop/seasonmanager/updatematchday', this.matchModel.match.roundId]);
+        // Leider kenne ich hier die Season ID nicht.
+        this.router.navigate(['./chiefop/seasonmanager/updatematchday', 'TODO: seasonId']);
+        // Das funktioniert leider auch nicht...
+        // this.router.navigate(['chiefop/seasonmanager/updatematchday', this.matchModel.match.roundId]);
     }
 
 }
