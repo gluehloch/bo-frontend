@@ -48,10 +48,44 @@
 
   <div class="row form-group">
     <div class="col">
-      <button class="btn btn-lg btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">Letzter</button>
+      <button class="btn btn-md btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">Letzter</button>
     </div>
     <div class="col">
-      <button class="btn btn-lg btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>
+      <button class="btn btn-md btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>
     </div>
   </div>
+
+  <div>
+    <h4>Tippübersicht</h4>
+    <table class="table table-sm">
+      <tr>
+        <td>Spiel</td>
+        <td *ngFor="let match of rankingRound?.round.games">
+          {{match.homeTeam.xshortName}}<br/>{{match.guestTeam.xshortName}}
+        </td>
+      </tr>
+      <tr>
+        <td>Ergebnis</td>
+        <td *ngFor="let match of rankingRound?.round.games">
+          {{printResult(match)}}
+        </td>
+      </tr>
+      <tr *ngFor="let user of ranking?.users">
+        <td>{{user.nickname}}</td>
+        <td *ngFor="let match of rankingRound?.round.games">
+          {{findTipp(match, user)}}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="row form-group">
+    <div class="col">
+      <button class="btn btn-md btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">Letzter</button>
+    </div>
+    <div class="col">
+      <button class="btn btn-md btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>
+    </div>
+  </div>
+
 </div>

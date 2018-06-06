@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { Component, OnInit } from '@angular/core';
 
 import { RankingService } from './ranking.service';
@@ -41,6 +43,35 @@ export class RankingComponent implements OnInit {
                            .subscribe((userTable: Rest.UserTableJson) => {
             this.calculatRoundRankingOnly(userTable);
         });
+    }
+
+    findTipp(match: Rest.GameJson, user: Rest.UserJson) {
+        const tipp = _.find(match.tipps, (t) => { return t.nickname === user.nickname });
+        if (tipp) {
+            return tipp.tipp.homeGoals + ':' + tipp.tipp.guestGoals;
+        } else {
+            return '';
+        }
+    }
+
+    printResult(game: Rest.GameJson) {
+        if (game.ko && game.result.homeGoals !== game.result.guestGoals) {
+            return '(' + game.halfTimeResult.homeGoals
+                + ':' + game.halfTimeResult.guestGoals
+                + ')' + game.result.homeGoals
+                + ':' + game.result.guestGoals;
+        } else if (game.ko && game.result.homeGoals === game.result.guestGoals
+                           && game.overtimeResult.homeGoals !== game.overtimeResult.guestGoals) {
+            return game.overtimeResult.homeGoals + ':' + game.overtimeResult.guestGoals + ' n.V.';
+        } else if (game.ko && game.result.homeGoals === game.result.guestGoals
+                        && game.overtimeResult.homeGoals === game.overtimeResult.guestGoals) {
+            return game.penaltyResult.homeGoals + ':' + game.penaltyResult.guestGoals + ' n.E.';
+        } else if (!game.ko) {
+            return '(' + game.halfTimeResult.homeGoals
+                + ':' + game.halfTimeResult.guestGoals
+                + ')' + game.result.homeGoals
+                + ':' + game.result.guestGoals;
+        }
     }
 
     private calculatRoundRankingOnly(userTable: Rest.UserTableJson) {
