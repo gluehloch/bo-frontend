@@ -64,7 +64,7 @@ export class RankingComponent implements OnInit {
                            && game.overtimeResult.homeGoals !== game.overtimeResult.guestGoals) {
             return game.overtimeResult.homeGoals + ':' + game.overtimeResult.guestGoals + ' n.V.';
         } else if (game.ko && game.result.homeGoals === game.result.guestGoals
-                        && game.overtimeResult.homeGoals === game.overtimeResult.guestGoals) {
+                           && game.overtimeResult.homeGoals === game.overtimeResult.guestGoals) {
             return game.penaltyResult.homeGoals + ':' + game.penaltyResult.guestGoals + ' n.E.';
         } else if (!game.ko) {
             return '(' + game.halfTimeResult.homeGoals
