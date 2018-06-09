@@ -15,18 +15,32 @@ export class GameResultComponent implements OnInit {
     ngOnInit() {
     }
 
+    private isRegular(): boolean {
+        return (!this.game.ko) || (this.game.ko && this.game.result.homeGoals !== this.game.result.guestGoals);
+    }
+
+    private isOvertime(): boolean {
+        return this.game.ko
+            && this.game.result.homeGoals === this.game.result.guestGoals
+            && this.game.overtimeResult.homeGoals !== this.game.overtimeResult.guestGoals;
+    }
+
+    private isPenalty(): boolean {
+        return this.game.ko 
+            && this.game.result.homeGoals === this.game.result.guestGoals
+            && this.game.overtimeResult.homeGoals === this.game.overtimeResult.guestGoals;
+    }
+
     private result() {
-        if (this.game.ko && this.game.result.homeGoals !== this.game.result.guestGoals) {
+        if (this.isRegular()) {
             return this.game.result.homeGoals + ':' + this.game.result.guestGoals;
-        } else if (this.game.ko && this.game.result.homeGoals === this.game.result.guestGoals
-                                && this.game.overtimeResult.homeGoals !== this.game.overtimeResult.guestGoals) {
+        } else if (this.isOvertime()) {
             return this.game.overtimeResult.homeGoals + ':' + this.game.overtimeResult.guestGoals + ' n.V.';
-        } else if (this.game.ko && this.game.result.homeGoals === this.game.result.guestGoals
-                                && this.game.overtimeResult.homeGoals === this.game.overtimeResult.guestGoals) {
+        } else if (this.isPenalty()) {
             return this.game.penaltyResult.homeGoals + ':' + this.game.penaltyResult.guestGoals + ' n.E.';
-        } else if (!this.game.ko) {
-            return this.game.result.homeGoals + ':' + this.game.result.guestGoals;      
         }
+
+        return "Ups";
     }
 
     printResult() {
