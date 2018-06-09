@@ -51,19 +51,10 @@
        <tr *ngFor="let game of roundtable.table.roundJson.games">
          <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
          <td style="text-align:right">{{game.homeTeam.name}}</td>
-         <td *ngIf="game.ko && game.result.homeGoals != game.result.guestGoals" style="text-align:center">
-           ({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}})
-           {{game.result.homeGoals}}:{{game.result.guestGoals}}
+
+         <td style="text-align:center">
+            <gameresult [game]="game" [halfTime]="false"></gameresult>
          </td>
-         <td *ngIf="game.ko && game.result.homeGoals == game.result.guestGoals && game.overtimeResult.homeGoals != game.overtimeResult.guestGoals" style="text-align:center">
-           {{game.overtimeResult.homeGoals}}:{{game.overtimeResult.guestGoals}} n.V.
-        </td>
-         <td *ngIf="game.ko && game.result.homeGoals == game.result.guestGoals && game.overtimeResult.homeGoals == game.overtimeResult.guestGoals" style="text-align:center">
-           {{game.penaltyResult.homeGoals}}:{{game.penaltyResult.guestGoals}} n.E.
-         </td>
-         <td *ngIf="!game.ko" style="text-align:center">
-           ({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}})
-           {{game.result.homeGoals}}:{{game.result.guestGoals}}</td>
          <td style="text-align:left">{{game.guestTeam.name}}</td>
        </tr>
     </table>

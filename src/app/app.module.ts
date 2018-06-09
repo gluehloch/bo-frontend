@@ -29,6 +29,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 
 import { AuthenticationWarningComponent } from './authenticationwarning/authenticationwarning.component';
 
+import { GameResultComponent } from './gameresult/gameresult.component';
+
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
 import { TippSmallComponent } from './tipp/tipp-small.component';
@@ -163,6 +165,7 @@ import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.co
     HomeComponent,
     AuthenticationWarningComponent,
     AuthenticationComponent,
+    GameResultComponent,
     TippComponent,
     TippSmallComponent,
     SeasonComponent,

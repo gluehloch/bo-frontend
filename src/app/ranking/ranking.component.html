@@ -67,7 +67,7 @@
       <tr>
         <td>Ergebnis</td>
         <td *ngFor="let match of rankingRound?.round.games">
-          {{printResult(match)}}
+          <gameresult [game]="match" [halfTime]="false"></gameresult>
         </td>
       </tr>
       <tr *ngFor="let user of ranking?.users">

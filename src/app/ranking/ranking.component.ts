@@ -54,26 +54,6 @@ export class RankingComponent implements OnInit {
         }
     }
 
-    printResult(game: Rest.GameJson) {
-        if (game.ko && game.result.homeGoals !== game.result.guestGoals) {
-            return '(' + game.halfTimeResult.homeGoals
-                + ':' + game.halfTimeResult.guestGoals
-                + ')' + game.result.homeGoals
-                + ':' + game.result.guestGoals;
-        } else if (game.ko && game.result.homeGoals === game.result.guestGoals
-                           && game.overtimeResult.homeGoals !== game.overtimeResult.guestGoals) {
-            return game.overtimeResult.homeGoals + ':' + game.overtimeResult.guestGoals + ' n.V.';
-        } else if (game.ko && game.result.homeGoals === game.result.guestGoals
-                           && game.overtimeResult.homeGoals === game.overtimeResult.guestGoals) {
-            return game.penaltyResult.homeGoals + ':' + game.penaltyResult.guestGoals + ' n.E.';
-        } else if (!game.ko) {
-            return '(' + game.halfTimeResult.homeGoals
-                + ':' + game.halfTimeResult.guestGoals
-                + ')' + game.result.homeGoals
-                + ':' + game.result.guestGoals;
-        }
-    }
-
     private calculatRoundRankingOnly(userTable: Rest.UserTableJson) {
         this.ranking = userTable;
         this.rankingService.calculateRoundOnly(this.ranking.round.id)
