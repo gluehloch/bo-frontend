@@ -41,7 +41,7 @@ import { SeasonComponent } from './season/season.component';
 import { RankingService } from './ranking/ranking.service';
 import { RankingComponent } from './ranking/ranking.component';
 
-import { SessionService } from './session/session.service';
+// import { SessionService } from './session/session.service';
 import { SessionComponent } from './session/session.component';
 
 import { PartyService } from './party/party.service';

@@ -7,7 +7,7 @@ import { UpdateSeasonModel } from './update-season-model';
 
 import { environment } from '../../../environments/environment';
 import { forEach } from '@angular/router/src/utils/collection';
-import { CheckableParty } from 'app/seasonmanager/update/checkable-party';
+import { CheckableParty } from './checkable-party';
 
 @Component({
   selector: 'app-season-manager-update',

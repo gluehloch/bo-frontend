@@ -7,7 +7,6 @@ declare var jquery: any;
 declare var $: any;
 
 @Component({
-    moduleId: module.id,
     selector: 'app-authentication-warning',
     templateUrl: './authenticationwarning.component.html'
   })
