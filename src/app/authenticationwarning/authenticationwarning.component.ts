@@ -9,7 +9,7 @@ declare var $: any;
 @Component({
     selector: 'app-authentication-warning',
     templateUrl: './authenticationwarning.component.html'
-  })
+})
 export class AuthenticationWarningComponent implements OnInit, OnDestroy, ModalComponent  {
 
     // Exampel or an input element
