@@ -1,7 +1,7 @@
-import { Component, ElementRef, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ModalService } from './../modal/modal.service';
+import { ModalService, ModalComponent } from './../modal/modal.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -10,7 +10,7 @@ declare var $: any;
     selector: 'app-authentication-warning',
     templateUrl: './authenticationwarning.component.html'
   })
-export class AuthenticationWarningComponent implements OnInit, OnDestroy  {
+export class AuthenticationWarningComponent implements OnInit, OnDestroy, ModalComponent  {
 
     // Exampel or an input element
     // @Input() id: string;
@@ -49,5 +49,8 @@ export class AuthenticationWarningComponent implements OnInit, OnDestroy  {
         this.router.navigate(['./login']);
     }
 
+    getId() {
+        return this.id;
+    }
 
 }
