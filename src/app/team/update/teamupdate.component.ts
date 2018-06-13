@@ -7,7 +7,7 @@ import { TeamUpdateService } from './teamupdate.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-    selector: 'teamupdate',
+    selector: 'app-teamupdate',
     templateUrl: './teamupdate.component.html',
     styleUrls: ['./teamupdate.component.css']
 })
