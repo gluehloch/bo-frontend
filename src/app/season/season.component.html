@@ -52,7 +52,7 @@
          <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
          <td style="text-align:right">{{game.homeTeam.name}}</td>
          <td style="text-align:center">
-            <gameresult [game]="game" [halfTime]="true"></gameresult>
+            <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
          </td>
          <td style="text-align:left">{{game.guestTeam.name}}</td>
        </tr>

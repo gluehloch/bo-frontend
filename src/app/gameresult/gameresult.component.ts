@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'gameresult',
+    selector: 'app-gameresult',
     templateUrl: './gameresult.component.html',
     styleUrls: ['./gameresult.component.css']
 })
 export class GameResultComponent implements OnInit {
 
     @Input() game: Rest.GameJson;
-    @Input() halfTime: boolean = false;
+    @Input() halfTime = false;
 
     constructor() { }
 
@@ -26,7 +26,7 @@ export class GameResultComponent implements OnInit {
     }
 
     private isPenalty(): boolean {
-        return this.game.ko 
+        return this.game.ko
             && this.game.result.homeGoals === this.game.result.guestGoals
             && this.game.overtimeResult.homeGoals === this.game.overtimeResult.guestGoals;
     }
@@ -40,11 +40,11 @@ export class GameResultComponent implements OnInit {
             return this.game.penaltyResult.homeGoals + ':' + this.game.penaltyResult.guestGoals + ' n.E.';
         }
 
-        return "Ups";
+        return 'Ups';
     }
 
     printResult() {
-        let result: string = '';
+        let result = '';
         if (this.halfTime) {
             result = '(' + this.game.halfTimeResult.homeGoals
                 + ':' + this.game.halfTimeResult.guestGoals
