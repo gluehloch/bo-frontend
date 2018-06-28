@@ -19,6 +19,7 @@ describe('GameresultComponent', () => {
     });
 
     it('should create', () => {
+        // Preset: No goals, KO game => Overtime and penalty.
         component.game = {
             id: 0,
             openligaid: 0,
@@ -65,6 +66,6 @@ describe('GameresultComponent', () => {
             ko: true,
             tipps: [] /*GameTippJson[]*/
         }
-        expect(component.printResult).toEqual('0:0');
+        expect(component.printResult()).toEqual('0:0 n.E.');
     });
 });
