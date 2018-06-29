@@ -19,6 +19,7 @@ describe('GameresultComponent', () => {
     });
 
     it('should create', () => {
+        // Preset: No goals, KO game => Overtime and penalty.
         component.game = {
             id: 0,
             openligaid: 0,
