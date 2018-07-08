@@ -43,7 +43,9 @@
             <td class="hidden-xs" style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
             <td style="text-align: right">{{game.homeTeam.name}}</td>
             <td style="text-align: left">{{game.guestTeam.name}}</td>
-            <td class="hidden-xs">{{game.result.homeGoals}} : {{game.result.guestGoals}}</td>
+            <td class="hidden-xs">
+              <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
+            </td>
             <td>
               <input class="form-control"
                 id="{{tippModel.round.id}}heim{{game.id}}" 

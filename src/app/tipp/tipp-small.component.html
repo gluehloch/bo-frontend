@@ -47,7 +47,7 @@
                 {{game.homeTeam.shortName}}
               </div>
               <div *ngIf="game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
-                {{game.result.homeGoals}}:{{game.result.guestGoals}} ({{game.halfTimeResult.homeGoals}}:{{game.halfTimeResult.guestGoals}})
+                <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
               </div>
               <div *ngIf="!game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
                 {{game.result.homeGoals}}:{{game.result.guestGoals}}

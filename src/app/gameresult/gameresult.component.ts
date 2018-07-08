@@ -48,7 +48,7 @@ export class GameResultComponent implements OnInit {
         if (this.halfTime) {
             result = '(' + this.game.halfTimeResult.homeGoals
                 + ':' + this.game.halfTimeResult.guestGoals
-                + ')'
+                + ') '
         }
 
         return result + this.result();
