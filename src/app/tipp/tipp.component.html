@@ -87,18 +87,6 @@
             </div>  
           </div>
         </div>
-        <div class="row form-group">
-          <div class="col">     
-            <button 
-              class="btn btn-lg btn-secondary btn-block"
-              (click)="last()" *ngIf="tippModel.round.index > 1">Letzter</button>
-          </div>
-          <div class="col">
-            <button 
-              class="btn btn-lg btn-secondary btn-block"
-              (click)="next()" *ngIf="!tippModel.round.lastRound">Nächster</button>
-          </div>
-        </div>
         <div class="row form-group" *ngIf="this.submitButtonModel.responseStatusCode == 200">
           <div class="col">
             <div class="alert alert-success">
@@ -128,6 +116,18 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit"
             (click)="submitTipp()"
             *ngIf="tippModel.authenticated && tippModel.round.tippable">Tipp</button>            
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col">     
+            <button 
+              class="btn btn-lg btn-secondary btn-block"
+              (click)="last()" *ngIf="tippModel.round.index > 1">Letzter</button>
+          </div>
+          <div class="col">
+            <button 
+              class="btn btn-lg btn-secondary btn-block"
+              (click)="next()" *ngIf="!tippModel.round.lastRound">Nächster</button>
           </div>
         </div>
       </form>

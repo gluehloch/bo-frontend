@@ -93,26 +93,14 @@
             </div>  
           </div>
         </div>
-        <div class="row form-group">
-          <div class="col">     
-            <button 
-              class="btn btn-lg btn-secondary btn-block"
-              (click)="last()" *ngIf="tippModel.round.index > 1">Letzter</button>
-          </div>
-          <div class="col">
-            <button 
-              class="btn btn-lg btn-secondary btn-block"
-              (click)="next()" *ngIf="!tippModel.round.lastRound">Nächster</button>
-          </div>
-        </div>
-        <div class="row form-group" *ngIf="this.submitButtonModel.responseStatusCode == 200">
+        <div class="row" *ngIf="this.submitButtonModel.responseStatusCode == 200">
           <div class="col">
             <div class="alert alert-success">
               Dein Tipp wurde erfolgreich gespeichert!
             </div>
           </div>
         </div>
-        <div class="row form-group" *ngIf="this.submitButtonModel.responseStatusCode == 403">
+        <div class="row" *ngIf="this.submitButtonModel.responseStatusCode == 403">
           <div class="col">
             <div class="alert alert-danger">
               Dein Authentifizierungstoken ist abgelaufen. Melde dich bitte neu an.
@@ -136,7 +124,18 @@
             *ngIf="tippModel.authenticated && tippModel.round.tippable">Tipp</button>            
           </div>
         </div>
-
+        <div class="row form-group">
+          <div class="col">     
+            <button 
+              class="btn btn-lg btn-secondary btn-block"
+              (click)="last()" *ngIf="tippModel.round.index > 1">Letzter</button>
+          </div>
+          <div class="col">
+            <button 
+              class="btn btn-lg btn-secondary btn-block"
+              (click)="next()" *ngIf="!tippModel.round.lastRound">Nächster</button>
+          </div>
+        </div>
         <!--
         <div class="form-group">
           <div class="btn-group btn-group-justified" role="group">
