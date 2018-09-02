@@ -44,3 +44,5 @@ Thumbs.db
 # Environment definition
 src/environments/environment.ts
 
+build.properties
+

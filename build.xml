@@ -1,0 +1,25 @@
+<project name="tippdiekisteberi" default="deploy" basedir=".">
+
+   <property file="build.properties" />
+
+    <description>
+    simple example build file
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+
+    <target name="build">
+        <exec executable="npm" dir="${basedir}">
+            <arg value="run" />
+            <arg value="build" />
+        </exec>
+    </target>
+
+    <target name="deploy">
+        <scp todir="${scp.username}:${scp.password}@tippdiekistebier.de:/var/www/tippdiekistebier">
+            <fileset dir="./dist/angularapp"/>
+        </scp>
+    </target>
+</project>
