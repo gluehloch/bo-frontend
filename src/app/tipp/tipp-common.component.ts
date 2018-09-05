@@ -15,6 +15,46 @@ export class SubmitButtonModel {
     progress: number;
 }
 
+class RoundModel implements Rest.RoundJson {
+    id: number;
+    seasonId: number;
+    seasonName: string;
+    seasonYear: string;
+    dateTime: Date;
+    index: number;
+    lastRound: boolean;
+    tippable: boolean;
+    games: Rest.GameJson[];
+}
+
+class GameModel implements Rest.GameJson {
+    id: number;
+    index: number;
+    roundId: number;
+    dateTime: Date;
+    homeTeam: Rest.TeamJson;
+    guestTeam: Rest.TeamJson;
+    halfTimeResult: Rest.GameResultJson;
+    result: Rest.GameResultJson;
+    overtimeResult: Rest.GameResultJson;
+    penaltyResult: Rest.GameResultJson;
+    finished: boolean;
+    ko: boolean;
+    tipps: Rest.GameTippJson[];
+    openligaid: number;
+}
+
+class GameTippModel implements Rest.GameTippJson {
+    nickname: string;
+    tipp: Rest.GameResultJson;
+    points: number;
+}
+
+class GoalModel implements Rest.GameResultJson {
+    homeGoals: number;
+    guestGoals: number;
+}
+
 export class TippModel {
     nickname: string;
     authenticated: boolean;
