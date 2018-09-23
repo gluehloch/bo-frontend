@@ -93,6 +93,13 @@
             </div>  
           </div>
         </div>
+        <div class="row" *ngIf="tippModel.modified">
+          <div class="col">
+            <div class="alert alert-warning">
+              <strong>ACHTUNG:</strong> Deine Änderungen sind noch nicht gespeichert!
+            </div>
+          </div>
+        </div>
         <div class="row" *ngIf="this.submitButtonModel.responseStatusCode == 200">
           <div class="col">
             <div class="alert alert-success">
