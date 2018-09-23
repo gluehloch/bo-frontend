@@ -202,10 +202,14 @@ export class TippCommonComponent implements OnInit {
     }
 
     last() {
-        this.tippService.prevRound(this.tippModel.round.id, this.tippModel.nickname)
-            .subscribe((roundJson: Rest.RoundJson) => {
-                this.updateModel(roundJson);
-            });
+        if (this.goalModelContainer.isModified()) {
+            this.tippModel.modified = true;
+        } else {
+            this.tippService.prevRound(this.tippModel.round.id, this.tippModel.nickname)
+                .subscribe((roundJson: Rest.RoundJson) => {
+                    this.updateModel(roundJson);
+                });
+        }
     }
 
     submitTipp() {
