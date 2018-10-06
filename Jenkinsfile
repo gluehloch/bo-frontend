@@ -16,6 +16,7 @@ pipeline {
                 sh 'npm -v'
                 sh 'java -version'
                 sh 'javac -version'
+                sh 'cp src/environments/environments.prod.ts src/environments/environments.ts'
                 sh 'npm install'
                 sh 'npm uninstall @angular/cli'
                 // sh 'npm cache clean'
