@@ -9,9 +9,9 @@ pipeline {
     } 
     */
     stages {
-        stage('Build') { 
+        stage('Prepare') {
             steps {
-                echo 'Start build...'
+                echo 'Prepare environment ...'
                 sh 'nodejs -v'
                 sh 'npm -v'
                 sh 'java -version'
@@ -21,13 +21,17 @@ pipeline {
                 sh 'npm uninstall @angular/cli'
                 // sh 'npm cache clean'
                 sh 'npm install @angular/cli@latest'
+            }            
+        }
+        stage('Build') { 
+            steps {
+                echo 'Start build...'
                 sh 'npm run ng -- build'
             }
         }
         stage('Test') { 
             steps {
                 echo 'Start test...'
-                // 
             }
         }
         stage('Deploy Prelive') { 
