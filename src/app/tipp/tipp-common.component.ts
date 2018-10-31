@@ -4,7 +4,6 @@ import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie';
 
-import { USERROLE } from '../user-role.enum';
 import { TippService } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 

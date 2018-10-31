@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 // TODO Was ist das hier?
-import 'rxjs/add/operator/toPromise';
+
 import 'rxjs/Rx';
 
 import { BetofficeService } from '../../betoffice.service';
