@@ -18,17 +18,20 @@ import { USERROLE } from '../user-role.enum';
     animations: [
         trigger('openClose', [
             state('open', style({
-                height: '200px',
-                opacity: 1,
-                backgroundColor: 'yellow'
+                /*height: '24px',*/
+                /*display: 'block',*/
+                height: '240px',
+                opacity: 1
+                /*backgroundColor: 'yellow'*/
             })),
             state('closed', style({
-                height: '100px',
-                opacity: 0.5,
-                backgroundColor: 'green'
+                /*display: 'flex',*/
+                height: '35px',
+                opacity: 1
+                /*backgroundColor: 'green'*/
             })),
             transition('open => closed', [
-                animate('1s')
+                animate('1.5s')
             ]),
             transition('closed => open', [
                 animate('0.5s')

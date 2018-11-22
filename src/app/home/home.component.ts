@@ -5,26 +5,26 @@ import { NavigationRouterService } from '../navigationrouter.service';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
-  currentSeasonId = environment.currentSeasonId;
-  teilnehmer: Rest.UserTableJson;
+    currentSeasonId = environment.currentSeasonId;
+    teilnehmer: Rest.UserTableJson;
 
-  constructor(
-      private homeService: HomeService,
-      private navigationRouterService: NavigationRouterService) {
-  }
+    constructor(
+        private homeService: HomeService,
+        private navigationRouterService: NavigationRouterService) {
+    }
 
-  ngOnInit() {
-    this.homeService.calculate(this.currentSeasonId)
-                       .subscribe((userTable: Rest.UserTableJson) => {
-      this.teilnehmer = userTable;
-      this.navigationRouterService.activate(NavigationRouterService.ROUTE_HOME);
-    });
-  }
+    ngOnInit() {
+        this.homeService.calculate(this.currentSeasonId)
+            .subscribe((userTable: Rest.UserTableJson) => {
+                this.teilnehmer = userTable;
+                this.navigationRouterService.activate(NavigationRouterService.ROUTE_HOME);
+            });
+    }
 
 }
