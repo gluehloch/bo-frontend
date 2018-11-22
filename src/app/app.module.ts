@@ -6,8 +6,6 @@ import { HttpModule } from '@angular/http';
 
 import { HttpClientModule } from '@angular/common/http';
 
-// import {HTTP_INTERCEPTORS} from '@angular/common/http';
-
 import { RouterModule, Router } from '@angular/router';
 
 import { CookieModule } from 'ngx-cookie';
@@ -50,9 +48,9 @@ import { PartyUpdateService } from './party/update/partyupdate.service';
 import { PartyUpdateComponent } from './party/update/partyupdate.component';
 
 import { TeamComponent } from './team/team.component';
-import { TeamService} from './team/team.service';
+import { TeamService } from './team/team.service';
 import { TeamUpdateComponent } from './team/update/teamupdate.component';
-import { TeamUpdateService} from './team/update/teamupdate.service';
+import { TeamUpdateService } from './team/update/teamupdate.service';
 import { TeamFilter } from './team/teamFilter.pipe';
 
 import { SeasonManagerService } from './seasonmanager/seasonmanager.service';
@@ -69,139 +67,139 @@ import { UpdateMatchService } from './seasonmanager/updatematch/updatematch.serv
 import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.component';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    CookieModule.forRoot(),
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot([
-      /*
-      {
-        path: '',
-        redirectTo: 'home'
-      },*/
-      {
-        path: '',
-        component: HomeComponent
-      },
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'login',
-        component: AuthenticationComponent
-      },
-      {
-        path: 'logout',
-        component: AuthenticationComponent
-      },
-      /* TODO Anzeige der Login/Logout Daten inklusive Tippzeitpunkte.
-      {
-        path: 'session',
-        component: SessionComponent
-      },
-      */
-      {
-        path: 'tipp',
-        component: TippComponent
-      },
-      {
-        path: 'tipp-small',
-        component: TippSmallComponent
-      },
-      {
-        path: 'ranking',
-        component: RankingComponent
-      },
-      {
-        path: 'season',
-        component: SeasonComponent
-      },
-      {
-        path: 'chiefop/party',
-        component: PartyComponent
-      },
-      {
-        path: 'chiefop/party/update/:id',
-        component: PartyUpdateComponent
-      },
-      {
-        path: 'chiefop/team',
-        component: TeamComponent
-      },
-      {
-        path: 'chiefop/team/update/:id',
-        component: TeamUpdateComponent
-      },
-      {
-        path: 'chiefop/seasonmanager',
-        component: SeasonManagerComponent
-      },
-      {
-        path: 'chiefop/seasonmanager/create',
-        component: SeasonManagerCreateComponent
-      },
-      {
-        path: 'chiefop/seasonmanager/update/:id',
-        component: SeasonManagerUpdateComponent
-      },
-      {
-        path: 'chiefop/seasonmanager/updatematchday/:id',
-        component: UpdateMatchdayComponent
-      },
-      {
-        path: 'chiefop/seasonmanager/updatematch/:id',
-        component: UpdateMatchComponent
-      }
-    ])
-  ],
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    UsernameFilter,
-    HomeComponent,
-    AuthenticationWarningComponent,
-    AuthenticationComponent,
-    GameResultComponent,
-    TippComponent,
-    TippSmallComponent,
-    SeasonComponent,
-    RankingComponent,
-    SessionComponent,
-    PartyComponent,
-    PartyUpdateComponent,
-    TeamComponent,
-    TeamUpdateComponent,
-    TeamFilter,
-    SeasonManagerComponent,
-    SeasonManagerUpdateComponent,
-    SeasonManagerCreateComponent,
-    UpdateMatchdayComponent,
-    UpdateMatchComponent
-  ],
-  providers: [
-    HomeService,
-    NavigationRouterService,
-    AuthenticationService,
-    TippService,
-    SeasonService,
-    RankingService,
-    SeasonService,
-    PartyService,
-    PartyUpdateService,
-    TeamService,
-    TeamUpdateService,
-    SeasonManagerService,
-    SeasonManagerUpdateService,
-    SeasonManagerCreateService,
-    UpdateMatchdayService,
-    UpdateMatchService,
-    ModalService
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        CookieModule.forRoot(),
+        FormsModule,
+        HttpModule,
+        RouterModule.forRoot([
+            /*
+            {
+              path: '',
+              redirectTo: 'home'
+            },*/
+            {
+                path: '',
+                component: HomeComponent
+            },
+            {
+                path: 'home',
+                component: HomeComponent
+            },
+            {
+                path: 'login',
+                component: AuthenticationComponent
+            },
+            {
+                path: 'logout',
+                component: AuthenticationComponent
+            },
+            /* TODO Anzeige der Login/Logout Daten inklusive Tippzeitpunkte.
+            {
+              path: 'session',
+              component: SessionComponent
+            },
+            */
+            {
+                path: 'tipp',
+                component: TippComponent
+            },
+            {
+                path: 'tipp-small',
+                component: TippSmallComponent
+            },
+            {
+                path: 'ranking',
+                component: RankingComponent
+            },
+            {
+                path: 'season',
+                component: SeasonComponent
+            },
+            {
+                path: 'chiefop/party',
+                component: PartyComponent
+            },
+            {
+                path: 'chiefop/party/update/:id',
+                component: PartyUpdateComponent
+            },
+            {
+                path: 'chiefop/team',
+                component: TeamComponent
+            },
+            {
+                path: 'chiefop/team/update/:id',
+                component: TeamUpdateComponent
+            },
+            {
+                path: 'chiefop/seasonmanager',
+                component: SeasonManagerComponent
+            },
+            {
+                path: 'chiefop/seasonmanager/create',
+                component: SeasonManagerCreateComponent
+            },
+            {
+                path: 'chiefop/seasonmanager/update/:id',
+                component: SeasonManagerUpdateComponent
+            },
+            {
+                path: 'chiefop/seasonmanager/updatematchday/:id',
+                component: UpdateMatchdayComponent
+            },
+            {
+                path: 'chiefop/seasonmanager/updatematch/:id',
+                component: UpdateMatchComponent
+            }
+        ])
+    ],
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        UsernameFilter,
+        HomeComponent,
+        AuthenticationWarningComponent,
+        AuthenticationComponent,
+        GameResultComponent,
+        TippComponent,
+        TippSmallComponent,
+        SeasonComponent,
+        RankingComponent,
+        SessionComponent,
+        PartyComponent,
+        PartyUpdateComponent,
+        TeamComponent,
+        TeamUpdateComponent,
+        TeamFilter,
+        SeasonManagerComponent,
+        SeasonManagerUpdateComponent,
+        SeasonManagerCreateComponent,
+        UpdateMatchdayComponent,
+        UpdateMatchComponent
+    ],
+    providers: [
+        HomeService,
+        NavigationRouterService,
+        AuthenticationService,
+        TippService,
+        SeasonService,
+        RankingService,
+        SeasonService,
+        PartyService,
+        PartyUpdateService,
+        TeamService,
+        TeamUpdateService,
+        SeasonManagerService,
+        SeasonManagerUpdateService,
+        SeasonManagerCreateService,
+        UpdateMatchdayService,
+        UpdateMatchService,
+        ModalService
+    ],
+    bootstrap: [AppComponent]
 })
 
 export class AppModule { }
