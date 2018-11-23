@@ -12,10 +12,9 @@
 -->
         <span class="navbar-toggler-icon"></span>
     </button>
-    <!-- [class.show]="show" -->
-    <div
-    [@openClose]="show ? 'open' : 'closed'"
-    #navbaritems class="collapse navbar-collapse" id="navbarCollapse" [class.show]="show">
+    <!-- [class.show]="show"   class="collapse show" -->
+    <div [@openClose]="show ? 'open' : 'closed'" [class.show]="show" 
+        #navbaritems class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" [class.active]="home">
                 <a class="nav-link" routerLink="/home">Home</a>

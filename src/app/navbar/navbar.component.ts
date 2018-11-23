@@ -1,12 +1,6 @@
 // core/navbar.component.ts
 import { Component } from '@angular/core';
-import {
-    trigger,
-    state,
-    style,
-    animate,
-    transition
-} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { NavigationRouterService } from '../navigationrouter.service';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -18,23 +12,24 @@ import { USERROLE } from '../user-role.enum';
     animations: [
         trigger('openClose', [
             state('open', style({
-                /*height: '24px',*/
                 /*display: 'block',*/
                 height: '240px',
                 opacity: 1
+                /*transform: 'translate3d(0, 0, 0)'*/
                 /*backgroundColor: 'yellow'*/
             })),
             state('closed', style({
-                /*display: 'flex',*/
+                /*display: 'none',*/
                 height: '35px',
                 opacity: 1
+                /*transform: 'translate3d(0, -100%, 0)'*/
                 /*backgroundColor: 'green'*/
             })),
             transition('open => closed', [
-                animate('1.5s')
+                animate(/*'500ms ease-out'*/ '0.5s')
             ]),
             transition('closed => open', [
-                animate('0.5s')
+                animate(/*'500ms ease-in'*/ '0.5s')
             ]),
         ])
     ]
@@ -74,49 +69,7 @@ export class NavbarComponent {
             activatedRoute => {
                 this.closeCollapse();
                 console.log('Activated route: ' + activatedRoute);
-                if (activatedRoute === NavigationRouterService.ROUTE_HOME) {
-                    this.home = true;
-                    this.login = false;
-                    this.tipp = false;
-                    this.teilnehmer = false;
-                    this.meisterschaften = false;
-                    this.adminmenu = false;
-                } else if (activatedRoute === NavigationRouterService.ROUTE_LOGIN) {
-                    this.home = false;
-                    this.login = true;
-                    this.tipp = false;
-                    this.teilnehmer = false;
-                    this.meisterschaften = false;
-                    this.adminmenu = false;
-                } else if (activatedRoute === NavigationRouterService.ROUTE_TIPP) {
-                    this.home = false;
-                    this.login = false;
-                    this.tipp = true;
-                    this.teilnehmer = false;
-                    this.meisterschaften = false;
-                    this.adminmenu = false;
-                } else if (activatedRoute === NavigationRouterService.ROUTE_TEILNEHMER) {
-                    this.home = false;
-                    this.login = false;
-                    this.tipp = false;
-                    this.teilnehmer = true;
-                    this.meisterschaften = false;
-                    this.adminmenu = false;
-                } else if (activatedRoute === NavigationRouterService.ROUTE_MEISTERSCHAFTEN) {
-                    this.home = false;
-                    this.login = false;
-                    this.tipp = false;
-                    this.teilnehmer = false;
-                    this.meisterschaften = true;
-                    this.adminmenu = false;
-                } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_MENU) {
-                    this.home = false;
-                    this.login = false;
-                    this.tipp = false;
-                    this.teilnehmer = false;
-                    this.meisterschaften = false;
-                    this.adminmenu = true;
-                }
+                this.toggleMenuStates(activatedRoute);
             }
         );
     }
@@ -127,6 +80,52 @@ export class NavbarComponent {
 
     closeCollapse() {
         this.show = false;
+    }
+
+    private toggleMenuStates(activatedRoute: string) {
+        if (activatedRoute === NavigationRouterService.ROUTE_HOME) {
+            this.home = true;
+            this.login = false;
+            this.tipp = false;
+            this.teilnehmer = false;
+            this.meisterschaften = false;
+            this.adminmenu = false;
+        } else if (activatedRoute === NavigationRouterService.ROUTE_LOGIN) {
+            this.home = false;
+            this.login = true;
+            this.tipp = false;
+            this.teilnehmer = false;
+            this.meisterschaften = false;
+            this.adminmenu = false;
+        } else if (activatedRoute === NavigationRouterService.ROUTE_TIPP) {
+            this.home = false;
+            this.login = false;
+            this.tipp = true;
+            this.teilnehmer = false;
+            this.meisterschaften = false;
+            this.adminmenu = false;
+        } else if (activatedRoute === NavigationRouterService.ROUTE_TEILNEHMER) {
+            this.home = false;
+            this.login = false;
+            this.tipp = false;
+            this.teilnehmer = true;
+            this.meisterschaften = false;
+            this.adminmenu = false;
+        } else if (activatedRoute === NavigationRouterService.ROUTE_MEISTERSCHAFTEN) {
+            this.home = false;
+            this.login = false;
+            this.tipp = false;
+            this.teilnehmer = false;
+            this.meisterschaften = true;
+            this.adminmenu = false;
+        } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_MENU) {
+            this.home = false;
+            this.login = false;
+            this.tipp = false;
+            this.teilnehmer = false;
+            this.meisterschaften = false;
+            this.adminmenu = true;
+        }
     }
 
 }
