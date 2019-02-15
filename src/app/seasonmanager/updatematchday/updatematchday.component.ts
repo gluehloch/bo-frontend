@@ -145,6 +145,9 @@ export class UpdateMatchdayComponent implements OnInit {
             .subscribe(
                 (round: Rest.RoundAndTableJson) => {
                     this.roundtable.table = round;
+                    this.findRounds(
+                        this.roundtable.seasonId, this.roundtable.selectedGroup.id
+                    );
                 },
                 (error) => {
                     console.dir(error);
