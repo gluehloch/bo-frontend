@@ -54,8 +54,8 @@ pipeline {
 
                 // Gunzip and copy ...
                 sh 'ssh boprod.tdkb rm -f /home/boprod/www/tdkb-dev/*'
-                sh 'ssh boprod.tdkb cp /home/boprod/upload/betoffice-angular2.tar.gz /home/boprod/www/tdkb-dev'
-                sh 'ssh boprod.tdkb tar xvf /home/boprod/www/tdkb-dev/betoffice-angular2.tar.gz'
+                // sh 'ssh boprod.tdkb cp /home/boprod/upload/betoffice-angular2.tar.gz /home/boprod/www/tdkb-dev'
+                sh 'ssh boprod.tdkb tar xvf /home/boprod/upload/betoffice-angular2.tar.gz -C /home/boprod/www/tdkb-dev'
             }
         }        
     }
