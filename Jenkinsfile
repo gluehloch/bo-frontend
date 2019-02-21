@@ -42,7 +42,7 @@ pipeline {
         stage('Deploy Production') { 
             steps {
                 echo 'Start deploy production ...'
-                sh 'ssh tdkb.boprod ls /var/www'
+                sh 'ssh boprod.tdkb ls /var/www'
             }
         }        
     }
