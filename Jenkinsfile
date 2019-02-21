@@ -40,11 +40,22 @@ pipeline {
                 echo 'Start deploy prelive ...'
             }
         }
-        stage('Deploy Production') { 
+        stage('Deploy Development') { 
             steps {
                 echo 'Start deploy production ...'
-                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz ./dist/angularapp'
-                sh 'scp ./dist/betoffice-angular2.tar.gz boprod.tdkb:~/upload '
+                // Prepare distribution ...
+                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp .'
+
+                // Clean up remote upload directory ...
+                sh 'ssh boprod.tdkb rm ~/upload/betoffice-angular2.tar.gz'
+
+                // Copy distribution ...
+                sh 'scp ./dist/betoffice-angular2.tar.gz boprod.tdkb:~/upload'
+
+                // Gunzip and copy ...
+                sh 'ssh boprod.tdkb rm ~/www/tdkb-dev/*'
+                sh 'ssh boprod.tdkb cp ~/upload/betoffice-angular2.tar.gz ~/www/tdkb-dev'
+                sh 'ssh boprod.tdkb tar xvf ~/www/tdkb-dev/betoffice-angular2.tar.gz'
             }
         }        
     }
