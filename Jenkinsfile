@@ -43,7 +43,8 @@ pipeline {
         stage('Deploy Production') { 
             steps {
                 echo 'Start deploy production ...'
-                sh 'ssh boprod.tdkb ls /var/www'
+                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz ./dist/angularapp'
+                sh 'scp ./dist/betoffice-angular2.tar.gz boprod.tdkb:~/upload '
             }
         }        
     }
