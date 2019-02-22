@@ -28,6 +28,7 @@ pipeline {
             steps {
                 echo 'Start build...'
                 sh 'npm run ng -- build'
+                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp .'
             }
         }
         stage('Test') { 
@@ -35,28 +36,40 @@ pipeline {
                 echo 'Start test...'
             }
         }
-        stage('Deploy Prelive') { 
+        stage('Deploy to remote host') {
             steps {
-                echo 'Start deploy prelive ...'
+                // Clean up remote upload directory and copy to remote host
+                sh 'ssh boprod.tdkb rm -f /home/boprod/upload/betoffice-angular2.tar.gz'
+                sh 'scp ./dist/betoffice-angular2.tar.gz boprod.tdkb:~/upload'
             }
         }
         stage('Deploy Development') { 
             steps {
-                echo 'Start deploy production ...'
-                // Prepare distribution ...
-                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp .'
-
-                // Clean up remote upload directory ...
-                sh 'ssh boprod.tdkb rm -f /home/boprod/upload/betoffice-angular2.tar.gz'
-
-                // Copy distribution ...
-                sh 'scp ./dist/betoffice-angular2.tar.gz boprod.tdkb:~/upload'
-
-                // Gunzip and copy ...
+                echo 'Start deploy development ...'
                 sh 'ssh boprod.tdkb rm -f /home/boprod/www/tdkb-dev/*'
-                // sh 'ssh boprod.tdkb cp /home/boprod/upload/betoffice-angular2.tar.gz /home/boprod/www/tdkb-dev'
                 sh 'ssh boprod.tdkb tar xvf /home/boprod/upload/betoffice-angular2.tar.gz -C /home/boprod/www/tdkb-dev'
             }
-        }        
+        }
+        stage('Deploy Test') { 
+            steps {
+                echo 'Start deploy test ...'
+                sh 'ssh boprod.tdkb rm -f /home/boprod/www/tdkb-test/*'
+                sh 'ssh boprod.tdkb tar xvf /home/boprod/upload/betoffice-angular2.tar.gz -C /home/boprod/www/tdkb-test'
+            }
+        }
+        stage('Deploy Prelive') { 
+            steps {
+                echo 'Start deploy prelive ...'
+                sh 'ssh boprod.tdkb rm -f /home/boprod/www/tdkb-prelive/*'
+                sh 'ssh boprod.tdkb tar xvf /home/boprod/upload/betoffice-angular2.tar.gz -C /home/boprod/www/tdkb-prelive'
+            }
+        }
+        stage('Deploy Production') { 
+            steps {
+                echo 'Start deploy production ...'
+                sh 'ssh boprod.tdkb rm -f /home/boprod/www/tippdiekistebier/*'
+                sh 'ssh boprod.tdkb tar xvf /home/boprod/upload/betoffice-angular2.tar.gz -C /home/boprod/www/tippdiekistebier'
+            }
+        }                
     }
 }
