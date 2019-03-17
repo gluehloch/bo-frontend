@@ -13,28 +13,28 @@ import { USERROLE } from '../user-role.enum';
 
 
 export interface Login {
-  nickname: string;
-  password: string;
+    nickname: string;
+    password: string;
 }
 
 export interface Logout {
-  nickname: string;
-  token: string;
+    nickname: string;
+    token: string;
 }
 
 @Injectable()
 export class AuthenticationService extends BetofficeService {
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+    constructor(http: HttpClient) {
+        super(http);
+    }
 
-  login(login: Login): Observable<Rest.SecurityTokenJson> {
-    return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "login", login, {headers: this.createHeader()});
-  }
+    login(login: Login): Observable<Rest.SecurityTokenJson> {
+        return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "login", login, { headers: this.createHeader() });
+    }
 
-  logout(logout: Logout): Observable<Rest.SecurityTokenJson> {
-    return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "logout", logout, {headers: this.createHeader()});
-  }
+    logout(logout: Logout): Observable<Rest.SecurityTokenJson> {
+        return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "logout", logout, { headers: this.createHeader() });
+    }
 
 }

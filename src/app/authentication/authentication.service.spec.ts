@@ -1,22 +1,22 @@
 /* tslint:disable:no-unused-variable */
 
 import {
-  TestBed,
-  getTestBed,
-  async,
-  fakeAsync,
-  inject 
+    TestBed,
+    getTestBed,
+    async,
+    fakeAsync,
+    inject
 } from '@angular/core/testing';
 
 import {
-  Headers,
-  BaseRequestOptions,
-  Response,
-  ResponseType,
-  HttpModule,
-  Http,
-  XHRBackend,
-  RequestMethod
+    Headers,
+    BaseRequestOptions,
+    Response,
+    ResponseType,
+    HttpModule,
+    Http,
+    XHRBackend,
+    RequestMethod
 } from '@angular/http';
 
 import { ResponseOptions } from '@angular/http';
@@ -28,72 +28,72 @@ import { Login } from './authentication.service';
 import { USERROLE } from '../user-role.enum';
 
 describe('AuthenticationService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        AuthenticationService,
-        MockBackend,
-        BaseRequestOptions,
-        {
-          provide: Http,
-          deps: [MockBackend, BaseRequestOptions],
-          useFactory:
-            (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
-              return new Http(backend, defaultOptions);
-            }
-        }
-      ],
-      imports: [
-        HttpModule
-      ]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                AuthenticationService,
+                MockBackend,
+                BaseRequestOptions,
+                {
+                    provide: Http,
+                    deps: [MockBackend, BaseRequestOptions],
+                    useFactory:
+                        (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
+                            return new Http(backend, defaultOptions);
+                        }
+                }
+            ],
+            imports: [
+                HttpModule
+            ]
+        });
+
+        TestBed.compileComponents();
     });
-    
-    TestBed.compileComponents();
-  });
 
-  describe('Simple test to learn testing', () => {
-    it('true is true', () => expect(true).toBe(true));
-  });
+    describe('Simple test to learn testing', () => {
+        it('true is true', () => expect(true).toBe(true));
+    });
 
-  describe('AuthenticationService WITH MOCK # login', () => {
-    it('should be defined and callable ...', async(inject(
-      [AuthenticationService, MockBackend],
-      (authenticationService: AuthenticationService, mockBackend: MockBackend) => {
-        mockBackend.connections.subscribe((connection: MockConnection) => {
+    describe('AuthenticationService WITH MOCK # login', () => {
+        it('should be defined and callable ...', async(inject(
+            [AuthenticationService, MockBackend],
+            (authenticationService: AuthenticationService, mockBackend: MockBackend) => {
+                mockBackend.connections.subscribe((connection: MockConnection) => {
 
-          const mockResponseBody: Rest.SecurityTokenJson = {
-            nickname: "Frosch",
-            role: USERROLE.TIPPER.toString(),
-            loginTime: "20170124183400",
-            token: "4711"
-          };
+                    const mockResponseBody: Rest.SecurityTokenJson = {
+                        nickname: "Frosch",
+                        role: USERROLE.TIPPER.toString(),
+                        loginTime: "20170124183400",
+                        token: "4711"
+                    };
 
-          const response = new ResponseOptions({
-            body: JSON.stringify(mockResponseBody),
-            type: ResponseType.Cors,
-            status: 200
-          });
+                    const response = new ResponseOptions({
+                        body: JSON.stringify(mockResponseBody),
+                        type: ResponseType.Cors,
+                        status: 200
+                    });
 
-          connection.mockRespond(new Response(response));
-        });   
+                    connection.mockRespond(new Response(response));
+                });
 
-        expect(authenticationService).toBeDefined();
+                expect(authenticationService).toBeDefined();
 
-        let login = {
-          nickname: "Nickname",
-          password: "Password"
-        };
+                let login = {
+                    nickname: "Nickname",
+                    password: "Password"
+                };
 
-        const x = authenticationService.login(login).subscribe(
-          response => {
-            console.info('authentication: response=[' + response + "]");
-            expect(response).toBeDefined();
-            expect(response.nickname).toEqual("Frosch");
-            expect(0).toEqual(USERROLE.TIPPER);
-            expect(response.token).toEqual("4711");
-            expect(response.loginTime).toEqual("20170124183400");
-          }
-        );
-    })));
-  })
+                const x = authenticationService.login(login).subscribe(
+                    response => {
+                        console.info('authentication: response=[' + response + "]");
+                        expect(response).toBeDefined();
+                        expect(response.nickname).toEqual("Frosch");
+                        expect(0).toEqual(USERROLE.TIPPER);
+                        expect(response.token).toEqual("4711");
+                        expect(response.loginTime).toEqual("20170124183400");
+                    }
+                );
+            })));
+    })
 });
