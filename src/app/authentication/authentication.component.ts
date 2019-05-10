@@ -100,7 +100,7 @@ export class AuthenticationComponent implements OnInit {
         }
     }
 
-    login(nickname) {
+    login() {
         const login = {
             nickname: this.authenticationModel.nickname,
             password: this.authenticationModel.password
