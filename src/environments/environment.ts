@@ -5,23 +5,27 @@
 
 export const environment = {
 
-  production: true,
-  // rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
-  // adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
+    production: false,
+    // rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
+    // adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
 
-  rootUrl: 'http://192.168.99.100:8080/betoffice-jweb/bo/office/',
-  adminUrl: 'http://192.168.99.100:8080/betoffice-jweb/bo/chiefoperator/',
+    website: 'andre-winkler.de.localhost',
+    // cookieserviceUrl: 'http://192.168.99.100:9090/registrationservice/cookie/confirmCookie',
+    cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
 
-  // rootUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/office/',
-  // adminUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/chiefoperator/',
+    rootUrl: 'http://192.168.99.100:8080/betoffice-jweb/bo/office/',
+    adminUrl: 'http://192.168.99.100:8080/betoffice-jweb/bo/chiefoperator/',
 
-  // Der wacken2016/stauder PC
-  // rootUrl: 'http://192.168.0.136:8080/betoffice-jweb/bo/office/',
-  // adminUrl: 'http://192.168.0.136:8080/betoffice-jweb/bo/chiefoperator/',
-  // Laptop (W550s) IP Adresse: 192.168.0.110
+    // rootUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/office/',
+    // adminUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/chiefoperator/',
 
-  // rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
-  // adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
-  currentSeasonId: 28
+    // Der wacken2016/stauder PC
+    // rootUrl: 'http://192.168.0.136:8080/betoffice-jweb/bo/office/',
+    // adminUrl: 'http://192.168.0.136:8080/betoffice-jweb/bo/chiefoperator/',
+    // Laptop (W550s) IP Adresse: 192.168.0.110
+
+    // rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
+    // adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
+    currentSeasonId: 28
 
 };
