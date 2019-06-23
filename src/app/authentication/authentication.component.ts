@@ -10,6 +10,7 @@ class AuthenticationModel {
 
     nickname = 'Nickname';
     password = 'Password';
+    lastlogin: string;
 
     // --------------------------------------------------------------------------
 
@@ -76,6 +77,7 @@ export class AuthenticationComponent implements OnInit {
         private cookieService: CookieService,
         private authenticationService: AuthenticationService,
         private navigationRouterService: NavigationRouterService) {
+
         this.authenticationModel = new AuthenticationModel();
         this.authenticationModel.token = null;
     }
@@ -91,6 +93,7 @@ export class AuthenticationComponent implements OnInit {
             this.authenticationModel.authenticated = true;
             this.authenticationModel.nickname = securityToken.nickname;
             this.authenticationModel.token = securityToken.token;
+            this.authenticationModel.lastlogin = securityToken.loginTime;
             this.authenticationModel.admin = (this.authenticationService.getUserRole() === USERROLE.ADMIN);
         } else {
             this.authenticationModel.authenticated = false;
@@ -100,7 +103,7 @@ export class AuthenticationComponent implements OnInit {
         }
     }
 
-    login(nickname) {
+    login() {
         const login = {
             nickname: this.authenticationModel.nickname,
             password: this.authenticationModel.password
@@ -111,10 +114,10 @@ export class AuthenticationComponent implements OnInit {
         this.authenticationService.login(login)
             .subscribe((securityToken: Rest.SecurityTokenJson) => {
                 if (securityToken.token === 'no_authorization') {
-                    console.info('Login was not successful');
+                    console.log('Login was not successful');
                     this.authenticationService.clearCredentials();
                 } else {
-                    console.info('Login success!');
+                    console.log('Login success!');
                     this.authenticationService.storeCredentials(securityToken);
                     this.navigationRouterService.login();
                 }
@@ -136,7 +139,7 @@ export class AuthenticationComponent implements OnInit {
                     this.authenticationService.clearCredentials();
                     this.init();
                     this.navigationRouterService.logout();
-                    console.info('Logout successful.');
+                    console.log('Logout successful.');
                 });
         }
     }

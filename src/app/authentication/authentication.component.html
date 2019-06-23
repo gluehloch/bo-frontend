@@ -2,6 +2,7 @@
     <h1>Session Verwaltung</h1>
     <p *ngIf="authenticationModel.authenticated">
         Du bist als {{authenticationModel.nickname}} angemeldet.
+        Letzter erfolgreicher Login: {{authenticationModel.lastlogin}}
     </p>
     <p *ngIf="authenticationModel.admin">
         Du bist als Administrator angemeldet.

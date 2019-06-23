@@ -153,7 +153,8 @@ export class TippCommonComponent implements OnInit {
 
     checkAuthorization() {
         if (this.tippService.isAuthorized()) {
-            this.tippModel.nickname = this.tippService.readCredentials().nickname;
+            const token = this.tippService.readCredentials();
+            this.tippModel.nickname = token.nickname;
             this.tippModel.authenticated = true;
         } else {
             this.tippModel.nickname = null;
