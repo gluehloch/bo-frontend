@@ -1,5 +1,5 @@
 <div>
-    <h1>Session Verwaltung</h1>
+    <h1>Session Management</h1>
     <p *ngIf="authenticationModel.authenticated">
         Du bist als {{authenticationModel.nickname}} angemeldet.
         Letzter erfolgreicher Login: {{authenticationModel.lastlogin}}
@@ -8,7 +8,8 @@
         Du bist als Administrator angemeldet.
     </p>
     <p *ngIf="!authenticationModel.authenticated">
-        Du bist nicht angemeldet.
+        Du bist nicht angemeldet. Du hast noch keine Konto?
+        Dann lasse dich <a routerLink="/register">hier</a> registrieren und trete eine Tipp-Gemeinschaft bei.
     </p>
     <div class="alert alert-danger" role="alert"
         *ngIf="!authenticationModel.authenticated && authenticationModel.authenticationTries > 0">

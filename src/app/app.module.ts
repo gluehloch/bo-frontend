@@ -24,6 +24,8 @@ import { HomeComponent } from './home/home.component';
 
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { RegistrationService } from './registration/registration.service';
+import { RegistrationComponent } from './registration/registration.component';
 
 import { AuthenticationWarningComponent } from './authenticationwarning/authenticationwarning.component';
 
@@ -87,6 +89,10 @@ import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.co
             {
                 path: 'home',
                 component: HomeComponent
+            },
+            {
+                path: 'register',
+                component: RegistrationComponent
             },
             {
                 path: 'login',
@@ -163,6 +169,7 @@ import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.co
         HomeComponent,
         AuthenticationWarningComponent,
         AuthenticationComponent,
+        RegistrationComponent,
         GameResultComponent,
         TippComponent,
         TippSmallComponent,
@@ -184,6 +191,7 @@ import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.co
         HomeService,
         NavigationRouterService,
         AuthenticationService,
+        RegistrationService,
         TippService,
         SeasonService,
         RankingService,
