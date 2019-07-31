@@ -42,7 +42,5 @@ Thumbs.db
 /nbproject
 
 # Environment definition
-src/environments/environment.ts
-
 build.properties
 

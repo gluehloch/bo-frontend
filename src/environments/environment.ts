@@ -10,7 +10,7 @@ export const environment = {
     // adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
 
     website: 'andre-winkler.de.localhost',
-    cookieserviceUrl: 'http://192.168.99.100:9090/registrationservice/cookie/confirmCookie',
+    cookieserviceUrl: 'http://192.168.99.101:9090/registrationservice/cookie/confirmCookie',
     // cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
 
     rootUrl: 'http://192.168.99.101:8080/betoffice-jweb/bo/office/',

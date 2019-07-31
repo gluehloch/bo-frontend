@@ -1,0 +1,11 @@
+{
+    "cookie": {
+        "header": "Diese Webseite verwendet Cookies!",
+        "message": "Dieser Webseite verwendet Cookies, um verschiedene Funktionen anzubieten. Außerdem werden Cookies zur statistischen Messung der Nutzung der Webseite und zur Messung des Erfolgs von Werbeanzeigen eingesetzt.",
+        "dismiss": "Vestanden!",
+        "allow": "Cookies erlauben",
+        "deny": "Verbieten",
+        "link": "Weitere Informationen",
+        "policy": "Cookie Policy"
+    }
+}

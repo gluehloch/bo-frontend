@@ -19,7 +19,7 @@ export class AuthenticationWarningComponent implements OnInit, OnDestroy, ModalC
     private static readonly HTML_ELEMENT_ID = '#authenticationWarning';
 
     private element: any;
-    private httpError: any;
+    httpError: any;
 
     readonly id = AuthenticationWarningComponent.ID;
 

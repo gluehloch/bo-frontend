@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { RouterModule, Router } from '@angular/router';
 
@@ -68,6 +68,47 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
 import { UpdateMatchService } from './seasonmanager/updatematch/updatematch.service';
 import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.component';
 
+import { CookieService } from './app.cookie.service';
+
+import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+const cookieConfig: NgcCookieConsentConfig = {
+    cookie: {
+        domain: 'tippdiekistebier.de'
+    },
+    position: 'bottom-right',
+    palette: {
+        popup: {
+            'background': '#2b482a',
+            'text': '#ffffff',
+            'link': '#ffffff'
+        },
+        button: {
+            'background': '#bfc418',
+            'text': '#000000',
+            'border': 'transparent'
+        }
+    },
+    theme: 'edgeless',
+    type: 'opt-out',
+    content: {
+        message: 'Diese Webseite verwendet Cookies.',
+        dismiss: 'Verstanden',
+        deny: 'Verweigern',
+        allow: 'Erlauben',
+        link: 'Mehr Infos',
+        href: 'http://tippdiekistebier.de/impressum',
+        target: '',
+        policy: 'Cookie Policy'
+    }
+};
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http, 'https://cookie.gluehloch.de/assets/', '.json');
+}
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -76,6 +117,14 @@ import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.co
         CookieModule.forRoot(),
         FormsModule,
         HttpModule,
+        NgcCookieConsentModule.forRoot(cookieConfig),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
         RouterModule.forRoot([
             /*
             {
@@ -188,6 +237,7 @@ import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.co
         UpdateMatchComponent
     ],
     providers: [
+        CookieService,
         HomeService,
         NavigationRouterService,
         AuthenticationService,
