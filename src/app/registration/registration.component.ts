@@ -15,7 +15,7 @@ class RegistrationModel {
 })
 export class RegistrationComponent implements OnInit {
 
-    registerModel: RegistrationModel;
+    registrationModel: RegistrationModel;
 
     constructor(private navigationRouterService: NavigationRouterService) {
     }
@@ -26,6 +26,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     init() {
+        this.registrationModel = new RegistrationModel();
     }
 
 }
