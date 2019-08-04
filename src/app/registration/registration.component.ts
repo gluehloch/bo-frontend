@@ -29,4 +29,8 @@ export class RegistrationComponent implements OnInit {
         this.registrationModel = new RegistrationModel();
     }
 
+    startRegistration() {
+        // this.registrationModel.nickname
+    }
+
 }

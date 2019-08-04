@@ -6,7 +6,7 @@
         beitreten kannst.
     </p>
     <div>
-        <form name="registerform" novalidate>
+        <form name="registerform" novalidate class="was-validated">
             <div class="form-group">
                 <label for="nickname" class="sr-only"
                     ng-class="{'has-warning': !registrationModel.nickname}">Nickname</label>
@@ -24,6 +24,9 @@
                 <input type="password" name="password2" id="password2" class="form-control" placeholder="Password Wiederholung"
                     required ng-class="{'has-warning': !registrationModel.password2}"
                     [(ngModel)]="registrationModel.password2" />
+        <div class="invalid-feedback">
+          Please choose a username.
+        </div>                    
             </div>
             <div class="form-group">
                 <label for="email" class="sr-only">EMail</label>
@@ -31,6 +34,10 @@
                     required ng-class="{'has-warning': !registrationModel.email}"
                     [(ngModel)]="registrationModel.email" />
             </div>
+            <p>
+                Den Namen der Community erhälst du von einem Community-Manager. Du solltest diesen
+                persönlichen kennen, damit er deine Anmeldung bestätigen kann.
+            </p>
             <div class="form-group">
                 <label for="community" class="sr-only">Community</label>
                 <input type="text" name="community" id="community" class="form-control" placeholder="Community"
@@ -38,7 +45,7 @@
                     [(ngModel)]="registrationModel.community" />
             </div>
             <button ng-disabled="loginform.$invalid" class="btn btn-lg btn-primary btn-block" type="submit"
-                (click)="register()">Anmeldung Starten</button>
+                (click)="startRegistration()">Anmeldung Starten</button>
         </form>
     </div>    
 </div>
