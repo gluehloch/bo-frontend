@@ -6,7 +6,7 @@
         beitreten kannst.
     </p>
     <div>
-        <form name="registerform" novalidate class="was-validated">
+        <form name="registerform" novalidate [className]="wasValidated">
             <div class="form-group">
                 <label for="nickname" class="sr-only"
                     ng-class="{'has-warning': !registrationModel.nickname}">Nickname</label>

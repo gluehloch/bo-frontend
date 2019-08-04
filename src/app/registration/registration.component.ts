@@ -15,6 +15,7 @@ class RegistrationModel {
 })
 export class RegistrationComponent implements OnInit {
 
+    wasValidated = 'not-validated';
     registrationModel: RegistrationModel;
 
     constructor(private navigationRouterService: NavigationRouterService) {
@@ -30,6 +31,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     startRegistration() {
+        this.wasValidated = 'was-validated';
         // this.registrationModel.nickname
     }
 
