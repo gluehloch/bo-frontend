@@ -53,9 +53,31 @@
                     {{registrationModel.communityMessage}}
                 </div>
             </div>
-            <button ng-disabled="loginform.$invalid" class="btn btn-lg btn-primary btn-block" type="submit"
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="acceptEmail"
+                    [(ngModel)]="registrationModel.acceptEmail" required>
+                <label class="form-check-label" for="acceptEmail">
+                    Meine Email Adresse darf gespeichert werden und wird zur Kommunikation
+                    im Zusammenhang mit dem Tippspiel verwendet.
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="acceptCookie"
+                    [(ngModel)]="registrationModel.acceptCookie" required>
+                <label class="form-check-label" for="acceptCookie">
+                    Es dürfen Cookies gespeichert werden. Diese identifizieren den Teilnehmer,
+                    sammeln Informationen über die Benutzerfreundlichkeit des Tippspiels
+                    und sind für die Funktion des Tippspiels notwendig.
+                </label>
+            </div>
+            <p><!--
+                Der Administrator dieser Seite ist Andre Winkler. Zu erreichen unter der
+                Email Adresse andre.winkler@web.de
+                -->
+            </p>
+            <button ng-disabled="loginform.$invalid" class="btn btn-primary btn-block" type="submit"
                 (click)="startRegistration()">Anmeldung Starten</button>
-            <button class="btn btn-lg btn-secondary btn-block" (click)="reset()">Zurücksetzen</button>
+            <button class="btn btn-secondary btn-block" (click)="reset()">Zurücksetzen</button>
         </form>
     </div>    
 </div>

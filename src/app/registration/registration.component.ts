@@ -13,6 +13,8 @@ class RegistrationModel {
     emailMessage: string;
     community: string;
     communityMessage: string;
+    acceptEmail: boolean;
+    acceptCookie: boolean;
 
     reset() {
         this.nickname = '';
@@ -62,7 +64,7 @@ export class RegistrationComponent implements OnInit {
         }
 
         if (!this.registrationModel.email) {
-            this.registrationModel.email = 'Die Email Adresse fehlt.';
+            this.registrationModel.emailMessage = 'Die Email Adresse fehlt.';
         }
 
         if (!this.registrationModel.community) {
