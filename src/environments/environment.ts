@@ -5,16 +5,17 @@
 
 export const environment = {
 
-    production: false,
+    production: true,
     // rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
     // adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
 
-    website: 'andre-winkler.de.localhost',
-    // cookieserviceUrl: 'http://192.168.99.100:9090/registrationservice/cookie/confirmCookie',
-    cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
+    // website: 'andre-winkler.de.localhost',
+    website: 'tippdiekistebier.de',
+    cookieserviceUrl: 'http://192.168.99.101:9090/registrationservice/cookie/confirmCookie',
+    // cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
 
-    rootUrl: 'http://192.168.99.100:8080/betoffice-jweb/bo/office/',
-    adminUrl: 'http://192.168.99.100:8080/betoffice-jweb/bo/chiefoperator/',
+    rootUrl: 'http://192.168.99.101:8080/betoffice-jweb/bo/office/',
+    adminUrl: 'http://192.168.99.101:8080/betoffice-jweb/bo/chiefoperator/',
 
     // rootUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/office/',
     // adminUrl: 'http://192.168.0.110:8080/betoffice-jweb/bo/chiefoperator/',
@@ -26,6 +27,6 @@ export const environment = {
 
     // rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
     // adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
-    currentSeasonId: 28
+    currentSeasonId: 29
 
 };
