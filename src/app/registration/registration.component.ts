@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationRouterService } from '../navigationrouter.service';
 
-import { RegistrationService } from './registration.service';
+import { RegistrationService, RegistrationJson } from './registration.service';
 
 class RegistrationModel {
+    name: string;
+    nameMessage: string;
+    firstname: string;
+    firstnameMessage: string;
     nickname: string;
     nicknameMessage = 'Der Nickname kann nicht verwendet werden.';
     password: string;
@@ -17,6 +21,10 @@ class RegistrationModel {
     acceptCookie = false;
 
     reset() {
+        this.name = '';
+        this.nameMessage = '';
+        this.firstname = '';
+        this.firstnameMessage = '';
         this.nickname = '';
         this.nicknameMessage = '';
         this.password = '';
@@ -54,6 +62,16 @@ export class RegistrationComponent implements OnInit {
 
     validate(): boolean {
         let successfulValidation = true;
+
+        if (!this.registrationModel.name) {
+            this.registrationModel.name = 'Der Name fehlt.';
+            successfulValidation = false;
+        }
+
+        if (!this.registrationModel.firstname) {
+            this.registrationModel.firstnameMessage = 'Der Vorname fehlt.';
+            successfulValidation = false;
+        }
 
         if (!this.registrationModel.nickname) {
             this.registrationModel.nicknameMessage = 'Der Nickname fehlt.';
@@ -95,8 +113,19 @@ export class RegistrationComponent implements OnInit {
         this.wasValidated = 'was-validated';
 
         if (successfulValidation) {
-            this.registrationService.register(this.registrationModel)
-                .subscribe((data) => {
+            const registration = new RegistrationJson();
+            registration.acceptCookie = this.registrationModel.acceptCookie;
+            registration.acceptMail = this.registrationModel.acceptEmail;
+            registration.applicationName = 'tippdiekistebier.de';
+            registration.email = this.registrationModel.email;
+            registration.firstname = this.registrationModel.firstname;
+            registration.name = this.registrationModel.name;
+            registration.nickname = this.registrationModel.nickname;
+            registration.password = this.registrationModel.password;
+            registration.supplement = `{'community': '${this.registrationModel.community}'}`;
+
+            this.registrationService.register(registration)
+                .subscribe((data: RegistrationJson) => {
                     console.log(data);
                 });
         }

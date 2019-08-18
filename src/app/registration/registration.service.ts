@@ -6,15 +6,16 @@ import { Observable } from 'rxjs';
 import { BetofficeService } from '../betoffice.service';
 import { environment } from 'src/environments/environment';
 
-export class Registration {
+export class RegistrationJson {
     nickname: string;
+    name: string;
+    firstname: string;
     password: string;
     email: string;
-    emailMessage: string;
     supplement: string;
-    acceptEmail = false;
+    acceptMail = false;
     acceptCookie = false;
-
+    applicationName = '';
 }
 
 @Injectable()
@@ -26,8 +27,8 @@ export class RegistrationService extends BetofficeService {
         super(http);
     }
 
-    register(registrationModel): Observable<string> {
-        return this.http.post<string>(this.registerUrl, registrationModel);
+    register(registrationModel: RegistrationJson): Observable<RegistrationJson> {
+        return this.http.post<RegistrationJson>(this.registerUrl, registrationModel);
     }
 
     login(): Observable<Rest.SecurityTokenJson> {
