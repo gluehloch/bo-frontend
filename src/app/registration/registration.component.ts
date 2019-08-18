@@ -13,8 +13,8 @@ class RegistrationModel {
     emailMessage: string;
     community: string;
     communityMessage: string;
-    acceptEmail: boolean;
-    acceptCookie: boolean;
+    acceptEmail = false;
+    acceptCookie = false;
 
     reset() {
         this.nickname = '';
@@ -52,24 +52,37 @@ export class RegistrationComponent implements OnInit {
         this.registrationModel = new RegistrationModel();
     }
 
-    validate() {
+    validate(): boolean {
+        let successfulValidation = true;
+
         if (!this.registrationModel.nickname) {
             this.registrationModel.nicknameMessage = 'Der Nickname fehlt.';
+            successfulValidation = false;
         }
 
         if (!this.registrationModel.password) {
             this.registrationModel.passwordMessage = 'Das Passwort fehlt.';
-        } else if (this.registrationModel.password === this.registrationModel.password2) {
+            successfulValidation = false;
+        } else if (this.registrationModel.password !== this.registrationModel.password2) {
             this.registrationModel.passwordMessage = 'Die Passwörter sind nicht gleich.';
+            successfulValidation = false;
         }
 
         if (!this.registrationModel.email) {
             this.registrationModel.emailMessage = 'Die Email Adresse fehlt.';
+            successfulValidation = false;
         }
 
         if (!this.registrationModel.community) {
             this.registrationModel.communityMessage = 'Deine Wunsch Community fehlt.';
+            successfulValidation = false;
         }
+
+        if (!this.registrationModel.acceptCookie || !this.registrationModel.acceptEmail) {
+            successfulValidation = false;
+        }
+
+        return successfulValidation;
     }
 
     reset() {
@@ -78,9 +91,15 @@ export class RegistrationComponent implements OnInit {
     }
 
     startRegistration() {
-        this.validate();
+        const successfulValidation = this.validate();
         this.wasValidated = 'was-validated';
-        // this.registrationModel.nickname
+
+        if (successfulValidation) {
+            this.registrationService.register(this.registrationModel)
+                .subscribe((data) => {
+                    console.log(data);
+                });
+        }
     }
 
 }
