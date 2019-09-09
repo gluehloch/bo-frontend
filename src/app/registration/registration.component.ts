@@ -9,9 +9,9 @@ class RegistrationModel {
     firstname: string;
     firstnameMessage: string;
     nickname: string;
-    nicknameMessage = 'Der Nickname kann nicht verwendet werden.';
+    nicknameMessage: string;
     password: string;
-    passwordMessage = 'Das Passwort kann nicht verwendet werden.';
+    passwordMessage: string;
     password2: string;
     email: string;
     emailMessage: string;
@@ -22,17 +22,20 @@ class RegistrationModel {
 
     reset() {
         this.name = '';
-        this.nameMessage = '';
         this.firstname = '';
-        this.firstnameMessage = '';
         this.nickname = '';
-        this.nicknameMessage = '';
         this.password = '';
-        this.passwordMessage = '';
         this.password2 = '';
         this.community = '';
-        this.communityMessage = '';
         this.email = '';
+    }
+
+    resetMessages() {
+        this.nameMessage = '';
+        this.firstnameMessage = '';
+        this.nicknameMessage = '';
+        this.passwordMessage = '';
+        this.communityMessage = '';
         this.emailMessage = '';
     }
 }
@@ -61,17 +64,8 @@ export class RegistrationComponent implements OnInit {
     }
 
     validate(): boolean {
+        this.registrationModel.resetMessages();
         let successfulValidation = true;
-
-        if (!this.registrationModel.name) {
-            this.registrationModel.name = 'Der Name fehlt.';
-            successfulValidation = false;
-        }
-
-        if (!this.registrationModel.firstname) {
-            this.registrationModel.firstnameMessage = 'Der Vorname fehlt.';
-            successfulValidation = false;
-        }
 
         if (!this.registrationModel.nickname) {
             this.registrationModel.nicknameMessage = 'Der Nickname fehlt.';
@@ -83,6 +77,17 @@ export class RegistrationComponent implements OnInit {
             successfulValidation = false;
         } else if (this.registrationModel.password !== this.registrationModel.password2) {
             this.registrationModel.passwordMessage = 'Die Passwörter sind nicht gleich.';
+            successfulValidation = false;
+            console.log('Form validation: Different passwords.');
+        }
+
+        if (!this.registrationModel.name) {
+            this.registrationModel.nameMessage = 'Der Name fehlt.';
+            successfulValidation = false;
+        }
+
+        if (!this.registrationModel.firstname) {
+            this.registrationModel.firstnameMessage = 'Der Vorname fehlt.';
             successfulValidation = false;
         }
 
@@ -105,6 +110,7 @@ export class RegistrationComponent implements OnInit {
 
     reset() {
         this.registrationModel.reset();
+        this.registrationModel.resetMessages();
         this.wasValidated = '';
     }
 
@@ -128,6 +134,8 @@ export class RegistrationComponent implements OnInit {
                 .subscribe((data: RegistrationJson) => {
                     console.log(data);
                 });
+        } else {
+            console.log('Form is not valid.');
         }
     }
 
