@@ -47,7 +47,8 @@ class RegistrationModel {
 })
 export class RegistrationComponent implements OnInit {
 
-    wasValidated = 'not-validated';
+    /** Enable/Disable validation coloring of the form. */
+    wasValidated = false;
     registrationModel: RegistrationModel;
 
     constructor(private navigationRouterService: NavigationRouterService,
@@ -111,12 +112,12 @@ export class RegistrationComponent implements OnInit {
     reset() {
         this.registrationModel.reset();
         this.registrationModel.resetMessages();
-        this.wasValidated = '';
+        this.wasValidated = false;
     }
 
     startRegistration() {
         const successfulValidation = this.validate();
-        this.wasValidated = 'was-validated';
+        this.wasValidated = true;
 
         if (successfulValidation) {
             const registration = new RegistrationJson();
