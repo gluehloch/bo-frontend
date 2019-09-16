@@ -25,7 +25,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { RegistrationService } from './registration/registration.service';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationComponent, InputComponent } from './registration/registration.component';
 
 import { AuthenticationWarningComponent } from './authenticationwarning/authenticationwarning.component';
 
@@ -218,6 +218,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         HomeComponent,
         AuthenticationWarningComponent,
         AuthenticationComponent,
+        InputComponent,
         RegistrationComponent,
         GameResultComponent,
         TippComponent,
