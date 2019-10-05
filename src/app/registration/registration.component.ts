@@ -7,7 +7,7 @@ class InputField {
     name: string;
     value: string;
     message: string;
-    invalid = true;
+    invalid = false;
     valid = false;
 
 }
@@ -32,6 +32,7 @@ export class InputComponent {
     @Input()
     name: string;
     @Output()
+    @Input()
     value: string;
     @Input()
     message: string;
@@ -44,7 +45,7 @@ export class InputComponent {
 
 class RegistrationModel {
 
-    name: InputField;
+    name: string;
 
     /*
     name: string;
@@ -81,12 +82,12 @@ class RegistrationModel {
     acceptCookieInvalid = false;
 
     constructor() {
-        this.name = new InputField();
+        // this.name = new InputField();
     }
 
     setNameMessage(message: string, invalid: boolean) {
-        this.name.invalid = invalid;
-        this.name.message = message;
+        // this.name.invalid = invalid;
+        // this.name.message = message;
     }
 
     setFirstnameMessage(message: string, invalid: boolean) {
@@ -123,8 +124,9 @@ class RegistrationModel {
     }
 
     isInvalid() {
-        return this.name.invalid
-            || this.nicknameInvalid
+        /* return this.name.invalid
+            || */
+        return this.nicknameInvalid
             || this.firstnameInvalid
             || this.passwordInvalid
             || this.acceptCookieInvalid
@@ -134,7 +136,7 @@ class RegistrationModel {
     }
 
     reset() {
-        this.name.value = '';
+        // this.name.value = '';
 
         this.firstname = '';
         this.nickname = '';
@@ -145,7 +147,7 @@ class RegistrationModel {
     }
 
     resetMessages() {
-        this.name.message = '';
+        // this.name.message = '';
 
         this.firstnameMessage = '';
         this.nicknameMessage = '';
@@ -155,8 +157,8 @@ class RegistrationModel {
     }
 
     resetInvalid() {
-        this.name.valid = false;
-        this.name.invalid = false;
+        // this.name.valid = false;
+        // this.name.invalid = false;
 
         this.nicknameInvalid = false;
         this.firstnameInvalid = false;
@@ -175,6 +177,8 @@ class RegistrationModel {
 })
 export class RegistrationComponent implements OnInit {
 
+    name: InputField;
+
     registrationModel: RegistrationModel;
 
     constructor(private navigationRouterService: NavigationRouterService,
@@ -183,6 +187,9 @@ export class RegistrationComponent implements OnInit {
 
     ngOnInit() {
         this.init();
+
+        this.name = new InputField();
+
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_LOGIN);
     }
 
@@ -246,7 +253,7 @@ export class RegistrationComponent implements OnInit {
 
         if (successfulValidation) {
             const registration = new RegistrationJson();
-            registration.name = this.registrationModel.name.value;
+            registration.name = this.registrationModel.name;
 
             registration.acceptCookie = this.registrationModel.acceptCookie;
             registration.acceptMail = this.registrationModel.acceptEmail;
