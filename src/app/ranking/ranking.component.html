@@ -1,6 +1,6 @@
 <div *ngIf="ranking">
     <h3>{{ranking.season.name}} {{ranking.season.year}}</h3>
-    <h4>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy' }}</h4>
+    <h4>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy': '+0000'}}</h4>
     <table class="table table-striped table-sm">
         <tr>
             <th colspan="6">Gesamtwertung</th>
@@ -61,7 +61,7 @@
 
     <div>
         <h4>Tippübersicht</h4>
-        <h5>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy' }}</h5>
+        <h5>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy': '+0000'}}</h5>
         <table class="table table-sm">
             <tr>
                 <td>Spiel</td>

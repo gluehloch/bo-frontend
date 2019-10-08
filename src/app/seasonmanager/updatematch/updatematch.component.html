@@ -38,7 +38,7 @@
 -->
         <div class="form-group">
             <label for="dateTime">Datum</label>
-            <input type="text" readonly class="form-control" id="dateTime" name="dateTime" value="{{matchModel.match.dateTime | date: 'dd.MM.yyyy HH:mm'}}"/>
+            <input type="text" readonly class="form-control" id="dateTime" name="dateTime" value="{{matchModel.match.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}"/>
         </div>
         <div class="form-row">
             <div class="col">

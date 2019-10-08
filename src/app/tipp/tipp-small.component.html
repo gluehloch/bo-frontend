@@ -34,11 +34,11 @@
 
             <div class="row">
               <div class="col-12" *ngIf="index === 0" style="border-top:solid; border-top-color: rgb(202, 211, 219)">
-                  <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+                  <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}</div>
               </div>
               <div class="col-12" *ngIf="index > 0 && (tippModel.round.games[index].dateTime !== tippModel.round.games[index - 1].dateTime)"
                 style="border-top:solid; border-top-color: rgb(202, 211, 219)">
-                <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+                <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}</div>
               </div>
             </div>
 

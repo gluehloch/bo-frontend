@@ -28,7 +28,7 @@
 
   <div *ngIf="tippModel.authenticated && tippModel.round">
       <h2>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h2>
-      <h3>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy'}}</h3>
+      <h3>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy': '+0000'}}</h3>
       <form name="tippform" novalidate>
         <table class="table table-striped table-sm">
           <tr>
@@ -40,7 +40,7 @@
             <th style="text-align:right">Punkte</th>
           </tr>
           <tr *ngFor="let game of tippModel.round.games">
-            <td class="hidden-xs" style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
+            <td class="hidden-xs" style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}</td>
             <td style="text-align: right">{{game.homeTeam.name}}</td>
             <td style="text-align: left">{{game.guestTeam.name}}</td>
             <td class="hidden-xs">

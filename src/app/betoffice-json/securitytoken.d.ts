@@ -5,7 +5,7 @@ declare namespace Rest {
     interface GameJson extends AbstractOpenligaid {
         index: number;
         roundId: number;
-        dateTime: Date;
+        dateTime: string;
         homeTeam: TeamJson;
         guestTeam: TeamJson;
         halfTimeResult: GameResultJson;
