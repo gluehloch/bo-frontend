@@ -5,7 +5,7 @@
 
 export const environment = {
 
-    production: true,
+    production: false,
     // rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
     // adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
 

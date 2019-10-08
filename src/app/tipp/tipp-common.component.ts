@@ -32,7 +32,7 @@ class GameModel implements Rest.GameJson {
     id: number;
     index: number;
     roundId: number;
-    dateTime: Date;
+    dateTime: string;
     homeTeam: Rest.TeamJson;
     guestTeam: Rest.TeamJson;
     halfTimeResult: Rest.GameResultJson;
