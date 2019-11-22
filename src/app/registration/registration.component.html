@@ -48,7 +48,9 @@
                     {{registrationModel.firstnameMessage}}
                 </div>
             </div>
-            <app-input [name]="name" [value]="registrationModel.name"></app-input>
+
+            <app-input [name]="name" [(value)]="registrationModel.nameInputFieldModel" [invalid]="true"></app-input>
+
             <!--
             <div class="form-group">
                 <label for="name" class="sr-only"

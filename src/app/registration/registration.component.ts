@@ -3,7 +3,7 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { RegistrationService, RegistrationJson } from './registration.service';
 
-class InputField {
+class InputFieldModel {
     name: string;
     value: string;
     message: string;
@@ -18,7 +18,7 @@ class InputField {
 <div class="form-group">
     <label for="name" class="sr-only"
         ng-class="{'has-warning': invalid}">Name</label>
-    <input type="text" id="name" name="name" class="form-control" placeholder="Name" required
+    <input type="text" id="{{name}}" name="{{name}}" class="form-control" placeholder="Name" required
         [(ngModel)]="value"
         [class.is-invalid]="invalid"
         [class.is-valid]="valid"/>
@@ -31,13 +31,17 @@ export class InputComponent {
 
     @Input()
     name: string;
+
     @Output()
     @Input()
     value: string;
+
     @Input()
     message: string;
+
     @Input()
     invalid = false;
+
     @Input()
     valid = true;
 
@@ -177,7 +181,7 @@ class RegistrationModel {
 })
 export class RegistrationComponent implements OnInit {
 
-    name: InputField;
+    nameInputFieldModel: InputFieldModel;
 
     registrationModel: RegistrationModel;
 
@@ -188,17 +192,22 @@ export class RegistrationComponent implements OnInit {
     ngOnInit() {
         this.init();
 
-        this.name = new InputField();
+        // TODO InputField und InputComponent. Modell und Komponente.
+
+        this.nameInputFieldModel = new InputFieldModel();
 
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_LOGIN);
     }
 
     init() {
         this.registrationModel = new RegistrationModel();
+        this.registrationModel.name = 'Test Test Test';
     }
 
     validate(): boolean {
         this.registrationModel.resetMessages();
+
+        this.registrationModel.name = this.nameInputFieldModel.value;
 
         if (!this.registrationModel.nickname) {
             this.registrationModel.setNicknameMessage('Der Nickname fehlt.', true);
