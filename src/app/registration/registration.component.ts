@@ -3,14 +3,15 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { RegistrationService, RegistrationJson } from './registration.service';
 
+/*
 class InputFieldModel {
     name: string;
     value: string;
     message: string;
     invalid = false;
     valid = false;
-
 }
+*/
 
 @Component({
     selector: 'app-input',
@@ -181,7 +182,7 @@ class RegistrationModel {
 })
 export class RegistrationComponent implements OnInit {
 
-    nameInputFieldModel: InputFieldModel;
+    // nameInputFieldModel: InputFieldModel;
 
     registrationModel: RegistrationModel;
 
@@ -193,8 +194,7 @@ export class RegistrationComponent implements OnInit {
         this.init();
 
         // TODO InputField und InputComponent. Modell und Komponente.
-
-        this.nameInputFieldModel = new InputFieldModel();
+        // this.nameInputFieldModel = new InputFieldModel();
 
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_LOGIN);
     }
@@ -207,7 +207,7 @@ export class RegistrationComponent implements OnInit {
     validate(): boolean {
         this.registrationModel.resetMessages();
 
-        this.registrationModel.name = this.nameInputFieldModel.value;
+        // this.registrationModel.name = this.nameInputFieldModel.value;
 
         if (!this.registrationModel.nickname) {
             this.registrationModel.setNicknameMessage('Der Nickname fehlt.', true);
