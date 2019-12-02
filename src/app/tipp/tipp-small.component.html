@@ -28,7 +28,7 @@
 
   <div *ngIf="tippModel.authenticated && tippModel.round">
       <h3>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h3>
-      <h4>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h4>
+      <h4>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}</h4>
       <form name="tippform" novalidate>
           <div *ngFor="let game of tippModel.round.games; let index = index">
 

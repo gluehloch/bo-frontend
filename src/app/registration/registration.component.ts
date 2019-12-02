@@ -33,7 +33,6 @@ export class InputComponent {
     @Input()
     name: string;
 
-    @Output()
     @Input()
     value: string;
 
