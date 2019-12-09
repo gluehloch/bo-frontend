@@ -113,12 +113,23 @@ class RegistrationModel {
     resetInvalid() {
         this.name.valid = false;
         this.name.invalid = false;
+
+        this.nickname.valid = false;
         this.nickname.invalid = false;
+
+        this.firstname.valid = false;
         this.firstname.invalid = false;
+
+        this.password.valid = false;
         this.password.invalid = false;
-        this.acceptEmailInvalid = false;
+
+        this.community.valid = false;
         this.community.invalid = false;
+
+        this.email.valid = false;
         this.email.invalid = false;
+
+        this.acceptEmailInvalid = false;
         this.acceptCookieInvalid = false;
     }
 }
@@ -130,8 +141,6 @@ class RegistrationModel {
 })
 export class RegistrationComponent implements OnInit {
 
-    // nameInputFieldModel: InputFieldModel;
-
     registrationModel: RegistrationModel;
 
     constructor(private navigationRouterService: NavigationRouterService,
@@ -140,16 +149,11 @@ export class RegistrationComponent implements OnInit {
 
     ngOnInit() {
         this.init();
-
-        // TODO InputField und InputComponent. Modell und Komponente.
-        // this.nameInputFieldModel = new InputFieldModel();
-
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_LOGIN);
     }
 
     init() {
         this.registrationModel = new RegistrationModel();
-        this.registrationModel.name.value = 'Test Test Test';
     }
 
     validate(): boolean {
