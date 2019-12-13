@@ -36,40 +36,88 @@ class RegistrationModel {
         this.community = new InputFieldModel();
     }
 
-    setNameMessage(message: string, invalid: boolean, valid: boolean) {
+    setNameMessage(message: string) {
         this.name.message = message;
-        this.name.invalid = invalid;
-        this.name.valid = valid;
+        this.name.invalid = true;
+        this.name.valid = false;
     }
 
-    setFirstnameMessage(message: string, invalid: boolean, valid: boolean) {
+    setNameOk() {
+        this.name.message = null;
+        this.name.invalid = false;
+        this.name.valid = true;
+    }
+
+    setFirstnameMessage(message: string) {
         this.firstname.message = message;
-        this.firstname.invalid = invalid;
-        this.firstname.valid = valid;
+        this.firstname.invalid = true;
+        this.firstname.valid = false;
     }
 
-    setNicknameMessage(message: string, invalid: boolean, valid: boolean) {
+    setFirstnameOk() {
+        this.firstname.message = null;
+        this.firstname.invalid = false;
+        this.firstname.valid = true;
+    }
+
+    setNicknameMessage(message: string) {
         this.nickname.message = message;
-        this.nickname.invalid = invalid;
-        this.nickname.valid = valid;
+        this.nickname.invalid = true;
+        this.nickname.valid = false;
     }
 
-    setPasswordMessage(message: string, invalid: boolean, valid: boolean) {
+    setNicknameOk() {
+        this.nickname.message = null;
+        this.nickname.invalid = false;
+        this.nickname.valid = true;
+    }
+
+    setPasswordMessage(message: string) {
         this.password.message = message;
-        this.password.invalid = invalid;
-        this.password.valid = valid;
+        this.password.invalid = true;
+        this.password.valid = false;
     }
 
-    setEmailMessage(message: string, invalid: boolean, valid: boolean) {
+    setPasswordOk() {
+        this.password.message = null;
+        this.password.invalid = false;
+        this.password.valid = true;
+    }
+
+    setPassword2Message(message: string) {
+        this.password2.message = message;
+        this.password2.invalid = true;
+        this.password2.valid = false;
+    }
+
+    setPassword2Ok() {
+        this.password2.message = null;
+        this.password2.invalid = false;
+        this.password2.valid = true;
+    }
+
+    setEmailMessage(message: string) {
         this.email.message = message;
-        this.email.invalid = invalid;
-        this.email.valid = valid;
+        this.email.invalid = true;
+        this.email.valid = false;
     }
 
-    setCommunityMessage(message: string, invalid: boolean, valid: boolean) {
+    setEmailOk() {
+        this.email.message = null;
+        this.email.invalid = false;
+        this.email.valid = true;
+    }
+
+    setCommunityMessage(message: string) {
         this.community.message = message;
-        this.community.invalid = invalid;
-        this.community.valid = valid;
+        this.community.invalid = true;
+        this.community.valid = false;
+    }
+
+    setCommunityOk() {
+        this.community.message = null;
+        this.community.invalid = false;
+        this.community.valid = true;
     }
 
     setAcceptCookieMessage(invalid: boolean) {
@@ -160,34 +208,45 @@ export class RegistrationComponent implements OnInit {
         this.registrationModel.resetMessages();
 
         if (!this.registrationModel.nickname.value) {
-            this.registrationModel.setNicknameMessage('Der Nickname fehlt.', true, false);
+            this.registrationModel.setNicknameMessage('Der Nickname fehlt.');
         } else {
-            this.registrationModel.setNicknameMessage(null, false, true);
+            this.registrationModel.setNicknameOk();
         }
 
         if (!this.registrationModel.password.value) {
-            this.registrationModel.setPasswordMessage('Das Passwort fehlt.', true, false);
+            this.registrationModel.setPasswordMessage('Das Passwort fehlt.');
         } else if (this.registrationModel.password2.value) {
-            this.registrationModel.setPasswordMessage('Das Passwort fehlt.', true, true);
+            this.registrationModel.setPassword2Message('Die Passwort Wiederholung fehlt.');
         } else if (this.registrationModel.password.value !== this.registrationModel.password2.value) {
-            this.registrationModel.setPasswordMessage('Die Passwörter sind nicht gleich.', true, false);
+            this.registrationModel.setPasswordMessage('Die Passwörter sind nicht gleich.');
             console.log('Form validation: Different passwords.');
+        } else {
+            this.registrationModel.setPasswordOk();
+            this.registrationModel.setPassword2Ok();
         }
 
         if (!this.registrationModel.name.value) {
-            this.registrationModel.setNameMessage('Der Name fehlt.', true, false);
+            this.registrationModel.setNameMessage('Der Name fehlt.');
+        } else {
+            this.registrationModel.setNameOk();
         }
 
         if (!this.registrationModel.firstname.value) {
-            this.registrationModel.setFirstnameMessage('Der Vorname fehlt.', true, false);
+            this.registrationModel.setFirstnameMessage('Der Vorname fehlt.');
+        } else {
+            this.registrationModel.setFirstnameOk();
         }
 
         if (!this.registrationModel.email.value) {
-            this.registrationModel.setEmailMessage('Die Email Adresse fehlt.', true, false);
+            this.registrationModel.setEmailMessage('Die Email Adresse fehlt.');
+        } else {
+            this.registrationModel.setEmailOk();
         }
 
         if (!this.registrationModel.community.value) {
-            this.registrationModel.setCommunityMessage('Deine Wunsch Community fehlt.', true, false);
+            this.registrationModel.setCommunityMessage('Deine Wunsch Community fehlt.');
+        } else {
+            this.registrationModel.setCommunityOk();
         }
 
         if (!this.registrationModel.acceptCookie) {

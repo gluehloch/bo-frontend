@@ -13,7 +13,7 @@
                 <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Nickname" required
                     autofocus [(ngModel)]="registrationModel.nickname.value"
                     [class.is-invalid]="registrationModel.nickname.invalid"
-                    [class.is-valid]="!registrationModel.nickname.invalid"/>
+                    [class.is-valid]="registrationModel.nickname.valid"/>
                 <div *ngIf="registrationModel.nickname.message" class="invalid-feedback">
                     {{registrationModel.nickname.message}}
                 </div>
