@@ -89,7 +89,7 @@
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="acceptEmail" id="acceptEmail"
                     [(ngModel)]="registrationModel.acceptEmail" required
-                    [class.is-invalid]="registrationModel.acceptEmail.invalid"/>
+                    [class.is-invalid]="registrationModel.acceptEmailInvalid"/>
                 <label class="form-check-label" for="acceptEmail">
                     Meine Email Adresse darf gespeichert werden und wird zur Kommunikation
                     im Zusammenhang mit dem Tippspiel verwendet.
@@ -98,7 +98,7 @@
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="acceptCookie" id="acceptCookie"
                     [(ngModel)]="registrationModel.acceptCookie" required
-                    [class.is-invalid]="registrationModel.acceptCookie.invalid"/>
+                    [class.is-invalid]="registrationModel.acceptCookieInvalid"/>
                 <label class="form-check-label" for="acceptCookie">
                     Es dürfen Cookies gespeichert werden. Diese identifizieren den Teilnehmer,
                     sammeln Informationen über die Benutzerfreundlichkeit des Tippspiels

@@ -120,11 +120,11 @@ class RegistrationModel {
         this.community.valid = true;
     }
 
-    setAcceptCookieMessage(invalid: boolean) {
+    setMissingAcceptCookie(invalid: boolean) {
         this.acceptCookieInvalid = invalid;
     }
 
-    setAcceptEmailMessage(invalid: boolean) {
+    setMissingAcceptEmail(invalid: boolean) {
         this.acceptEmailInvalid = invalid;
     }
 
@@ -249,13 +249,8 @@ export class RegistrationComponent implements OnInit {
             this.registrationModel.setCommunityOk();
         }
 
-        if (!this.registrationModel.acceptCookie) {
-            this.registrationModel.setAcceptCookieMessage(true);
-        }
-
-        if (!this.registrationModel.acceptEmail) {
-            this.registrationModel.setAcceptEmailMessage(true);
-        }
+        this.registrationModel.setMissingAcceptCookie(!this.registrationModel.acceptCookie);
+        this.registrationModel.setMissingAcceptEmail(!this.registrationModel.acceptEmail);
 
         return this.registrationModel.isInvalid();
     }
