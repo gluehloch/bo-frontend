@@ -204,18 +204,18 @@ export class RegistrationComponent implements OnInit {
         this.registrationModel = new RegistrationModel();
     }
 
-    validate(): boolean {
-        this.registrationModel.resetMessages();
-
-        if (!this.registrationModel.nickname.value) {
-            this.registrationModel.setNicknameMessage('Der Nickname fehlt.');
-        } else {
+    validateNickname() {
+        if (this.registrationModel.nickname.value) {
             this.registrationModel.setNicknameOk();
+        } else {
+            this.registrationModel.setNicknameMessage('Der Nickname fehlt.');
         }
+    }
 
+    validatePassword() {
         if (!this.registrationModel.password.value) {
             this.registrationModel.setPasswordMessage('Das Passwort fehlt.');
-        } else if (this.registrationModel.password2.value) {
+        } else if (!this.registrationModel.password2.value) {
             this.registrationModel.setPassword2Message('Die Passwort Wiederholung fehlt.');
         } else if (this.registrationModel.password.value !== this.registrationModel.password2.value) {
             this.registrationModel.setPasswordMessage('Die Passwörter sind nicht gleich.');
@@ -224,33 +224,60 @@ export class RegistrationComponent implements OnInit {
             this.registrationModel.setPasswordOk();
             this.registrationModel.setPassword2Ok();
         }
+    }
 
-        if (!this.registrationModel.name.value) {
-            this.registrationModel.setNameMessage('Der Name fehlt.');
-        } else {
+    validateName() {
+        if (this.registrationModel.name.value) {
             this.registrationModel.setNameOk();
-        }
-
-        if (!this.registrationModel.firstname.value) {
-            this.registrationModel.setFirstnameMessage('Der Vorname fehlt.');
         } else {
+            this.registrationModel.setNameMessage('Der Name fehlt.');
+        }
+    }
+
+    validateFirstname() {
+        if (this.registrationModel.firstname.value) {
             this.registrationModel.setFirstnameOk();
-        }
-
-        if (!this.registrationModel.email.value) {
-            this.registrationModel.setEmailMessage('Die Email Adresse fehlt.');
         } else {
+            this.registrationModel.setFirstnameMessage('Der Vorname fehlt.');
+        }
+    }
+
+    validateEmail() {
+        if (this.registrationModel.email.value) {
             this.registrationModel.setEmailOk();
-        }
-
-        if (!this.registrationModel.community.value) {
-            this.registrationModel.setCommunityMessage('Deine Wunsch Community fehlt.');
         } else {
+            this.registrationModel.setEmailMessage('Die Email Adresse fehlt.');
+        }
+    }
+
+    validateCommunity() {
+        if (this.registrationModel.community.value) {
             this.registrationModel.setCommunityOk();
+        } else {
+            this.registrationModel.setCommunityMessage('Deine Wunsch Community fehlt.');
         }
 
+    }
+
+    validateAcceptCookie() {
         this.registrationModel.setMissingAcceptCookie(!this.registrationModel.acceptCookie);
+    }
+
+    validateAcceptEmail() {
         this.registrationModel.setMissingAcceptEmail(!this.registrationModel.acceptEmail);
+    }
+
+    validate(): boolean {
+        this.registrationModel.resetMessages();
+
+        this.validateNickname();
+        this.validatePassword();
+        this.validateName();
+        this.validateFirstname();
+        this.validateEmail();
+        this.validateCommunity();
+        this.validateAcceptCookie();
+        this.validateAcceptEmail();
 
         return this.registrationModel.isInvalid();
     }
