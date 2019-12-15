@@ -170,6 +170,8 @@ class RegistrationModel {
 
         this.password.valid = false;
         this.password.invalid = false;
+        this.password2.valid = false;
+        this.password2.invalid = false;
 
         this.community.valid = false;
         this.community.invalid = false;
@@ -218,7 +220,7 @@ export class RegistrationComponent implements OnInit {
         } else if (!this.registrationModel.password2.value) {
             this.registrationModel.setPassword2Message('Die Passwort Wiederholung fehlt.');
         } else if (this.registrationModel.password.value !== this.registrationModel.password2.value) {
-            this.registrationModel.setPasswordMessage('Die Passwörter sind nicht gleich.');
+            this.registrationModel.setPassword2Message('Die Passwörter sind nicht gleich.');
             console.log('Form validation: Different passwords.');
         } else {
             this.registrationModel.setPasswordOk();
