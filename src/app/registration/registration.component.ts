@@ -269,7 +269,7 @@ export class RegistrationComponent implements OnInit {
         this.registrationModel.setMissingAcceptEmail(!this.registrationModel.acceptEmail);
     }
 
-    validate(): boolean {
+    validate() {
         this.registrationModel.resetMessages();
 
         this.validateNickname();
@@ -280,8 +280,6 @@ export class RegistrationComponent implements OnInit {
         this.validateCommunity();
         this.validateAcceptCookie();
         this.validateAcceptEmail();
-
-        return this.registrationModel.isInvalid();
     }
 
     reset() {
@@ -291,7 +289,8 @@ export class RegistrationComponent implements OnInit {
     }
 
     startRegistration() {
-        const successfulValidation = this.validate();
+        this.validate();
+        const successfulValidation = !this.registrationModel.isInvalid();
 
         if (successfulValidation) {
             const registration = new RegistrationJson();
@@ -307,7 +306,9 @@ export class RegistrationComponent implements OnInit {
 
             this.registrationService.register(registration)
                 .subscribe((data: RegistrationJson) => {
-                    console.log(data);
+                    if (data.validationCode === RegistrationJson.OK) {
+                        console.log('Registration request is stored: ' + data);
+                    }
                 });
         } else {
             console.log('Form is not valid.');

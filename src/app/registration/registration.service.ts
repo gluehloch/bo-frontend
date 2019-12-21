@@ -7,6 +7,17 @@ import { BetofficeService } from '../betoffice.service';
 import { environment } from 'src/environments/environment';
 
 export class RegistrationJson {
+
+    static readonly OK = 1;
+    static readonly KNOWN_DATA = 1000;
+    static readonly KNOWN_NICKNAME = 1001;
+    static readonly KNOWN_MAILADDRESS = 1002;
+    static readonly UNKNOWN_APPLICATION = 1003;
+    static readonly MISSING_ACCEPT_EMAIL = 1004;
+    static readonly MISSING_ACCEPT_COOKIE = 1005;
+    static readonly UNKNOWN_TOKEN = 1006;
+    static readonly ILLEGAL_ARGUMENTS = 2000;
+
     nickname: string;
     name: string;
     firstname: string;
@@ -16,6 +27,7 @@ export class RegistrationJson {
     acceptMail = false;
     acceptCookie = false;
     applicationName = '';
+    validationCode: number;
 }
 
 @Injectable()
