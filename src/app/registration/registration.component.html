@@ -6,7 +6,7 @@
         beitreten kannst.
     </p>
     <div>
-        <form name="registerform" novalidate>
+        <form name="registrationForm" novalidate>
             <div class="form-group">
                 <label for="nickname" class="sr-only"
                     ng-class="{'has-warning': !registrationModel.nickname.invalid}">Nickname</label>
@@ -71,7 +71,7 @@
                     [(ngModel)]="registrationModel.email.value"
                     [class.is-invalid]="registrationModel.email.invalid"
                     [class.is-valid]="registrationModel.email.valid"
-                    (blur)="validateCommunity()"/>
+                    (blur)="validateEmail()"/>
                 <div class="invalid-feedback">
                     {{registrationModel.email.message}}
                 </div>                    
@@ -119,14 +119,40 @@
                     Bitte ankreuzen.
                 </div>                
             </div>
-            <p>
-                <div class="alert alert-warning" role="alert">
-                    This is a warning alert—check it out!
-                </div>                
-            </p>
-            <button ng-disabled="loginform.$invalid" class="btn btn-primary btn-block" type="submit"
-                (click)="startRegistration()">Anmeldung Starten</button>
-            <button class="btn btn-secondary btn-block" (click)="reset()">Zurücksetzen</button>
+<p></p>
+            <div *ngIf="registrationModel.formState === 3" class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Registrierung abgeschlossen!</h4>
+                <p>
+                    Der Community Manager wird sich mit dir kurzfristig(?) in Verbindung setzen und dich
+                    für die Tipprunde freischalten. Falls die Freischaltung auf sich warten lässt,
+                    kontaktiere den Community Manager bitte direkt.
+                </p>
+                <hr>
+                <p class="mb-0">
+                    Viel Spaß und viel Erfolg.
+                </p>
+            </div>
+<p></p>
+            <div *ngIf="registrationModel.formState === 4" class="alert alert-warning" role="alert">
+                This is a warning alert—check it out!
+            </div>            
+<p></p>
+            <div *ngIf="registrationModel.formState === 2" class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar" [style.witdh.%]="registrationModel.progressState"
+                    aria-valuenow="registrationModel.progressState"
+                    aria-valuemin="0"
+                    aria-valuemax="100"></div>
+            </div>
+<p></p>
+
+            <div *ngIf="registrationModel.formState !== 3">
+                <button [disabled]="registrationModel.formState === 2"
+                    class="btn btn-primary btn-block" type="submit"
+                    (click)="startRegistration()">Anmeldung Starten</button>
+                <button class="btn btn-secondary btn-block" (click)="reset()">Zurücksetzen</button>
+            </div>
         </form>
+
     </div>    
 </div>

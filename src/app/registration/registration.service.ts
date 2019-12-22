@@ -27,7 +27,8 @@ export class RegistrationJson {
     acceptMail = false;
     acceptCookie = false;
     applicationName = '';
-    validationCode: number;
+    validationCodes: number[];
+
 }
 
 @Injectable()

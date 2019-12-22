@@ -11,7 +11,25 @@ class InputFieldModel {
     valid = false;
 }
 
+enum ProgressState {
+    Init = 0,
+    TransmissionStart = 25,
+    TransmissionEnd = 75,
+    TransmissionEvaluated = 100
+}
+
+enum FormState {
+    Init = 0,
+    Valid = 1,
+    Transmission = 2,
+    TransmissionOk = 3,
+    TransmissionError = 4
+}
+
 class RegistrationModel {
+
+    progressState: ProgressState;
+    formState: FormState;
 
     name: InputFieldModel;
     firstname: InputFieldModel;
@@ -27,6 +45,9 @@ class RegistrationModel {
     acceptCookieInvalid = false;
 
     constructor() {
+        this.progressState = ProgressState.Init;
+        this.formState = FormState.Init;
+
         this.name = new InputFieldModel();
         this.firstname = new InputFieldModel();
         this.nickname = new InputFieldModel();
@@ -293,6 +314,9 @@ export class RegistrationComponent implements OnInit {
         const successfulValidation = !this.registrationModel.isInvalid();
 
         if (successfulValidation) {
+            this.registrationModel.formState = FormState.Transmission;
+            this.registrationModel.progressState = ProgressState.TransmissionStart;
+
             const registration = new RegistrationJson();
             registration.name = this.registrationModel.name.value;
             registration.acceptCookie = this.registrationModel.acceptCookie;
@@ -306,8 +330,17 @@ export class RegistrationComponent implements OnInit {
 
             this.registrationService.register(registration)
                 .subscribe((data: RegistrationJson) => {
-                    if (data.validationCode === RegistrationJson.OK) {
+                    if (data.validationCodes.indexOf('OK') !== -1) {
                         console.log('Registration request is stored: ' + data);
+                        this.registrationModel.formState = FormState.TransmissionOk;
+                        // this.registrationModel.progressState = ProgressState.TransmissionEnd;
+                    } else {
+                        this.registrationModel.formState = FormState.TransmissionError;
+
+                        if (data.validationCodes.indexOf('KNOWN_NICKNAME') !== -1) {
+                            this.registrationModel.setNicknameMessage('Nickname bereits vergeben');
+                        }
+                        // this.registrationModel.progressState = ProgressState.TransmissionEnd;
                     }
                 });
         } else {
