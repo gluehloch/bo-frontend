@@ -212,6 +212,8 @@ class RegistrationModel {
 })
 export class RegistrationComponent implements OnInit {
 
+    EnumFormState = FormState;
+
     registrationModel: RegistrationModel;
 
     constructor(private navigationRouterService: NavigationRouterService,

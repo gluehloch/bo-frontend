@@ -134,7 +134,8 @@
             </div>
 <p></p>
             <div *ngIf="registrationModel.formState === 4" class="alert alert-warning" role="alert">
-                This is a warning alert—check it out!
+                Der Registrierungswunsch konnte nicht bearbeitet werden. Bitte prüfe die
+                angezeigten Fehlermeldungen.
             </div>            
 <p></p>
             <div *ngIf="registrationModel.formState === 2" class="progress">
@@ -146,8 +147,8 @@
             </div>
 <p></p>
 
-            <div *ngIf="registrationModel.formState !== 3">
-                <button [disabled]="registrationModel.formState === 2"
+            <div *ngIf="registrationModel.formState !== EnumFormState.Transmission">
+                <button [disabled]="registrationModel.formState === EnumFormState.Transmission"
                     class="btn btn-primary btn-block" type="submit"
                     (click)="startRegistration()">Anmeldung Starten</button>
                 <button class="btn btn-secondary btn-block" (click)="reset()">Zurücksetzen</button>

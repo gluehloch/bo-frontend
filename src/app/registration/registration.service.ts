@@ -27,7 +27,7 @@ export class RegistrationJson {
     acceptMail = false;
     acceptCookie = false;
     applicationName = '';
-    validationCodes: number[];
+    validationCodes: string[];
 
 }
 
