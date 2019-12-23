@@ -21,7 +21,7 @@ enum ProgressState {
 enum FormState {
     Init = 0,
     Valid = 1,
-    Transmission = 2,
+    TransmissionStart = 2,
     TransmissionOk = 3,
     TransmissionError = 4
 }
@@ -213,6 +213,7 @@ class RegistrationModel {
 export class RegistrationComponent implements OnInit {
 
     EnumFormState = FormState;
+    EnumProgressState = ProgressState;
 
     registrationModel: RegistrationModel;
 
@@ -316,7 +317,8 @@ export class RegistrationComponent implements OnInit {
         const successfulValidation = !this.registrationModel.isInvalid();
 
         if (successfulValidation) {
-            this.registrationModel.formState = FormState.Transmission;
+            // GUI: Kennzeichnung 'Start' der Transaktion.
+            this.registrationModel.formState = FormState.TransmissionStart;
             this.registrationModel.progressState = ProgressState.TransmissionStart;
 
             const registration = new RegistrationJson();
@@ -334,15 +336,17 @@ export class RegistrationComponent implements OnInit {
                 .subscribe((data: RegistrationJson) => {
                     if (data.validationCodes.indexOf('OK') !== -1) {
                         console.log('Registration request is stored: ' + data);
+                        // GUI: Kennzeichnung 'Ende' der Transaktion.
                         this.registrationModel.formState = FormState.TransmissionOk;
-                        // this.registrationModel.progressState = ProgressState.TransmissionEnd;
+                        this.registrationModel.progressState = ProgressState.TransmissionEnd;
                     } else {
+                        // GUI: Kennzeichnung 'Ende' der Transaktion.
                         this.registrationModel.formState = FormState.TransmissionError;
+                        this.registrationModel.progressState = ProgressState.TransmissionEnd;
 
                         if (data.validationCodes.indexOf('KNOWN_NICKNAME') !== -1) {
                             this.registrationModel.setNicknameMessage('Nickname bereits vergeben');
                         }
-                        // this.registrationModel.progressState = ProgressState.TransmissionEnd;
                     }
                 });
         } else {

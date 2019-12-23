@@ -120,7 +120,7 @@
                 </div>                
             </div>
 <p></p>
-            <div *ngIf="registrationModel.formState === 3" class="alert alert-success" role="alert">
+            <div *ngIf="registrationModel.formState === EnumFormState.TransmissionOk" class="alert alert-success" role="alert">
                 <h4 class="alert-heading">Registrierung abgeschlossen!</h4>
                 <p>
                     Der Community Manager wird sich mit dir kurzfristig(?) in Verbindung setzen und dich
@@ -133,12 +133,12 @@
                 </p>
             </div>
 <p></p>
-            <div *ngIf="registrationModel.formState === 4" class="alert alert-warning" role="alert">
+            <div *ngIf="registrationModel.formState === EnumFormState.TransmissionError" class="alert alert-warning" role="alert">
                 Der Registrierungswunsch konnte nicht bearbeitet werden. Bitte prüfe die
                 angezeigten Fehlermeldungen.
             </div>            
 <p></p>
-            <div *ngIf="registrationModel.formState === 2" class="progress">
+            <div *ngIf="registrationModel.formState === EnumProgressState.TransmissionStart" class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated"
                     role="progressbar" [style.witdh.%]="registrationModel.progressState"
                     aria-valuenow="registrationModel.progressState"
@@ -147,8 +147,8 @@
             </div>
 <p></p>
 
-            <div *ngIf="registrationModel.formState !== EnumFormState.Transmission">
-                <button [disabled]="registrationModel.formState === EnumFormState.Transmission"
+            <div *ngIf="registrationModel.formState !== EnumFormState.TransmissionStart">
+                <button [disabled]="registrationModel.formState === EnumFormState.TransmissionStart"
                     class="btn btn-primary btn-block" type="submit"
                     (click)="startRegistration()">Anmeldung Starten</button>
                 <button class="btn btn-secondary btn-block" (click)="reset()">Zurücksetzen</button>
