@@ -147,7 +147,7 @@
             </div>
 <p></p>
 
-            <div *ngIf="registrationModel.formState !== EnumFormState.TransmissionStart">
+            <div *ngIf="registrationModel.formState !== EnumFormState.TransmissionOk">
                 <button [disabled]="registrationModel.formState === EnumFormState.TransmissionStart"
                     class="btn btn-primary btn-block" type="submit"
                     (click)="startRegistration()">Anmeldung Starten</button>
