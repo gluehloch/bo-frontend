@@ -10,6 +10,7 @@
   <table class="table table-striped table-sm">
     <tr>
       <th></th>
+      <th></th>
       <th>Name</th>
       <th>Jahr</th>
       <th>Meisterschaft-Modus</th>
@@ -22,8 +23,10 @@
         <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">
           Edit
         </button>
+      </td>
+      <td>
         <button class="btn btn-primary btn-sm" type="submit" (click)="updateMatchday(season)">
-          Aktualisieren Spieltag
+          Aktualisieren
         </button>
       </td>
       <td>{{season.name}}</td>

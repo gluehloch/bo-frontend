@@ -9,6 +9,10 @@
     </div>
   </div>
 
+  <div>
+    <p>Hier geht es zu der <a routerLink="/tipp">Desktop Variante</a> der Tippseite.</p>
+  </div>
+
   <div *ngIf="tippModel.authenticated" class="form-group">
     <div class="alert alert-success">
       Du bist eingeloggt als {{tippModel.nickname}}.
@@ -22,16 +26,31 @@
     </div>
   </div>
 
-  <div>
-    <p>Hier geht es zu der <a routerLink="/tipp">Desktop Variante</a> der Tippseite.</p>
-  </div>
-
   <div *ngIf="tippModel.authenticated && tippModel.round">
       <h3>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h3>
-      <h4>{{tippModel.round.index}}. Spieltag am {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}}</h4>
+      <h4>{{tippModel.round.index}}. Spieltag</h4>
+      <!-- {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}} -->
       <form name="tippform" novalidate>
-          <div *ngFor="let game of tippModel.round.games; let index = index">
+        <div class="row form-group">
+          <div class="col">     
+            <button class="btn btn-sm btn-secondary btn-block"
+              (click)="last()" *ngIf="tippModel.round.index > 1">Letzter</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-sm btn-secondary btn-block"
+              (click)="next()" *ngIf="!tippModel.round.lastRound">Nächster</button>
+          </div>
+        </div> 
 
+        <div class="row">
+          <div class="col">
+            <div class="alert alert-primary" role="alert" style="text-align: center">
+              Punktzahl Spieltag: <b>{{tippModel.points}}</b>
+            </div>  
+          </div>
+        </div>
+
+          <div *ngFor="let game of tippModel.round.games; let index = index">
             <div class="row">
               <div class="col-12" *ngIf="index === 0" style="border-top:solid; border-top-color: rgb(202, 211, 219)">
                   <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}</div>
@@ -86,13 +105,6 @@
           </div>
         <hr/>
         <!-- Naechster und Letzer Spieltag -->
-        <div class="row">
-          <div class="col">
-            <div class="alert alert-primary" role="alert" style="text-align: center">
-              Punktzahl Spieltag: <b>{{tippModel.points}}</b>
-            </div>  
-          </div>
-        </div>
         <div class="row" *ngIf="tippModel.modified" role="alert" style="text-align: center">
           <div class="col">
             <div class="alert alert-warning">
@@ -134,12 +146,12 @@
         <div class="row form-group">
           <div class="col">     
             <button 
-              class="btn btn-lg btn-secondary btn-block"
+              class="btn btn-sm btn-secondary btn-block"
               (click)="last()" *ngIf="tippModel.round.index > 1">Letzter</button>
           </div>
           <div class="col">
             <button 
-              class="btn btn-lg btn-secondary btn-block"
+              class="btn btn-sm btn-secondary btn-block"
               (click)="next()" *ngIf="!tippModel.round.lastRound">Nächster</button>
           </div>
         </div>
