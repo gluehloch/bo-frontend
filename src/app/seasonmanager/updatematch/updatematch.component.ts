@@ -88,15 +88,24 @@ export class UpdateMatchComponent implements OnInit {
                 (error) => {
                     console.error('Ein Fehler', error);
                     console.dir(error);
+                    // TODO Error handling not implemented.
                 }
             );
     }
 
     backToRoundView() {
-        // Leider kenne ich hier die Season ID nicht.
-        this.router.navigate(['./chiefop/seasonmanager/updatematchday', 'TODO: seasonId']);
-        // Das funktioniert leider auch nicht...
-        // this.router.navigate(['chiefop/seasonmanager/updatematchday', this.matchModel.match.roundId]);
+        this.updateMatchService
+            .findSeason(this.matchModel.match.roundId)
+            .subscribe(
+                (round: Rest.RoundJson) => {
+                    this.router.navigate(['./chiefop/seasonmanager/updatematchday', round.seasonId]);
+                },
+                (error) => {
+                    console.error('Ein Fehler', error);
+                    console.dir(error);
+                    // TODO Error handling not implemented.
+                }
+            );
     }
 
 }

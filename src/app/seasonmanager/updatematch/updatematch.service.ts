@@ -28,4 +28,14 @@ export class UpdateMatchService extends BetofficeService {
             this.adminUrl + 'game/update', match, { headers: this.createHeader()});
     }
 
+    findSeason(roundId: number): Observable<Rest.RoundJson> {
+        return this.http.get<Rest.RoundJson>(
+            this.rootUrl + '/season/round/' + roundId, { headers: this.createHeader()});
+    }
+
+/*
+    @RequestMapping(value = "/season/round/{roundId}", method = RequestMethod.GET)
+    public RoundJson findRound(@PathVariable("roundId") Long roundId) {
+        return betofficeBasicJsonService.findRound(roundId);
+*/
 }
