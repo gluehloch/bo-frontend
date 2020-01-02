@@ -45,7 +45,7 @@ fi
 # Start NG build
 PATH=${DIR}/node_modules/.bin/:$PATH
 # TODO npm install
-ng build
+ng build --prod
 
 # Package distribution
 cd $DIST_DIR
