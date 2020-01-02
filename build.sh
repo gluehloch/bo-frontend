@@ -24,7 +24,7 @@ done
 
 if [ -z "$DIR" ]
 then
-    DIR=$(pwd)
+    DIR=$(pwd)    
 fi
 
 echo "Start building betoffice web ..."
@@ -45,6 +45,7 @@ fi
 # Start NG build
 PATH=${DIR}/node_modules/.bin/:$PATH
 # TODO npm install
+cd $DIR
 ng build --prod
 
 # Package distribution
