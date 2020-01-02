@@ -35,37 +35,21 @@ else
    echo "Project directory: ${TARGET_DIR}"
 fi
 
-PATH=${DIR}/node_modules/.bin/:$PATH
-
-echo "Prepare production environment"
-ENV_BACKUP=${DIR}/src/environments/environment.ts.backup
-ENV_DEV=${DIR}/src/environments/environment.ts
-ENV_PROD=${DIR}/src/environments/environment.prod.ts
-
 DIST_TARGZ=boang.tar.gz
-
 DIST_DIR=${DIR}/dist/angularapp
+
 if [ -d "$DIST_DIR" ]; then
     rm -r -f $DIST_DIR
 fi
 
-# Backup dev environment
-if [ -f "$ENV_BACKUP" ]; then
-    rm $ENV_BACKUP
-fi
-mv $ENV_DEV $ENV_BACKUP
-cp $ENV_PROD $ENV_DEV
-
 # Start NG build
+PATH=${DIR}/node_modules/.bin/:$PATH
+# TODO npm install
 ng build
 
 # Package distribution
 cd $DIST_DIR
 tar -czf $DIST_TARGZ *
-
-# Restore dev environment
-cp $ENV_BACKUP $ENV_DEV
-rm $ENV_BACKUP
 
 # Copy to deployment target, if defined
 if [ -z "$TARGET_DIR" ]
