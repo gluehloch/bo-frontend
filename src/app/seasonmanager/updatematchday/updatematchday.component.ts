@@ -1,9 +1,7 @@
 import * as _ from 'lodash';
 
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import { USERROLE } from '../../user-role.enum';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { UpdateMatchdayService } from './updatematchday.service';
 import { ModalService } from './../../modal/modal.service';

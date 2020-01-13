@@ -3,11 +3,8 @@ import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { USERROLE } from '../../user-role.enum';
-
 import { UpdateMatchService } from './updatematch.service';
 import { ModalService } from './../../modal/modal.service';
-import { ResponseType } from '@angular/http';
 
 class MatchModel {
     match: Rest.GameJson;
@@ -88,15 +85,24 @@ export class UpdateMatchComponent implements OnInit {
                 (error) => {
                     console.error('Ein Fehler', error);
                     console.dir(error);
+                    // TODO Error handling not implemented.
                 }
             );
     }
 
     backToRoundView() {
-        // Leider kenne ich hier die Season ID nicht.
-        this.router.navigate(['./chiefop/seasonmanager/updatematchday', 'TODO: seasonId']);
-        // Das funktioniert leider auch nicht...
-        // this.router.navigate(['chiefop/seasonmanager/updatematchday', this.matchModel.match.roundId]);
+        this.updateMatchService
+            .findSeason(this.matchModel.match.roundId)
+            .subscribe(
+                (round: Rest.RoundJson) => {
+                    this.router.navigate(['./chiefop/seasonmanager/updatematchday', round.seasonId]);
+                },
+                (error) => {
+                    console.error('Ein Fehler', error);
+                    console.dir(error);
+                    // TODO Error handling not implemented.
+                }
+            );
     }
 
 }

@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -116,7 +115,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         HttpClientModule,
         CookieModule.forRoot(),
         FormsModule,
-        HttpModule,
         NgcCookieConsentModule.forRoot(cookieConfig),
         TranslateModule.forRoot({
             loader: {

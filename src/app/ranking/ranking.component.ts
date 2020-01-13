@@ -50,7 +50,7 @@ export class RankingComponent implements OnInit {
         if (tipp) {
             return tipp.tipp.homeGoals + ':' + tipp.tipp.guestGoals;
         } else {
-            return '';
+            return '-/-';
         }
     }
 
