@@ -246,7 +246,7 @@ export class TippCommonComponent implements OnInit {
                     this.submitButtonModel.responseStatusCode = err.status;
                     this.submitButtonModel.responseErrorMessage = err.error;
                     this.submitButtonModel.progress = 100;
-                    if (err.status == 403) {
+                    if (err.status === 403 || err.status === 401) {
                         console.log('Access denied.');
                         this.tippService.clearCredentials();
                     } else if (err.error instanceof Error) {

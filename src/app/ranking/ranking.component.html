@@ -67,24 +67,26 @@
         <h4>Tippübersicht</h4>
         <h5>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy': '+0000'}}</h5>
         <table class="table table-sm">
-            <tr>
-                <td>Spiel</td>
-                <td *ngFor="let match of rankingRound?.round.games">
-                    {{match.homeTeam.xshortName}}<br/>{{match.guestTeam.xshortName}}
-                </td>
-            </tr>
-            <tr>
-                <td>Ergebnis</td>
-                <td *ngFor="let match of rankingRound?.round.games">
-                    <app-gameresult [game]="match" [halfTime]="false"></app-gameresult>
-                </td>
-            </tr>
-            <tr *ngFor="let user of ranking?.users">
-                <td>{{user.nickname}}</td>
-                <td *ngFor="let match of rankingRound?.round.games">
-                    {{findTipp(match, user)}}
-                </td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td>Spiel</td>
+                    <td *ngFor="let match of rankingRound?.round.games">
+                        {{match.homeTeam.xshortName}}<br/>{{match.guestTeam.xshortName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ergebnis</td>
+                    <td *ngFor="let match of rankingRound?.round.games">
+                        <app-gameresult [game]="match" [halfTime]="false"></app-gameresult>
+                    </td>
+                </tr>
+                <tr *ngFor="let user of ranking?.users">
+                    <td>{{user.nickname}}</td>
+                    <td *ngFor="let match of rankingRound?.round.games">
+                        {{findTipp(match, user)}}
+                    </td>
+                </tr>
+            </tbody> 
         </table>
     </div>
 
