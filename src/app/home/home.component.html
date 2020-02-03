@@ -7,49 +7,53 @@
     Neu hier? Die Anmeldung kannst du <a routerLink="/register">hier</a> vornehmen.
 </p>
 <p>
-  Hier geht es zum <a routerLink="/login">Login</a>. Die aktuelle
-  Rangliste findet sich im Detail <a routerLink="/ranking">hier</a>.
-  In der nächsten Ausbaustufe finden sich dort detailierte
-  Informationen.
+    Hier geht es zum <a routerLink="/login">Login</a>. Die aktuelle
+    Rangliste findet sich im Detail <a routerLink="/ranking">hier</a>.
+    In der nächsten Ausbaustufe finden sich dort detailierte
+    Informationen.
 </p>
 <table class="table table-striped table-sm">
-  <tr>
-    <th>Platz</th>
-    <th>Name</th>
-    <th>Punkte</th>
-    <th>g</th>
-    <th>t</th>
-    <th>v</th>
-  </tr>
-  <tr *ngFor="let user of teilnehmer?.users">
-    <td>{{user.position}}</td>
-    <td>{{user.nickname}}</td>
-    <td>{{user.points}}</td>
-    <td>{{user.win}}</td>
-    <td>{{user.toto}}</td>
-    <td>{{user.ticket}}</td>
-  </tr>
+    <thead>
+        <tr>
+            <th>Platz</th>
+            <th>Name</th>
+            <th>Punkte</th>
+            <th>g</th>
+            <th>t</th>
+            <th>v</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of teilnehmer?.users">
+            <td>{{user.position}}</td>
+            <td>{{user.nickname}}</td>
+            <td>{{user.points}}</td>
+            <td>{{user.win}}</td>
+            <td>{{user.toto}}</td>
+            <td>{{user.ticket}}</td>
+        </tr>
+    </tbody>        
 </table>
 <h3>Release Übersicht</h3>
 <p>
-  Das Projekt wird über <a href="https://bitbucket.org">Bitbucket</a> verwaltet. Einen Release Plan
-  findet sich <a href="https://bitbucket.org/teamwinkler/angular2/wiki/Release%20Overview">hier</a>.
+    Das Projekt wird über <a href="https://bitbucket.org">Bitbucket</a> verwaltet. Einen Release Plan
+    findet sich <a href="https://bitbucket.org/teamwinkler/angular2/wiki/Release%20Overview">hier</a>.
 </p>
 <h3>Werbung</h3>
 <p>
-  Werbung muss auch sein: <a href="http://go.andrewinkler.148065.digistore24.com/">Hattwigs Akademie</a>
-  Hier können alle Gewinne sinnvoll reinvestiert werden.
+    Werbung muss auch sein: <a href="http://go.andrewinkler.148065.digistore24.com/">Hattwigs Akademie</a>
+    Hier können alle Gewinne sinnvoll reinvestiert werden.
 </p>
 <h3>Impressum</h3>
 <dl class="dl-horizontal">
-  <dt>Autor</dt>
-  <dd>André Winkler</dd>
-  <dt>EMail</dt>
-  <dd>andre.winkler ... web.de</dd>
-  <dt>Postanschrift</dt>
-  <dd>Mensingstr 29a, 21079 Hamburg</dd>
-  <dt>Anmerkung</dt>
-  <dd>
-    Diese Homepage dient privaten und keinen kommerziellen Interessen.
-  </dd>
+    <dt>Autor</dt>
+    <dd>André Winkler</dd>
+    <dt>EMail</dt>
+    <dd>andre.winkler ... web.de</dd>
+    <dt>Postanschrift</dt>
+    <dd>Mensingstr 29a, 21079 Hamburg</dd>
+    <dt>Anmerkung</dt>
+    <dd>
+        Diese Homepage dient privaten und keinen kommerziellen Interessen.
+    </dd>
 </dl>
