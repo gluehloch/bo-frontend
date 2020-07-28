@@ -44,7 +44,7 @@
                         <td><input type="checkbox" id="{{game.id}}Finished" name="{{game.id}}Finished"
                                 [(ngModel)]="game.finished" /></td>
                         <td><input type="checkbox" id="{{game.id}}Ko" name="{{game.id}}ko" [(ngModel)]="game.ko"></td>
-                        <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}</td>
+                        <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}</td>
                         <td style="text-align:right">{{game.homeTeam.name}}</td>
                         <td style="text-align:left">{{game.guestTeam.name}}</td>
                         <td>

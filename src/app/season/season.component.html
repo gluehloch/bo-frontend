@@ -34,7 +34,7 @@
       <option
         *ngFor="let round of roundtable.rounds"
         [value]="round.id"  [selected]="roundtable.selectedRound.id == round.id">
-        {{round.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}
+        {{round.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}
       </option>
     </select>  
   </form>
@@ -49,7 +49,7 @@
         <th style="text-align:left">Gastmannschaft</th>
       </tr>
        <tr *ngFor="let game of roundtable.table.roundJson.games">
-         <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}</td>
+         <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}</td>
          <td style="text-align:right">{{game.homeTeam.name}}</td>
          <td style="text-align:center">
             <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
