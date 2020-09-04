@@ -1,6 +1,6 @@
 <div>
-  <form name="selectSeasonAndGroup">
-    <!--
+    <form name="selectSeasonAndGroup">
+        <!--
     <div class="dropdown" name="selectSeason">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{season?.name}} {{season?.year}}
@@ -10,54 +10,52 @@
       </div>
     </div>
     -->
-    <label for="selectSeason">Meisterschaft auswählen:</label>
-    <select name="selectSeason" class="form-control form-control-sm"
-      (change)="seasonSelected($event)">
-      <option 
-        *ngFor="let season of roundtable.seasons"
-        [value]="season.id">
-        {{season.name}} {{season.year}}
-      </option>
-    </select>
-    <label for="selectGroup">Gruppe auswählen:</label>
-    <select name="selectGroup" class="form-control form-control-sm"
-      (change)="groupSelected($event)">
-      <option
-        *ngFor="let group of roundtable.groups"
-        [value]="group.id">
-        {{group.name}}
-      </option>
-    </select>
-    <label for="selectRound">Runde auswählen:</label>
-    <select name="selectRound" class="form-control form-control-sm"
-      (change)="roundSelected($event)">
-      <option
-        *ngFor="let round of roundtable.rounds"
-        [value]="round.id"  [selected]="roundtable.selectedRound.id == round.id">
-        {{round.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}
-      </option>
-    </select>  
-  </form>
+        <div class="form-group">
+            <label for="selectSeason">Meisterschaft auswählen:</label>
+            <select name="selectSeason" class="form-control form-control-sm" (change)="seasonSelected($event)">
+                <option *ngFor="let season of roundtable.seasons" [value]="season.id">
+                    {{season.name}} {{season.year}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="selectGroup">Gruppe auswählen:</label>
+            <select name="selectGroup" class="form-control form-control-sm" (change)="groupSelected($event)">
+                <option *ngFor="let group of roundtable.groups" [value]="group.id">
+                    {{group.name}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="selectRound">Runde auswählen:</label>
+            <select name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
+                <option *ngFor="let round of roundtable.rounds" [value]="round.id"
+                    [selected]="roundtable.selectedRound.id == round.id">
+                    {{round.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}
+                </option>
+            </select>
+        </div>
+    </form>
 
-  <div *ngIf="roundtable.table">
-    <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
-    <table class="table table-striped table-sm">
-      <tr>
-        <th style="text-align:right">Datum</th>
-        <th style="text-align:right">Heimmannschaft</th>
-        <th style="text-align:center">Ergebnis</th>
-        <th style="text-align:left">Gastmannschaft</th>
-      </tr>
-       <tr *ngFor="let game of roundtable.table.roundJson.games">
-         <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}</td>
-         <td style="text-align:right">{{game.homeTeam.name}}</td>
-         <td style="text-align:center">
-            <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
-         </td>
-         <td style="text-align:left">{{game.guestTeam.name}}</td>
-       </tr>
-    </table>
-  </div>
+    <div *ngIf="roundtable.table">
+        <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
+        <table class="table table-striped table-sm">
+            <tr>
+                <th style="text-align:right">Datum</th>
+                <th style="text-align:right">Heimmannschaft</th>
+                <th style="text-align:center">Ergebnis</th>
+                <th style="text-align:left">Gastmannschaft</th>
+            </tr>
+            <tr *ngFor="let game of roundtable.table.roundJson.games">
+                <td style="text-align:right">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}</td>
+                <td style="text-align:right">{{game.homeTeam.name}}</td>
+                <td style="text-align:center">
+                    <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
+                </td>
+                <td style="text-align:left">{{game.guestTeam.name}}</td>
+            </tr>
+        </table>
+    </div>
 
     <!-- TODO Currently disabled. Check the drop down box above!
     <div class="btn-group btn-group-justified" role="group">
@@ -70,26 +68,27 @@
     </div>
     -->
 
-<!--
+    <!--
     <div class="alert alert-danger" ng-show="round.serviceResponseMessage.status == 'ERROR'">
       FEHLER: Dieser Spieltag existiert nicht!
     </div>
 -->
-  <div *ngIf="roundtable.table">
-    <table class="table table-striped table-sm">
-      <th>Pos</th>
-      <th>Team</th>
-      <th>Punkte</th>
-      <th>Tore</th>
-      <th>g:r:v</th>
-      <tr *ngFor="let team of roundtable.table.groupTeamTableJsons.teamResultJsons; index as i" [ngClass]="getColor(i)">
-        <td>{{team.tablePosition}}</td>
-        <td>{{team.teamName}}</td>
-        <td>{{team.win * 3 + team.remis}}</td>
-        <td>{{team.posGoals}}:{{team.negGoals}}</td>
-        <td>{{team.win}}:{{team.remis}}:{{team.lost}} </td>
-      </tr>
-    </table>
-  </div>
+    <div *ngIf="roundtable.table">
+        <table class="table table-striped table-sm">
+            <th>Pos</th>
+            <th>Team</th>
+            <th>Punkte</th>
+            <th>Tore</th>
+            <th>g:r:v</th>
+            <tr *ngFor="let team of roundtable.table.groupTeamTableJsons.teamResultJsons; index as i"
+                [ngClass]="getColor(i)">
+                <td>{{team.tablePosition}}</td>
+                <td>{{team.teamName}}</td>
+                <td>{{team.win * 3 + team.remis}}</td>
+                <td>{{team.posGoals}}:{{team.negGoals}}</td>
+                <td>{{team.win}}:{{team.remis}}:{{team.lost}} </td>
+            </tr>
+        </table>
+    </div>
 
 </div>

@@ -122,8 +122,6 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     updateOpenligaDb() {
-        // console.info('Update with OpenligaDB round ' + this.roundtable.selectedRound.id);
-
        this.updateMatchdayService
            .updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
            .subscribe(
@@ -138,8 +136,6 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     createOpenligaDb() {
-        // console.info('Create with OpenligaDB.');
-
         this.updateMatchdayService
             .createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
             .subscribe(
