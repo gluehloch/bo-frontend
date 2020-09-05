@@ -12,11 +12,11 @@
 
         <div *ngIf="roundtable?.rounds?.length == 0">
             <div class="alert alert-info" role="alert">
-                Keiner Spieltage vorhanden.
+                Keine Spieltage vorhanden.
             </div>
             <div>
-                <button type="button" class="btn btn-primary btn-block" (click)="createOpenligaDb()">Neu
-                    anlegen mit OpenligaDB</button>
+                <button type="button" class="btn btn-primary btn-block" (click)="createOpenligaDb()">
+                    Neu anlegen mit OpenligaDB</button>
             </div>
         </div>
         <div *ngIf="roundtable?.rounds?.length > 0">

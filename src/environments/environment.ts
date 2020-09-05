@@ -9,8 +9,8 @@ export const environment = {
     // rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
     // adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
 
-    // website: 'andre-winkler.de.localhost',
-    website: 'tippdiekistebier.de',
+    website: 'andre-winkler.de.localhost',
+    // website: 'tippdiekistebier.de',
     cookieserviceUrl: 'http://127.0.0.1:9090/registrationservice/cookie/confirmCookie',
     // cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
 
