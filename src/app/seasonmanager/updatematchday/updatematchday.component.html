@@ -10,6 +10,14 @@
             </select>
         </div>
 
+<!--
+    Ligatyp: LEAGUE | FIFA
+
+    Spieltage werden nur angezeigt, wenn dem Spieltag Spiele zugeordnet sind. Die Selektion ueber die
+    Gruppe kann nur in diesem Fall funktionieren, da der Spieltag selbst keiner Gruppe zugeordnet ist.
+-->
+
+
         <div *ngIf="roundtable?.rounds?.length == 0">
             <div class="alert alert-info" role="alert">
                 Keine Spieltage vorhanden.
