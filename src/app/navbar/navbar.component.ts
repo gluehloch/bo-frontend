@@ -1,6 +1,5 @@
 // core/navbar.component.ts
 import { Component } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { NavigationRouterService } from '../navigationrouter.service';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -8,31 +7,7 @@ import { USERROLE } from '../user-role.enum';
 
 @Component({
     selector: 'app-navbar',
-    templateUrl: './navbar.component.html',
-    animations: [
-        trigger('openClose', [
-            state('open', style({
-                /*display: 'block',*/
-                height: '240px',
-                opacity: 1
-                /*transform: 'translate3d(0, 0, 0)'*/
-                /*backgroundColor: 'yellow'*/
-            })),
-            state('closed', style({
-                /*display: 'none',*/
-                height: '35px',
-                opacity: 1
-                /*transform: 'translate3d(0, -100%, 0)'*/
-                /*backgroundColor: 'green'*/
-            })),
-            transition('open => closed', [
-                animate(/*'500ms ease-out'*/ '0.5s')
-            ]),
-            transition('closed => open', [
-                animate(/*'500ms ease-in'*/ '0.5s')
-            ]),
-        ])
-    ]
+    templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
 
