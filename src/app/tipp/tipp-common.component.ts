@@ -4,7 +4,7 @@ import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie';
 
-import { TippService } from './tipp.service';
+import { TippService, PingJson } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
@@ -185,6 +185,13 @@ export class TippCommonComponent implements OnInit {
             this.tippService.nextTippRound(this.currentSeasonId, this.tippModel.nickname)
                 .subscribe((roundJson: Rest.RoundJson) => {
                     this.updateModel(roundJson);
+
+                    /* TODO AWI Zeitstempel vom Server abfragen.
+                    this.tippService.dateTime().subscribe((pingJson: PingJson) => {
+                        console.log(JSON.stringify(pingJson));
+                        console.log('Datum: ' + pingJson.dateTime + ' Zeitzone: ' + pingJson.dateTimeZone);
+                    });
+                    */
                 });
         }
     }
