@@ -76,30 +76,30 @@ const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
         domain: 'tippdiekistebier.de'
     },
-    position: "bottom-right",
+    position: 'bottom-right',
     palette: {
         popup: {
-            "background": "#2b482a",
-            "text": "#ffffff",
-            "link": "#ffffff"
+            'background': '#2b482a',
+            'text': '#ffffff',
+            'link': '#ffffff'
         },
         button: {
-            "background": "#bfc418",
-            "text": "#000000",
-            "border": "transparent"
+            'background': '#bfc418',
+            'text': '#000000',
+            'border': 'transparent'
         }
     },
     theme: 'edgeless',
     type: 'opt-out',
     content: {
-        message: "Diese Webseite verwendet Cookies.",
-        dismiss: "Verstanden",
-        deny: "Verweigern",
-        allow: "Erlauben",
-        link: "Mehr Infos",
-        href: "http://tippdiekistebier.de/impressum",
-        target: "",
-        policy: "Cookie Policy"
+        message: 'Diese Webseite verwendet Cookies.',
+        dismiss: 'Verstanden',
+        deny: 'Verweigern',
+        allow: 'Erlauben',
+        link: 'Mehr Infos',
+        href: 'http://tippdiekistebier.de/impressum',
+        target: '',
+        policy: 'Cookie Policy'
     }
 };
 
@@ -196,11 +196,11 @@ export function HttpLoaderFactory(http: HttpClient) {
                 component: SeasonManagerUpdateComponent
             },
             {
-                path: 'chiefop/seasonmanager/updatematchday/:id',
+                path: 'chiefop/seasonmanager/updatematchday',
                 component: UpdateMatchdayComponent
             },
             {
-                path: 'chiefop/seasonmanager/updatematch/:id',
+                path: 'chiefop/seasonmanager/updatematch',
                 component: UpdateMatchComponent
             }
         ])
