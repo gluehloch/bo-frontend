@@ -7,18 +7,18 @@ export const environment = {
 
     currentSeasonId: 30,
 
-    /*
     production: false,
     rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
     adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
     cookieserviceUrl: 'http://localhost:9090/registrationservice/cookie/confirmCookie',
     website: 'andre-winkler.de.localhost',
-    */
 
+    /*
     production: true,
     website: 'tippdiekistebier.de',
     rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
     adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
     cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie'
+    */
 
 };
