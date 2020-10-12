@@ -7,18 +7,18 @@ import { TippService } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 @Component({
-  selector: 'tipp-small',
-  templateUrl: './tipp-small.component.html',
-  styleUrls: ['./tipp-small.component.css']
+    selector: 'tipp-small',
+    templateUrl: './tipp-small.component.html',
+    styleUrls: ['./tipp-small.component.css']
 })
 export class TippSmallComponent extends TippCommonComponent {
 
-  constructor(cookieService: CookieService, tippService: TippService, navigationRouterService: NavigationRouterService) {
-    super(cookieService,  tippService, navigationRouterService);
-  }
+    constructor(cookieService: CookieService, tippService: TippService, navigationRouterService: NavigationRouterService) {
+        super(cookieService, tippService, navigationRouterService);
+    }
 
-  ngOnInit() {
-    super.ngOnInit();
-  }
+    ngOnInit() {
+        super.ngOnInit();
+    }
 
 }

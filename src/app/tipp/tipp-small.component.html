@@ -1,133 +1,128 @@
 <div>
 
-  <div *ngIf="!tippModel.authenticated">
-    <div class="form-group">
-    <p class="alert alert-warning">
-      Du bist noch nicht angemeldet.
-      <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
-    </p>
+    <div *ngIf="!tippModel.authenticated">
+        <div class="form-group">
+            <p class="alert alert-warning">
+                Du bist noch nicht angemeldet.
+                <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+            </p>
+        </div>
     </div>
-  </div>
 
-  <div>
-    <p>Hier geht es zu der <a routerLink="/tipp">Desktop Variante</a> der Tippseite.</p>
-  </div>
-
-  <div *ngIf="tippModel.authenticated" class="form-group">
-    <div class="alert alert-success">
-      Du bist eingeloggt als {{tippModel.nickname}}.
-    </div>
-  </div>
-
-  <div *ngIf="tippModel.authenticated && !tippModel.round">
-    <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
     <div>
-      Hier kannst du dir deinen letzten Tipp anschauen.
+        <p>Hier geht es zu der <a routerLink="/tipp">Desktop Variante</a> der Tippseite.</p>
     </div>
-  </div>
 
-  <div *ngIf="tippModel.authenticated && tippModel.round">
-      <h3>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h3>
-      <h4>{{tippModel.round.index}}. Spieltag</h4>
-      <!-- {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}} -->
-      <form name="tippform" novalidate>
-        <div class="row form-group">
-          <div class="col">     
-            <button class="btn btn-sm btn-secondary btn-block"
-              (click)="last()" *ngIf="tippModel.round.index > 1">Letzter</button>
-          </div>
-          <div class="col">
-            <button class="btn btn-sm btn-secondary btn-block"
-              (click)="next()" *ngIf="!tippModel.round.lastRound">Nächster</button>
-          </div>
-        </div> 
-
-        <div class="row">
-          <div class="col">
-            <div class="alert alert-primary" role="alert" style="text-align: center">
-              Punktzahl Spieltag: <b>{{tippModel.points}}</b>
-            </div>  
-          </div>
+    <div *ngIf="tippModel.authenticated" class="form-group">
+        <div class="alert alert-success">
+            Du bist eingeloggt als {{tippModel.nickname}}.
         </div>
+    </div>
 
-          <div *ngFor="let game of tippModel.round.games; let index = index">
+    <div *ngIf="tippModel.authenticated && !tippModel.round">
+        <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
+        <div>
+            Hier kannst du dir deinen letzten Tipp anschauen.
+        </div>
+    </div>
+
+    <div *ngIf="tippModel.authenticated && tippModel.round">
+        <h3>{{tippModel.round.seasonName}} {{tippModel.round.seasonYear}}</h3>
+        <h4>{{tippModel.round.index}}. Spieltag</h4>
+        <!-- {{tippModel.round.dateTime | date: 'dd.MM.yyyy HH:mm'}} -->
+        <form name="tippform" novalidate>
+            <div class="row form-group">
+                <div class="col">
+                    <button class="btn btn-sm btn-secondary btn-block" (click)="last()"
+                        *ngIf="tippModel.round.index > 1">Letzter</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-sm btn-secondary btn-block" (click)="next()"
+                        *ngIf="!tippModel.round.lastRound">Nächster</button>
+                </div>
+            </div>
+
             <div class="row">
-              <div class="col-12" *ngIf="index === 0" style="border-top:solid; border-top-color: rgb(202, 211, 219)">
-                  <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}</div>
-              </div>
-              <div class="col-12" *ngIf="index > 0 && (tippModel.round.games[index].dateTime !== tippModel.round.games[index - 1].dateTime)"
-                style="border-top:solid; border-top-color: rgb(202, 211, 219)">
-                <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}</div>
-              </div>
+                <div class="col">
+                    <div class="alert alert-primary" role="alert" style="text-align: center">
+                        Punktzahl Spieltag: <b>{{tippModel.points}}</b>
+                    </div>
+                </div>
             </div>
 
-            <div class="row" style="border-top:solid 1px; border-top-color: rgb(202, 211, 219)">
-              <div class="col" style="text-align: right; padding: .5rem .75rem">
-                {{game.homeTeam.shortName}}
-              </div>
-              <div *ngIf="game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
-                <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
-              </div>
-              <div *ngIf="!game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
-                {{game.result.homeGoals}}:{{game.result.guestGoals}}
-              </div>
-              <div class="col" style="text-align: left; padding: .5rem .75rem">
-                {{game.guestTeam.shortName}}
-              </div>
+            <div *ngFor="let game of tippModel.round.games; let index = index">
+                <div class="row">
+                    <div class="col-12" *ngIf="index === 0"
+                        style="border-top:solid; border-top-color: rgb(202, 211, 219)">
+                        <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}</div>
+                    </div>
+                    <div class="col-12"
+                        *ngIf="index > 0 && (tippModel.round.games[index].dateTime !== tippModel.round.games[index - 1].dateTime)"
+                        style="border-top:solid; border-top-color: rgb(202, 211, 219)">
+                        <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy HH:mm': '+0200'}}</div>
+                    </div>
+                </div>
+
+                <div class="row" style="border-top:solid 1px; border-top-color: rgb(202, 211, 219)">
+                    <div class="col" style="text-align: right; padding: .5rem .75rem">
+                        {{game.homeTeam.shortName}}
+                    </div>
+                    <div *ngIf="game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
+                        <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
+                    </div>
+                    <div *ngIf="!game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
+                        {{game.result.homeGoals}}:{{game.result.guestGoals}}
+                    </div>
+                    <div class="col" style="text-align: left; padding: .5rem .75rem">
+                        {{game.guestTeam.shortName}}
+                    </div>
+                </div>
+                <div *ngIf="game.finished" class="row"
+                    [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
+                    <div class="col" style="text-align: center; padding: .5rem .75rem">
+                        {{game.tipps[0].tipp.homeGoals}}:{{game.tipps[0].tipp.guestGoals}}</div>
+                    <!-- {{game.tipps[0].points}} -->
+                </div>
+                <div *ngIf="!game.finished" class="row">
+                    <div class="col" style="padding: .5rem .75rem">
+                        <input class="form-control" id="{{tippModel.round.id}}heim{{game.id}}"
+                            name="{{tippModel.round.id}}heim{{game.id}}" max="15" min="0" type="number" size="1"
+                            [disabled]="game.finished" placeholder="{{game.result.homeGoals}}"
+                            [(ngModel)]="game.tipps[0].tipp.homeGoals" style="text-align:right" />
+                    </div>
+                    <div class="col" style="padding: .5rem .75rem">
+                        <input class="form-control" id="{{tippModel.round.id}}gast{{game.id}}"
+                            name="{{tippModel.round.id}}gast{{game.id}}" max="15" min="0" type="number" size="1"
+                            [disabled]="game.finished" placeholder="{{game.result.guestGoals}}"
+                            [(ngModel)]="game.tipps[0].tipp.guestGoals" style="text-align:left" />
+                    </div>
+                </div>
             </div>
-            <div *ngIf="game.finished" class="row"
-              [ngClass]="{'jackpot': game.tipps[0].points == 13, 'win': game.tipps[0].points == 10, 'ticket': game.tipps[0].points == 0 }">
-              <div class="col" style="text-align: center; padding: .5rem .75rem">{{game.tipps[0].tipp.homeGoals}}:{{game.tipps[0].tipp.guestGoals}}</div>
-              <!-- {{game.tipps[0].points}} -->
+            <hr />
+            <!-- Naechster und Letzer Spieltag -->
+            <div class="row" *ngIf="tippModel.modified" role="alert" style="text-align: center">
+                <div class="col">
+                    <div class="alert alert-warning">
+                        <strong>ACHTUNG:</strong> Deine Änderungen sind noch nicht gespeichert!
+                    </div>
+                </div>
             </div>
-            <div *ngIf="!game.finished" class="row">
-              <div class="col" style="padding: .5rem .75rem">
-                <input class="form-control"
-                  id="{{tippModel.round.id}}heim{{game.id}}" 
-                  name="{{tippModel.round.id}}heim{{game.id}}"
-                  max="15" min="0" type="number" size="1"
-                  [disabled]="game.finished"
-                  placeholder="{{game.result.homeGoals}}"
-                  [(ngModel)]="game.tipps[0].tipp.homeGoals"
-                  style="text-align:right"/>
-              </div>
-              <div class="col" style="padding: .5rem .75rem">
-                <input class="form-control"
-                  id="{{tippModel.round.id}}gast{{game.id}}"
-                  name="{{tippModel.round.id}}gast{{game.id}}"
-                  max="15" min="0" type="number" size="1"
-                  [disabled]="game.finished"
-                  placeholder="{{game.result.guestGoals}}"
-                  [(ngModel)]="game.tipps[0].tipp.guestGoals"
-                  style="text-align:left"/>
-              </div>
+            <div class="row" *ngIf="this.submitButtonModel.responseStatusCode == 200">
+                <div class="col">
+                    <div class="alert alert-success">
+                        Dein Tipp wurde erfolgreich gespeichert!
+                    </div>
+                </div>
             </div>
-          </div>
-        <hr/>
-        <!-- Naechster und Letzer Spieltag -->
-        <div class="row" *ngIf="tippModel.modified" role="alert" style="text-align: center">
-          <div class="col">
-            <div class="alert alert-warning">
-              <strong>ACHTUNG:</strong> Deine Änderungen sind noch nicht gespeichert!
+            <div class="row" *ngIf="this.submitButtonModel.responseStatusCode == 403">
+                <div class="col">
+                    <div class="alert alert-danger">
+                        Dein Authentifizierungstoken ist abgelaufen. Melde dich bitte neu an.
+                        <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="row" *ngIf="this.submitButtonModel.responseStatusCode == 200">
-          <div class="col">
-            <div class="alert alert-success">
-              Dein Tipp wurde erfolgreich gespeichert!
-            </div>
-          </div>
-        </div>
-        <div class="row" *ngIf="this.submitButtonModel.responseStatusCode == 403">
-          <div class="col">
-            <div class="alert alert-danger">
-              Dein Authentifizierungstoken ist abgelaufen. Melde dich bitte neu an.
-              <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
-            </div>
-          </div>
-        </div>
-        <!--
+            <!--
         <div class="row form-group">
           <div class="col">
             <div class="progress">
@@ -136,26 +131,23 @@
           </div>
         </div>
         -->
-        <div class="row form-group">
-          <div class="col">
-            <button class="btn btn-lg btn-primary btn-block" type="submit"
-            (click)="submitTipp()"
-            *ngIf="tippModel.authenticated && tippModel.round.tippable">Tipp</button>            
-          </div>
-        </div>
-        <div class="row form-group">
-          <div class="col">     
-            <button 
-              class="btn btn-sm btn-secondary btn-block"
-              (click)="last()" *ngIf="tippModel.round.index > 1">Letzter</button>
-          </div>
-          <div class="col">
-            <button 
-              class="btn btn-sm btn-secondary btn-block"
-              (click)="next()" *ngIf="!tippModel.round.lastRound">Nächster</button>
-          </div>
-        </div>
-        <!--
+            <div class="row form-group">
+                <div class="col">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="submitTipp()"
+                        *ngIf="tippModel.authenticated && tippModel.round.tippable">Tipp</button>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col">
+                    <button class="btn btn-sm btn-secondary btn-block" (click)="last()"
+                        *ngIf="tippModel.round.index > 1">Letzter</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-sm btn-secondary btn-block" (click)="next()"
+                        *ngIf="!tippModel.round.lastRound">Nächster</button>
+                </div>
+            </div>
+            <!--
         <div class="form-group">
           <div class="btn-group btn-group-justified" role="group">
             <div class="btn-group" role="group">
@@ -170,7 +162,7 @@
         </div>
         -->
 
-      </form>
-  </div>
+        </form>
+    </div>
 
 </div>
