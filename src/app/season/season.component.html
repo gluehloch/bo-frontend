@@ -16,7 +16,7 @@
                 {{season.name}} {{season.year}}
             </option>
         </select>
-        <div *ngIf="roundtable.groups.length > 1">
+        <div *ngIf="roundtable?.groups?.length > 1">
             <label for="selectGroup">Gruppe auswählen:</label>
             <select name="selectGroup" class="form-control form-control-sm" (change)="groupSelected($event)">
                 <option *ngFor="let group of roundtable.groups" [value]="group.id">
