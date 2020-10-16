@@ -51,10 +51,13 @@
             </div>
 
             <div *ngFor="let game of tippModel.round.games; let index = index">
-                <div class="row">
+                <!-- 5 columns -->
+                <div class="row" *ngIf="index == 0 || game.dateTime !== tippModel.round.games[index - 1].dateTime">
                     <div class="col">
-                        <div style="text-align:left">{{game.dateTime | date: 'dd.MM.yyyy': '+0200'}}</div>
-                    </div>                    
+                        <div style="text-align:center">{{game.dateTime | date: 'dd.MM.yyyy': '+0200'}}</div>
+                    </div>
+                </div>
+                <div class="row">                    
                     <div class="col">
                         <div style="text-align:left">{{game.dateTime | date: 'HH:mm': '+0200'}}</div>
                     </div>
