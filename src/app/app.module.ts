@@ -36,6 +36,7 @@ import { TippSmallComponent } from './tipp/tipp-small.component';
 import { SeasonService } from './season/season.service';
 import { SeasonComponent } from './season/season.component';
 
+import { TippResultComponent } from './ranking/tippresult.component';
 import { RankingService } from './ranking/ranking.service';
 import { RankingComponent } from './ranking/ranking.component';
 
@@ -216,6 +217,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         TippComponent,
         TippSmallComponent,
         SeasonComponent,
+        TippResultComponent,
         RankingComponent,
         SessionComponent,
         PartyComponent,
