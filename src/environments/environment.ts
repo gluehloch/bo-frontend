@@ -22,6 +22,6 @@ export const environment = {
     rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
     adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
     cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie'
-    +/
+    */
 
 };
