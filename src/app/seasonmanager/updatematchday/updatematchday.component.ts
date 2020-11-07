@@ -3,11 +3,10 @@ import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { USERROLE } from '../../user-role.enum';
-
 import { UpdateMatchdayService } from './updatematchday.service';
 import { ModalService } from './../../modal/modal.service';
-import { SeasonComponent } from 'src/app/season/season.component';
+
+import { environment } from './../../../environments/environment';
 
 export class Roundtable {
     seasonId: number;
@@ -26,6 +25,7 @@ export class Roundtable {
 })
 export class UpdateMatchdayComponent implements OnInit {
 
+    dateTimeFormat = environment.dateTimeFormat;
     roundtable: Roundtable;
 
     constructor(private router: Router,

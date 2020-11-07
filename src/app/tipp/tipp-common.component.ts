@@ -129,6 +129,7 @@ export class TippModel {
 
 export class TippCommonComponent implements OnInit {
 
+    dateTimeFormat = environment.dateTimeFormat;
     currentSeasonId = environment.currentSeasonId;
 
     tippModel: TippModel;

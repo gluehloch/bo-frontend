@@ -5,6 +5,8 @@ import { USERROLE } from '../user-role.enum';
 import { SeasonService} from './season.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
+import { environment } from './../../environments/environment';
+
 export class Roundtable {
     seasons: Rest.SeasonJson[];
     selectedSeason: Rest.SeasonJson;
@@ -22,6 +24,7 @@ export class Roundtable {
 })
 export class SeasonComponent implements OnInit {
 
+    dateTimeFormat = environment.dateTimeFormat;
     roundtable: Roundtable;
 
     constructor(private seasonService: SeasonService, private navigationRouterService: NavigationRouterService) {

@@ -21,4 +21,6 @@ export const environment = {
     cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie'
     */
 
+    dateTimeFormat: 'dd.MM.yyyy HH:mm'
+
 };

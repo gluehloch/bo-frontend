@@ -1,13 +1,14 @@
 import * as _ from 'lodash';
 
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { USERROLE } from '../../user-role.enum';
 
 import { UpdateMatchService } from './updatematch.service';
 import { ModalService } from './../../modal/modal.service';
-import { ResponseType } from '@angular/http';
+
+import { environment } from './../../../environments/environment';
 
 class MatchModel {
     seasonId: number;
@@ -27,6 +28,7 @@ class MatchModel {
 })
 export class UpdateMatchComponent implements OnInit {
 
+    dateTimeFormat = environment.dateTimeFormat;
     matchModel: MatchModel;
 
     constructor(private router: Router,
