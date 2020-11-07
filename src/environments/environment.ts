@@ -5,13 +5,16 @@
 
 export const environment = {
 
+    // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
+    dateTimeFormat: 'dd.MM.yyyy HH:mm',
+    // TODO Wird mit der Community Edition abgeschafft...
     currentSeasonId: 30,
 
     production: false,
     rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
     adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
     cookieserviceUrl: 'http://localhost:9090/registrationservice/cookie/confirmCookie',
-    website: 'andre-winkler.de.localhost',
+    website: 'andre-winkler.de.localhost'
 
     /*
     production: true,
@@ -19,8 +22,6 @@ export const environment = {
     rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
     adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
     cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie'
-    */
-
-    dateTimeFormat: 'dd.MM.yyyy HH:mm'
+    +/
 
 };
