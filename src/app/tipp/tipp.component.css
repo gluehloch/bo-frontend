@@ -9,3 +9,7 @@
 .ticket {
     background-color: lightcoral;
 }
+
+.desktop td {
+    vertical-align: middle;
+}

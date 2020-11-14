@@ -16,6 +16,7 @@ export class SubmitButtonModel {
     progress: number;
 }
 
+/*
 class RoundModel implements Rest.RoundJson {
     id: number;
     seasonId: number;
@@ -50,59 +51,53 @@ class GameTippModel implements Rest.GameTippJson {
     tipp: Rest.GameResultJson;
     points: number;
 }
+*/
 
-class GoalModel implements Rest.GameResultJson {
-    private _homeGoals: number;
-    private _guestGoals: number;
-    private _oldHomeGoals: number;
-    private _oldGuestGoals: number;
+/**
+ * Verwaltet einen Tipp fuer ein Spiel. Aenderung werden notiert
+ * und durch die Methode #isModified() sichtbar.
+ */
+class TippModel {
+    private oldHomeGoals: number;
+    private oldGuestGoals: number;
 
-    constructor(home: number, guest: number) {
-        this._homeGoals = home;
-        this._guestGoals = guest;
-        this._oldHomeGoals = home;
-        this._oldGuestGoals = guest;
-    }
-
-    get homeGoals(): number {
-        return this._homeGoals;
-    }
-
-    set homeGoals(homeGoals: number) {
-        this._homeGoals = homeGoals;
-    }
-
-    get guestGoals(): number {
-        return this._guestGoals;
-    }
-
-    set guestGoals(guestGoals: number) {
-        this._guestGoals = guestGoals;
+    constructor(public game: Rest.GameJson, public homeGoals: number, public guestGoals: number, public points: number) {
+        this.oldHomeGoals = homeGoals;
+        this.oldGuestGoals = guestGoals;
     }
 
     public isModified(): boolean {
-        return !(this._homeGoals === this._oldHomeGoals && this._guestGoals === this._oldGuestGoals);
+        return !(this.homeGoals === this.oldHomeGoals && this.guestGoals === this.oldGuestGoals);
     }
 }
 
-class GoalModelContainer {
-    private _goalModels: GoalModel[];
+/**
+ * Verwaltet den Tipp fuer eine Spielrunde fuer einen Spieler.
+ */
+class TippModelContainer {
+    round: Rest.RoundJson;
+    nickname: string;
+    authenticated: boolean;
+    summedUpPoints: number;
+    modified: boolean;
+
+    tippModels: TippModel[];
 
     public reset() {
-        this._goalModels = [];
+        this.tippModels = [];
     }
 
-    public add(model: GoalModel) {
-        this._goalModels.push(model);
+    public add(model: TippModel) {
+        this.tippModels.push(model);
     }
 
-    public model(): GoalModel[] {
-        return this._goalModels;
-    }
-
+    /**
+     * Falls ein Tipp modifiziert wurde, gilt der komplette Tipp als
+     * modifiziert.
+     */
     public isModified(): boolean {
-        const gm = _.find(this._goalModels, (goalModel: GoalModel) => {
-            return goalModel.isModified();
+        const gm = _.find(this.tippModels, (tippModel: TippModel) => {
+            return tippModel.isModified();
         });
 
         if (gm) {
@@ -110,19 +105,11 @@ class GoalModelContainer {
         }
         return false;
     }
-}
 
-export class TippModel {
-    nickname: string;
-    authenticated: boolean;
-    round: Rest.RoundJson;
-    points: number;
-    modified: boolean;
-
-    calcPoints() {
-        this.points = 0;
-        for (const game of this.round.games) {
-            this.points = this.points + game.tipps[0].points;
+    public calcPoints() {
+        this.summedUpPoints = 0;
+        for (const tippModel of this.tippModels) {
+            this.summedUpPoints = this.summedUpPoints + tippModel.points;
         }
     }
 }
@@ -132,13 +119,11 @@ export class TippCommonComponent implements OnInit {
     dateTimeFormat = environment.dateTimeFormat;
     currentSeasonId = environment.currentSeasonId;
 
-    tippModel: TippModel;
     submitButtonModel: SubmitButtonModel;
     navigationRouterService: NavigationRouterService;
-    goalModelContainer = new GoalModelContainer();
+    tippModelContainer = new TippModelContainer();
 
     constructor(private cookieService: CookieService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
-        this.tippModel = new TippModel();
         this.submitButtonModel = new SubmitButtonModel();
         this.submitButtonModel.progress = 0;
         this.navigationRouterService = navigationRouterService;
@@ -154,27 +139,36 @@ export class TippCommonComponent implements OnInit {
 
     checkAuthorization() {
         if (this.tippService.isAuthorized()) {
-            this.tippModel.nickname = this.tippService.readCredentials().nickname;
-            this.tippModel.authenticated = true;
+            this.tippModelContainer.nickname = this.tippService.readCredentials().nickname;
+            this.tippModelContainer.authenticated = true;
         } else {
-            this.tippModel.nickname = null;
-            this.tippModel.authenticated = false;
+            this.tippModelContainer.nickname = null;
+            this.tippModelContainer.authenticated = false;
         }
     }
 
     private updateModel(roundJson: Rest.RoundJson) {
         roundJson.games = this.sortGames(roundJson.games);
-        this.tippModel.round = roundJson;
+        this.tippModelContainer.round = roundJson;
 
-        this.goalModelContainer.reset();
-        for (const game of this.tippModel.round.games) {
-            const gameTippModel = new GoalModel(game.tipps[0].tipp.homeGoals, game.tipps[0].tipp.guestGoals);
-            this.goalModelContainer.add(gameTippModel);
-            game.tipps[0].tipp = gameTippModel;
+        // Es wird erwartet, dass das Backend nur einen Tipp zurueck gibt:
+        // Der Tipp fuer den hier angemeldeten Teilnehmer. Falls er bisher
+        // keinen Tipp abgegeben hat (oder nur fuer ein Spiel keinen Tipp
+        // abgegeben hat), kann dieser 'null' sein.
+
+        this.tippModelContainer.reset();
+        for (const game of this.tippModelContainer.round.games) {
+            let gameTippModel;
+            if (game.tipps && game.tipps[0] && game.tipps[0].tipp) {
+                gameTippModel = new TippModel(game, game.tipps[0].tipp.homeGoals, game.tipps[0].tipp.guestGoals, game.tipps[0].points);
+            } else {
+                gameTippModel = new TippModel(game, 0, 0, 0);
+            }
+            this.tippModelContainer.add(gameTippModel);
         }
 
-        this.tippModel.modified = false;
-        this.tippModel.calcPoints();
+        this.tippModelContainer.modified = false;
+        this.tippModelContainer.calcPoints();
         this.submitButtonModel.responseStatusCode = 0;
     }
 
@@ -182,26 +176,19 @@ export class TippCommonComponent implements OnInit {
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_TIPP);
         this.checkAuthorization();
 
-        if (this.tippModel.authenticated) {
-            this.tippService.nextTippRound(this.currentSeasonId, this.tippModel.nickname)
+        if (this.tippModelContainer.authenticated) {
+            this.tippService.nextTippRound(this.currentSeasonId, this.tippModelContainer.nickname)
                 .subscribe((roundJson: Rest.RoundJson) => {
                     this.updateModel(roundJson);
-
-                    /* TODO AWI Zeitstempel vom Server abfragen.
-                    this.tippService.dateTime().subscribe((pingJson: PingJson) => {
-                        console.log(JSON.stringify(pingJson));
-                        console.log('Datum: ' + pingJson.dateTime + ' Zeitzone: ' + pingJson.dateTimeZone);
-                    });
-                    */
                 });
         }
     }
 
     next() {
-        if (this.goalModelContainer.isModified()) {
-            this.tippModel.modified = true;
+        if (this.tippModelContainer.isModified()) {
+            this.tippModelContainer.modified = true;
         } else {
-            this.tippService.nextRound(this.tippModel.round.id, this.tippModel.nickname)
+            this.tippService.nextRound(this.tippModelContainer.round.id, this.tippModelContainer.nickname)
                 .subscribe((roundJson: Rest.RoundJson) => {
                     this.updateModel(roundJson);
                 });
@@ -209,10 +196,10 @@ export class TippCommonComponent implements OnInit {
     }
 
     last() {
-        if (this.goalModelContainer.isModified()) {
-            this.tippModel.modified = true;
+        if (this.tippModelContainer.isModified()) {
+            this.tippModelContainer.modified = true;
         } else {
-            this.tippService.prevRound(this.tippModel.round.id, this.tippModel.nickname)
+            this.tippService.prevRound(this.tippModelContainer.round.id, this.tippModelContainer.nickname)
                 .subscribe((roundJson: Rest.RoundJson) => {
                     this.updateModel(roundJson);
                 });
@@ -226,19 +213,19 @@ export class TippCommonComponent implements OnInit {
         this.submitButtonModel.progress = 33;
 
         const submitTipp = {
-            nickname: this.tippModel.nickname,
-            roundId: this.tippModel.round.id,
+            nickname: this.tippModelContainer.nickname,
+            roundId: this.tippModelContainer.round.id,
             submitTippGames: []
         };
 
-        this.tippModel.round.games.forEach(game => {
+        this.tippModelContainer.tippModels.forEach(tippModel => {
             submitTipp.submitTippGames.push({
-                gameId: game.id, tippResult: {
-                    homeGoals: game.tipps[0].tipp.homeGoals,
-                    guestGoals: game.tipps[0].tipp.guestGoals
+                gameId: tippModel.game.id,
+                tippResult: {
+                    homeGoals: tippModel.homeGoals,
+                    guestGoals: tippModel.guestGoals
                 }
-            }
-            );
+            });
         });
 
         this.tippService.tipp(submitTipp)
