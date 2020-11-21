@@ -4,24 +4,26 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="home">
+            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.home">
                 <a class="nav-link" routerLink="/home">Home</a>
             </li>
+            <!--
             <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="login">
                 <a class="nav-link" routerLink="/login">Login</a>
             </li>
-            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="tipp">
+            -->
+            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.tipp">
                 <a class="nav-link" routerLink="/tipp-small">Tipp</a>
             </li>
-            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="teilnehmer">
+            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.teilnehmer">
                 <a class="nav-link" routerLink="/ranking">Teilnehmer</a>
             </li>
-            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="meisterschaften">
+            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.meisterschaften">
                 <a class="nav-link" routerLink="/season">Meisterschaften</a>
             </li>
-            <li data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item dropdown" *ngIf="admin">
+            <li data-toggle="collapse" data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item dropdown" *ngIf="admin">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                    aria-expanded="false" [class.active]="adminmenu">Admin</a>
+                    aria-expanded="false" [class.active]="navMenu.adminmenu">Admin</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" routerLink="/chiefop/party">Teilnehmer</a>
                     <a class="dropdown-item" routerLink="/chiefop/team">Mannschaften</a>
@@ -29,5 +31,6 @@
                 </div>
             </li>
         </ul>
+        <button class="btn btn-outline-light" data-toggle="collapse" data-target=".navbar-collapse.show" [routerLink]="'/login'" type="submit">{{loginOrLogout}}</button>
     </div>
 </nav>

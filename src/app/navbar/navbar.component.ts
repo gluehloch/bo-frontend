@@ -5,13 +5,16 @@ import { NavigationRouterService } from '../navigationrouter.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { USERROLE } from '../user-role.enum';
 
-@Component({
-    selector: 'app-navbar',
-    templateUrl: './navbar.component.html'
-})
-export class NavbarComponent {
+enum NavState {
+    home,
+    login,
+    tipp,
+    teilnehmer,
+    meisterschaft,
+    adminmenu
+}
 
-    // Activated view
+class NavMenu {
     home = true;
     login = false;
     tipp = false;
@@ -19,87 +22,92 @@ export class NavbarComponent {
     meisterschaften = false;
     adminmenu = false;
 
-    // The show attribute of the collapsable navbar
-    // collapse = 'closed';
-    show = false;
+    currentNavState: NavState;
 
-    // Session role
+    changeState(newState: NavState): void {
+        this.home = false;
+        this.login = false;
+        this.tipp = false;
+        this.teilnehmer = false;
+        this.meisterschaften = false;
+        this.adminmenu = false;
+
+        switch (newState) {
+            case NavState.home:
+                this.home = true; break;
+            case NavState.login:
+                this.login = true; break;
+            case NavState.tipp:
+                this.tipp = true; break;
+            case NavState.teilnehmer:
+                this.teilnehmer = true; break;
+            case NavState.adminmenu:
+                this.adminmenu = true; break;
+            case NavState.meisterschaft:
+                this.meisterschaften = true; break;
+        }
+        this.currentNavState = newState;
+    }
+}
+
+@Component({
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html'
+})
+export class NavbarComponent {
+
+    private readonly textLogin = 'Login';
+    private readonly textLogout = 'Logout';
+    loginOrLogout = this.textLogin;
+
+    navMenu = new NavMenu();
     admin = false;
 
     constructor(
         private navigationRouterService: NavigationRouterService,
         private authenticationService: AuthenticationService) {
 
+        if (authenticationService.isAuthorized()) {
+            const nickname = authenticationService.readCredentials().nickname;
+            this.loginOrLogout = this.textLogout + ' ' + nickname;
+        } else {
+            this.loginOrLogout = this.textLogin;
+        }
         this.admin = authenticationService.getUserRole() === USERROLE.ADMIN;
+
         navigationRouterService.sessionSource$.subscribe(
-            loginOrLogout => {
-                if (loginOrLogout === 'login') {
+            loginOrLogoutState => {
+                if (loginOrLogoutState === 'login') {
+                    this.loginOrLogout = this.textLogout + ' ' + authenticationService.readCredentials().nickname;
                     this.admin = authenticationService.getUserRole() === USERROLE.ADMIN;
-                } else if (loginOrLogout === 'logout') {
+                } else if (loginOrLogoutState === 'logout') {
+                    this.loginOrLogout = this.textLogin;
                     this.admin = false;
                 }
             });
 
         navigationRouterService.navigationActivated$.subscribe(
             activatedRoute => {
-                this.closeCollapse();
+                //this.closeCollapse();
                 console.log('Activated route: ' + activatedRoute);
                 this.toggleMenuStates(activatedRoute);
             }
         );
     }
 
-    toggleCollapse() {
-        this.show = this.show ? false : true;
-    }
-
-    closeCollapse() {
-        this.show = false;
-    }
-
     private toggleMenuStates(activatedRoute: string) {
         if (activatedRoute === NavigationRouterService.ROUTE_HOME) {
-            this.home = true;
-            this.login = false;
-            this.tipp = false;
-            this.teilnehmer = false;
-            this.meisterschaften = false;
-            this.adminmenu = false;
+            this.navMenu.changeState(NavState.home);
         } else if (activatedRoute === NavigationRouterService.ROUTE_LOGIN) {
-            this.home = false;
-            this.login = true;
-            this.tipp = false;
-            this.teilnehmer = false;
-            this.meisterschaften = false;
-            this.adminmenu = false;
+            this.navMenu.changeState(NavState.login);
         } else if (activatedRoute === NavigationRouterService.ROUTE_TIPP) {
-            this.home = false;
-            this.login = false;
-            this.tipp = true;
-            this.teilnehmer = false;
-            this.meisterschaften = false;
-            this.adminmenu = false;
+            this.navMenu.changeState(NavState.tipp);
         } else if (activatedRoute === NavigationRouterService.ROUTE_TEILNEHMER) {
-            this.home = false;
-            this.login = false;
-            this.tipp = false;
-            this.teilnehmer = true;
-            this.meisterschaften = false;
-            this.adminmenu = false;
+            this.navMenu.changeState(NavState.teilnehmer);
         } else if (activatedRoute === NavigationRouterService.ROUTE_MEISTERSCHAFTEN) {
-            this.home = false;
-            this.login = false;
-            this.tipp = false;
-            this.teilnehmer = false;
-            this.meisterschaften = true;
-            this.adminmenu = false;
+            this.navMenu.changeState(NavState.meisterschaft);
         } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_MENU) {
-            this.home = false;
-            this.login = false;
-            this.tipp = false;
-            this.teilnehmer = false;
-            this.meisterschaften = false;
-            this.adminmenu = true;
+            this.navMenu.changeState(NavState.adminmenu);
         }
     }
 
