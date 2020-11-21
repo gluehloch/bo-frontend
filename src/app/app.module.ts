@@ -32,6 +32,7 @@ import { GameResultComponent } from './gameresult/gameresult.component';
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
 import { TippSmallComponent } from './tipp/tipp-small.component';
+import { TippMobileComponent} from './tipp/tipp-mobile.component';
 
 import { SeasonService } from './season/season.service';
 import { SeasonComponent } from './season/season.component';
@@ -161,6 +162,10 @@ export function HttpLoaderFactory(http: HttpClient) {
                 component: TippSmallComponent
             },
             {
+                path: 'tipp-mobile',
+                component: TippMobileComponent
+            },
+            {
                 path: 'ranking',
                 component: RankingComponent
             },
@@ -216,6 +221,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         GameResultComponent,
         TippComponent,
         TippSmallComponent,
+        TippMobileComponent,
         SeasonComponent,
         TippResultComponent,
         RankingComponent,
