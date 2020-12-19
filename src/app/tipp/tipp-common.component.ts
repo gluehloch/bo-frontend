@@ -160,8 +160,13 @@ export class TippCommonComponent implements OnInit {
         for (const game of this.tippModelContainer.round.games) {
             let gameTippModel;
             if (game.tipps && game.tipps[0] && game.tipps[0].tipp) {
-                gameTippModel = new TippModel(game, game.tipps[0].tipp.homeGoals, game.tipps[0].tipp.guestGoals, game.tipps[0].points);
+                gameTippModel = new TippModel(
+                        game,
+                        game.tipps[0].tipp.homeGoals,
+                        game.tipps[0].tipp.guestGoals,
+                        game.tipps[0].points);
             } else {
+                console.log('Kein Tipp Gefunden', game);
                 gameTippModel = new TippModel(game, 0, 0, 0);
             }
             this.tippModelContainer.add(gameTippModel);
