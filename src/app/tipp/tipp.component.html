@@ -34,6 +34,8 @@
                 <tr>
                     <th class="hidden-xs" style="text-align:right">Datum</th>
                     <th style="text-align:right">Heimmannschaft</th>
+                    <th></th>
+                    <th></th>
                     <th style="text-align:left">Gastmannschaft</th>
                     <th class="hidden-xs">Tore</th>
                     <th colspan="2">Tipp</th>
@@ -41,8 +43,18 @@
                 </tr>
                 <tr *ngFor="let tipp of tippModelContainer.tippModels">
                     <td class="hidden-xs" style="text-align:right">{{tipp.game.dateTime | date: dateTimeFormat}}</td>
-                    <td style="text-align: right">{{tipp.game.homeTeam.name}}</td>
-                    <td style="text-align: left">{{tipp.game.guestTeam.name}}</td>
+                    <td style="text-align: right">
+                        {{tipp.game.homeTeam.name}}
+                    </td>
+                    <td>
+                        <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}">
+                    </td>
+                    <td style="text-align: left">
+                        <img class="teamlogo" src="{{tipp.game.guestTeam.logo}}">
+                    </td>
+                    <td>
+                        {{tipp.game.guestTeam.name}}
+                    </td>
                     <td class="hidden-xs">
                         <app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult>
                     </td>
@@ -60,7 +72,7 @@
                     </td>
                     <td *ngIf="tipp.game.finished" style="text-align:right"
                         [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
-                        {{tipp.points}}
+                        <b></b>{{tipp.points}}
                     </td>
                     <td *ngIf="!tipp.game.finished">
                     </td>

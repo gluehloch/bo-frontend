@@ -13,3 +13,8 @@
 .desktop td {
     vertical-align: middle;
 }
+
+img.teamlogo {
+    max-height: 24px;
+    max-width: 24px;
+}

@@ -76,13 +76,16 @@
             <th>Punkte</th>
             <th>Tore</th>
             <th>g:r:v</th>
-            <tr *ngFor="let team of roundtable.table.groupTeamTableJsons.teamResultJsons; index as i"
+            <tr *ngFor="let teamResult of roundtable.table.groupTeamTableJsons.teamResultJsons; index as i"
                 [ngClass]="getColor(i)">
-                <td>{{team.tablePosition}}</td>
-                <td>{{team.teamName}}</td>
-                <td>{{team.win * 3 + team.remis}}</td>
-                <td>{{team.posGoals}}:{{team.negGoals}}</td>
-                <td>{{team.win}}:{{team.remis}}:{{team.lost}} </td>
+                <td>{{teamResult.tablePosition}}</td>
+                <td>
+                    <img *ngIf="teamResult.team.logo.startsWith('http')"  src="{{teamResult.team.logo}}" style="max-height: 24px; max-width: 24px; margin-right: 1em;">
+                    {{teamResult.team.name}}
+                </td>
+                <td>{{teamResult.win * 3 + teamResult.remis}}</td>
+                <td>{{teamResult.posGoals}}:{{teamResult.negGoals}}</td>
+                <td>{{teamResult.win}}:{{teamResult.remis}}:{{teamResult.lost}} </td>
             </tr>
         </table>
     </div>
