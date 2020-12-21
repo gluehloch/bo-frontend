@@ -11,16 +11,15 @@ export const environment = {
     currentSeasonId: 30,
 
     production: false,
-    /*
     rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
     adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
     cookieserviceUrl: 'http://localhost:9090/registrationservice/cookie/confirmCookie',
-    */
 
+    /*
     rootUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/office/',
     adminUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/chiefoperator/',
     cookieserviceUrl: 'http://192.168.0.101:9090/registrationservice/cookie/confirmCookie',
-
+    */
 
     website: 'andre-winkler.de.localhost'
 
