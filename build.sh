@@ -96,9 +96,21 @@ fi
 
 if [[ $DEPLOY_PRELIVE -eq 1 ]]
 then
-    echo "scp ${DIST_DIR}/${DIST_TARGZ} prelive.tdkb2:~/projects/upload"
-    scp $DIST_DIR/$DIST_TARGZ prelive.tdkb2:~/projects/upload
-    ssh botest.tdkb2 << EOF
+    echo "scp ${DIST_DIR}/${DIST_TARGZ} boprelive.tdkb2:~/projects/upload"
+    scp $DIST_DIR/$DIST_TARGZ boprelive.tdkb2:~/projects/upload
+    ssh boprelive.tdkb2 << EOF
+        cd ~/projects/upload
+        cp betoffice.tar.gz ~/www
+        cd ~/www
+        tar -xzf betoffice.tar.gz
+EOF
+fi
+
+if [[ $DEPLOY_PROD -eq 1 ]]
+then
+    echo "scp ${DIST_DIR}/${DIST_TARGZ} boprod.tdkb2:~/projects/upload"
+    scp $DIST_DIR/$DIST_TARGZ boprod.tdkb2:~/projects/upload
+    ssh boprod.tdkb2 << EOF
         cd ~/projects/upload
         cp betoffice.tar.gz ~/www
         cd ~/www
