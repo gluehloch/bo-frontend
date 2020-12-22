@@ -4,7 +4,15 @@ usage() {
     echo "Usage: $0 -d projectdir -t targetdir"
     echo -e "\t-d, --dir Defines the project directory."
     echo -e "\t-t, --target Defines the deployment directory."
+    echo -e "\t--deploy-test Deploy to test.tippdiekistebier.de"
+    echo -e "\t--deploy-prelive Deploy to prelive.tippdiekistebier.de"
+    echo -e "\t--deploy-prod Deploy to tippdiekistebier.de"
     exit 1 # Exit script after printing help
+}
+
+die() {
+    printf '%s\n' "$1" >&2
+    exit 1
 }
 
 while [ "$1" != "" ]; do 
@@ -14,6 +22,12 @@ while [ "$1" != "" ]; do
                         ;;
         -t | --target ) shift
                         TARGET_DIR=$1
+                        ;;
+        --deploy-test ) DEPLOY_TEST=1
+                        ;;
+        --deploy-prelive ) DEPLOY_PRELIVE=1
+                        ;;
+        --deploy-prod ) DEPLOY_PROD=1
                         ;;
         -h | --help )   usage
                         ;;
@@ -28,14 +42,15 @@ then
 fi
 
 echo "Start building betoffice web ..."
-if [ -z "$TARGET_DIR" ]
-then
-    echo "Target directory: Undefined. Start build without deployment."
-else
-   echo "Project directory: ${TARGET_DIR}"
-fi
 
-DIST_TARGZ=boang.tar.gz
+#if [ -z "$TARGET_DIR" ]
+#then
+#    echo "Target directory: Undefined. Start build without deployment."
+#else
+#   echo "Project directory: ${TARGET_DIR}"
+#fi
+
+DIST_TARGZ=betoffice.tar.gz
 DIST_DIR=${DIR}/dist/angularapp
 
 if [ -d "$DIST_DIR" ]; then
@@ -65,6 +80,30 @@ else
 
     cp $DIST_DIR/$DIST_TARGZ $TARGET_DIR
     tar -xzf $TARGET_DIR/$DIST_TARGZ -C $TARGET_DIR
+fi
+
+if [[ $DEPLOY_TEST -eq 1 ]]
+then
+    echo "scp ${DIST_DIR}/${DIST_TARGZ} botest.tdkb2:~/projects/upload"
+    scp $DIST_DIR/$DIST_TARGZ botest.tdkb2:~/projects/upload
+    ssh botest.tdkb2 << EOF
+        cd ~/projects/upload
+        cp betoffice.tar.gz ~/www
+        cd ~/www
+        tar -xzf betoffice.tar.gz
+EOF
+fi
+
+if [[ $DEPLOY_PRELIVE -eq 1 ]]
+then
+    echo "scp ${DIST_DIR}/${DIST_TARGZ} prelive.tdkb2:~/projects/upload"
+    scp $DIST_DIR/$DIST_TARGZ prelive.tdkb2:~/projects/upload
+    ssh botest.tdkb2 << EOF
+        cd ~/projects/upload
+        cp betoffice.tar.gz ~/www
+        cd ~/www
+        tar -xzf betoffice.tar.gz
+EOF
 fi
 
 exit 0;
