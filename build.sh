@@ -97,14 +97,7 @@ fi
 
 if [[ $DEPLOY_DEV -eq 1 ]]
 then
-    echo "scp ${DIST_DIR}/${DIST_TARGZ} winkler.tdkb2:~/projects/upload"
-    scp $DIST_DIR/$DIST_TARGZ winkler.tdkb2:~/projects/upload
-    ssh winkler.tdkb2 << EOF
-        cd ~/projects/upload
-        cp betoffice.tar.gz ~/www
-        cd ~/www
-        tar -xzf betoffice.tar.gz
-EOF
+    upload "winkler"
 fi
 
 if [[ $DEPLOY_TEST -eq 1 ]]
@@ -114,26 +107,12 @@ fi
 
 if [[ $DEPLOY_PRELIVE -eq 1 ]]
 then
-    echo "scp ${DIST_DIR}/${DIST_TARGZ} boprelive.tdkb2:~/projects/upload"
-    scp $DIST_DIR/$DIST_TARGZ boprelive.tdkb2:~/projects/upload
-    ssh boprelive.tdkb2 << EOF
-        cd ~/projects/upload
-        cp betoffice.tar.gz ~/www
-        cd ~/www
-        tar -xzf betoffice.tar.gz
-EOF
+    upload "boprelive"
 fi
 
 if [[ $DEPLOY_PROD -eq 1 ]]
 then
-    echo "scp ${DIST_DIR}/${DIST_TARGZ} boprod.tdkb2:~/projects/upload"
-    scp $DIST_DIR/$DIST_TARGZ boprod.tdkb2:~/projects/upload
-    ssh boprod.tdkb2 << EOF
-        cd ~/projects/upload
-        cp betoffice.tar.gz ~/www
-        cd ~/www
-        tar -xzf betoffice.tar.gz
-EOF
+    upload "boprod"
 fi
 
 exit 0;
