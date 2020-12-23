@@ -23,6 +23,8 @@ while [ "$1" != "" ]; do
         -t | --target ) shift
                         TARGET_DIR=$1
                         ;;
+        --deploy-dev )  DEPLOY_DEV=1
+                        ;;
         --deploy-test ) DEPLOY_TEST=1
                         ;;
         --deploy-prelive ) DEPLOY_PRELIVE=1
@@ -80,6 +82,18 @@ else
 
     cp $DIST_DIR/$DIST_TARGZ $TARGET_DIR
     tar -xzf $TARGET_DIR/$DIST_TARGZ -C $TARGET_DIR
+fi
+
+if [[ $DEPLOY_DEV -eq 1 ]]
+then
+    echo "scp ${DIST_DIR}/${DIST_TARGZ} winkler.tdkb2:~/projects/upload"
+    scp $DIST_DIR/$DIST_TARGZ winkler.tdkb2:~/projects/upload
+    ssh winkler.tdkb2 << EOF
+        cd ~/projects/upload
+        cp betoffice.tar.gz ~/www
+        cd ~/www
+        tar -xzf betoffice.tar.gz
+EOF
 fi
 
 if [[ $DEPLOY_TEST -eq 1 ]]
