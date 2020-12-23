@@ -6,6 +6,8 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { USERROLE } from '../user-role.enum';
 
+import { environment } from '../../environments/environment';
+
 class AuthenticationModel {
 
     nickname = 'Nickname';
@@ -71,6 +73,7 @@ class AuthenticationModel {
 })
 export class AuthenticationComponent implements OnInit {
 
+    dateTimeFormat = environment.dateTimeFormat;
     authenticationModel: AuthenticationModel;
 
     constructor(
