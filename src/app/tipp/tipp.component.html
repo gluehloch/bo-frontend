@@ -9,12 +9,6 @@
         </div>
     </div>
 
-    <div *ngIf="tippModelContainer.authenticated" class="form-group">
-        <div class="alert alert-success">
-            Du bist eingeloggt als {{tippModelContainer.nickname}}.<br />
-        </div>
-    </div>
-
     <div *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
         <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
         <div>

@@ -14,12 +14,6 @@
         <p>Hier geht es zu der <a routerLink="/tipp-small">Mobilen Variante</a> der Tippseite.</p>
     </div>
 
-    <div *ngIf="tippModelContainer.authenticated" class="form-group">
-        <div class="alert alert-success">
-            Du bist eingeloggt als {{tippModelContainer.nickname}}.
-        </div>
-    </div>
-
     <div *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
         <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
         <div>
