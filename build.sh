@@ -15,6 +15,17 @@ die() {
     exit 1
 }
 
+upload() {
+    echo "scp ${DIST_DIR}/${DIST_TARGZ} $1.tdkb2:~/projects/upload"
+    scp $DIST_DIR/$DIST_TARGZ $1.tdkb2:~/projects/upload
+    ssh $1.tdkb2 << EOF
+        cd ~/projects/upload
+        cp betoffice.tar.gz ~/www
+        cd ~/www
+        tar -xzf betoffice.tar.gz
+EOF
+}
+
 while [ "$1" != "" ]; do 
     case $1 in
         -d | --dir )    shift
@@ -98,14 +109,7 @@ fi
 
 if [[ $DEPLOY_TEST -eq 1 ]]
 then
-    echo "scp ${DIST_DIR}/${DIST_TARGZ} botest.tdkb2:~/projects/upload"
-    scp $DIST_DIR/$DIST_TARGZ botest.tdkb2:~/projects/upload
-    ssh botest.tdkb2 << EOF
-        cd ~/projects/upload
-        cp betoffice.tar.gz ~/www
-        cd ~/www
-        tar -xzf betoffice.tar.gz
-EOF
+    upload "botest";
 fi
 
 if [[ $DEPLOY_PRELIVE -eq 1 ]]
