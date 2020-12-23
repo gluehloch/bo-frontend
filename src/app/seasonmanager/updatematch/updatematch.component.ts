@@ -1,12 +1,18 @@
 import * as _ from 'lodash';
 
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { UpdateMatchService } from './updatematch.service';
 import { ModalService } from './../../modal/modal.service';
 
+import { environment } from './../../../environments/environment';
+
 class MatchModel {
+    seasonId: number;
+    roundId: number;
+    matchId: number;
+
     match: Rest.GameJson;
 
     // TODO Some common form disabling/submitting mechanism?
@@ -20,6 +26,7 @@ class MatchModel {
 })
 export class UpdateMatchComponent implements OnInit {
 
+    dateTimeFormat = environment.dateTimeFormat;
     matchModel: MatchModel;
 
     constructor(private router: Router,
@@ -32,9 +39,13 @@ export class UpdateMatchComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.route.paramMap.forEach
-        this.route.params.map(params => params['id']).subscribe((matchId) => {
-            this.findMatch(matchId);
+        this.route.queryParams.subscribe((params) => {
+            console.log('matchId=' + params.matchId + ' / roundId=' + params.roundId);
+            this.matchModel.seasonId = params.seasonId;
+            this.matchModel.roundId = params.roundId;
+            this.matchModel.matchId = params.matchId;
+
+            this.findMatch(params.matchId);
         });
     }
 
@@ -91,18 +102,8 @@ export class UpdateMatchComponent implements OnInit {
     }
 
     backToRoundView() {
-        this.updateMatchService
-            .findSeason(this.matchModel.match.roundId)
-            .subscribe(
-                (round: Rest.RoundJson) => {
-                    this.router.navigate(['./chiefop/seasonmanager/updatematchday', round.seasonId]);
-                },
-                (error) => {
-                    console.error('Ein Fehler', error);
-                    console.dir(error);
-                    // TODO Error handling not implemented.
-                }
-            );
+        this.router.navigate(['./chiefop/seasonmanager/updatematchday'],
+            {queryParams: { seasonId: this.matchModel.seasonId, roundId: this.matchModel.roundId }});
     }
 
 }

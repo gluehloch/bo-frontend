@@ -45,13 +45,8 @@ export class RankingComponent implements OnInit {
         });
     }
 
-    findTipp(match: Rest.GameJson, user: Rest.UserJson) {
-        const tipp = _.find(match.tipps, (t) => { return t.nickname === user.nickname });
-        if (tipp) {
-            return tipp.tipp.homeGoals + ':' + tipp.tipp.guestGoals;
-        } else {
-            return '-/-';
-        }
+    findTipp(match: Rest.GameJson, user: Rest.UserJson): Rest.GameTippJson  {
+        return _.find(match.tipps, (t) => { return t.nickname === user.nickname });
     }
 
     private calculatRoundRankingOnly(userTable: Rest.UserTableJson) {

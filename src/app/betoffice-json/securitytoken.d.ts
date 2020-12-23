@@ -109,7 +109,7 @@ declare namespace Rest {
     }
 
     interface TeamResultJson extends Serializable {
-        teamName: string;
+        team: TeamJson;
         posGoals: number;
         negGoals: number;
         win: number;

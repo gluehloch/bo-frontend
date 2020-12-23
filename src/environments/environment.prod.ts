@@ -1,8 +1,12 @@
 export const environment = {
+    // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
+    dateTimeFormat: 'dd.MM.yyyy HH:mm',
+    // TODO Wird mit der Community Edition abgeschafft...
+    currentSeasonId: 30,
+
     production: true,
-    currentSeasonId: 29,
     website: 'tippdiekistebier.de',
-    cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
     rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
-    adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/'
+    adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
+    cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie'
 };

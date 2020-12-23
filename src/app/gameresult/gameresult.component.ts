@@ -32,7 +32,9 @@ export class GameResultComponent implements OnInit {
     }
 
     private result() {
-        if (this.isRegular()) {
+        if (!this.game.finished) {
+            return '-:-';
+        } else if (this.isRegular()) {
             return this.game.result.homeGoals + ':' + this.game.result.guestGoals;
         } else if (this.isOvertime()) {
             return this.game.overtimeResult.homeGoals + ':' + this.game.overtimeResult.guestGoals + ' n.V.';
@@ -45,7 +47,7 @@ export class GameResultComponent implements OnInit {
 
     printResult() {
         let result = '';
-        if (this.halfTime) {
+        if (this.game.finished && this.halfTime) {
             result = '(' + this.game.halfTimeResult.homeGoals
                 + ':' + this.game.halfTimeResult.guestGoals
                 + ') '
