@@ -4,6 +4,7 @@ usage() {
     echo "Usage: $0 -d projectdir -t targetdir"
     echo -e "\t-d, --dir Defines the project directory."
     echo -e "\t-t, --target Defines the deployment directory."
+    echo -e "\t--deploy-dev Deploy to dev.tippdiekistebier.de"
     echo -e "\t--deploy-test Deploy to test.tippdiekistebier.de"
     echo -e "\t--deploy-prelive Deploy to prelive.tippdiekistebier.de"
     echo -e "\t--deploy-prod Deploy to tippdiekistebier.de"
