@@ -15,6 +15,8 @@ import { environment } from '../../environments/environment';
 export class RankingComponent implements OnInit {
 
     currentSeasonId = environment.currentSeasonId;
+    dateTimeFormat = environment.dateTimeFormat;
+
     ranking: Rest.UserTableJson;
     rankingRound: Rest.UserTableJson;
 
