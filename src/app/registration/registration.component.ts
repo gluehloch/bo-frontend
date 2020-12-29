@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NavigationRouterService } from '../navigationrouter.service';
 
-import { RegistrationService, RegistrationJson } from './registration.service';
+import { RegistrationService, RegistrationJson, ValidationCode } from './registration.service';
 
 class InputFieldModel {
     name: string;
@@ -9,6 +9,18 @@ class InputFieldModel {
     message: string;
     invalid = false;
     valid = false;
+
+    setMessage(message: string) {
+        this.message = message;
+        this.valid = false;
+        this.invalid = !this.valid;
+    }
+
+    setOk() {
+        this.message = null;
+        this.valid = true;
+        this.invalid = !this.valid;
+    }
 }
 
 enum ProgressState {
@@ -58,87 +70,59 @@ class RegistrationModel {
     }
 
     setNameMessage(message: string) {
-        this.name.message = message;
-        this.name.invalid = true;
-        this.name.valid = false;
+        this.name.setMessage(message);
     }
 
     setNameOk() {
-        this.name.message = null;
-        this.name.invalid = false;
-        this.name.valid = true;
+        this.name.setOk();
     }
 
     setFirstnameMessage(message: string) {
-        this.firstname.message = message;
-        this.firstname.invalid = true;
-        this.firstname.valid = false;
+        this.firstname.setMessage(message);
     }
 
     setFirstnameOk() {
-        this.firstname.message = null;
-        this.firstname.invalid = false;
-        this.firstname.valid = true;
+        this.firstname.setOk();
     }
 
     setNicknameMessage(message: string) {
-        this.nickname.message = message;
-        this.nickname.invalid = true;
-        this.nickname.valid = false;
+        this.nickname.setMessage(message);
     }
 
     setNicknameOk() {
-        this.nickname.message = null;
-        this.nickname.invalid = false;
-        this.nickname.valid = true;
+        this.nickname.setOk();
     }
 
     setPasswordMessage(message: string) {
-        this.password.message = message;
-        this.password.invalid = true;
-        this.password.valid = false;
+        this.password.setMessage(message);
     }
 
     setPasswordOk() {
-        this.password.message = null;
-        this.password.invalid = false;
-        this.password.valid = true;
+        this.password.setOk();
     }
 
     setPassword2Message(message: string) {
-        this.password2.message = message;
-        this.password2.invalid = true;
-        this.password2.valid = false;
+        this.password2.setMessage(message);
     }
 
     setPassword2Ok() {
-        this.password2.message = null;
-        this.password2.invalid = false;
-        this.password2.valid = true;
+        this.password2.setOk();
     }
 
     setEmailMessage(message: string) {
-        this.email.message = message;
-        this.email.invalid = true;
-        this.email.valid = false;
+        this.email.setMessage(message);
     }
 
     setEmailOk() {
-        this.email.message = null;
-        this.email.invalid = false;
-        this.email.valid = true;
+        this.email.setOk();
     }
 
     setCommunityMessage(message: string) {
-        this.community.message = message;
-        this.community.invalid = true;
-        this.community.valid = false;
+        this.community.setMessage(message);
     }
 
     setCommunityOk() {
-        this.community.message = null;
-        this.community.invalid = false;
-        this.community.valid = true;
+        this.community.setOk();
     }
 
     setMissingAcceptCookie(invalid: boolean) {
@@ -158,6 +142,10 @@ class RegistrationModel {
             || this.email.invalid
             || this.acceptCookieInvalid
             || this.acceptEmailInvalid;
+    }
+
+    isValid() {
+        return !this.isInvalid();
     }
 
     reset() {
@@ -203,6 +191,11 @@ class RegistrationModel {
         this.acceptEmailInvalid = false;
         this.acceptCookieInvalid = false;
     }
+}
+
+class ValidationCodeToInputFieldMapper {
+    validationCode: ValidationCode;
+    setMessage: () => void;
 }
 
 @Component({
@@ -314,9 +307,8 @@ export class RegistrationComponent implements OnInit {
 
     startRegistration() {
         this.validate();
-        const successfulValidation = !this.registrationModel.isInvalid();
 
-        if (successfulValidation) {
+        if (this.registrationModel.isValid()) {
             // GUI: Kennzeichnung 'Start' der Transaktion.
             this.registrationModel.formState = FormState.TransmissionStart;
             this.registrationModel.progressState = ProgressState.TransmissionStart;
@@ -333,25 +325,49 @@ export class RegistrationComponent implements OnInit {
             registration.supplement = `{'community': '${this.registrationModel.community.value}'}`;
 
             this.registrationService.register(registration)
-                .subscribe((data: RegistrationJson) => {
-                    if (data.validationCodes.indexOf('OK') !== -1) {
-                        console.log('Registration request is stored: ' + data);
+                .subscribe((registrationResponse: RegistrationJson) => {
+                    if (registrationResponse.validationCodes.indexOf(ValidationCode.OK.name) !== -1) {
+                        console.log('Registration request is accepted: ', registrationResponse);
                         // GUI: Kennzeichnung 'Ende' der Transaktion.
                         this.registrationModel.formState = FormState.TransmissionOk;
                         this.registrationModel.progressState = ProgressState.TransmissionEnd;
                     } else {
+                        console.log('Registration request is rejected:', registrationResponse);
                         // GUI: Kennzeichnung 'Ende' der Transaktion.
                         this.registrationModel.formState = FormState.TransmissionError;
                         this.registrationModel.progressState = ProgressState.TransmissionEnd;
 
-                        if (data.validationCodes.indexOf('KNOWN_NICKNAME') !== -1) {
-                            this.registrationModel.setNicknameMessage('Nickname bereits vergeben');
+                        /*
+                        ValidationCode.VALIDATON_CODES.forEach(code => {
+                            // TODO
+                            registrationResponse.validationCodes.indexOf(code.name);
+                        });
+                        */
+
+                        const mapper = new Array<ValidationCodeToInputFieldMapper>();
+                        mapper.push({
+                            validationCode: ValidationCode.KNOWN_NICKNAME,
+                            setMessage: () => {
+                                this.registrationModel.nickname.message = 'Der Nickname ist bereits vergeben.';
+                            }
+                        });
+
+                        const index = registrationResponse.validationCodes.indexOf(ValidationCode.KNOWN_NICKNAME.name);
+                        if (index !== -1) {
+                            this.mapValidationCode(ValidationCode.KNOWN_NICKNAME, () => {
+                                this.registrationModel.setNicknameMessage('Der Nickname ist bereits vergeben.');
+                            });
                         }
+
                     }
                 });
         } else {
             console.log('Form is not valid.');
         }
+    }
+
+    private mapValidationCode(validationCode: ValidationCode, setMessage: () => void) {
+        setMessage();
     }
 
 }
