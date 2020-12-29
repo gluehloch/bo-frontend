@@ -69,70 +69,6 @@ class RegistrationModel {
         this.community = new InputFieldModel();
     }
 
-    setNameMessage(message: string) {
-        this.name.setMessage(message);
-    }
-
-    setNameOk() {
-        this.name.setOk();
-    }
-
-    setFirstnameMessage(message: string) {
-        this.firstname.setMessage(message);
-    }
-
-    setFirstnameOk() {
-        this.firstname.setOk();
-    }
-
-    setNicknameMessage(message: string) {
-        this.nickname.setMessage(message);
-    }
-
-    setNicknameOk() {
-        this.nickname.setOk();
-    }
-
-    setPasswordMessage(message: string) {
-        this.password.setMessage(message);
-    }
-
-    setPasswordOk() {
-        this.password.setOk();
-    }
-
-    setPassword2Message(message: string) {
-        this.password2.setMessage(message);
-    }
-
-    setPassword2Ok() {
-        this.password2.setOk();
-    }
-
-    setEmailMessage(message: string) {
-        this.email.setMessage(message);
-    }
-
-    setEmailOk() {
-        this.email.setOk();
-    }
-
-    setCommunityMessage(message: string) {
-        this.community.setMessage(message);
-    }
-
-    setCommunityOk() {
-        this.community.setOk();
-    }
-
-    setMissingAcceptCookie(invalid: boolean) {
-        this.acceptCookieInvalid = invalid;
-    }
-
-    setMissingAcceptEmail(invalid: boolean) {
-        this.acceptEmailInvalid = invalid;
-    }
-
     isInvalid() {
         return this.name.invalid
             || this.nickname.invalid
@@ -194,6 +130,7 @@ class RegistrationModel {
 }
 
 class ValidationCodeToInputFieldMapper {
+    registrationModel: RegistrationModel;
     validationCode: ValidationCode;
     setMessage: () => void;
 }
@@ -209,6 +146,7 @@ export class RegistrationComponent implements OnInit {
     EnumProgressState = ProgressState;
 
     registrationModel: RegistrationModel;
+    mapper = new Array<ValidationCodeToInputFieldMapper>();
 
     constructor(private navigationRouterService: NavigationRouterService,
         private registrationService: RegistrationService) {
@@ -221,69 +159,84 @@ export class RegistrationComponent implements OnInit {
 
     init() {
         this.registrationModel = new RegistrationModel();
+
+        this.mapper.push({
+            registrationModel: this.registrationModel,
+            validationCode: ValidationCode.KNOWN_NICKNAME,
+            setMessage: () => {
+                this.registrationModel.nickname.setMessage('Der Nickname ist bereits vergeben.');
+            }
+        });
+
+        this.mapper.push({
+            registrationModel: this.registrationModel,
+            validationCode: ValidationCode.UNKNOWN_APPLICATION,
+            setMessage: () => {
+                this.registrationModel.nickname.setMessage('Registrierungsapplikation ist nicht bekannt.');
+            }
+        });
     }
 
     validateNickname() {
         if (this.registrationModel.nickname.value) {
-            this.registrationModel.setNicknameOk();
+            this.registrationModel.nickname.setOk();
         } else {
-            this.registrationModel.setNicknameMessage('Der Nickname fehlt.');
+            this.registrationModel.nickname.setMessage('Der Nickname fehlt.');
         }
     }
 
     validatePassword() {
         if (!this.registrationModel.password.value) {
-            this.registrationModel.setPasswordMessage('Das Passwort fehlt.');
+            this.registrationModel.password.setMessage('Das Passwort fehlt.');
         } else if (!this.registrationModel.password2.value) {
-            this.registrationModel.setPassword2Message('Die Passwort Wiederholung fehlt.');
+            this.registrationModel.password2.setMessage('Die Passwort Wiederholung fehlt.');
         } else if (this.registrationModel.password.value !== this.registrationModel.password2.value) {
-            this.registrationModel.setPassword2Message('Die Passwörter sind nicht gleich.');
+            this.registrationModel.password2.setMessage('Die Passwörter sind nicht gleich.');
             console.log('Form validation: Different passwords.');
         } else {
-            this.registrationModel.setPasswordOk();
-            this.registrationModel.setPassword2Ok();
+            this.registrationModel.password.setOk();
+            this.registrationModel.password2.setOk();
         }
     }
 
     validateName() {
         if (this.registrationModel.name.value) {
-            this.registrationModel.setNameOk();
+            this.registrationModel.name.setOk();
         } else {
-            this.registrationModel.setNameMessage('Der Name fehlt.');
+            this.registrationModel.name.setMessage('Der Name fehlt.');
         }
     }
 
     validateFirstname() {
         if (this.registrationModel.firstname.value) {
-            this.registrationModel.setFirstnameOk();
+            this.registrationModel.firstname.setOk();
         } else {
-            this.registrationModel.setFirstnameMessage('Der Vorname fehlt.');
+            this.registrationModel.firstname.setMessage('Der Vorname fehlt.');
         }
     }
 
     validateEmail() {
         if (this.registrationModel.email.value) {
-            this.registrationModel.setEmailOk();
+            this.registrationModel.email.setOk();
         } else {
-            this.registrationModel.setEmailMessage('Die Email Adresse fehlt.');
+            this.registrationModel.email.setMessage('Die Email Adresse fehlt.');
         }
     }
 
     validateCommunity() {
         if (this.registrationModel.community.value) {
-            this.registrationModel.setCommunityOk();
+            this.registrationModel.community.setOk();
         } else {
-            this.registrationModel.setCommunityMessage('Deine Wunsch Community fehlt.');
+            this.registrationModel.community.setMessage('Deine Wunsch Community fehlt.');
         }
-
     }
 
     validateAcceptCookie() {
-        this.registrationModel.setMissingAcceptCookie(!this.registrationModel.acceptCookie);
+        this.registrationModel.acceptCookieInvalid = !this.registrationModel.acceptCookie;
     }
 
     validateAcceptEmail() {
-        this.registrationModel.setMissingAcceptEmail(!this.registrationModel.acceptEmail);
+        this.registrationModel.acceptEmailInvalid = !this.registrationModel.acceptEmail;
     }
 
     validate() {
@@ -344,20 +297,21 @@ export class RegistrationComponent implements OnInit {
                         });
                         */
 
-                        const mapper = new Array<ValidationCodeToInputFieldMapper>();
-                        mapper.push({
-                            validationCode: ValidationCode.KNOWN_NICKNAME,
-                            setMessage: () => {
-                                this.registrationModel.nickname.message = 'Der Nickname ist bereits vergeben.';
+                        this.mapper.forEach(map => {
+                            const index = registrationResponse.validationCodes.indexOf(map.validationCode.name);
+                            if (index !== -1) {
+                                map.setMessage();
                             }
-                        });
+                        })
 
+                        /*
                         const index = registrationResponse.validationCodes.indexOf(ValidationCode.KNOWN_NICKNAME.name);
                         if (index !== -1) {
                             this.mapValidationCode(ValidationCode.KNOWN_NICKNAME, () => {
-                                this.registrationModel.setNicknameMessage('Der Nickname ist bereits vergeben.');
+                                this.registrationModel.nickname.setMessage('Der Nickname ist bereits vergeben.');
                             });
                         }
+                        */
 
                     }
                 });
