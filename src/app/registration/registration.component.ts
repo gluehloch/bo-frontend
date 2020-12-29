@@ -289,39 +289,20 @@ export class RegistrationComponent implements OnInit {
                         // GUI: Kennzeichnung 'Ende' der Transaktion.
                         this.registrationModel.formState = FormState.TransmissionError;
                         this.registrationModel.progressState = ProgressState.TransmissionEnd;
-
-                        /*
-                        ValidationCode.VALIDATON_CODES.forEach(code => {
-                            // TODO
-                            registrationResponse.validationCodes.indexOf(code.name);
-                        });
-                        */
-
-                        this.mapper.forEach(map => {
-                            const index = registrationResponse.validationCodes.indexOf(map.validationCode.name);
-                            if (index !== -1) {
-                                map.setMessage();
-                            }
-                        })
-
-                        /*
-                        const index = registrationResponse.validationCodes.indexOf(ValidationCode.KNOWN_NICKNAME.name);
-                        if (index !== -1) {
-                            this.mapValidationCode(ValidationCode.KNOWN_NICKNAME, () => {
-                                this.registrationModel.nickname.setMessage('Der Nickname ist bereits vergeben.');
-                            });
-                        }
-                        */
-
+                        this.mapValidationCodes(registrationResponse);
                     }
                 });
         } else {
-            console.log('Form is not valid.');
+            console.log('Form is not valid.',  this.registrationModel);
         }
     }
 
-    private mapValidationCode(validationCode: ValidationCode, setMessage: () => void) {
-        setMessage();
+    private mapValidationCodes(registrationJson: RegistrationJson) {
+        this.mapper.forEach(map => {
+            if (registrationJson.validationCodes.indexOf(map.validationCode.name) !== -1) {
+                map.setMessage();
+            }
+        })
     }
 
 }
