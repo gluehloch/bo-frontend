@@ -163,30 +163,26 @@ export class RegistrationComponent implements OnInit {
     init() {
         this.registrationModel = new RegistrationModel();
 
-        this.mapper.push({
-            inputField: this.registrationModel.nickname,
-            validationCode: ValidationCode.KNOWN_NICKNAME,
-            setMessage: (inputField: InputFieldModel) => {
-                inputField.setMessage('Der Nickname ist bereits vergeben.')
-            }
-        });
+        this.addMapper(this.registrationModel.nickname, ValidationCode.KNOWN_NICKNAME, 'Der Nickname ist bereits vergeben.');
+        this.addMapper(this.registrationModel.nickname, ValidationCode.NICKNAME_IS_EMPTY, 'Ein Nickname fehlt.');
+        this.addMapper(this.registrationModel.email, ValidationCode.EMAIL_IS_EMPTY, 'Die Email Adresse fehlt.');
+        this.addMapper(this.registrationModel.email, ValidationCode.EMAIL_IS_NOT_VALID, 'Die Email Adresse ist nicht gültig.');
+        this.addMapper(this.registrationModel.email, ValidationCode.EMAIL_IS_RESERVED, 'Die Email Adresse ist bereits vergeben.');
+        this.addMapper(this.registrationModel.firstname, ValidationCode.FIRSTNAME_IS_EMPTY, 'Der Vorname fehlt.');
+        this.addMapper(this.registrationModel.firstname, ValidationCode.MISSING_ACCEPT_EMAIL, 'Die Mail Adresse wird zu Kommunikation benötogt.');
+        this.addMapper(this.registrationModel.firstname, ValidationCode.MISSING_ACCEPT_COOKIE, 'Ohne Cookies kann die Registrierung nicht erfolgen.');
+        this.addMapper(this.registrationModel.password, ValidationCode.PASSWORD_TOO_SHORT, 'Das Passwort ist zu schwach.');
+        this.addMapper(this.registrationModel.nickname, ValidationCode.ILLEGAL_ARGUMENTS, 'Unbekannter Fehler.');
+    }
 
+    private addMapper(inputField: InputFieldModel, validationCode: ValidationCode, message: string) {
         this.mapper.push({
-            inputField: this.registrationModel.nickname,
-            validationCode: ValidationCode.KNOWN_NICKNAME,
+            inputField: inputField,
+            validationCode: validationCode,
             setMessage: (inputField: InputFieldModel) => {
-                inputField.setMessage('Der Nickname ist bereits vergeben.')
+                inputField.setMessage(message);
             }
-        });
-
-        this.mapper.push({
-            inputField: this.registrationModel.password,
-            validationCode: ValidationCode.PASSWORD_TOO_SHORT,
-            setMessage: (inputField: InputFieldModel) => {
-                console.log('Das Passwort ist zu schwach', inputField);
-                inputField.setMessage('Das Passwort ist zu schwach.')
-            }
-        });
+        });        
     }
 
     validateNickname() {
