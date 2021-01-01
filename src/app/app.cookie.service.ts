@@ -26,9 +26,9 @@ export class CookieService {
             cookieData,
             {headers: this.createHeader()}
         ).subscribe(response => {
-            console.log('CookieService: ' + response);
+            console.log('CookieService', response);
         }, error => {
-            console.error('CookieService Error:' + error);
+            console.error('CookieService Error', error);
         });
     }
 

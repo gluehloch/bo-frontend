@@ -129,10 +129,13 @@ class RegistrationModel {
     }
 }
 
-class ValidationCodeToInputFieldMapper {
-    registrationModel: RegistrationModel;
+// TODO Das sieht eher wie ein Data-Binding aus...
+// Nicht ganz vielleicht. Es geht darum, dass die JSON Response durchsucht wird nach ValidationCodes,
+// die den einzelnen InputFields zugeordnet werden.
+interface ValidationCodeToInputFieldMapper {
+    inputField: InputFieldModel;
     validationCode: ValidationCode;
-    setMessage: () => void;
+    setMessage: (inputField: InputFieldModel) => void;
 }
 
 @Component({
@@ -161,18 +164,27 @@ export class RegistrationComponent implements OnInit {
         this.registrationModel = new RegistrationModel();
 
         this.mapper.push({
-            registrationModel: this.registrationModel,
+            inputField: this.registrationModel.nickname,
             validationCode: ValidationCode.KNOWN_NICKNAME,
-            setMessage: () => {
-                this.registrationModel.nickname.setMessage('Der Nickname ist bereits vergeben.');
+            setMessage: (inputField: InputFieldModel) => {
+                inputField.setMessage('Der Nickname ist bereits vergeben.')
             }
         });
 
         this.mapper.push({
-            registrationModel: this.registrationModel,
-            validationCode: ValidationCode.UNKNOWN_APPLICATION,
-            setMessage: () => {
-                this.registrationModel.nickname.setMessage('Registrierungsapplikation ist nicht bekannt.');
+            inputField: this.registrationModel.nickname,
+            validationCode: ValidationCode.KNOWN_NICKNAME,
+            setMessage: (inputField: InputFieldModel) => {
+                inputField.setMessage('Der Nickname ist bereits vergeben.')
+            }
+        });
+
+        this.mapper.push({
+            inputField: this.registrationModel.password,
+            validationCode: ValidationCode.PASSWORD_TOO_SHORT,
+            setMessage: (inputField: InputFieldModel) => {
+                console.log('Das Passwort ist zu schwach', inputField);
+                inputField.setMessage('Das Passwort ist zu schwach.')
             }
         });
     }
@@ -300,7 +312,7 @@ export class RegistrationComponent implements OnInit {
     private mapValidationCodes(registrationJson: RegistrationJson) {
         this.mapper.forEach(map => {
             if (registrationJson.validationCodes.indexOf(map.validationCode.name) !== -1) {
-                map.setMessage();
+                map.setMessage(map.inputField);
             }
         })
     }
