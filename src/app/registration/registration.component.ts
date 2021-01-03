@@ -169,8 +169,9 @@ export class RegistrationComponent implements OnInit {
         this.addMapper(this.registrationModel.email, ValidationCode.EMAIL_IS_NOT_VALID, 'Die Email Adresse ist nicht gültig.');
         this.addMapper(this.registrationModel.email, ValidationCode.EMAIL_IS_RESERVED, 'Die Email Adresse ist bereits vergeben.');
         this.addMapper(this.registrationModel.firstname, ValidationCode.FIRSTNAME_IS_EMPTY, 'Der Vorname fehlt.');
-        this.addMapper(this.registrationModel.firstname, ValidationCode.MISSING_ACCEPT_EMAIL, 'Die Mail Adresse wird zu Kommunikation benötogt.');
-        this.addMapper(this.registrationModel.firstname, ValidationCode.MISSING_ACCEPT_COOKIE, 'Ohne Cookies kann die Registrierung nicht erfolgen.');
+        // TODO Das sind keine InputFieldModels. Nur boolean. Zu einem InputFieldModel machen?
+        // this.addMapper(this.registrationModel.acceptEmail, ValidationCode.MISSING_ACCEPT_EMAIL, 'Die Mail Adresse wird zu Kommunikation benötogt.');
+        // this.addMapper(this.registrationModel.acceptCookie, ValidationCode.MISSING_ACCEPT_COOKIE, 'Ohne Cookies kann die Registrierung nicht erfolgen.');
         this.addMapper(this.registrationModel.password, ValidationCode.PASSWORD_TOO_SHORT, 'Das Passwort ist zu schwach.');
         this.addMapper(this.registrationModel.nickname, ValidationCode.ILLEGAL_ARGUMENTS, 'Unbekannter Fehler.');
     }
