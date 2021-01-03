@@ -180,10 +180,10 @@ export class RegistrationComponent implements OnInit {
         this.mapper.push({
             inputField: inputField,
             validationCode: validationCode,
-            setMessage: (inputField: InputFieldModel) => {
-                inputField.setMessage(message);
+            setMessage: (ifm: InputFieldModel) => {
+                ifm.setMessage(message);
             }
-        });        
+        });
     }
 
     validateNickname() {
