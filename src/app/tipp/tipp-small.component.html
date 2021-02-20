@@ -9,10 +9,7 @@
         </div>
     </div>
 
-    <div>
-        <p>Hier geht es zu der <a routerLink="/tipp">Desktop Variante</a> der Tippseite.</p>
-        <p>Hier geht es zu der <a routerLink="/tipp-mobile">2. Mobile Variante</a> der Tippseite.</p>
-    </div>
+    <app-tipp-selector></app-tipp-selector>
 
     <div *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
         <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>

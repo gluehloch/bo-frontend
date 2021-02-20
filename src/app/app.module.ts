@@ -30,6 +30,7 @@ import { AuthenticationWarningComponent } from './authenticationwarning/authenti
 
 import { GameResultComponent } from './gameresult/gameresult.component';
 
+import { TippSelectorComponent } from './tipp/selector/tipp-selector.component';
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
 import { TippSmallComponent } from './tipp/tipp-small.component';
@@ -224,6 +225,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AuthenticationComponent,
         RegistrationComponent,
         GameResultComponent,
+        TippSelectorComponent,
         TippComponent,
         TippSmallComponent,
         TippMobileComponent,
