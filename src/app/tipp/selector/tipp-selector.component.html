@@ -1,5 +1,14 @@
 <div>
-    <p>Hier geht es zu der <a routerLink="/tipp">Desktop Variante</a> der Tippseite.</p>
-    <p>Hier geht es zu der <a routerLink="/tipp-small">Mobilen Variante</a> der Tippseite.</p>
-    <p>Hier geht es zu der <a routerLink="/tipp-mobile">2. Mobile Variante</a> der Tippseite.</p>
+    <form id="tipp-selector" name="tipp-selector" [formGroup]="form">
+        <div class="form-group">
+            <label for="tippFromSelection">Formular wechseln</label>
+            <select formControlName="state" class="form-control" id="tippFromSelection">
+                <option *ngFor="let state of states" [ngValue]="state" [selected]="state.id == selectionState">
+                    {{state.name}}
+                </option>
+            </select>
+        </div>
+
+        <p>Selected: {{form.value | json}}</p>
+    </form>
 </div>

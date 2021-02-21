@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { NavigationRouterService } from '../../navigationrouter.service';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-tipp-selector',
@@ -9,7 +9,19 @@ import { NavigationRouterService } from '../../navigationrouter.service';
 })
 export class TippSelectorComponent {
 
-    constructor(navigationRouterService: NavigationRouterService) {
+    states = [
+        {id: 'desktop', name: 'Desktop'},
+        {id: 'small', name: 'Small Screen'},
+        {id: 'mobile', name: 'Mobile Screen'}
+    ];
+
+    form = new FormGroup({
+        state: new FormControl(this.states[0]),
+    });
+
+    @Input('selectionState') selectionState: string;
+
+    constructor() {
     }
 
 }
