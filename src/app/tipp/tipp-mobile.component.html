@@ -33,12 +33,18 @@
         -->
         <div *ngFor="let tipp of tippModelContainer.tippModels; let index = index">
             <div class="row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-2">
+                    <button id="prev" name="orev" type="button" class="btn btn-primary btn-sm" (click)="prev()">Prev</button>
+                </div>
+                <div class="form-group col-md-8">
                     <div style="text-align: center; font-size: smaller;">{{tipp.game.dateTime | date: dateTimeFormat}}</div>
                     <div style="text-align: center">{{tipp.game.homeTeam.shortName}}</div>
                     <div style="text-align: center">{{tipp.game.guestTeam.shortName}}</div>
                     <div style="text-align: center"><app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult></div>
                     <div style="text-align: center">{{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <button id="next" name="next" type="button" class="btn btn-primary btn-sm" (click)="next()">Next</button>
                 </div>
             </div>
             <!--
