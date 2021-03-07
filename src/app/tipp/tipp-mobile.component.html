@@ -1,0 +1,89 @@
+<div>
+
+    <div *ngIf="!tippModelContainer.authenticated">
+        <div class="form-group">
+            <p class="alert alert-warning">
+                Du bist noch nicht angemeldet.
+                <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+            </p>
+        </div>
+    </div>
+
+    <div>
+        <p>Hier geht es zu der <a routerLink="/tipp">Desktop Variante</a> der Tippseite.</p>
+        <p>Hier geht es zu der <a routerLink="/tipp-small">Mobilen Variante</a> der Tippseite.</p>
+    </div>
+
+    <div *ngIf="tippModelContainer.authenticated" class="form-group">
+        <div class="alert alert-success">
+            Du bist eingeloggt als {{tippModelContainer.nickname}}.
+        </div>
+    </div>
+
+    <div *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
+        <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
+        <div>
+            Hier kannst du dir deinen letzten Tipp anschauen.
+        </div>
+    </div>
+
+    <form>
+        <fieldset>
+        <!--
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="home1">Heim</label>
+                <input type="text" class="form-control" placeholder="First name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="home1">Heim</label>
+                <input type="text" class="form-control" placeholder="Last name">
+            </div>
+        </div>
+        -->
+        <div *ngFor="let tipp of tippModelContainer.tippModels; let index = index">
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div style="text-align: center; font-size: smaller;">{{tipp.game.dateTime | date: dateTimeFormat}}</div>
+                    <div style="text-align: center">{{tipp.game.homeTeam.shortName}}</div>
+                    <div style="text-align: center">{{tipp.game.guestTeam.shortName}}</div>
+                    <div style="text-align: center"><app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult></div>
+                    <div style="text-align: center">{{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
+                </div>
+            </div>
+            <!--
+            <div class="row">
+                <div class="form-group col">
+                    <select id="homeGoals1" class="full-width">
+                        <option selected>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <select id="homeGoals1" class="full-width">
+                        <option selected>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>                    
+                    </select>
+                </div>
+            </div>
+            -->
+        </div>
+        </fieldset>
+    </form>
+</div>

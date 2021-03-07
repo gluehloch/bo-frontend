@@ -31,10 +31,12 @@ import { GameResultComponent } from './gameresult/gameresult.component';
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
 import { TippSmallComponent } from './tipp/tipp-small.component';
+import { TippMobileComponent} from './tipp/tipp-mobile.component';
 
 import { SeasonService } from './season/season.service';
 import { SeasonComponent } from './season/season.component';
 
+import { TippResultComponent } from './ranking/tippresult.component';
 import { RankingService } from './ranking/ranking.service';
 import { RankingComponent } from './ranking/ranking.component';
 
@@ -75,30 +77,30 @@ const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
         domain: 'tippdiekistebier.de'
     },
-    position: "bottom-right",
+    position: 'bottom-right',
     palette: {
         popup: {
-            "background": "#2b482a",
-            "text": "#ffffff",
-            "link": "#ffffff"
+            'background': '#2b482a',
+            'text': '#ffffff',
+            'link': '#ffffff'
         },
         button: {
-            "background": "#bfc418",
-            "text": "#000000",
-            "border": "transparent"
+            'background': '#bfc418',
+            'text': '#000000',
+            'border': 'transparent'
         }
     },
     theme: 'edgeless',
     type: 'opt-out',
     content: {
-        message: "Diese Webseite verwendet Cookies.",
-        dismiss: "Verstanden",
-        deny: "Verweigern",
-        allow: "Erlauben",
-        link: "Mehr Infos",
-        href: "http://tippdiekistebier.de/impressum",
-        target: "",
-        policy: "Cookie Policy"
+        message: 'Diese Webseite verwendet Cookies.',
+        dismiss: 'Verstanden',
+        deny: 'Verweigern',
+        allow: 'Erlauben',
+        link: 'Mehr Infos',
+        href: 'http://tippdiekistebier.de/impressum',
+        target: '',
+        policy: 'Cookie Policy'
     }
 };
 
@@ -158,6 +160,10 @@ export function HttpLoaderFactory(http: HttpClient) {
                 component: TippSmallComponent
             },
             {
+                path: 'tipp-mobile',
+                component: TippMobileComponent
+            },
+            {
                 path: 'ranking',
                 component: RankingComponent
             },
@@ -194,11 +200,11 @@ export function HttpLoaderFactory(http: HttpClient) {
                 component: SeasonManagerUpdateComponent
             },
             {
-                path: 'chiefop/seasonmanager/updatematchday/:id',
+                path: 'chiefop/seasonmanager/updatematchday',
                 component: UpdateMatchdayComponent
             },
             {
-                path: 'chiefop/seasonmanager/updatematch/:id',
+                path: 'chiefop/seasonmanager/updatematch',
                 component: UpdateMatchComponent
             }
         ])
@@ -213,7 +219,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         GameResultComponent,
         TippComponent,
         TippSmallComponent,
+        TippMobileComponent,
         SeasonComponent,
+        TippResultComponent,
         RankingComponent,
         SessionComponent,
         PartyComponent,

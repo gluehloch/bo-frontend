@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label for="dateTime">Anstoss (Datum und Uhrzeit)</label>
-            <input type="text" readonly class="form-control" id="dateTime" name="dateTime" value="{{matchModel.match.dateTime | date: 'dd.MM.yyyy HH:mm': '+0000'}}"/>
+            <input type="text" readonly class="form-control" id="dateTime" name="dateTime" value="{{matchModel.match.dateTime | date: dateTimeFormat}}"/>
         </div>
         <div class="form-row">
             <div class="col">

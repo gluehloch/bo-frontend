@@ -1,0 +1,7 @@
+<div *ngIf="tipp; then showTipp else noTipp"></div>
+<ng-template #showTipp> 
+    <div [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
+        {{tipp.tipp.homeGoals}}:{{tipp.tipp.guestGoals}}
+    </div>
+</ng-template>
+<ng-template #noTipp>-/-</ng-template>
