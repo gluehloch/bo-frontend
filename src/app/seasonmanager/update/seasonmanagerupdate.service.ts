@@ -3,10 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-// TODO Was ist das hier?
-
-import 'rxjs/Rx';
-
 import { BetofficeService } from '../../betoffice.service';
 
 @Injectable()

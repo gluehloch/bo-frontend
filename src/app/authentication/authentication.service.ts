@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 // TODO Was ist das hier?
 
 import { Observable } from 'rxjs';
-import 'rxjs/Rx';
 
 import { environment } from '../../environments/environment';
 import { BetofficeService } from '../betoffice.service';
