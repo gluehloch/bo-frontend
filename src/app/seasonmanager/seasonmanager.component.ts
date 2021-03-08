@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
+import { map } from 'rxjs/operators';
 
 import { SeasonManagerService } from './seasonmanager.service';
 import { NavigationRouterService } from '../navigationrouter.service';
@@ -26,7 +27,7 @@ export class SeasonManagerComponent implements OnInit {
   }
 
     ngOnInit() {
-        this.route.params.map(params => params['id']).subscribe((id) => {
+        this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
             this.seasonManagerService.findSeasons().subscribe(
                 (seasons: Array<Rest.SeasonJson>) => {
                     this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);

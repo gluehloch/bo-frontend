@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 // TODO Was ist das hier?
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
 import { environment } from '../../../environments/environment';

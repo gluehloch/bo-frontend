@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 import { SeasonManagerUpdateService } from './seasonmanagerupdate.service';
 import { UpdateSeasonModel } from './update-season-model';
@@ -79,7 +80,7 @@ export class SeasonManagerUpdateComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params.map(params => params['id']).subscribe((id) => {
+        this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
             this.seasonManagerUpdateService.findSeason(id).subscribe(
                 (season: Rest.SeasonJson) => this.model.season = season);
 
