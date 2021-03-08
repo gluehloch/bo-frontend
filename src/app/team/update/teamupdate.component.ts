@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-
+import { map } from 'rxjs/operators';
 import { TeamUpdateService } from './teamupdate.service';
 
 import { environment } from '../../../environments/environment';
@@ -30,7 +30,7 @@ export class TeamUpdateComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params.map(params => params['id']).subscribe((id) => {
+        this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
             this.teamService.findTeam(id).subscribe((team: Rest.TeamJson) => this.team = team);
         });
     }

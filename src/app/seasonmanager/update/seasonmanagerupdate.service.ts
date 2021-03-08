@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-
-// TODO Was ist das hier?
-
-import 'rxjs/Rx';
+import { Observable } from 'rxjs';
 
 import { BetofficeService } from '../../betoffice.service';
 
