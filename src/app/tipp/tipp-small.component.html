@@ -11,7 +11,9 @@
 
     <div>
         <p>Hier geht es zu der <a routerLink="/tipp">Desktop Variante</a> der Tippseite.</p>
+        <!--
         <p>Hier geht es zu der <a routerLink="/tipp-mobile">2. Mobile Variante</a> der Tippseite.</p>
+        -->
     </div>
 
     <div *ngIf="tippModelContainer.authenticated" class="form-group">
@@ -67,7 +69,9 @@
                 <div class="row" style="border-top:solid 1px; border-top-color: rgb(202, 211, 219)">
                     <div class="col" style="text-align: right; padding: .5rem .75rem">
                         {{tipp.game.homeTeam.shortName}}
+                        <!-- TODO TEAM LOGO
                         <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}">
+                        -->
                     </div>
                     <div *ngIf="tipp.game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
                         <app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult>
@@ -76,7 +80,9 @@
                         {{tipp.game.result.homeGoals}}:{{tipp.game.result.guestGoals}}
                     </div>
                     <div class="col" style="text-align: left; padding: .5rem .75rem">
+                        <!-- TODO TEAM LOGO
                         <img class="teamlogo" src="{{tipp.game.guestTeam.logo}}">
+                        -->
                         {{tipp.game.guestTeam.shortName}}
                     </div>
                 </div>
