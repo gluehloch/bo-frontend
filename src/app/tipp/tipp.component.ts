@@ -10,10 +10,14 @@ import { NavigationRouterService } from '../navigationrouter.service';
     templateUrl: './tipp.component.html',
     styleUrls: ['./tipp.component.css']
 })
-export class TippComponent extends TippCommonComponent {
+export class TippComponent extends TippCommonComponent implements OnInit {
 
     constructor(cookieService: CookieService, tippService: TippService, navigationRouterService: NavigationRouterService) {
         super(cookieService, tippService, navigationRouterService);
+    }
+
+    ngOnInit() {
+        super.onInit();
     }
 
 }

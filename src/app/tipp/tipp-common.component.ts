@@ -114,7 +114,7 @@ class TippModelContainer {
     }
 }
 
-export class TippCommonComponent implements OnInit {
+export abstract class TippCommonComponent /*implements OnInit*/ {
 
     dateTimeFormat = environment.dateTimeFormat;
     currentSeasonId = environment.currentSeasonId;
@@ -177,7 +177,7 @@ export class TippCommonComponent implements OnInit {
         this.submitButtonModel.responseStatusCode = 0;
     }
 
-    ngOnInit() {
+    onInit() {
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_TIPP);
         this.checkAuthorization();
 
