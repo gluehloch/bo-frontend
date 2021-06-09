@@ -2,52 +2,56 @@
     <h3>{{ranking.season.name}} {{ranking.season.year}}</h3>
     <h4>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy': '+0200'}}</h4>
     <table class="table table-striped table-sm">
-        <tr>
-            <th colspan="6">Gesamtwertung</th>
-        </tr>
-        <tr>
-            <th>Platz</th>
-            <th>Name</th>
-            <th style="text-align: right">Punkte</th>
-            <th style="text-align: right">g</th>
-            <th style="text-align: right">t</th>
-            <th style="text-align: right">v</th>
-        </tr>
-        <tr *ngFor="let user of ranking?.users">
-            <td style="text-align: right">{{user.position}}</td>
-            <td>{{user.nickname}}
-            <!--
+        <thead>
+            <tr>
+                <th colspan="6">Gesamtwertung</th>
+            </tr>
+            <tr>
+                <th>Platz</th>
+                <th>Name</th>
+                <th style="text-align: right">Punkte</th>
+                <th style="text-align: right">g</th>
+                <th style="text-align: right">t</th>
+                <th style="text-align: right">v</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of ranking?.users">
+                <td style="text-align: right">{{user.position}}</td>
+                <td>{{user.nickname}}
+                    <!--
             <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
             -->
-            </td>
-            <td style="text-align: right">{{user.points}}</td>
-            <td style="text-align: right">{{user.win}}</td>
-            <td style="text-align: right">{{user.toto}}</td>
-            <td style="text-align: right">{{user.ticket}}</td>
-        </tr>
-        <tr>
-            <th colspan="6">Spieltagswertung</th>
-        </tr>
-        <tr>
-            <th>Platz</th>
-            <th>Name</th>
-            <th style="text-align: right">Punkte</th>
-            <th style="text-align: right">g</th>
-            <th style="text-align: right">t</th>
-            <th style="text-align: right">v</th>
-        </tr>
-        <tr *ngFor="let user of rankingRound?.users">
-            <td style="text-align: right">{{user.position}}</td>
-            <td>{{user.nickname}}
-                <!--
+                </td>
+                <td style="text-align: right">{{user.points}}</td>
+                <td style="text-align: right">{{user.win}}</td>
+                <td style="text-align: right">{{user.toto}}</td>
+                <td style="text-align: right">{{user.ticket}}</td>
+            </tr>
+            <tr>
+                <th colspan="6">Spieltagswertung</th>
+            </tr>
+            <tr>
+                <th>Platz</th>
+                <th>Name</th>
+                <th style="text-align: right">Punkte</th>
+                <th style="text-align: right">g</th>
+                <th style="text-align: right">t</th>
+                <th style="text-align: right">v</th>
+            </tr>
+            <tr *ngFor="let user of rankingRound?.users">
+                <td style="text-align: right">{{user.position}}</td>
+                <td>{{user.nickname}}
+                    <!--
                 <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
                 -->
-            </td>
-            <td style="text-align: right">{{user.points}}</td>
-            <td style="text-align: right">{{user.win}}</td>
-            <td style="text-align: right">{{user.toto}}</td>
-            <td style="text-align: right">{{user.ticket}}</td>
-        </tr>
+                </td>
+                <td style="text-align: right">{{user.points}}</td>
+                <td style="text-align: right">{{user.win}}</td>
+                <td style="text-align: right">{{user.toto}}</td>
+                <td style="text-align: right">{{user.ticket}}</td>
+            </tr>
+        </tbody>
     </table>
 
     <div class="row form-group">
@@ -63,24 +67,26 @@
         <h4>Tippübersicht</h4>
         <h5>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy'}}</h5>
         <table class="table table-sm">
-            <tr>
-                <td>Spiel</td>
-                <td style="text-align: center" *ngFor="let match of rankingRound?.round.games">
-                    {{match.homeTeam.xshortName}}<br/>{{match.guestTeam.xshortName}}
-                </td>
-            </tr>
-            <tr>
-                <td>Ergebnis</td>
-                <td style="text-align: center" *ngFor="let match of rankingRound?.round.games">
-                    <app-gameresult [game]="match" [halfTime]="false"></app-gameresult>
-                </td>
-            </tr>
-            <tr *ngFor="let user of ranking?.users">
-                <td>{{user.nickname}}</td>
-                <td style="text-align: center" *ngFor="let match of rankingRound?.round.games">
-                    <app-tippresult [tipp]="findTipp(match, user)"></app-tippresult>
-                </td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td>Spiel</td>
+                    <td style="text-align: center" *ngFor="let match of rankingRound?.round.games">
+                        {{match.homeTeam.xshortName}}<br />{{match.guestTeam.xshortName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ergebnis</td>
+                    <td style="text-align: center" *ngFor="let match of rankingRound?.round.games">
+                        <app-gameresult [game]="match" [halfTime]="false"></app-gameresult>
+                    </td>
+                </tr>
+                <tr *ngFor="let user of ranking?.users">
+                    <td>{{user.nickname}}</td>
+                    <td style="text-align: center" *ngFor="let match of rankingRound?.round.games">
+                        <app-tippresult [tipp]="findTipp(match, user)"></app-tippresult>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

@@ -11,22 +11,26 @@
   Informationen.
 </p>
 <table class="table table-striped table-sm">
-  <tr>
-    <th>Platz</th>
-    <th>Name</th>
-    <th>Punkte</th>
-    <th>g</th>
-    <th>t</th>
-    <th>v</th>
-  </tr>
-  <tr *ngFor="let user of teilnehmer?.users">
-    <td>{{user.position}}</td>
-    <td>{{user.nickname}}</td>
-    <td>{{user.points}}</td>
-    <td>{{user.win}}</td>
-    <td>{{user.toto}}</td>
-    <td>{{user.ticket}}</td>
-  </tr>
+  <thead>
+    <tr>
+      <th scope="col">Platz</th>
+      <th scope="col">Name</th>
+      <th scope="col">Punkte</th>
+      <th scope="col">g</th>
+      <th scope="col">t</th>
+      <th scope="col">v</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of teilnehmer?.users">
+      <td scope="row">{{user.position}}</td>
+      <td>{{user.nickname}}</td>
+      <td>{{user.points}}</td>
+      <td>{{user.win}}</td>
+      <td>{{user.toto}}</td>
+      <td>{{user.ticket}}</td>
+    </tr>
+  </tbody>
 </table>
 <h3>Release Übersicht</h3>
 <p>
