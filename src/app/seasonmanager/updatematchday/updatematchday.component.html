@@ -110,12 +110,12 @@
       <th>Punkte</th>
       <th>Tore</th>
       <th>g:r:v</th>
-      <tr *ngFor="let team of roundtable.table.groupTeamTableJsons.teamResultJsons">
-        <td>{{team.tablePosition}}</td>
-        <td>{{team.teamName}}</td>
-        <td>{{team.win * 3 + team.remis}}</td>
-        <td>{{team.posGoals}}:{{team.negGoals}}</td>
-        <td>{{team.win}}:{{team.remis}}:{{team.lost}} </td>
+      <tr *ngFor="let teamscore of roundtable.table.groupTeamTableJsons.teamResultJsons">
+        <td>{{teamscore.tablePosition}}</td>
+        <td>{{teamscore.team.name}}</td>
+        <td>{{teamscore.win * 3 + teamscore.remis}}</td>
+        <td>{{teamscore.posGoals}}:{{teamscore.negGoals}}</td>
+        <td>{{teamscore.win}}:{{teamscore.remis}}:{{teamscore.lost}} </td>
       </tr>
     </table>
   </div>
