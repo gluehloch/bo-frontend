@@ -14,14 +14,14 @@
                 <th style="text-align: right">t</th>
                 <th style="text-align: right">v</th>
             </tr>
-        </thead>            
+        </thead>
         <tbody>
             <tr *ngFor="let user of ranking?.users">
                 <td style="text-align: right">{{user.position}}</td>
                 <td>{{user.nickname}}
-                <!--
-                <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
-                -->
+                    <!--
+            <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
+            -->
                 </td>
                 <td style="text-align: right">{{user.points}}</td>
                 <td style="text-align: right">{{user.win}}</td>
@@ -43,15 +43,15 @@
                 <td style="text-align: right">{{user.position}}</td>
                 <td>{{user.nickname}}
                     <!--
-                    <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
-                    -->
+                <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
+                -->
                 </td>
                 <td style="text-align: right">{{user.points}}</td>
                 <td style="text-align: right">{{user.win}}</td>
                 <td style="text-align: right">{{user.toto}}</td>
                 <td style="text-align: right">{{user.ticket}}</td>
             </tr>
-        </tbody>            
+        </tbody>
     </table>
 
     <div class="row form-group">
@@ -71,7 +71,7 @@
                 <tr>
                     <td>Spiel</td>
                     <td style="text-align: center" *ngFor="let match of rankingRound?.round.games">
-                        {{match.homeTeam.xshortName}}<br/>{{match.guestTeam.xshortName}}
+                        {{match.homeTeam.xshortName}}<br />{{match.guestTeam.xshortName}}
                     </td>
                 </tr>
                 <tr>

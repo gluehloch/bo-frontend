@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 
 import { TippCommonComponent } from './tipp-common.component';
@@ -10,10 +10,14 @@ import { NavigationRouterService } from '../navigationrouter.service';
     templateUrl: './tipp-mobile.component.html',
     styleUrls: ['./tipp-mobile.component.css']
 })
-export class TippMobileComponent extends TippCommonComponent {
+export class TippMobileComponent extends TippCommonComponent implements OnInit {
 
     constructor(cookieService: CookieService, tippService: TippService, navigationRouterService: NavigationRouterService) {
         super(cookieService, tippService, navigationRouterService);
+    }
+
+    ngOnInit() {
+        super.onInit();
     }
 
 }

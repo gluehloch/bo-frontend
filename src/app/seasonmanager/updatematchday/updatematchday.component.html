@@ -117,14 +117,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let teamResult of roundtable.table.groupTeamTableJsons.teamResultJsons">
+                <tr *ngFor="let teamscore of roundtable.table.groupTeamTableJsons.teamResultJsons">
                     <td>{{teamResult.tablePosition}}</td>
                     <td>
-                      <img *ngIf="teamResult.team.logo.startsWith('http')"  src="{{teamResult.team.logo}}" style="max-height: 24px; max-width: 24px; margin-right: 1em;">
-                      {{teamResult.team.name}}</td>
-                    <td>{{teamResult.win * 3 + teamResult.remis}}</td>
-                    <td>{{teamResult.posGoals}}:{{teamResult.negGoals}}</td>
-                    <td>{{teamResult.win}}:{{teamResult.remis}}:{{teamResult.lost}} </td>
+                      <img *ngIf="teamscore.team.logo.startsWith('http')"  src="{{teamscore.team.logo}}" style="max-height: 24px; max-width: 24px; margin-right: 1em;">
+                      {{teamscore.team.name}}</td>
+                    <td>{{teamscore.win * 3 + teamscore.remis}}</td>
+                    <td>{{teamscore.posGoals}}:{{teamscore.negGoals}}</td>
+                    <td>{{teamscore.win}}:{{teamscore.remis}}:{{teamscore.lost}}</td>
                 </tr>
             </tbody>
         </table>
