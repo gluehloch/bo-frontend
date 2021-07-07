@@ -43,11 +43,14 @@ export abstract class BetofficeService {
             .append('Content-Type', 'application/json')
             .append('Access-Control-Allow-Origin', '*');
 
+        // Authorization: Bearer TestAuthorization
+
         const credentials = this.readCredentials();
         if (credentials && credentials.token) {
             headers = headers
                 .append('betofficeToken', credentials.token)
-                .append('betofficeNickname', credentials.nickname);
+                .append('betofficeNickname', credentials.nickname)
+                .append('Authorization', 'Bearer ' + credentials.token);
         }
 
         return headers;
