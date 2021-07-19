@@ -29,11 +29,11 @@ export class AuthenticationService extends BetofficeService {
     }
 
     login(login: Login): Observable<Rest.SecurityTokenJson> {
-        return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "login", login, { headers: this.createHeader() });
+        return this.http.post<Rest.SecurityTokenJson>(this.authenticationUrl + "login", login, { headers: this.createHeader() });
     }
 
     logout(logout: Logout): Observable<Rest.SecurityTokenJson> {
-        return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "logout", logout, { headers: this.createHeader() });
+        return this.http.post<Rest.SecurityTokenJson>(this.authenticationUrl + "logout", logout, { headers: this.createHeader() });
     }
 
 }

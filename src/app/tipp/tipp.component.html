@@ -8,14 +8,14 @@
         </div>
     </div>
 
+    <app-tipp-selector selectionState="desktop"></app-tipp-selector>
+    
     <div *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
         <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
         <div>
             Hier kannst du dir deinen letzten Tipp anschauen.
         </div>
     </div>
-
-    <app-tipp-selector selectionState="desktop"></app-tipp-selector>
 
     <div *ngIf="tippModelContainer.authenticated && tippModelContainer.round">
         <h2>{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>

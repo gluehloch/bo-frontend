@@ -12,6 +12,7 @@ export const environment = {
 
     production: false,
     rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
+    authenticationUrl: 'http://localhost:8080/betoffice-jweb/bo/authentication/',
     adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
     cookieserviceUrl: 'http://localhost:9090/registrationservice/cookie/confirmCookie',
     registerserviceUrl: 'http://localhost:9090/registrationservice/registration/register',
