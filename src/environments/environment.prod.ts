@@ -9,5 +9,6 @@ export const environment = {
     rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
     authenticationUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/authentication/',
     adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
+    registerserviceUrl: 'http://localhost:9090/registrationservice/registration/register',
     cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie'
 };

@@ -138,7 +138,7 @@
                 angezeigten Fehlermeldungen.
             </div>            
 <p></p>
-            <div *ngIf="registrationModel.formState === EnumProgressState.TransmissionStart" class="progress">
+            <div *ngIf="registrationModel.progressState === EnumProgressState.TransmissionStart" class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated"
                     role="progressbar" [style.witdh.%]="registrationModel.progressState"
                     aria-valuenow="registrationModel.progressState"
