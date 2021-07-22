@@ -75,4 +75,8 @@ export class PartyUpdateComponent implements OnInit {
         );
     }
 
+    abort() {
+        this.router.navigate(['./chiefop/party']);
+    }
+
 }

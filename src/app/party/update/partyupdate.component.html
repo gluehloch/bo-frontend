@@ -31,6 +31,9 @@
         <input class="form-control" id="password" name="password" [(ngModel)]="party.password" />
     </div>
 
-    <button ng-disabled="partyupdateform.$invalid" class="btn btn-lg btn-primary btn-block" type="submit"
-        (click)="updateParty()">Speichern</button>
+    <div class="d-grid gap-2">
+        <button ng-disabled="partyupdateform.$invalid" class="btn btn-primary" type="submit"
+            (click)="updateParty()">Speichern</button>
+        <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>        
+    </div>
 </form>
