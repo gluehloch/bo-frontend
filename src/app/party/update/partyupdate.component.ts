@@ -8,43 +8,71 @@ import { PartyUpdateService } from './partyupdate.service';
 
 import { environment } from '../../../environments/environment';
 
+class PartyModel implements Rest.PartyJson {
+    id: number;
+    nickname: string;
+    surname: string;
+    name: string;
+    phone: string;
+    mail: string;
+    password: string;
+    title: string;
+
+    copy(party: Rest.PartyJson) {
+        this.id = party.id;
+        this.nickname =  party.nickname;
+        this.password = party.password;
+        this.surname = party.surname;
+        this.name = party.name;
+        this.title = party.title;
+        this.mail = party.mail;
+        this.phone = party.phone;
+    }
+}
+
 @Component({
-  selector: 'party',
-  templateUrl: './partyupdate.component.html',
-  styleUrls: ['./partyupdate.component.css']
+    selector: 'party',
+    templateUrl: './partyupdate.component.html',
+    styleUrls: ['./partyupdate.component.css']
 })
 export class PartyUpdateComponent implements OnInit {
 
-  party: Rest.PartyJson;
+    party = new PartyModel();
 
-  constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
-    const party = {
-      id: 0,
-      nickname: '',
-      surname: '',
-      name: '',
-      phone: '',
-      mail: '',
-      password: '',
-      title: ''
+    constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
+        this.party.id = -1;
     }
-    this.party = party;
-  }
 
-  ngOnInit() {
-    this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
-      this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => this.party = party);
-    });
+    ngOnInit() {
+        this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
+            this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => {
+                this.party.copy(party);
+            });
+        });
 
-    /*
-    this.route.params.map(params => params['id']).subscribe((id) => {
-      this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => this.party = party);
-    });
-    */
-  }
+        /*
+        this.route.params.map(params => params['id']).subscribe((id) => {
+          this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => this.party = party);
+        });
+        */
+    }
 
-  updateParty() {
-    this.partyService.updateParty(this.party).subscribe((party: Rest.PartyJson) => this.party = party);
-  }
+    updateParty() {
+        if (!this.party.nickname) {
+
+        }
+
+        this.partyService.updateParty(this.party).subscribe(
+            (partyResponse: Rest.PartyJson) => {
+                this.party.copy(partyResponse);
+            },
+            error => {
+                console.error('Error', error);
+            },
+            () => {
+                console.info('Request completed.');
+            }
+        );
+    }
 
 }
