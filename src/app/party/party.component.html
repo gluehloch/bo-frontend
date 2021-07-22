@@ -1,28 +1,29 @@
 <h1>Teilnehmer</h1>
-
- <div *ngIf="partiesModel.length != 0">
+<div *ngIf="partiesModel.length != 0">
     <table class="table table-striped table-sm">
-      <tr>
-        <th></th>
-        <th>Nickname</th>
-        <th>Name</th>
-        <th>Vorname</th>
-        <th>Telefon</th>
-        <th>Email</th>
-        <th>Password</th>
-      </tr>
-       <tr *ngFor="let party of partiesModel">
-         <td>
-           <button class="btn btn-primary btn-sm" type="submit" (click)="updateParty(party)">
-            Edit
-           </button>
-         </td>
-         <td>{{party.nickname}}</td>
-         <td>{{party.name}}</td>
-         <td>{{party.surname}}</td>
-         <td>{{party.phone}}</td>
-         <td>{{party.mail}}</td>
-         <td>{{party.password}}</td>
-       </tr>
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Nickname</th>
+                <th scope="col">Name</th>
+                <th scope="col">Vorname</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let party of partiesModel">
+                <td>
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateParty(party)">Edit</button>
+                </td>
+                <td>{{party.nickname}}</td>
+                <td>{{party.name}}</td>
+                <td>{{party.surname}}</td>
+                <td>{{party.phone}}</td>
+                <td>{{party.mail}}</td>
+                <td>{{party.password}}</td>
+            </tr>
+        </tbody>
     </table>
-  </div>
+</div>
