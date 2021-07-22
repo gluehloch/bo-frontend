@@ -10,8 +10,8 @@ import { environment } from '../../environments/environment';
 
 class AuthenticationModel {
 
-    nickname = 'Nickname';
-    password = 'Password';
+    nickname: string;
+    password: string;
     lastlogin: string;
 
     // --------------------------------------------------------------------------
@@ -64,6 +64,15 @@ class AuthenticationModel {
 
     // --------------------------------------------------------------------------
 
+    clear() {
+        this.authenticated = false;
+        this.nickname = null;
+        this.password = null;
+        this.token = null;
+        this.admin = false;
+        this.authenticationTries = 0;
+    }
+
 }
 
 @Component({
@@ -99,10 +108,7 @@ export class AuthenticationComponent implements OnInit {
             this.authenticationModel.lastlogin = securityToken.loginTime;
             this.authenticationModel.admin = (this.authenticationService.getUserRole() === USERROLE.ADMIN);
         } else {
-            this.authenticationModel.authenticated = false;
-            this.authenticationModel.nickname = null;
-            this.authenticationModel.token = null;
-            this.authenticationModel.admin = false;
+            this.authenticationModel.clear();
         }
     }
 
@@ -123,8 +129,13 @@ export class AuthenticationComponent implements OnInit {
                     console.log('Login success!');
                     this.authenticationService.storeCredentials(securityToken);
                     this.navigationRouterService.login();
+
+                    this.authenticationModel.authenticated = true;
+                    this.authenticationModel.nickname = securityToken.nickname;
+                    this.authenticationModel.token = securityToken.token;
+                    this.authenticationModel.lastlogin = securityToken.loginTime;
+                    this.authenticationModel.admin = (this.authenticationService.getUserRole() === USERROLE.ADMIN);                    
                 }
-                this.init();
             });
     }
 
@@ -140,8 +151,8 @@ export class AuthenticationComponent implements OnInit {
             this.authenticationService.logout(logout)
                 .subscribe((securityToken: Rest.SecurityTokenJson) => {
                     this.authenticationService.clearCredentials();
-                    this.init();
                     this.navigationRouterService.logout();
+                    this.authenticationModel.clear();
                     console.log('Logout successful.');
                 });
         }
