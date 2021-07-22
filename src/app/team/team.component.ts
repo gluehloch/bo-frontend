@@ -13,7 +13,7 @@ export class TeamComponent implements OnInit {
 
     // Team Types: DFB, FIFA
     teamsModel: Array<Rest.TeamJson>;
-    dfbFilter: string;
+    dfbFilterValue: string;
 
     constructor(
         private router: Router,
@@ -45,10 +45,10 @@ export class TeamComponent implements OnInit {
     }
 
     changeDfbFilter(value: boolean) {
-        if (!this.dfbFilter) {
-            this.dfbFilter = 'DFB';
+        if (!this.dfbFilterValue) {
+            this.dfbFilterValue = 'DFB';
         } else {
-            this.dfbFilter = '';
+            this.dfbFilterValue = '';
         }
     }
 
