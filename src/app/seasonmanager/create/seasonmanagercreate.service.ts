@@ -10,12 +10,12 @@ import { BetofficeService } from '../../betoffice.service';
 @Injectable()
 export class SeasonManagerCreateService extends BetofficeService {
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+    constructor(http: HttpClient) {
+        super(http);
+    }
 
-  createSeason(season: Rest.SeasonJson): Observable<Rest.SeasonJson> {
-    return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/create', season, {headers: this.createHeader()});
-  }
+    createSeason(season: Rest.SeasonJson): Observable<Rest.SeasonJson> {
+        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/create', season, { headers: this.createHeader() });
+    }
 
 }
