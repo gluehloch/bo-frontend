@@ -119,4 +119,8 @@ export class SeasonManagerUpdateComponent implements OnInit {
                 });
     }
 
+    abort() {
+        this.router.navigate(['./chiefop/seasonmanager']);
+    }
+
 }

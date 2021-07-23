@@ -90,6 +90,7 @@
     <div class="d-grid gap-2">
         <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block"
             (click)="updateSeason()">Speichern</button>
+        <button class="btn btn-secondary" (click)="abort()">Abbrechen</button>
     </div>        
 </form>
 
