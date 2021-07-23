@@ -20,8 +20,8 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                     (click)="removeUserSeason()">Speichern</button>
             </div>
         </div>
@@ -48,8 +48,8 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                     (click)="addUserSeason()">Speichern</button>
             </div>
         </div>
@@ -57,38 +57,40 @@
 </div>
 
 <form #updateSeasonForm="ngForm" name="seasonmanagerupdateform">
-    <div class="form-group">
-        <label for="id">ID</label>
+    <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
         <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="model.season.id" />
     </div>
-    <div class="form-group">
-        <label for="name">Name</label>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
         <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name" required />
     </div>
-    <div class="form-group">
-        <label for="year">Jahrgang</label>
+    <div class="mb-3">
+        <label for="year" class="form-label">Jahrgang</label>
         <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year" required />
     </div>
-    <div class="form-group">
-        <label for="seasonType">Meisterschaftstyp</label>
+    <div class="mb-3">
+        <label for="seasonType" class="form-label">Meisterschaftstyp</label>
         <input class="form-control" id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType" disabled />
     </div>
-    <div class="form-group">
-        <label for="teamType">Mannschaftstyp</label>
+    <div class="mb-3">
+        <label for="teamType" class="form-label">Mannschaftstyp</label>
         <input class="form-control" id="teamType" name="teamType" [(ngModel)]="model.season.teamType" disabled />
     </div>
-    <div class="form-group">
-        <label for="openligaLeagueShortcut">Openleague Shortcut</label>
+    <div class="mb-3">
+        <label for="openligaLeagueShortcut" class="form-label">Openleague Shortcut</label>
         <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut"
             [(ngModel)]="model.season.openligaLeagueShortcut" />
     </div>
-    <div class="form-group">
-        <label for="openligaLeagueSeason">Openleague Jahrgang/League</label>
+    <div class="mb-3">
+        <label for="openligaLeagueSeason" class="form-label">Openleague Jahrgang/League</label>
         <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason"
             [(ngModel)]="model.season.openligaLeagueSeason" />
     </div>
-    <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block"
-        (click)="updateSeason()">Speichern</button>
+    <div class="d-grid gap-2">
+        <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block"
+            (click)="updateSeason()">Speichern</button>
+    </div>        
 </form>
 
 <hr />
@@ -99,18 +101,21 @@
     <div *ngIf="model.parties.length == 0" class="alert alert-info">
         Keine Teilnehmer zugeordnet.
     </div>
-    <table *ngIf="model.parties.length > 0">
+    <table *ngIf="model.parties.length > 0" class="table">
         <tr *ngFor="let party of model.parties">
             <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}" [(ngModel)]="party.checked" />
             </td>
             <td>{{party.nickname}}</td>
         </tr>
     </table>
-    <button *ngIf="model.parties.length > 0" [disabled]="!updateUserForm.form.valid || model.submitted"
-        class="btn btn-md btn-primary btn-block" data-toggle="modal"
-        data-target="#confirmDeleteAction">Entfernen</button>
-
+    <div class="d-grid gap-2">
+        <button *ngIf="model.parties.length > 0"
+            [disabled]="!updateUserForm.form.valid || model.submitted"
+            class="btn btn-md btn-primary btn-block"
+            data-bs-toggle="modal" data-bs-target="#confirmDeleteAction">Entfernen</button>
+    </div>
     <hr />
+
     <h4>Die potentiellen Teilnehmer</h4>
     <div *ngIf="model.potentialParties.length == 0" class="alert alert-info">
         Keine potentiellen Teilnehmer vorhanden.
@@ -119,13 +124,17 @@
         [(ngModel)]="model.potentialUserFilter" />
     <table *ngIf="model.potentialParties.length > 0">
         <tr *ngFor="let party of model.potentialParties | usernamefilter: model.potentialUserFilter">
-            <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}" [(ngModel)]="party.checked" />
-            </td>
+            <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}" [(ngModel)]="party.checked" /></td>
             <td>{{party.nickname}}</td>
         </tr>
     </table>
-    <button *ngIf="model.potentialParties.length > 0" [disabled]="!updateUserForm.form.valid || model.submitted"
-        class="btn btn-md btn-primary btn-block" data-toggle="modal" data-target="#confirmAddAction">Hinzufügen</button>
+
+    <div class="d-grid gap-2">
+        <button *ngIf="model.potentialParties.length > 0"
+            [disabled]="!updateUserForm.form.valid || model.submitted"
+            class="btn btn-md btn-primary"
+            data-bs-toggle="modal" data-bs-target="#confirmAddAction">Hinzufügen</button>
+    </div>
 </form>
 
 <!--
