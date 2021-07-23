@@ -1,41 +1,41 @@
 <h1>Mannschaft ändern</h1>
 <form name="teamupdateform" novalidate>
-  <div class="form-group">
-    <label for="id">ID</label>
-    <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="team.id"/>
-  </div>
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input class="form-control" id="name" name="name" [(ngModel)]="team.name"/>
-  </div>
-  <div class="form-group">
-    <label for="longName">Langname</label>
-    <input class="form-control" id="longName" name="longName" [(ngModel)]="team.longName"/>
-  </div>
-  <div class="form-group">
-    <label for="shortName">Kurzname</label>
-    <input class="form-control" id="shortName" name="shortName" [(ngModel)]="team.shortName"/>
-  </div>
-  <div class="form-group">
-    <label for="xshortName">Abkürzung</label>
-    <input class="form-control" id="xshortName" name="xshortName" [(ngModel)]="team.xshortName"/>
-  </div>
-  <div class="form-group">
-    <label for="logo">Logo</label>
-    <input class="form-control" id="logo" name="logo" [(ngModel)]="team.logo"/>
-  </div>
-  <div class="form-group">
-    <label for="type">Typ</label>
-    <input class="form-control" id="type" name="type" [(ngModel)]="team.type"/>
-  </div>
-  <div class="form-group">
-    <label for="openligaid">OpenLiga ID</label>
-    <input class="form-control" id="openligaid" name="openligaid" [(ngModel)]="team.openligaid"/>
-  </div>
+    <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
+        <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="team.id" />
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input class="form-control" id="name" name="name" [(ngModel)]="team.name" />
+    </div>
+    <div class="mb-3">
+        <label for="longName" class="form-label">Langname</label>
+        <input class="form-control" id="longName" name="longName" [(ngModel)]="team.longName" />
+    </div>
+    <div class="mb-3">
+        <label for="shortName" class="form-label">Kurzname</label>
+        <input class="form-control" id="shortName" name="shortName" [(ngModel)]="team.shortName" />
+    </div>
+    <div class="mb-3">
+        <label for="xshortName" class="form-label">Abkürzung</label>
+        <input class="form-control" id="xshortName" name="xshortName" [(ngModel)]="team.xshortName" />
+    </div>
+    <div class="mb-3">
+        <label for="logo" class="form-label">Logo</label>
+        <input class="form-control" id="logo" name="logo" [(ngModel)]="team.logo" />
+    </div>
+    <div class="mb-3">
+        <label for="type" class="form-label">Typ</label>
+        <input class="form-control" id="type" name="type" [(ngModel)]="team.type" />
+    </div>
+    <div class="mb-3">
+        <label for="openligaid" class="form-label">OpenLiga ID</label>
+        <input class="form-control" id="openligaid" name="openligaid" [(ngModel)]="team.openligaid" />
+    </div>
 
-  <button
-    ng-disabled="teamupdateform.$invalid"
-    class="btn btn-lg btn-primary btn-block"
-    type="submit"
-    (click)="updateTeam()">Speichern</button>
+    <div class="d-grid gap-2">
+        <button ng-disabled="teamupdateform.$invalid" class="btn btn-primary" type="submit"
+            (click)="updateTeam()">Speichern</button>
+        <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+    </div>
 </form>

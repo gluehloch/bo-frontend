@@ -39,4 +39,8 @@ export class TeamUpdateComponent implements OnInit {
         this.teamService.updateTeam(this.team).subscribe((team: Rest.TeamJson) => this.team = team);
     }
 
+    abort() {
+        this.router.navigate(['./chiefop/team']);
+    }
+
 }
