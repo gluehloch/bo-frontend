@@ -1,21 +1,24 @@
-<div class="modal fade" id="authenticationWarning" tabindex="-1" role="dialog" aria-labelledby="authenticationWarning" aria-hidden="false">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="authenticationWarningTitle">Du bist abgemeldet.</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Du wurdest automatisch abgemeldet. Bitte melde dich neu an.
-        Dann geht es weiter.
-        <pre><code>HttpError: {{httpError}}</code></pre>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Abbrechen</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="gotoLoginDialog()">Zur Anmeldung</button>
-      </div>
+<div class="modal fade" id="authenticationWarning" tabindex="-1" role="dialog" aria-labelledby="authenticationWarning"
+    aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="authenticationWarningTitle">Du bist abgemeldet.</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Du wurdest automatisch abgemeldet. Bitte melde dich neu an.
+                Dann geht es weiter.
+                <pre><code>HttpError: {{httpError}}</code></pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="close()">Abbrechen</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="gotoLoginDialog()">Zur
+                    Anmeldung</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
