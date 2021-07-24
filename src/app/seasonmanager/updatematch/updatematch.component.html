@@ -4,11 +4,11 @@
 </div>
 <div *ngIf="matchModel.match">
     <form #updateMatchForm="ngForm" name="updateMatchForm" (ngSubmit)="updateMatch()">
-        <div class="form-group">
-            <label for="id">ID</label>
+        <div class="mb-3">
+            <label for="id" class="form-label">ID</label>
             <input type="number" readonly class="form-control" id="id" name="id" [(ngModel)]="matchModel.match.id"/>
         </div>
-        <div class="form-row">
+        <div class="mb-3">
             <div class="col">
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="finished" name="finished" [(ngModel)]="matchModel.match.finished" required >
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-row">
+        <div class="mb-3">
             <div class="col">
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="ko" name="ko" [(ngModel)]="matchModel.match.ko" required>
@@ -24,99 +24,110 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="dateTime">Anstoss (Datum und Uhrzeit)</label>
+        <div class="mb-3">
+            <label for="dateTime" class="form-label">Anstoss (Datum und Uhrzeit)</label>
             <input type="text" readonly class="form-control" id="dateTime" name="dateTime" value="{{matchModel.match.dateTime | date: dateTimeFormat}}"/>
         </div>
-        <div class="form-row">
+
+        <div class="row">
             <div class="col">
-                <div class="form-group">
-                    <label for="homeTeam">Heimmannschaft</label>
-                    <input type="text" readonly class="form-control" id="homeTeam" name="homeTeam" [(ngModel)]="matchModel.match.homeTeam.shortName"/>
-                </div>
+                <label for="homeTeam" class="form-label">Heimmannschaft</label>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="guestTeam">Gastmannschaft</label>
-                    <input type="text" readonly class="form-control" id="guestTeam" name="guestTeam" [(ngModel)]="matchModel.match.guestTeam.shortName"/>
-                </div>
+                <label for="guestTeam" class="form-label">Gastmannschaft</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="text" readonly class="form-control" id="homeTeam" name="homeTeam" [(ngModel)]="matchModel.match.homeTeam.shortName"/>
+            </div>
+            <div class="col">
+                <input type="text" readonly class="form-control" id="guestTeam" name="guestTeam" [(ngModel)]="matchModel.match.guestTeam.shortName"/>
             </div>
         </div>
 
         <!-- Halbzeit Tore -->
-        <div class="form-row">
+        <div class="row">
             <div class="col">
-                <div class="form-group">
-                    <label for="homeHalfTimeResult">Halbzeit Heim</label>
-                    <input type="number" class="form-control" id="homeHalfTimeResult" name="homeHalfTimeResult" [(ngModel)]="matchModel.match.halfTimeResult.homeGoals"/>
-                </div>
+                <label for="homeHalfTimeResult" class="form-label">Halbzeit Heim</label>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="guestHalfTimeResult">Halbzeit Gast</label>
-                    <input type="number" class="form-control" id="guestHalfTimeResult" name="guestHalfTimeResult" [(ngModel)]="matchModel.match.halfTimeResult.guestGoals"/>
-                </div>
+                <label for="guestHalfTimeResult" class="form-label">Halbzeit Gast</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="number" class="form-control" id="homeHalfTimeResult" name="homeHalfTimeResult" [(ngModel)]="matchModel.match.halfTimeResult.homeGoals"/>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="guestHalfTimeResult" name="guestHalfTimeResult" [(ngModel)]="matchModel.match.halfTimeResult.guestGoals"/>
             </div>
         </div>
 
         <!-- Tore nach 90 Minuten -->
-        <div class="form-row">
+        <div class="row">
             <div class="col">
-                <div class="form-group">
-                    <label for="homeResult">nach 90 Minuten Heim</label>
-                    <input type="number" class="form-control" id="homeResult" name="homeResult" [(ngModel)]="matchModel.match.result.homeGoals"/>
-                </div>
+                <label for="homeResult" class="form-label">nach 90 Minuten Heim</label>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="guestResult">nach 90 Minuten Gast</label>
-                    <input type="number" class="form-control" id="guestResult" name="guestResult" [(ngModel)]="matchModel.match.result.guestGoals"/>
-                </div>
+                <label for="guestResult" class="form-label">nach 90 Minuten Gast</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="number" class="form-control" id="homeResult" name="homeResult" [(ngModel)]="matchModel.match.result.homeGoals"/>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="guestResult" name="guestResult" [(ngModel)]="matchModel.match.result.guestGoals"/>
             </div>
         </div>
 
         <!-- Tore nach Verlängerung -->
-        <div class="form-row">
+        <div class="row">
             <div class="col">
-                <div class="form-group">
-                    <label for="homeOvertimeResult">nach Verlängerung Heim</label>
-                    <input type="number" class="form-control" id="homeOvertimeResult" name="homeOvertimeResult" [(ngModel)]="matchModel.match.overtimeResult.homeGoals"/>
-                </div>
+                <label for="homeOvertimeResult" class="form-label">nach Verlängerung Heim</label>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="guestOvertimeResult">nach Verlängerung Gast</label>
-                    <input type="number" class="form-control" id="guestOvertimeResult" name="guestOvertimeResult" [(ngModel)]="matchModel.match.overtimeResult.guestGoals"/>
-                </div>
+                <label for="guestOvertimeResult" class="form-label">nach Verlängerung Gast</label>                    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="number" class="form-control" id="homeOvertimeResult" name="homeOvertimeResult" [(ngModel)]="matchModel.match.overtimeResult.homeGoals"/>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="guestOvertimeResult" name="guestOvertimeResult" [(ngModel)]="matchModel.match.overtimeResult.guestGoals"/>
             </div>
         </div>
 
         <!-- Tore nach Elfmeterschiessen -->
-        <div class="form-row">
+        <div class="row">
             <div class="col">
-                <div class="form-group">
-                    <label for="homePenaltyResult">nach Elfmeterschiessen Heim</label>
-                    <input type="number" class="form-control" id="homePenaltyResult" name="homePenaltyResult" [(ngModel)]="matchModel.match.penaltyResult.homeGoals"/>
-                </div>
+                <label for="homePenaltyResult" class="form-label">nach Elfmeterschiessen Heim</label>                    
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="guestPenaltyResult">nach Elfmeterschiessen Gast</label>
-                    <input type="number" class="form-control" id="guestPenaltyResult" name="guestPenaltyResult" [(ngModel)]="matchModel.match.penaltyResult.guestGoals"/>
-                </div>
+                <label for="guestPenaltyResult" class="form-label">nach Elfmeterschiessen Gast</label>                    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="number" class="form-control" id="homePenaltyResult" name="homePenaltyResult" [(ngModel)]="matchModel.match.penaltyResult.homeGoals"/>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" id="guestPenaltyResult" name="guestPenaltyResult" [(ngModel)]="matchModel.match.penaltyResult.guestGoals"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <button class="btn btn-md btn-primary btn-block"
+        <div class="d-grid gap-2">
+            <button class="btn btn-md btn-primary"
                 type="button"
                 (click)="updateMatch()">Spiel speichern</button>
-            <button class="btn btn-md btn-secondary btn-block"
+            <button class="btn btn-md btn-secondary"
                 type="button"
                 (click)="resetMatch()">Zurücksetzten</button>
-            <button class="btn btn-md btn-secondary btn-block"
+            <button class="btn btn-md btn-secondary"
                 type="button"
                 (click)="backToRoundView()">Zurück</button>
-        </div>            
+        </div>
     </form>    
 </div>
