@@ -104,7 +104,7 @@ export class SeasonManagerUpdateComponent implements OnInit {
                     this.mapParties(parties, this.model.parties);
                     this.findPotentialParties(this.model.season.id);
                 },
-                error => console.log(error));
+                error => console.error(error));
     }
 
     removeUserSeason() {
@@ -116,7 +116,8 @@ export class SeasonManagerUpdateComponent implements OnInit {
                 parties => {
                     this.mapParties(parties, this.model.parties);
                     this.findPotentialParties(this.model.season.id);
-                });
+                },
+                error => console.error(error));
     }
 
     abort() {

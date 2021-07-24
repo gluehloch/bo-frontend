@@ -52,6 +52,11 @@ export abstract class BetofficeService {
                 .append('betofficeToken', credentials.token)
                 .append('betofficeNickname', credentials.nickname)
                 .append('Authorization', 'Bearer ' + credentials.token);
+        } else {
+            headers = headers
+                .append('betofficeToken', 'undefined')
+                .append('betofficeNickname', 'undefined')
+                .append('Authorization', 'Bearer undefined');
         }
 
         return headers;
@@ -59,7 +64,7 @@ export abstract class BetofficeService {
 
     public isAuthorized() {
         const securityTokenJson = this.readCredentials();
-        // Probably there is a authorized user. I´m only the frontend.
+        // Probably there is an authorized user. I´m only the frontend.
         return (securityTokenJson && securityTokenJson.token);
     }
 
