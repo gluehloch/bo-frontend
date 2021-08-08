@@ -20,25 +20,30 @@
 
     <div *ngIf="tippModelContainer.authenticated && tippModelContainer.round">
         <h3>{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h3>
-        <h4>{{tippModelContainer.round.index}}. Spieltag / {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}
-        </h4>
-        <form name="tippform" novalidate>
-            <div class="row form-group">
-                <div class="col">
-                    <button class="btn btn-sm btn-secondary btn-block" (click)="last()"
-                        *ngIf="tippModelContainer.round.index > 1">Letzter</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-sm btn-secondary btn-block" (click)="next()"
-                        *ngIf="!tippModelContainer.round.lastRound">Nächster</button>
-                </div>
+        <h4>{{tippModelContainer.round.index}}. Spieltag / {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}</h4>
+
+        <form name="tippform" novalidate class="row g-3">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
+                    *ngIf="tippModelContainer.round.index > 1">Letzter</button>
+                <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
+                    *ngIf="!tippModelContainer.round.lastRound">Nächster</button>
             </div>
 
-            <div class="row">
-                <div class="col">
-                    <div class="alert alert-primary" role="alert" style="text-align: center">
-                        Punktzahl Spieltag: <b>{{tippModelContainer.summedUpPoints}}</b>
-                    </div>
+            <!--
+            <div class="col-md-6">
+                <button type="button" class="btn btn-sm btn-secondary btn-block" (click)="last()"
+                    *ngIf="tippModelContainer.round.index > 1">Letzter</button>
+            </div>
+            <div class="col-md-6">
+                <button  type="button" class="btn btn-sm btn-secondary btn-block" (click)="next()"
+                    *ngIf="!tippModelContainer.round.lastRound">Nächster</button>
+            </div>
+            -->
+
+            <div class="col-md-12">
+                <div class="alert alert-primary" role="alert" style="text-align: center">
+                    Punktzahl Spieltag: <b>{{tippModelContainer.summedUpPoints}}</b>
                 </div>
             </div>
 
