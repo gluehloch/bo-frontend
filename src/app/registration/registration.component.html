@@ -7,8 +7,8 @@
     </p>
     <div>
         <form name="registrationForm" novalidate>
-            <div class="form-group">
-                <label for="nickname" class="sr-only"
+            <div class="mb-3">
+                <label for="nickname" class="sr-only form-label"
                     ng-class="{'has-warning': !registrationModel.nickname.invalid}">Nickname</label>
                 <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Nickname" required
                     autofocus [(ngModel)]="registrationModel.nickname.value"
@@ -19,8 +19,8 @@
                     {{registrationModel.nickname.message}}
                 </div>
             </div>
-            <div class="form-group">
-                <label for="password" class="sr-only">Passwort</label>
+            <div class="mb-3">
+                <label for="password" class="sr-only form-label">Passwort</label>
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required 
                     [(ngModel)]="registrationModel.password.value"
                     [class.is-invalid]="registrationModel.password.invalid"
@@ -29,8 +29,8 @@
                     {{registrationModel.password.message}}
                 </div>
             </div>
-            <div class="form-group">
-                <label for="password2" class="sr-only">Passwort</label>
+            <div class="mb-3">
+                <label for="password2" class="sr-only form-label">Passwort</label>
                 <input type="password" name="password2" id="password2" class="form-control" placeholder="Password Wiederholung" required
                     [(ngModel)]="registrationModel.password2.value" 
                     [class.is-invalid]="registrationModel.password2.invalid"
@@ -40,8 +40,8 @@
                     {{registrationModel.password2.message}}
                 </div>
             </div>
-            <div class="form-group">
-                <label for="firstname" class="sr-only"
+            <div class="mb-3">
+                <label for="firstname" class="sr-only form-label"
                     ng-class="{'has-warning': !registrationModel.firstname.invalid}">Vorname</label>
                 <input type="text" id="name" name="firstname" class="form-control" placeholder="Vorname" required
                     [(ngModel)]="registrationModel.firstname.value"
@@ -52,8 +52,8 @@
                     {{registrationModel.firstname.message}}
                 </div>
             </div>
-            <div class="form-group">
-                <label for="name" class="sr-only"
+            <div class="mb-3">
+                <label for="name" class="sr-only form-label"
                     ng-class="{'has-warning': registrationModel.name.invalid}">Name</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Name" required
                     [(ngModel)]="registrationModel.name.value"
@@ -64,8 +64,8 @@
                     {{registrationModel.name.message}}
                 </div>
             </div>
-            <div class="form-group">
-                <label for="email" class="sr-only">EMail</label>
+            <div class="mb-3">
+                <label for="email" class="sr-only form-label">EMail</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="EMail"
                     required ng-class="{'has-warning': !registrationModel.email.invalid}"
                     [(ngModel)]="registrationModel.email.value"
@@ -80,8 +80,8 @@
                 Den Namen der Community erhälst du von einem Community-Manager. Du solltest diesen
                 persönlich kennen, damit er deine Anmeldung bestätigen kann.
             </p>
-            <div class="form-group">
-                <label for="community" class="sr-only">Community</label>
+            <div class="mb-3">
+                <label for="community" class="sr-only form-label">Community</label>
                 <input type="text" name="community" id="community" class="form-control" placeholder="Community"
                     required ng-class="{'has-warning': !registrationModel.community.invalid}"
                     [(ngModel)]="registrationModel.community.value"
@@ -147,7 +147,7 @@
             </div>
 <p></p>
 
-            <div *ngIf="registrationModel.formState !== EnumFormState.TransmissionOk">
+            <div class="btn-group" role="group" *ngIf="registrationModel.formState !== EnumFormState.TransmissionOk">
                 <button [disabled]="registrationModel.formState === EnumFormState.TransmissionStart"
                     class="btn btn-primary btn-block" type="submit"
                     (click)="startRegistration()">Anmeldung Starten</button>
