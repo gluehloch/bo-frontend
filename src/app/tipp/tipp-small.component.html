@@ -55,25 +55,25 @@
         </div>
 
         <div *ngFor="let tipp of tippModelContainer.tippModels; let index = index">
+            <!--
             <div class="row">
                 <div class="col">
                     <div style="text-align:left">{{tipp.game.dateTime | date: dateTimeFormat}}</div>
                 </div>
             </div>
+            -->
 
-            <!--
             <div class="row">
-                <div class="col-12" *ngIf="index === 0"
+                <div class="col" *ngIf="index === 0"
                     style="border-top:solid; border-top-color: rgb(202, 211, 219)">
                     <div style="text-align:left">{{tipp.game.dateTime | date: dateTimeFormat}}</div>
                 </div>
-                <div class="col-12"
+                <div class="col"
                     *ngIf="index > 0 && (tippModelContainer.tippModels[index].game.dateTime !== tippModelContainer.tippModels[index - 1].game.dateTime)"
                     style="border-top:solid; border-top-color: rgb(202, 211, 219)">
                     <div style="text-align:left">{{tipp.game.dateTime | date: dateTimeFormat}}</div>
                 </div>
             </div>
-            -->
 
             <div class="row" style="border-top:solid 1px; border-top-color: rgb(202, 211, 219)">
                 <div class="col" style="text-align: right; padding: .5rem .75rem">
