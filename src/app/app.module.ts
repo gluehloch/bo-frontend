@@ -70,7 +70,7 @@ import { UpdateMatchdayComponent } from './seasonmanager/updatematchday/updatema
 import { UpdateMatchService } from './seasonmanager/updatematch/updatematch.service';
 import { UpdateMatchComponent } from './seasonmanager/updatematch/updatematch.component';
 
-import { CookieService } from './app.cookie.service';
+import { SubmitCookiePreferenceService } from './app.submitcookiepreference.service';
 
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -101,7 +101,7 @@ const cookieConfig: NgcCookieConsentConfig = {
         deny: 'Verweigern',
         allow: 'Erlauben',
         link: 'Mehr Infos',
-        href: 'http://tippdiekistebier.de/impressum',
+        href: 'https://tippdiekistebier.de/impressum',
         target: '',
         policy: 'Cookie Policy'
     }
@@ -246,7 +246,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         UpdateMatchComponent
     ],
     providers: [
-        CookieService,
+        SubmitCookiePreferenceService,
         HomeService,
         NavigationRouterService,
         AuthenticationService,

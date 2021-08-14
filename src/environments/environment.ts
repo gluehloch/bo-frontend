@@ -19,12 +19,6 @@ export const environment = {
     registerserviceUrl: 'http://localhost:9090/registrationservice/registration/register',
     // registerserviceUrl: 'http://localhost:8080/registrationservice/registration/register',
 
-    /*
-    rootUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/office/',
-    adminUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/chiefoperator/',
-    cookieserviceUrl: 'http://192.168.0.101:9090/registrationservice/cookie/confirmCookie',
-    */
-
-    website: 'andre-winkler.de.localhost'
+    website: 'localhost'
 
 };

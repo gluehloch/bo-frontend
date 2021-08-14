@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CookieData, CookieService } from './app.cookie.service';
+import { CookieData, SubmitCookiePreferenceService } from './app.submitcookiepreference.service';
 import { NgcCookieConsentService, NgcNoCookieLawEvent, NgcStatusChangeEvent, NgcInitializeEvent } from 'ngx-cookieconsent';
 
 @Component({
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     constructor(private ccService: NgcCookieConsentService,
             private translateService: TranslateService,
-            private cookieService: CookieService) {
+            private submitCookiePreferenceService: SubmitCookiePreferenceService) {
     }
 
     ngOnInit() {
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 console.log('statusChange: ' + event.status + ', browser: ' +  navigator.userAgent + ', date: ' + Date.now());
 
                 const cookieData = new CookieData(event.status === 'allow' ? true : false);
-                this.cookieService.sendCookieOptions(cookieData);
+                this.submitCookiePreferenceService.sendCookieOptions(cookieData);
 
                 // you can use this.ccService.getConfig() to do stuff...
             });
