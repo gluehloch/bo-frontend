@@ -14,8 +14,8 @@ export class TippSelectorComponent implements OnChanges {
 
     states = [
         {id: 'desktop', name: 'Desktop'},
-        {id: 'small', name: 'Small Screen'},
-        {id: 'mobile', name: 'Mobile Screen'}
+        {id: 'small', name: 'Kompakt'}
+        /* TODO Disable {id: 'mobile', name: 'Mobile Screen'}*/
     ];
 
     form = new FormGroup({
