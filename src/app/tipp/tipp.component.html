@@ -117,18 +117,20 @@
           </div>
         </div>
         -->
-            <div class="row form-group">
-                <div class="col">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="submitTipp()"
-                        *ngIf="tippModelContainer.authenticated && tippModelContainer.round.tippable">Tipp</button>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="d-grid gap-5">
+                        <button class="btn btn-primary btn-lg" type="button" (click)="submitTipp()"
+                            *ngIf="tippModelContainer.authenticated && tippModelContainer.round.tippable">Tipp</button>
+                    </div>
                 </div>
             </div>
-            <div class="row form-group">
-                <div class="col">
-                    <button class="btn btn-lg btn-secondary btn-block" (click)="last()" *ngIf="tippModelContainer.round.index > 1">Letzter</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-lg btn-secondary btn-block" (click)="next()" *ngIf="!tippModelContainer.round.lastRound">Nächster</button>
+            <div class="row mb-3">
+                <div class="btn-group" role="group" aria-label="Nächster Letzer">
+                    <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
+                        *ngIf="tippModelContainer.round.index > 1">Letzter</button>
+                    <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
+                        *ngIf="!tippModelContainer.round.lastRound">Nächster</button>
                 </div>
             </div>
         </form>
