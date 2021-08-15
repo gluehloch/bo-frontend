@@ -15,8 +15,8 @@ import { SeasonService } from '../season/season.service';
 })
 export class RankingComponent implements OnInit {
 
-    currentSeasonId = environment.currentSeasonId;
-    dateTimeFormat = environment.dateTimeFormat;
+    readonly currentSeasonId = environment.currentSeasonId;
+    readonly dateTimeFormat = environment.dateTimeFormat;
 
     seasons: Rest.SeasonJson[];
     selectedSeason: Rest.SeasonJson;
@@ -31,27 +31,29 @@ export class RankingComponent implements OnInit {
 
     ngOnInit() {
         this.findSeasons();
+        this.calculateRanking(this.currentSeasonId);
+    }
 
-        this.rankingService.calculate(this.currentSeasonId)
+    calculateRanking(seasonId: number) {
+        this.rankingService.calculate(seasonId)
                            .subscribe((userTable: Rest.UserTableJson) => {
-            this.calculatRoundRankingOnly(userTable);
+            this.calculateRoundRankingOnly(userTable);
             this.navigationRouterService.activate(NavigationRouterService.ROUTE_TEILNEHMER);
-
-            // TODO Die Meisterschaft in die Vorauswahl uebernehmen.
+            this.selectedSeason = this.seasons.find(season => season.id == seasonId);
         });
     }
 
     next(roundId: number) {
         this.rankingService.nextRound(roundId)
                            .subscribe((userTable: Rest.UserTableJson) => {
-            this.calculatRoundRankingOnly(userTable);
+            this.calculateRoundRankingOnly(userTable);
         });
     }
 
     last(roundId: number) {
         this.rankingService.preRound(roundId)
                            .subscribe((userTable: Rest.UserTableJson) => {
-            this.calculatRoundRankingOnly(userTable);
+            this.calculateRoundRankingOnly(userTable);
         });
     }
 
@@ -67,15 +69,15 @@ export class RankingComponent implements OnInit {
         });
     }    
 
-    seasonSelected(event) {
+    seasonSelected(event: any) {
         console.debug('Selected season id: ', event);
 
         const selectedSeasonId = event.target.value;
-        const selectedSeason = this.seasons.find(season => season.id == selectedSeasonId);
-        this.selectedSeason = selectedSeason;
+        this.selectedSeason = this.seasons.find(season => season.id == selectedSeasonId);
+        this.calculateRanking(this.selectedSeason.id);
     }
 
-    private calculatRoundRankingOnly(userTable: Rest.UserTableJson) {
+    private calculateRoundRankingOnly(userTable: Rest.UserTableJson) {
         this.ranking = userTable;
         this.rankingService.calculateRoundOnly(this.ranking.round.id)
                            .subscribe((userTableJson: Rest.UserTableJson) => {
