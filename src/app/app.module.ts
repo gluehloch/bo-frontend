@@ -80,7 +80,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
         domain: 'tippdiekistebier.de'
     },
-    position: 'bottom-right',
+    position: 'top-right',
     palette: {
         popup: {
             'background': '#2b482a',
