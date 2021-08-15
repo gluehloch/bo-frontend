@@ -54,12 +54,10 @@
         </tbody>
     </table>
 
-    <div class="row form-group">
-        <div class="col">
+    <div class="row mb-3">
+        <div class="btn-group" role="group" aria-label="Nächster Letzer">
             <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">Letzter</button>
-        </div>
-        <div class="col">
-            <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>
+            <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>            
         </div>
     </div>
 
@@ -90,12 +88,10 @@
         </table>
     </div>
 
-    <div class="row form-group">
-        <div class="col">
+    <div class="row mb-3">
+        <div class="btn-group" role="group" aria-label="Nächster Letzer">
             <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">Letzter</button>
-        </div>
-        <div class="col">
-            <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>
+            <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">Nächster</button>            
         </div>
     </div>
 
