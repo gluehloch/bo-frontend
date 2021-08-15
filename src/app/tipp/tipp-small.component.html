@@ -63,35 +63,31 @@
             </div>
             -->
 
+            <!-- style="border-top:solid; border-top-color: rgb(202, 211, 219)" -->
+
             <div class="row">
-                <div class="col" *ngIf="index === 0"
-                    style="border-top:solid; border-top-color: rgb(202, 211, 219)">
-                    <div style="text-align:left">{{tipp.game.dateTime | date: dateTimeFormat}}</div>
+                <div class="col" *ngIf="index === 0">
+                    <div style="text-align:left"><small>{{tipp.game.dateTime | date: dateTimeFormat}}</small></div>
                 </div>
                 <div class="col"
-                    *ngIf="index > 0 && (tippModelContainer.tippModels[index].game.dateTime !== tippModelContainer.tippModels[index - 1].game.dateTime)"
-                    style="border-top:solid; border-top-color: rgb(202, 211, 219)">
-                    <div style="text-align:left">{{tipp.game.dateTime | date: dateTimeFormat}}</div>
+                    *ngIf="index > 0 && (tippModelContainer.tippModels[index].game.dateTime !== tippModelContainer.tippModels[index - 1].game.dateTime)">
+                    <div style="text-align:left"><small>{{tipp.game.dateTime | date: dateTimeFormat}}</small></div>
                 </div>
             </div>
 
             <div class="row" style="border-top:solid 1px; border-top-color: rgb(202, 211, 219)">
-                <div class="col" style="text-align: right; padding: .5rem .75rem">
+                <div class="col-5" style="text-align: right; padding: .5rem .75rem">
                     {{tipp.game.homeTeam.shortName}}
-                    <!-- TODO TEAM LOGO
                     <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}">
-                    -->
                 </div>
-                <div *ngIf="tipp.game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
+                <div *ngIf="tipp.game.finished" class="col-2" style="text-align: center; padding: .5rem .75rem">
                     <app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult>
                 </div>
-                <div *ngIf="!tipp.game.finished" class="col" style="text-align: center; padding: .5rem .75rem">
+                <div *ngIf="!tipp.game.finished" class="col-2" style="text-align: center; padding: .5rem .75rem">
                     {{tipp.game.result.homeGoals}}:{{tipp.game.result.guestGoals}}
                 </div>
-                <div class="col" style="text-align: left; padding: .5rem .75rem">
-                    <!-- TODO TEAM LOGO
+                <div class="col-5" style="text-align: left; padding: .5rem .75rem">
                     <img class="teamlogo" src="{{tipp.game.guestTeam.logo}}">
-                    -->
                     {{tipp.game.guestTeam.shortName}}
                 </div>
             </div>
@@ -108,13 +104,13 @@
 
             <ng-template #gameIsNotFinished>
                 <div class="row">
-                    <div class="col" style="padding: .5rem .75rem">
+                    <div class="col-6" style="padding: .5rem .75rem">
                         <input class="form-control" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
                             name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" max="15" min="0" type="number"
                             size="1" [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.homeGoals}}"
                             [(ngModel)]="tipp.homeGoals" style="text-align:right" />
                     </div>
-                    <div class="col" style="padding: .5rem .75rem">
+                    <div class="col-6" style="padding: .5rem .75rem">
                         <input class="form-control" id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
                             name="{{tippModelContainer.round.id}}gast{{tipp.game.id}}" max="15" min="0" type="number"
                             size="1" [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.guestGoals}}"
