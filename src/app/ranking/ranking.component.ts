@@ -31,16 +31,6 @@ export class RankingComponent implements OnInit {
 
     ngOnInit() {
         this.findSeasons();
-        this.calculateRanking(this.currentSeasonId);
-    }
-
-    calculateRanking(seasonId: number) {
-        this.rankingService.calculate(seasonId)
-                           .subscribe((userTable: Rest.UserTableJson) => {
-            this.calculateRoundRankingOnly(userTable);
-            this.navigationRouterService.activate(NavigationRouterService.ROUTE_TEILNEHMER);
-            this.selectedSeason = this.seasons.find(season => season.id == seasonId);
-        });
     }
 
     next(roundId: number) {
@@ -66,6 +56,7 @@ export class RankingComponent implements OnInit {
                           .subscribe((seasons: Rest.SeasonJson[]) => {
             this.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
             this.selectedSeason = seasons[0];
+            this.calculateRanking(this.currentSeasonId);
         });
     }    
 
@@ -77,6 +68,15 @@ export class RankingComponent implements OnInit {
         this.calculateRanking(this.selectedSeason.id);
     }
 
+    private calculateRanking(seasonId: number) {
+        this.rankingService.calculate(seasonId)
+                           .subscribe((userTable: Rest.UserTableJson) => {
+            this.calculateRoundRankingOnly(userTable);
+            this.navigationRouterService.activate(NavigationRouterService.ROUTE_TEILNEHMER);
+            this.selectedSeason = this.seasons.find(season => season.id == seasonId);
+        });
+    }
+    
     private calculateRoundRankingOnly(userTable: Rest.UserTableJson) {
         this.ranking = userTable;
         this.rankingService.calculateRoundOnly(this.ranking.round.id)
