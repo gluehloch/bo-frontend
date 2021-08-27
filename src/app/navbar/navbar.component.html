@@ -21,13 +21,13 @@
             <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.meisterschaften">
                 <a class="nav-link" routerLink="/season">Meisterschaften</a>
             </li>
-            <li data-bs-toggle="collapse" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item dropdown" *ngIf="admin">
+            <li class="nav-item dropdown" *ngIf="admin">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                     aria-expanded="false" [class.active]="navMenu.adminmenu">Admin</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" routerLink="/chiefop/party">Teilnehmer</a>
-                    <a class="dropdown-item" routerLink="/chiefop/team">Mannschaften</a>
-                    <a class="dropdown-item" routerLink="/chiefop/seasonmanager">Meisterschaft</a>
+                    <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/party">Teilnehmer</a>
+                    <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/team">Mannschaften</a>
+                    <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/seasonmanager">Meisterschaft</a>
                 </div>
             </li>
         </ul>
