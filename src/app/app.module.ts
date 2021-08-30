@@ -75,6 +75,8 @@ import { CookieService } from './app.cookie.service';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CommunityAdminComponent } from './admin/community/communityadmin.component';
+import { CommunityAdminService } from './admin/community/communityadmin.service';
 
 const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
@@ -214,6 +216,10 @@ export function HttpLoaderFactory(http: HttpClient) {
             {
                 path: 'chiefop/seasonmanager/updatematch',
                 component: UpdateMatchComponent
+            },
+            {
+                path: 'chiefop/communityadmin',
+                component: CommunityAdminComponent
             }
         ])
     ],
@@ -243,7 +249,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         SeasonManagerUpdateComponent,
         SeasonManagerCreateComponent,
         UpdateMatchdayComponent,
-        UpdateMatchComponent
+        UpdateMatchComponent,
+        CommunityAdminComponent,
     ],
     providers: [
         CookieService,
@@ -264,6 +271,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         SeasonManagerCreateService,
         UpdateMatchdayService,
         UpdateMatchService,
+        CommunityAdminService,
         ModalService
     ],
     bootstrap: [AppComponent]
