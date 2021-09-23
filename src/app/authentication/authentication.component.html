@@ -1,51 +1,66 @@
-
 <div class="authentication">
-    <h1 *ngIf="!authenticationModel.authenticated">Anmeldung</h1>
-    <h1 *ngIf="authenticationModel.authenticated">Abmeldung</h1>
-    <div class="alert alert-success" role="alert" *ngIf="authenticationModel.authenticated">
-        Du bist als {{authenticationModel.nickname}} angemeldet.
-        Letzter erfolgreicher Login: {{authenticationModel.lastlogin | date: dateTimeFormat}}
-    </div>
-    <div class="alert alert-warning" role="alert" *ngIf="authenticationModel.admin">
-        Du bist als Administrator angemeldet.
-    </div>
     <!--
     <p *ngIf="!authenticationModel.authenticated">
         Du bist nicht angemeldet. Du hast noch keine Konto?
         Dann lasse dich <a routerLink="/register">hier</a> registrieren und trete eine Tipp-Gemeinschaft bei.
     </p>
     -->
-    <div class="alert alert-danger" role="alert"
-        *ngIf="!authenticationModel.authenticated && authenticationModel.authenticationTries > 0">
-        Der Login-Versuch ist fehlgeschlagen.
-    </div>
 
-    <div [hidden]="authenticationModel.authenticated">
-        <form name="loginform" novalidate>
-            <div class="mb-3">
-                <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Nickname"
-                    aria-label="Nickname" autofocus
-                    [(ngModel)]="authenticationModel.nickname" />
+    <div [hidden]="authenticationModel.authenticated" class="vertical-center">
+        <div class="card">
+            <h5 class="card-header">
+                <div *ngIf="!authenticationModel.authenticated">Anmeldung</div>
+            </h5>
+            <div class="card-body">
+                <h5 class="card-title">TDKB - Tippdiekistebier</h5>
+                <p class="card-text">Ein Gewinner. Eine Kiste Bier. So einfach ist das. </p>
+                <hr/>
+                <div class="alert alert-danger" role="alert"
+                    *ngIf="!authenticationModel.authenticated && authenticationModel.authenticationTries > 0">
+                    Der Login-Versuch ist fehlgeschlagen.
+                </div>                
+                <form name="loginform" novalidate>
+                    <div class="mb-3">
+                        <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Nickname"
+                            aria-label="Nickname" autofocus [(ngModel)]="authenticationModel.nickname" />
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                            required aria-label="Password" ng-class="{'has-warning': !authenticationModel.authenticated}"
+                            [(ngModel)]="authenticationModel.password" />
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button ng-disabled="loginform.$invalid" class="btn btn-lg btn-primary btn-block" type="submit"
+                            (click)="login()">Sign in</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required
-                    aria-label="Password"
-                    ng-class="{'has-warning': !authenticationModel.authenticated}"
-                    [(ngModel)]="authenticationModel.password" />
-            </div>
-            <div class="d-grid gap-2">
-                <button ng-disabled="loginform.$invalid" class="btn btn-lg btn-primary btn-block" type="submit"
-                    (click)="login()">Sign in</button>
-            </div>
-        </form>
+        </div>
     </div>
 
     <div [hidden]="!authenticationModel.authenticated">
-        <form name="logoutform" novalidate>
-            <div class="d-grid gap-2">
-                <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="logout()">Logout</button>
+        <div class="card">
+            <h5 class="card-header">
+                <div *ngIf="authenticationModel.authenticated">Abmeldung</div>
+            </h5>
+            <div class="card-body">
+                <h5 class="card-title">TDKB - Tippdiekistebier</h5>
+                <p class="card-text">Ein Gewinner. Eine Kiste Bier. So einfach ist das. </p>
+                <hr/>
+                <div class="alert alert-success" role="alert" *ngIf="authenticationModel.authenticated">
+                    Du bist als {{authenticationModel.nickname}} angemeldet.
+                    Letzter erfolgreicher Login: {{authenticationModel.lastlogin | date: dateTimeFormat}}
+                </div>
+                <div class="alert alert-warning" role="alert" *ngIf="authenticationModel.admin">
+                    Du bist als Administrator angemeldet.
+                </div>
+                <form name="logoutform" novalidate>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="logout()">Logout</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
 </div>
