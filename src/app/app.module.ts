@@ -218,7 +218,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 component: UpdateMatchComponent
             },
             {
-                path: 'chiefop/communityadmin',
+                path: 'chiefop/community',
                 component: CommunityAdminComponent
             }
         ])
