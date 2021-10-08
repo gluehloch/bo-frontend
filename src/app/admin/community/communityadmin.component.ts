@@ -27,16 +27,23 @@ export class CommunityAdminComponent implements OnInit {
   }
 
     ngOnInit() {
-        /*
+        this.route.data.subscribe(v => console.log('Community Admin', v));        
+
+        this.route.queryParams.subscribe(params => {
+            console.log('Community Admin 3', params);
+        });
+        
         this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
+            console.log('Community Admin 2', id);
+            /*
             this.seasonManagerService.findSeasons().subscribe(
                 (seasons: Array<Rest.SeasonJson>) => {
                     this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
                     this.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
                 }
             );
+            */
         });
-        */
     }
 
     /*
