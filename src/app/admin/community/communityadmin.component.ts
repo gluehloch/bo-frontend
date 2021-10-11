@@ -27,22 +27,22 @@ export class CommunityAdminComponent implements OnInit {
   }
 
     ngOnInit() {
-        this.route.data.subscribe(v => console.log('Community Admin', v));        
+        console.log('this.route.params', this.route.params);
+        console.log('this.route.snapshot', this.route.snapshot);
+        console.log('this.route.queryParamMap', this.route.queryParamMap);
+        console.log('this.route.queryParams', this.route.queryParams);
+        console.log('this.route.data', this.route.data);
+        console.log('this.route.url', this.route.url);
 
+        this.route.data.subscribe(v => console.log('Community Admin 1', v));        
+
+/*
         this.route.queryParams.subscribe(params => {
-            console.log('Community Admin 3', params);
+            this.name = params['name'];
         });
-        
-        this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
-            console.log('Community Admin 2', id);
-            /*
-            this.seasonManagerService.findSeasons().subscribe(
-                (seasons: Array<Rest.SeasonJson>) => {
-                    this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
-                    this.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
-                }
-            );
-            */
+*/
+        this.route.queryParams.subscribe(params => {
+            console.log('Community Admin 2', params);
         });
     }
 
