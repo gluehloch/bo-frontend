@@ -34,16 +34,11 @@ export class CommunityAdminComponent implements OnInit {
         console.log('this.route.data', this.route.data);
         console.log('this.route.url', this.route.url);
 
-        this.route.data.subscribe(v => console.log('Community Admin 1', v));        
-
 /*
-        this.route.queryParams.subscribe(params => {
-            this.name = params['name'];
-        });
-*/
         this.route.queryParams.subscribe(params => {
             console.log('Community Admin 2', params);
         });
+*/
     }
 
     /*
