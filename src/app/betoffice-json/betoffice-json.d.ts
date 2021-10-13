@@ -1,6 +1,17 @@
 // Generated using typescript-generator version 1.14.251 on 2018-05-12 17:16:11.
 
 declare namespace Rest {
+    interface Slice {
+        number: number;
+        size: number;
+        numberOfElements: number;
+    }
+
+    interface Page<CONTENT_TYPE> extends Slice {
+        totalPages: number;
+        totalElements: number;
+        content: CONTENT_TYPE[];
+    }
 
     interface GameJson extends AbstractOpenligaid {
         index: number;
