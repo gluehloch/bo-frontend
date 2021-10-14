@@ -13,6 +13,13 @@ declare namespace Rest {
         content: CONTENT_TYPE[];
     }
 
+    interface CommunityJson {
+        name: string;
+        shortName: string;
+        communityManager: UserJson;
+        season: SeasonJson;
+    }
+
     interface GameJson extends AbstractOpenligaid {
         index: number;
         roundId: number;
