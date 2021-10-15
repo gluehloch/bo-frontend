@@ -142,7 +142,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
             this.tippModelContainer.nickname = this.tippService.readCredentials().nickname;
             this.tippModelContainer.authenticated = true;
         } else {
-            this.tippModelContainer.nickname = null;
+            this.tippModelContainer.nickname = '';
             this.tippModelContainer.authenticated = false;
         }
     }
