@@ -14,6 +14,7 @@ export abstract class BetofficeService {
     protected rootUrl = environment.rootUrl;
     protected authenticationUrl = environment.authenticationUrl;
     protected adminUrl = environment.adminUrl;
+    protected communityAdminUrl = environment.communityAdminUrl;
     protected http: HttpClient;
 
     constructor(http: HttpClient) {

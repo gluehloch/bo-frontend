@@ -34,6 +34,10 @@ export class CommunityAdminComponent implements OnInit {
         console.log('this.route.data', this.route.data);
         console.log('this.route.url', this.route.url);
 
+        this.communityAdminService.findCommunities().subscribe(parties => {
+            console.log(parties);
+        });
+
 /*
         this.route.queryParams.subscribe(params => {
             console.log('Community Admin 2', params);
