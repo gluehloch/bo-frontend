@@ -30,9 +30,10 @@
         <div class="row mb-3">
             <div class="btn-group" role="group" aria-label="Nächster Letzer">
                 <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
-                    *ngIf="tippModelContainer.round.index > 1">Letzter</button>
+                    *ngIf="tippModelContainer.round.index > 1">
+                    <i class="bi bi-caret-left-fill"></i> Letzter</button>
                 <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
-                    *ngIf="!tippModelContainer.round.lastRound">Nächster</button>
+                    *ngIf="!tippModelContainer.round.lastRound">Nächster <i class="bi bi-caret-right-fill"></i></button>
             </div>
         </div>
 
@@ -166,9 +167,10 @@
         <div class="row mb-3">
             <div class="btn-group" role="group" aria-label="Nächster Letzer">
                 <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
-                    *ngIf="tippModelContainer.round.index > 1">Letzter</button>
+                    *ngIf="tippModelContainer.round.index > 1">
+                    <i class="bi bi-caret-left-fill"></i> Letzter</button>
                 <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
-                    *ngIf="!tippModelContainer.round.lastRound">Nächster</button>
+                    *ngIf="!tippModelContainer.round.lastRound">Nächster <i class="bi bi-caret-right-fill"></i></button>
             </div>
         </div>
 
