@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BetofficeService } from '../betoffice.service';
+import { USERROLE } from '../user-role.enum';
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +9,6 @@ export class SessionService {
     private static readonly BETOFFICE_CREDENTIAL = 'betofficeCredential';
 
     redirectUrl: string;
-
-    constructor() { }
 
     public storeCredentials(token: Rest.SecurityTokenJson) {
         localStorage.setItem(SessionService.BETOFFICE_CREDENTIAL, JSON.stringify(token));
@@ -34,6 +32,22 @@ export class SessionService {
         const securityTokenJson = this.readCredentials();
         // Probably there is an authorized user. I´m only the frontend.
         return (securityTokenJson !== null && securityTokenJson.token !== null);
+    }
+
+    public getUserRole(): USERROLE {
+        if (this.isAuthorized()) {
+            switch (this.readCredentials().role) {
+                case 'TIPPER':
+                    return USERROLE.TIPPER;
+                case 'ADMIN':
+                    return USERROLE.ADMIN;
+                case 'SEASON_ADMIN':
+                    return USERROLE.SEASON_ADMIN;
+                default:
+                    return USERROLE.UNKNOWN;
+            }
+        }
+        return USERROLE.UNKNOWN;
     }
 
 }

@@ -1,7 +1,6 @@
 // import { RequestOptions, Headers, Http, Response } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { USERROLE } from './user-role.enum';
 import { environment } from '../environments/environment';
 import { SessionService } from './session/session.service';
 
@@ -61,22 +60,6 @@ export abstract class BetofficeService {
         }
 
         return headers;
-    }
-
-    public getUserRole(): USERROLE {
-        if (this.sessionService.isAuthorized()) {
-            switch (this.sessionService.readCredentials().role) {
-                case 'TIPPER':
-                    return USERROLE.TIPPER;
-                case 'ADMIN':
-                    return USERROLE.ADMIN;
-                case 'SEASON_ADMIN':
-                    return USERROLE.SEASON_ADMIN;
-                default:
-                    return USERROLE.UNKNOWN;
-            }
-        }
-        return USERROLE.UNKNOWN;
     }
 
 }

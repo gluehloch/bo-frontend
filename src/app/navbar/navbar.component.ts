@@ -75,13 +75,13 @@ export class NavbarComponent {
         } else {
             this.loginOrLogout = this.textLogin;
         }
-        this.admin = authenticationService.getUserRole() === USERROLE.ADMIN;
+        this.admin = sessionService.getUserRole() === USERROLE.ADMIN;
 
         navigationRouterService.sessionSource$.subscribe(
             loginOrLogoutState => {
                 if (loginOrLogoutState === 'login') {
                     this.loginOrLogout = this.textLogout + ' ' + sessionService.readCredentials().nickname;
-                    this.admin = authenticationService.getUserRole() === USERROLE.ADMIN;
+                    this.admin = sessionService.getUserRole() === USERROLE.ADMIN;
                 } else if (loginOrLogoutState === 'logout') {
                     this.loginOrLogout = this.textLogin;
                     this.admin = false;

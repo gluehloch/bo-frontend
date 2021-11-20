@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-// TODO Was ist das hier?
-
 import { Observable } from 'rxjs';
 
-import { environment } from '../../environments/environment';
 import { BetofficeService } from '../betoffice.service';
-
-import { USERROLE } from '../user-role.enum';
 import { SessionService } from '../session/session.service';
-
 
 export interface Login {
     nickname: string;

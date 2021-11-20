@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { SessionService } from "./session.service";
 
 @Injectable()
-export class SessionCanActivate implements CanActivate {
+export class AdministrationCanActivate implements CanActivate {
 
     constructor(private sessionService: SessionService, private router: Router) {
     }

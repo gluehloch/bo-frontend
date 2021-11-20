@@ -88,7 +88,6 @@ export class AuthenticationComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private activatedRoute: ActivatedRoute,
         private sessionService: SessionService,
         private authenticationService: AuthenticationService,
         private navigationRouterService: NavigationRouterService) {
@@ -100,10 +99,6 @@ export class AuthenticationComponent implements OnInit {
     ngOnInit() {
         this.init();
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_LOGIN);
-
-        this.activatedRoute.queryParams.subscribe((params) => {
-            // TODO Example: console.log('matchId=' + params.matchId + ' / roundId=' + params.roundId);
-        });
     }
 
     init() {
@@ -113,7 +108,7 @@ export class AuthenticationComponent implements OnInit {
             this.authenticationModel.nickname = securityToken.nickname;
             this.authenticationModel.token = securityToken.token;
             this.authenticationModel.lastlogin = securityToken.loginTime;
-            this.authenticationModel.admin = (this.authenticationService.getUserRole() === USERROLE.ADMIN);
+            this.authenticationModel.admin = (this.sessionService.getUserRole() === USERROLE.ADMIN);
         } else {
             this.authenticationModel.clear();
         }
@@ -141,12 +136,11 @@ export class AuthenticationComponent implements OnInit {
                     this.authenticationModel.nickname = securityToken.nickname;
                     this.authenticationModel.token = securityToken.token;
                     this.authenticationModel.lastlogin = securityToken.loginTime;
-                    this.authenticationModel.admin = (this.authenticationService.getUserRole() === USERROLE.ADMIN);                    
+                    this.authenticationModel.admin = (this.sessionService.getUserRole() === USERROLE.ADMIN);                    
 
                     if (this.sessionService.redirectUrl !== null) {
                         const url = this.sessionService.redirectUrl;
                         this.sessionService.redirectUrl = null;
-                        // this.router.navigate([url]);
                         this.router.navigateByUrl(url);
                     }
                 }
