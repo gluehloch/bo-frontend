@@ -75,6 +75,7 @@ import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsen
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AdministrationCanActivate } from './session/administration.canactivate';
+import { UserCanActivate } from './session/user.canactivate';
 
 const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
@@ -161,15 +162,18 @@ export function HttpLoaderFactory(http: HttpClient) {
             */
             {
                 path: 'tipp',
-                component: TippComponent
+                component: TippComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'tipp-small',
-                component: TippSmallComponent
+                component: TippSmallComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'tipp-mobile',
-                component: TippMobileComponent
+                component: TippMobileComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'ranking',
@@ -255,6 +259,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     providers: [
         AdministrationCanActivate,
+        UserCanActivate,
         CookieService,
         HomeService,
         NavigationRouterService,
