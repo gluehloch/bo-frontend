@@ -63,14 +63,8 @@ export abstract class BetofficeService {
         return headers;
     }
 
-    public isAuthorized() {
-        const securityTokenJson = this.sessionService.readCredentials();
-        // Probably there is an authorized user. I´m only the frontend.
-        return (securityTokenJson && securityTokenJson.token);
-    }
-
     public getUserRole(): USERROLE {
-        if (this.isAuthorized()) {
+        if (this.sessionService.isAuthorized()) {
             switch (this.sessionService.readCredentials().role) {
                 case 'TIPPER':
                     return USERROLE.TIPPER;

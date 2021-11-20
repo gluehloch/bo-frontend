@@ -137,8 +137,8 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     }
 
     checkAuthorization() {
-        if (this.tippService.isAuthorized()) {
-            this.tippModelContainer.nickname = this.sessionService.readCredentials().nickname;
+        if (this.sessionService.isAuthorized()) {
+            this.tippModelContainer.nickname = this.sessionService.getNickname();
             this.tippModelContainer.authenticated = true;
         } else {
             this.tippModelContainer.nickname = null;

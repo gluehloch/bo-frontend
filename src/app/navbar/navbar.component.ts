@@ -69,7 +69,7 @@ export class NavbarComponent {
         private navigationRouterService: NavigationRouterService,
         private authenticationService: AuthenticationService) {
 
-        if (authenticationService.isAuthorized()) {
+        if (sessionService.isAuthorized()) {
             const nickname = sessionService.readCredentials().nickname;
             this.loginOrLogout = this.textLogout + ' ' + nickname;
         } else {

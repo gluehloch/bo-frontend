@@ -1,6 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthenticationService } from './authentication.service';
 import { NavigationRouterService } from '../navigationrouter.service';
@@ -88,8 +87,8 @@ export class AuthenticationComponent implements OnInit {
     authenticationModel: AuthenticationModel;
 
     constructor(
+        private router: Router,
         private activatedRoute: ActivatedRoute,
-        private cookieService: CookieService,
         private sessionService: SessionService,
         private authenticationService: AuthenticationService,
         private navigationRouterService: NavigationRouterService) {
@@ -108,7 +107,7 @@ export class AuthenticationComponent implements OnInit {
     }
 
     init() {
-        if (this.authenticationService.isAuthorized()) {
+        if (this.sessionService.isAuthorized()) {
             const securityToken = this.sessionService.readCredentials();
             this.authenticationModel.authenticated = true;
             this.authenticationModel.nickname = securityToken.nickname;
@@ -143,6 +142,13 @@ export class AuthenticationComponent implements OnInit {
                     this.authenticationModel.token = securityToken.token;
                     this.authenticationModel.lastlogin = securityToken.loginTime;
                     this.authenticationModel.admin = (this.authenticationService.getUserRole() === USERROLE.ADMIN);                    
+
+                    if (this.sessionService.redirectUrl !== null) {
+                        const url = this.sessionService.redirectUrl;
+                        this.sessionService.redirectUrl = null;
+                        // this.router.navigate([url]);
+                        this.router.navigateByUrl(url);
+                    }
                 }
             });
     }
@@ -150,7 +156,7 @@ export class AuthenticationComponent implements OnInit {
     logout() {
         this.authenticationModel.authenticationTries = 0;
 
-        if (this.authenticationService.isAuthorized()) {
+        if (this.sessionService.isAuthorized()) {
             const logout = {
                 nickname: this.authenticationModel.nickname,
                 token: this.authenticationModel.token

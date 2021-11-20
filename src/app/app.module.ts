@@ -74,6 +74,7 @@ import { CookieService } from './app.cookie.service';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SessionCanActivate } from './session/session.canactivate';
 
 const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
@@ -180,39 +181,48 @@ export function HttpLoaderFactory(http: HttpClient) {
             },
             {
                 path: 'chiefop/party',
-                component: PartyComponent
+                component: PartyComponent,
+                canActivate: [SessionCanActivate]
             },
             {
                 path: 'chiefop/party/update/:id',
-                component: PartyUpdateComponent
+                component: PartyUpdateComponent,
+                canActivate: [SessionCanActivate]
             },
             {
                 path: 'chiefop/team',
-                component: TeamComponent
+                component: TeamComponent,
+                canActivate: [SessionCanActivate]
             },
             {
                 path: 'chiefop/team/update/:id',
-                component: TeamUpdateComponent
+                component: TeamUpdateComponent,
+                canActivate: [SessionCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager',
-                component: SeasonManagerComponent
+                component: SeasonManagerComponent,
+                canActivate: [SessionCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/create',
-                component: SeasonManagerCreateComponent
+                component: SeasonManagerCreateComponent,
+                canActivate: [SessionCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/update/:id',
-                component: SeasonManagerUpdateComponent
+                component: SeasonManagerUpdateComponent,
+                canActivate: [SessionCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/updatematchday',
-                component: UpdateMatchdayComponent
+                component: UpdateMatchdayComponent,
+                canActivate: [SessionCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/updatematch',
-                component: UpdateMatchComponent
+                component: UpdateMatchComponent,
+                canActivate: [SessionCanActivate]
             }
         ])
     ],
@@ -244,6 +254,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         UpdateMatchComponent
     ],
     providers: [
+        SessionCanActivate,
         CookieService,
         HomeService,
         NavigationRouterService,
