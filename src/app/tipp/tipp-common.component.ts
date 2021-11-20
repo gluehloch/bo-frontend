@@ -1,13 +1,12 @@
 import * as _ from 'lodash';
 
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie';
 
 import { TippService, PingJson } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
+import { SessionService } from '../session/session.service';
 
 export class SubmitButtonModel {
     pressed: boolean;
@@ -123,7 +122,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     navigationRouterService: NavigationRouterService;
     tippModelContainer = new TippModelContainer();
 
-    constructor(private cookieService: CookieService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
+    constructor(private sessionService: SessionService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
         this.submitButtonModel = new SubmitButtonModel();
         this.submitButtonModel.progress = 0;
         this.navigationRouterService = navigationRouterService;
@@ -139,7 +138,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
 
     checkAuthorization() {
         if (this.tippService.isAuthorized()) {
-            this.tippModelContainer.nickname = this.tippService.readCredentials().nickname;
+            this.tippModelContainer.nickname = this.sessionService.readCredentials().nickname;
             this.tippModelContainer.authenticated = true;
         } else {
             this.tippModelContainer.nickname = null;
@@ -247,7 +246,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
                     this.submitButtonModel.progress = 100;
                     if (err.status === 403 || err.status === 401) {
                         console.log('Access denied.');
-                        this.tippService.clearCredentials();
+                        this.sessionService.clearCredentials();
                     } else if (err.error instanceof Error) {
                         // A client-side or network error occurred. Handle it accordingly.
                         console.log('An error occurred:', err.error.message);

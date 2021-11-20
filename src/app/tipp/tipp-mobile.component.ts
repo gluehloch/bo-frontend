@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
+import { SessionService } from '../session/session.service';
 
 @Component({
     selector: 'app-tipp-mobile',
@@ -12,8 +12,8 @@ import { NavigationRouterService } from '../navigationrouter.service';
 })
 export class TippMobileComponent extends TippCommonComponent implements OnInit {
 
-    constructor(cookieService: CookieService, tippService: TippService, navigationRouterService: NavigationRouterService) {
-        super(cookieService, tippService, navigationRouterService);
+    constructor(sessionService: SessionService, tippService: TippService, navigationRouterService: NavigationRouterService) {
+        super(sessionService, tippService, navigationRouterService);
     }
 
     ngOnInit() {

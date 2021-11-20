@@ -43,8 +43,7 @@ import { TippResultComponent } from './ranking/tippresult.component';
 import { RankingService } from './ranking/ranking.service';
 import { RankingComponent } from './ranking/ranking.component';
 
-// import { SessionService } from './session/session.service';
-import { SessionComponent } from './session/session.component';
+import { SessionService } from './session/session.service';
 
 import { PartyService } from './party/party.service';
 import { PartyComponent } from './party/party.component';
@@ -233,7 +232,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         SeasonComponent,
         TippResultComponent,
         RankingComponent,
-        SessionComponent,
         PartyComponent,
         PartyUpdateComponent,
         TeamComponent,
@@ -250,6 +248,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         HomeService,
         NavigationRouterService,
         AuthenticationService,
+        SessionService,
         RegistrationService,
         TippService,
         SeasonService,

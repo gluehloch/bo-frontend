@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { BetofficeService } from '../betoffice.service';
 
 import { USERROLE } from '../user-role.enum';
+import { SessionService } from '../session/session.service';
 
 
 export interface Login {
@@ -24,8 +25,8 @@ export interface Logout {
 @Injectable()
 export class AuthenticationService extends BetofficeService {
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     login(login: Login): Observable<Rest.SecurityTokenJson> {

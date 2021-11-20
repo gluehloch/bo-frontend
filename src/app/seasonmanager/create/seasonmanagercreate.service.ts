@@ -6,12 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { BetofficeService } from '../../betoffice.service';
+import { SessionService } from 'src/app/session/session.service';
 
 @Injectable()
 export class SeasonManagerCreateService extends BetofficeService {
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     createSeason(season: Rest.SeasonJson): Observable<Rest.SeasonJson> {

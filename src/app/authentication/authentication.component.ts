@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 
 import { AuthenticationService } from './authentication.service';
@@ -7,6 +8,7 @@ import { NavigationRouterService } from '../navigationrouter.service';
 import { USERROLE } from '../user-role.enum';
 
 import { environment } from '../../environments/environment';
+import { SessionService } from '../session/session.service';
 
 class AuthenticationModel {
 
@@ -86,7 +88,9 @@ export class AuthenticationComponent implements OnInit {
     authenticationModel: AuthenticationModel;
 
     constructor(
+        private activatedRoute: ActivatedRoute,
         private cookieService: CookieService,
+        private sessionService: SessionService,
         private authenticationService: AuthenticationService,
         private navigationRouterService: NavigationRouterService) {
 
@@ -97,11 +101,15 @@ export class AuthenticationComponent implements OnInit {
     ngOnInit() {
         this.init();
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_LOGIN);
+
+        this.activatedRoute.queryParams.subscribe((params) => {
+            // TODO Example: console.log('matchId=' + params.matchId + ' / roundId=' + params.roundId);
+        });
     }
 
     init() {
         if (this.authenticationService.isAuthorized()) {
-            const securityToken = this.authenticationService.readCredentials();
+            const securityToken = this.sessionService.readCredentials();
             this.authenticationModel.authenticated = true;
             this.authenticationModel.nickname = securityToken.nickname;
             this.authenticationModel.token = securityToken.token;
@@ -124,10 +132,10 @@ export class AuthenticationComponent implements OnInit {
             .subscribe((securityToken: Rest.SecurityTokenJson) => {
                 if (securityToken.token === 'no_authorization') {
                     console.log('Login was not successful');
-                    this.authenticationService.clearCredentials();
+                    this.sessionService.clearCredentials();
                 } else {
                     console.log('Login success!');
-                    this.authenticationService.storeCredentials(securityToken);
+                    this.sessionService.storeCredentials(securityToken);
                     this.navigationRouterService.login();
 
                     this.authenticationModel.authenticated = true;
@@ -150,7 +158,7 @@ export class AuthenticationComponent implements OnInit {
 
             this.authenticationService.logout(logout)
                 .subscribe((securityToken: Rest.SecurityTokenJson) => {
-                    this.authenticationService.clearCredentials();
+                    this.sessionService.clearCredentials();
                     this.navigationRouterService.logout();
                     this.authenticationModel.clear();
                     console.log('Logout successful.');

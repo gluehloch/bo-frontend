@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../environments/environment';
 import { BetofficeService } from '../betoffice.service';
+import { SessionService } from '../session/session.service';
 
 @Injectable()
 export class RankingService extends BetofficeService {
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     calculate(seasonId: number): Observable<Rest.UserTableJson> {

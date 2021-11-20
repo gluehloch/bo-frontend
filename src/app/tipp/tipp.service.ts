@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { BetofficeService } from '../betoffice.service';
+import { SessionService } from '../session/session.service';
 
 export interface PingJson {
     dateTime: string;
@@ -13,8 +14,8 @@ export interface PingJson {
 @Injectable()
 export class TippService extends BetofficeService {
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     nextTippRound(seasonId: number, nickName: string): Observable<Rest.RoundJson> {

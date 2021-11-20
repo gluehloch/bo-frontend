@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { NavigationRouterService } from '../navigationrouter.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { USERROLE } from '../user-role.enum';
+import { SessionService } from '../session/session.service';
 
 enum NavState {
     home,
@@ -64,11 +65,12 @@ export class NavbarComponent {
     admin = false;
 
     constructor(
+        private sessionService: SessionService,
         private navigationRouterService: NavigationRouterService,
         private authenticationService: AuthenticationService) {
 
         if (authenticationService.isAuthorized()) {
-            const nickname = authenticationService.readCredentials().nickname;
+            const nickname = sessionService.readCredentials().nickname;
             this.loginOrLogout = this.textLogout + ' ' + nickname;
         } else {
             this.loginOrLogout = this.textLogin;
@@ -78,7 +80,7 @@ export class NavbarComponent {
         navigationRouterService.sessionSource$.subscribe(
             loginOrLogoutState => {
                 if (loginOrLogoutState === 'login') {
-                    this.loginOrLogout = this.textLogout + ' ' + authenticationService.readCredentials().nickname;
+                    this.loginOrLogout = this.textLogout + ' ' + sessionService.readCredentials().nickname;
                     this.admin = authenticationService.getUserRole() === USERROLE.ADMIN;
                 } else if (loginOrLogoutState === 'logout') {
                     this.loginOrLogout = this.textLogin;
