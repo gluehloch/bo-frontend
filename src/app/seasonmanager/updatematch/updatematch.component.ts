@@ -7,6 +7,8 @@ import { UpdateMatchService } from './updatematch.service';
 import { ModalService } from './../../modal/modal.service';
 
 import { environment } from './../../../environments/environment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 class MatchModel {
     seasonId: number;
@@ -30,17 +32,28 @@ export class UpdateMatchComponent implements OnInit {
     matchModel: MatchModel;
 
     constructor(private router: Router,
-        private route: ActivatedRoute,
+        private activatedRoute: ActivatedRoute,
         private updateMatchService: UpdateMatchService,
         private modalService: ModalService) {
 
         this.matchModel = new MatchModel();
         this.matchModel.match = null;
+
+        // TODO: Remove me: Kann ich besser durch eine 'CanActivate' Guard implementiert werden.
+        const id: Observable<string> = activatedRoute.params.pipe(map(p => p.id));
+        const url: Observable<string> = activatedRoute.url.pipe(map(segments => segments.join('/')));
+        // route.data includes both `data` and `resolve`
+        const user = activatedRoute.data.pipe(map(d => d.user)); 
+        
+
+        url.subscribe(str => {
+            console.log('URL', str);
+        });
     }
 
     ngOnInit() {
-        this.route.queryParams.subscribe((params) => {
-            console.log('matchId=' + params.matchId + ' / roundId=' + params.roundId);
+        this.activatedRoute.queryParams.subscribe((params) => {
+            console.log('params=', params, ', matchId=' + params.matchId + ' / roundId=' + params.roundId);
             this.matchModel.seasonId = params.seasonId;
             this.matchModel.roundId = params.roundId;
             this.matchModel.matchId = params.matchId;

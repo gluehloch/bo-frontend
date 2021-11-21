@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { BetofficeService } from '../betoffice.service';
 import { environment } from 'src/environments/environment';
+import { SessionService } from '../session/session.service';
 
 export class ValidationCode {
 
@@ -67,8 +68,8 @@ export class RegistrationService extends BetofficeService {
 
     protected registerUrl = environment.registerserviceUrl;
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     register(registrationModel: RegistrationJson): Observable<RegistrationJson> {

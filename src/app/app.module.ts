@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { CookieModule } from 'ngx-cookie';
 
@@ -43,8 +43,7 @@ import { TippResultComponent } from './ranking/tippresult.component';
 import { RankingService } from './ranking/ranking.service';
 import { RankingComponent } from './ranking/ranking.component';
 
-// import { SessionService } from './session/session.service';
-import { SessionComponent } from './session/session.component';
+import { SessionService } from './session/session.service';
 
 import { PartyService } from './party/party.service';
 import { PartyComponent } from './party/party.component';
@@ -77,6 +76,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CommunityAdminComponent } from './admin/community/communityadmin.component';
 import { CommunityAdminService } from './admin/community/communityadmin.service';
+import { AdministrationCanActivate } from './session/administration.canactivate';
+import { UserCanActivate } from './session/user.canactivate';
 
 const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
@@ -163,15 +164,18 @@ export function HttpLoaderFactory(http: HttpClient) {
             */
             {
                 path: 'tipp',
-                component: TippComponent
+                component: TippComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'tipp-small',
-                component: TippSmallComponent
+                component: TippSmallComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'tipp-mobile',
-                component: TippMobileComponent
+                component: TippMobileComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'ranking',
@@ -183,43 +187,53 @@ export function HttpLoaderFactory(http: HttpClient) {
             },
             {
                 path: 'chiefop/party',
-                component: PartyComponent
+                component: PartyComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/party/update/:id',
-                component: PartyUpdateComponent
+                component: PartyUpdateComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/team',
-                component: TeamComponent
+                component: TeamComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/team/update/:id',
-                component: TeamUpdateComponent
+                component: TeamUpdateComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager',
-                component: SeasonManagerComponent
+                component: SeasonManagerComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/create',
-                component: SeasonManagerCreateComponent
+                component: SeasonManagerCreateComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/update/:id',
-                component: SeasonManagerUpdateComponent
+                component: SeasonManagerUpdateComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/updatematchday',
-                component: UpdateMatchdayComponent
+                component: UpdateMatchdayComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/updatematch',
-                component: UpdateMatchComponent
+                component: UpdateMatchComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/community',
-                component: CommunityAdminComponent
+                component: CommunityAdminComponent,
+                canActivate: [AdministrationCanActivate]
             }
         ])
     ],
@@ -239,7 +253,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         SeasonComponent,
         TippResultComponent,
         RankingComponent,
-        SessionComponent,
         PartyComponent,
         PartyUpdateComponent,
         TeamComponent,
@@ -253,10 +266,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         CommunityAdminComponent,
     ],
     providers: [
+        AdministrationCanActivate,
+        UserCanActivate,
         CookieService,
         HomeService,
         NavigationRouterService,
         AuthenticationService,
+        SessionService,
         RegistrationService,
         TippService,
         SeasonService,
