@@ -2,17 +2,18 @@ import * as _ from 'lodash';
 
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { TippService, PingJson } from './tipp.service';
+import { TippService } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 import { SessionService } from '../session/session.service';
+import { rest } from 'lodash';
 
 export class SubmitButtonModel {
-    pressed: boolean;
-    responseStatusCode: number; // HTTP Status Code 200 ok, > 400 problems
-    responseErrorMessage: String; // An error message
-    progress: number;
+    pressed = false;
+    responseStatusCode = 200;  // HTTP Status Code 200 ok, > 400 problems
+    responseErrorMessage = ''; // An error message
+    progress = 0;
 }
 
 /*
@@ -79,8 +80,24 @@ class TippModelContainer {
     authenticated: boolean;
     summedUpPoints: number;
     modified: boolean;
-
     tippModels: TippModel[];
+
+    constructor() {
+        this.nickname = '';
+        this.authenticated = false;
+        this.summedUpPoints = 0;
+        this.modified = false;
+        this.round = {
+            seasonId = 0;
+            seasonName = '';
+            seasonYear = '';
+            dateTime = new Date();
+            index = 0;
+            lastRound = false;
+            tippable = false;
+            games: GameJson[];
+        }
+    }
 
     public reset() {
         this.tippModels = [];
@@ -141,7 +158,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
             this.tippModelContainer.nickname = this.sessionService.getNickname();
             this.tippModelContainer.authenticated = true;
         } else {
-            this.tippModelContainer.nickname = null;
+            this.tippModelContainer.nickname = '';
             this.tippModelContainer.authenticated = false;
         }
     }
@@ -216,10 +233,10 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         this.submitButtonModel.responseErrorMessage = '';
         this.submitButtonModel.progress = 33;
 
-        const submitTipp = {
+        const submitTipp = <Rest.SubmitTippGameJson> {
             nickname: this.tippModelContainer.nickname,
             roundId: this.tippModelContainer.round.id,
-            submitTippGames: []
+            submitTippGames: [] as Rest.SubmitTippGameJson,
         };
 
         this.tippModelContainer.tippModels.forEach(tippModel => {
