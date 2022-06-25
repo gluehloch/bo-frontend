@@ -7,7 +7,6 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 import { SessionService } from '../session/session.service';
-import { rest } from 'lodash';
 
 export class SubmitButtonModel {
     pressed = false;
@@ -88,16 +87,30 @@ class TippModelContainer {
         this.summedUpPoints = 0;
         this.modified = false;
         this.round = {
-            seasonId = 0;
-            seasonName = '';
-            seasonYear = '';
-            dateTime = new Date();
-            index = 0;
-            lastRound = false;
-            tippable = false;
+            seasonId = 0,
+            seasonName = '',
+            seasonYear = '',
+            dateTime = new Date(),
+            index = 0,
+            lastRound = false,
+            tippable = false,
             games: GameJson[];
         }
     }
+
+
+    index: number;
+    roundId: number;
+    dateTime: string;
+    homeTeam: TeamJson;
+    guestTeam: TeamJson;
+    halfTimeResult: GameResultJson;
+    result: GameResultJson;
+    overtimeResult: GameResultJson;
+    penaltyResult: GameResultJson;
+    finished: boolean;
+    ko: boolean;
+    tipps: GameTippJson[];
 
     public reset() {
         this.tippModels = [];
