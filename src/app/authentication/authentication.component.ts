@@ -11,65 +11,19 @@ import { SessionService } from '../session/session.service';
 
 class AuthenticationModel {
 
-    nickname: string;
-    password: string;
-    lastlogin: string;
-
-    // --------------------------------------------------------------------------
-
-    private _token: string;
-
-    set token(token: string) {
-        this._token = token;
-    }
-
-    get token() {
-        return this._token;
-    }
-
-    // --------------------------------------------------------------------------
-
-    private _authenticationTries = 0;
-
-    get authenticationTries() {
-        return this._authenticationTries;
-    }
-
-    set authenticationTries(num: number) {
-        this._authenticationTries = num;
-    }
-
-    // --------------------------------------------------------------------------
-
-    private _authenticated = false;
-
-    get authenticated() {
-        return this._authenticated;
-    }
-
-    set authenticated(loggedIn: boolean) {
-        this._authenticated = loggedIn;
-    }
-
-    // --------------------------------------------------------------------------
-
-    private _admin = false;
-
-    get admin() {
-        return this._admin;
-    }
-
-    set admin(admin: boolean) {
-        this._admin = admin;
-    }
-
-    // --------------------------------------------------------------------------
+    nickname = '';
+    password = '';
+    lastlogin = '';
+    token = '';
+    authenticationTries = 0;
+    authenticated = false;
+    admin = false;
 
     clear() {
         this.authenticated = false;
-        this.nickname = null;
-        this.password = null;
-        this.token = null;
+        this.nickname = '';
+        this.password = '';
+        this.token = '';
         this.admin = false;
         this.authenticationTries = 0;
     }
@@ -93,7 +47,7 @@ export class AuthenticationComponent implements OnInit {
         private navigationRouterService: NavigationRouterService) {
 
         this.authenticationModel = new AuthenticationModel();
-        this.authenticationModel.token = null;
+        this.authenticationModel.token = '';
     }
 
     ngOnInit() {

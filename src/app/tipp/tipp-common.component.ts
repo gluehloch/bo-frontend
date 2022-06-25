@@ -15,43 +15,6 @@ export class SubmitButtonModel {
     progress = 0;
 }
 
-/*
-class RoundModel implements Rest.RoundJson {
-    id: number;
-    seasonId: number;
-    seasonName: string;
-    seasonYear: string;
-    dateTime: Date;
-    index: number;
-    lastRound: boolean;
-    tippable: boolean;
-    games: Rest.GameJson[];
-}
-
-class GameModel implements Rest.GameJson {
-    id: number;
-    index: number;
-    roundId: number;
-    dateTime: string;
-    homeTeam: Rest.TeamJson;
-    guestTeam: Rest.TeamJson;
-    halfTimeResult: Rest.GameResultJson;
-    result: Rest.GameResultJson;
-    overtimeResult: Rest.GameResultJson;
-    penaltyResult: Rest.GameResultJson;
-    finished: boolean;
-    ko: boolean;
-    tipps: Rest.GameTippJson[];
-    openligaid: number;
-}
-
-class GameTippModel implements Rest.GameTippJson {
-    nickname: string;
-    tipp: Rest.GameResultJson;
-    points: number;
-}
-*/
-
 /**
  * Verwaltet einen Tipp fuer ein Spiel. Aenderung werden notiert
  * und durch die Methode #isModified() sichtbar.
@@ -86,31 +49,9 @@ class TippModelContainer {
         this.authenticated = false;
         this.summedUpPoints = 0;
         this.modified = false;
-        this.round = {
-            seasonId = 0,
-            seasonName = '',
-            seasonYear = '',
-            dateTime = new Date(),
-            index = 0,
-            lastRound = false,
-            tippable = false,
-            games: GameJson[];
-        }
+        this.tippModels = [];
+        this.round = new Betoffice.RoundModel();
     }
-
-
-    index: number;
-    roundId: number;
-    dateTime: string;
-    homeTeam: TeamJson;
-    guestTeam: TeamJson;
-    halfTimeResult: GameResultJson;
-    result: GameResultJson;
-    overtimeResult: GameResultJson;
-    penaltyResult: GameResultJson;
-    finished: boolean;
-    ko: boolean;
-    tipps: GameTippJson[];
 
     public reset() {
         this.tippModels = [];
@@ -246,10 +187,10 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         this.submitButtonModel.responseErrorMessage = '';
         this.submitButtonModel.progress = 33;
 
-        const submitTipp = <Rest.SubmitTippGameJson> {
+        const submitTipp = {
             nickname: this.tippModelContainer.nickname,
             roundId: this.tippModelContainer.round.id,
-            submitTippGames: [] as Rest.SubmitTippGameJson,
+            submitTippGames: [] as Betoffice.SubmitTippGameModel[],
         };
 
         this.tippModelContainer.tippModels.forEach(tippModel => {

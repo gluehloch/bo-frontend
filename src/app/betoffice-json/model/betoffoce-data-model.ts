@@ -3,7 +3,14 @@ namespace Betoffice {
 
     const UNDEFINED_NUM= -1;
 
-    export class AbstractOpenligaidModel implements AbstractOpenligaidModel {
+    export class Identifier implements Rest.AbstractIdentifier {
+        id: number;
+
+        constructor() {
+            this.id = -1;
+        }
+    }
+    export class AbstractOpenligaidModel implements Rest.AbstractOpenligaid {
         id: number;
         openligaid: number;
 
@@ -42,6 +49,18 @@ namespace Betoffice {
         }
     }
 
+    export class GameTippModel implements Rest.GameTippJson {
+        nickname: string;
+        tipp: GameResultModel;
+        points: number;
+
+        constructor() {
+            this.nickname = '';
+            this.tipp = new GameResultModel();
+            this.points = 0;
+        }
+    }
+
     export class GameModel extends AbstractOpenligaidModel implements Rest.GameJson {
         index: number;
         roundId: number;
@@ -54,7 +73,7 @@ namespace Betoffice {
         penaltyResult: GameResultModel;
         finished: boolean;
         ko: boolean;
-        tipps: GameTippJson[];
+        tipps: GameTippModel[];
 
         constructor() {
             super();
@@ -69,8 +88,41 @@ namespace Betoffice {
             this.penaltyResult = new GameResultModel();
             this.finished = false;
             this.ko = false;
+            this.tipps = [];
         }
     }
 
+    export class RoundModel extends Identifier implements Rest.RoundJson {
+        seasonId: number;
+        seasonName: string;
+        seasonYear: string;
+        dateTime: Date;
+        index: number;
+        lastRound: boolean;
+        tippable: boolean;
+        games: GameModel[];
+
+        constructor() {
+            super();
+            this.seasonId = -1;
+            this.seasonName = '';
+            this.seasonYear = '';
+            this.dateTime = new Date();
+            this.index = -1;
+            this.lastRound = false;
+            this.tippable = false;
+            this.games = [];
+        }
+    }
+
+    export class SubmitTippGameModel implements Rest.SubmitTippGameJson {
+        gameId: number;
+        tippResult: GameResultModel;
+
+        constructor() {
+            this.gameId = -1;
+            this.tippResult = new GameResultModel();
+        }
+    }
 
 }
