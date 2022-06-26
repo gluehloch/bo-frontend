@@ -145,17 +145,33 @@ namespace Betoffice {
 
         constructor() {
             this.team = new TeamModel();
+            this.posGoals = 0;
+            this.negGoals = 0;
+            this.win = 0;
+            this.lost = 0;
+            this.remis = 0;
+            this.tablePosition = -1;
         }
     }
 
     export class GroupTeamTableModel implements Rest.GroupTeamTableJson {
         groupTypeJson: GroupTypeModel;
-        teamResultJsons: Rest.TeamResultJson[];
+        teamResultJsons: TeamResultModel[];
+
+        constructor() {
+            this.groupTypeJson = new GroupTypeModel();
+            this.teamResultJsons = [];
+        }
     }
 
     export class RoundAndTableModel implements Rest.RoundAndTableJson {
         roundJson: RoundModel;
-        groupTeamTableJsons: Rest.GroupTeamTableJson;
+        groupTeamTableJsons: GroupTeamTableModel[];
+
+        constructor() {
+            this.roundJson = new RoundModel();
+            this.groupTeamTableJsons = [];
+        }
 
     }
 

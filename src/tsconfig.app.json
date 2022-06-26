@@ -3,7 +3,14 @@
     "compilerOptions": {
       "outDir": "../out-tsc/app",
       "module": "es2015",
-      "types": []
+      "types": [],
+      "sourceMap": true,
+      "declaration": false,
+      "moduleResolution": "node",
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "experimentalDecorators": true,
+      "strictNullChecks": true,
     },
     "exclude": [
       "src/test.ts",
