@@ -39,6 +39,15 @@ namespace Betoffice {
         }
     }
 
+    export class GroupTypeModel extends AbstractOpenligaidModel implements Rest.GroupTypeJson {
+        name: string;
+
+        constructor() {
+            super();
+            this.name = '';
+        }
+    }
+
     export class GameResultModel implements Rest.GameResultJson {
         homeGoals: number;
         guestGoals: number;
@@ -123,6 +132,31 @@ namespace Betoffice {
             this.gameId = -1;
             this.tippResult = new GameResultModel();
         }
+    }
+
+    export class TeamResultModel implements Rest.TeamResultJson {
+        team: TeamModel;
+        posGoals: number;
+        negGoals: number;
+        win: number;
+        lost: number;
+        remis: number;
+        tablePosition: number;
+
+        constructor() {
+            this.team = new TeamModel();
+        }
+    }
+
+    export class GroupTeamTableModel implements Rest.GroupTeamTableJson {
+        groupTypeJson: GroupTypeModel;
+        teamResultJsons: Rest.TeamResultJson[];
+    }
+
+    export class RoundAndTableModel implements Rest.RoundAndTableJson {
+        roundJson: RoundModel;
+        groupTeamTableJsons: Rest.GroupTeamTableJson;
+
     }
 
 }

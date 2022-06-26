@@ -94,7 +94,7 @@ export class AuthenticationComponent implements OnInit {
 
                     if (this.sessionService.redirectUrl !== null) {
                         const url = this.sessionService.redirectUrl;
-                        this.sessionService.redirectUrl = null;
+                        this.sessionService.redirectUrl = '';
                         this.router.navigateByUrl(url);
                     }
                 }

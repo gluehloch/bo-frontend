@@ -11,11 +11,18 @@ import { environment } from './../../../environments/environment';
 export class Roundtable {
     seasonId: number;
     roundId: number;
-    groups: Rest.GroupTypeJson[];
-    selectedGroup: Rest.GroupTypeJson;
-    rounds: Rest.RoundJson[];
-    selectedRound: Rest.RoundJson;
+    groups: Betoffice.GroupTypeModel[];
+    selectedGroup?: Betoffice.GroupTypeModel;
+    rounds: Betoffice.RoundModel[];
+    selectedRound?: Betoffice.RoundModel;
     table: Rest.RoundAndTableJson;
+
+    constructor() {
+        this.seasonId = -1;
+        this.roundId = -1;
+        this.groups = [];
+        this.rounds = [];
+    }
 };
 
 @Component({
@@ -86,7 +93,7 @@ export class UpdateMatchdayComponent implements OnInit {
 
     // ------------------------------------------------------------------------------
 
-    groupSelected(event) {
+    groupSelected(event: any) {
         // console.info('Selected group id: ' + event.target.value);
 
         const selectedGroupId = event.target.value;
@@ -97,7 +104,7 @@ export class UpdateMatchdayComponent implements OnInit {
         }
     }
 
-    roundSelected(event) {
+    roundSelected(event: any) {
         // console.info('Selected round id: ' + event.target.value);
 
         const selectedRoundId = event.target.value;
