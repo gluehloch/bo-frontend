@@ -166,13 +166,12 @@ namespace Betoffice {
 
     export class RoundAndTableModel implements Rest.RoundAndTableJson {
         roundJson: RoundModel;
-        groupTeamTableJsons: GroupTeamTableModel[];
+        groupTeamTableJsons: GroupTeamTableModel;
 
         constructor() {
             this.roundJson = new RoundModel();
-            this.groupTeamTableJsons = [];
+            this.groupTeamTableJsons = new GroupTeamTableModel();
         }
-
     }
 
 }
