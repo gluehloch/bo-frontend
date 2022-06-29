@@ -7,6 +7,7 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 import { SeasonService } from '../season/season.service';
+import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
 
 @Component({
   selector: 'app-ranking',
@@ -18,10 +19,11 @@ export class RankingComponent implements OnInit {
     readonly currentSeasonId = environment.currentSeasonId;
     readonly dateTimeFormat = environment.dateTimeFormat;
 
-    seasons: Rest.SeasonJson[];
-    selectedSeason: Rest.SeasonJson;
-    ranking: Rest.UserTableJson;
-    rankingRound: Rest.UserTableJson;
+    seasons: Betoffice.SeasonModel[] = [];
+    selectedSeason: Betoffice.SeasonModel | undefined;
+
+    ranking = new Betoffice.UserTableModel();
+    rankingRound = new Betoffice.UserTableModel();
 
     constructor(
         private seasonService: SeasonService,
@@ -47,8 +49,9 @@ export class RankingComponent implements OnInit {
         });
     }
 
-    findTipp(match: Rest.GameJson, user: Rest.UserJson): Rest.GameTippJson  {
-        return _.find(match.tipps, (t) => { return t.nickname === user.nickname });
+    findTipp(match: Rest.GameJson, user: Rest.UserJson): Rest.GameTippJson | undefined {
+        const tipp = _.find(match.tipps, (t) => t.nickname === user.nickname);
+        return tipp;
     }
 
     findSeasons() {
@@ -65,7 +68,9 @@ export class RankingComponent implements OnInit {
 
         const selectedSeasonId = event.target.value;
         this.selectedSeason = this.seasons.find(season => season.id == selectedSeasonId);
-        this.calculateRanking(this.selectedSeason.id);
+        if (this.selectedSeason) {
+            this.calculateRanking(this.selectedSeason.id);
+        }
     }
 
     private calculateRanking(seasonId: number) {

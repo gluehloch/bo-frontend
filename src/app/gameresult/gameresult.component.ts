@@ -16,16 +16,19 @@ export class GameResultComponent implements OnInit {
     }
 
     private isRegular(): boolean {
+        if (!this.game) return false;
         return (!this.game.ko) || (this.game.ko && this.game.result.homeGoals !== this.game.result.guestGoals);
     }
 
     private isOvertime(): boolean {
+        if (!this.game) return false;
         return this.game.ko
             && this.game.result.homeGoals === this.game.result.guestGoals
             && this.game.overtimeResult.homeGoals !== this.game.overtimeResult.guestGoals;
     }
 
     private isPenalty(): boolean {
+        if (!this.game) return false;
         return this.game.ko
             && this.game.result.homeGoals === this.game.result.guestGoals
             && this.game.overtimeResult.homeGoals === this.game.overtimeResult.guestGoals;

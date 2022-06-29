@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class TippSelectorComponent implements OnChanges {
 
-    @Input() selectionState: string;
+    @Input() selectionState: string | undefined;
 
     states = [
         {id: 'desktop', name: 'Desktop'},

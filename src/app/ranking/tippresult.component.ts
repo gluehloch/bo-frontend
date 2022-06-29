@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'; // First, import Input
+import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
 
 @Component({
     selector: 'app-tippresult',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core'; // First, import Input
 export class TippResultComponent implements OnInit {
 
     @Input()
-    tipp: Rest.GameTippJson; // decorate the property with @Input()
+    tipp: Betoffice.GameTippModel | undefined; // decorate the property with @Input()
 
     constructor() { }
 

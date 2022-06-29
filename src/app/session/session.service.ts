@@ -8,7 +8,7 @@ export class SessionService {
 
     private static readonly BETOFFICE_CREDENTIAL = 'betofficeCredential';
 
-    redirectUrl: string;
+    redirectUrl: string | undefined;
 
     public storeCredentials(token: Rest.SecurityTokenJson) {
         localStorage.setItem(SessionService.BETOFFICE_CREDENTIAL, JSON.stringify(token));

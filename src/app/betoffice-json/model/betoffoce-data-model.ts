@@ -1,6 +1,4 @@
-import { rest } from "lodash";
-
-namespace Betoffice {
+export namespace Betoffice {
 
     const UNDEFINED_NUM= -1;
 
