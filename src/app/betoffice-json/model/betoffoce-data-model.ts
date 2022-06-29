@@ -125,6 +125,30 @@ namespace Betoffice {
         }
     }
 
+    export class SeasonModel extends Identifier implements Rest.SeasonJson {
+        name: string;
+        year: string;
+        seasonType: string;
+        teamType: string;
+        openligaLeagueShortcut: string;
+        openligaLeagueSeason: string;
+        currentRoundId: number;
+        rounds: RoundModel[];
+
+        constructor() {
+            super();
+            this.name = '';
+            this.year = '';
+            this.seasonType = '';
+            this.teamType = '';
+            this.openligaLeagueShortcut = '';
+            this.openligaLeagueSeason = '';
+            this.currentRoundId = -1;
+            this.rounds = [];
+        }
+
+    }
+
     export class SubmitTippGameModel implements Rest.SubmitTippGameJson {
         gameId: number;
         tippResult: GameResultModel;
@@ -175,10 +199,35 @@ namespace Betoffice {
         }
     }
 
+    export class UserModel extends Identifier implements Rest.UserJson {
+        nickname: string;
+        win: number;
+        toto: number;
+        ticket: number;
+        points: number;
+        position: number;
+
+        constructor() {
+            super();
+            this.nickname = '';
+            this.win = 0;
+            this.toto = 0;
+            this.ticket = 0;
+            this.points = 0;
+            this.position = 0;
+        }
+    }
+
     export class UserTableModel implements Rest.UserTableJson {
         season: Betoffice.SeasonModel;
         round: Betoffice.RoundModel;
         users: Betoffice.UserModel[];
+
+        constructor() {
+            this.season = new SeasonModel();
+            this.round = new RoundModel();
+            this.users = [];
+        }
     }
 
 }
