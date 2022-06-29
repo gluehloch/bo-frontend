@@ -15,13 +15,14 @@ export class Roundtable {
     selectedGroup?: Betoffice.GroupTypeModel;
     rounds: Betoffice.RoundModel[];
     selectedRound?: Betoffice.RoundModel;
-    table: Rest.RoundAndTableJson;
+    table: Betoffice.RoundAndTableModel;
 
     constructor() {
         this.seasonId = -1;
         this.roundId = -1;
         this.groups = [];
         this.rounds = [];
+        this.table = new Betoffice.RoundAndTableModel();
     }
 };
 
