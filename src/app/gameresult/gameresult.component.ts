@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class GameResultComponent implements OnInit {
 
-    @Input() game: Rest.GameJson;
+    @Input() game: Rest.GameJson = new Betoffice.GameModel();
     @Input() halfTime = false;
 
     constructor() { }

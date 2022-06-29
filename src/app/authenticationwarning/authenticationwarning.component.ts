@@ -12,7 +12,7 @@ declare var $: any;
 })
 export class AuthenticationWarningComponent implements OnInit, OnDestroy, ModalComponent  {
 
-    @ViewChild('authenticationWarningModal') authenticationWarningModal; 
+    @ViewChild('authenticationWarningModal') authenticationWarningModal: any; 
 
     // Exampel or an input element
     // @Input() id: string;

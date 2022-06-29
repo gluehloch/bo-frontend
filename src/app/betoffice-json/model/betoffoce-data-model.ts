@@ -1,3 +1,4 @@
+import { rest } from "lodash";
 
 namespace Betoffice {
 
@@ -172,6 +173,12 @@ namespace Betoffice {
             this.roundJson = new RoundModel();
             this.groupTeamTableJsons = new GroupTeamTableModel();
         }
+    }
+
+    export class UserTableModel implements Rest.UserTableJson {
+        season: Betoffice.SeasonModel;
+        round: Betoffice.RoundModel;
+        users: Betoffice.UserModel[];
     }
 
 }
