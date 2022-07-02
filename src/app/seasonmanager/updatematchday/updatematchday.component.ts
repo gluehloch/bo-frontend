@@ -7,6 +7,7 @@ import { UpdateMatchdayService } from './updatematchday.service';
 import { ModalService } from './../../modal/modal.service';
 
 import { environment } from './../../../environments/environment';
+import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
 
 export class Roundtable {
     seasonId: number;
@@ -81,7 +82,12 @@ export class UpdateMatchdayComponent implements OnInit {
             } else {
                 this.roundtable.selectedRound = season.rounds[0];
             }
-            this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+
+            if (this.roundtable.selectedGroup) {
+                this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+            } else {
+                console.info('Es fehlt eine ausgewählte Gruppe zum Abruf der Rundendaten.');
+            }
         });
     }
 
@@ -106,25 +112,26 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     roundSelected(event: any) {
-        // console.info('Selected round id: ' + event.target.value);
-
-        const selectedRoundId = event.target.value;
-        const selectedRound = this.roundtable.rounds.find(round => round.id === parseInt(selectedRoundId, 10));
-        if (selectedRound) {
-            this.roundtable.selectedRound = selectedRound;
-            this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
-        }        
+        if (this.roundtable.selectedGroup) {
+            const selectedRoundId = event.target.value;
+            const selectedRound = this.roundtable.rounds.find(round => round.id === parseInt(selectedRoundId, 10));
+            if (selectedRound) {
+                this.roundtable.selectedRound = selectedRound;
+                this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+            }
+        }
     }
 
     updateMatch(game: Rest.GameJson) {
-        this.router.navigate(['./chiefop/seasonmanager/updatematch'],
-            { queryParams: {seasonId: this.roundtable.seasonId, roundId: this.roundtable.selectedRound.id, matchId: game.id}});
+        if (this.roundtable.selectedRound) {
+            this.router.navigate(['./chiefop/seasonmanager/updatematch'],
+                { queryParams: {seasonId: this.roundtable.seasonId, roundId: this.roundtable.selectedRound.id, matchId: game.id}});
+        }
     }
 
     updateMatchDay() {
-        // console.info('Update round ' + this.roundtable.selectedRound.id);
-
-        this.updateMatchdayService
+        if (this.roundtable.selectedGroup) {
+            this.updateMatchdayService
             .updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup)
             .subscribe(
                 (round: Rest.RoundAndTableJson) => {
@@ -134,36 +141,42 @@ export class UpdateMatchdayComponent implements OnInit {
                     this.modalService.open('AuthenticationWarningComponent', error.status);
                 }
             );
+        }
     }
 
     updateOpenligaDb() {
-        this.updateMatchdayService
-            .updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
-            .subscribe(
-                (round: Rest.RoundAndTableJson) => {
-                    this.roundtable.table = round;
-                },
-                (error) => {
-                    console.dir(error);
-                    this.modalService.open('AuthenticationWarningComponent', error.status);
-                }
-            );
+        if (this.roundtable.selectedGroup) {
+            this.updateMatchdayService
+                .updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
+                .subscribe(
+                    (round: Rest.RoundAndTableJson) => {
+                        this.roundtable.table = round;
+                    },
+                    (error) => {
+                        console.dir(error);
+                        this.modalService.open('AuthenticationWarningComponent', error.status);
+                    }
+                );
+        }
     }
 
     createOpenligaDb() {
-        this.updateMatchdayService
-            .createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
-            .subscribe(
-                (round: Rest.RoundAndTableJson) => {
-                    this.roundtable.table = round;
-                    this.findRounds(
-                        this.roundtable.seasonId, this.roundtable.selectedGroup.id
-                    );
-                },
-                (error) => {
-                    console.dir(error);
-                    this.modalService.open('AuthenticationWarningComponent', error.status);
-                }
-            );
+        if (this.roundtable.selectedGroup) {
+            const selectedGroup = this.roundtable.selectedGroup;
+            this.updateMatchdayService
+                .createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, selectedGroup.id)
+                .subscribe(
+                    (round: Rest.RoundAndTableJson) => {
+                        this.roundtable.table = round;
+                        this.findRounds(
+                            this.roundtable.seasonId, selectedGroup.id
+                        );
+                    },
+                    (error) => {
+                        console.dir(error);
+                        this.modalService.open('AuthenticationWarningComponent', error.status);
+                    }
+                );
+        }
     }
 }

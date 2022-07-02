@@ -34,7 +34,8 @@ export class GameResultComponent implements OnInit {
             && this.game.overtimeResult.homeGoals === this.game.overtimeResult.guestGoals;
     }
 
-    private result() {
+    private result(): string {
+        if (!this.game) return '---';
         if (!this.game.finished) {
             return '-:-';
         } else if (this.isRegular()) {
@@ -50,6 +51,7 @@ export class GameResultComponent implements OnInit {
 
     printResult() {
         let result = '';
+        if (!this.game) return '---';
         if (this.game.finished && this.halfTime) {
             result = '(' + this.game.halfTimeResult.homeGoals
                 + ':' + this.game.halfTimeResult.guestGoals

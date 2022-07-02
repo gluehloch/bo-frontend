@@ -92,8 +92,8 @@ export class AuthenticationComponent implements OnInit {
                     this.authenticationModel.lastlogin = securityToken.loginTime;
                     this.authenticationModel.admin = (this.sessionService.getUserRole() === USERROLE.ADMIN);                    
 
-                    if (this.sessionService.redirectUrl !== null) {
-                        const url = this.sessionService.redirectUrl;
+                    if (this.sessionService.redirectUrl) {
+                        const url = this.sessionService.redirectUrl || '';
                         this.sessionService.redirectUrl = '';
                         this.router.navigateByUrl(url);
                     }

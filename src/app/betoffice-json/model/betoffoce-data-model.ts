@@ -228,4 +228,18 @@ export namespace Betoffice {
         }
     }
 
+    export class SecurityTokenModel implements Rest.SecurityTokenJson {
+        nickname: string;
+        role: string;
+        loginTime: string;
+        token: string;
+
+        constructor() {
+            this.nickname = 'undefined';
+            this.role = '';
+            this.loginTime = '';
+            this.token = '';
+        }
+    }
+
 }

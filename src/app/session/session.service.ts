@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
 import { USERROLE } from '../user-role.enum';
 
 @Injectable({
@@ -20,7 +21,10 @@ export class SessionService {
 
     public readCredentials(): Rest.SecurityTokenJson {
         const credentialsAsJson = localStorage.getItem(SessionService.BETOFFICE_CREDENTIAL);
-        return JSON.parse(credentialsAsJson);
+        if (credentialsAsJson) {
+            return JSON.parse(credentialsAsJson);
+        }
+        return new Betoffice.SecurityTokenModel();
     }
 
     public getNickname() {
