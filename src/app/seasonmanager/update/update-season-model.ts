@@ -1,3 +1,4 @@
+import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
 import { CheckableParty } from './checkable-party';
 
 export class UpdateSeasonModel {
@@ -16,5 +17,10 @@ export class UpdateSeasonModel {
 
   /** Filter to sort out not wanted users */
   potentialUserFilter: string;
+
+  constructor() {
+    this.season = new Betoffice.SeasonModel();
+    this.potentialUserFilter = '';
+  }
 
 }

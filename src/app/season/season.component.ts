@@ -6,15 +6,26 @@ import { SeasonService} from './season.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from './../../environments/environment';
+import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
 
 export class Roundtable {
     seasons: Rest.SeasonJson[];
-    selectedSeason: Rest.SeasonJson;
+    selectedSeason: Rest.SeasonJson | undefined;
     groups: Rest.GroupTypeJson[];
-    selectedGroup: Rest.GroupTypeJson;
+    selectedGroup: Rest.GroupTypeJson | undefined;
     rounds: Rest.RoundJson[];
-    selectedRound: Rest.RoundJson;
-    table: Rest.RoundAndTableJson;
+    selectedRound: Rest.RoundJson | undefined;
+    table: Rest.RoundAndTableJson | undefined;
+
+    constructor() {
+        this.seasons = [];
+        this.selectedSeason = new Betoffice.SeasonModel();
+        this.groups = [];
+        this.selectedGroup = new Betoffice.GroupTypeModel();
+        this.rounds = [];
+        this.selectedRound = new Betoffice.RoundModel();
+        this.table = new Betoffice.RoundAndTableModel();
+    }
 };
 
 @Component({
@@ -57,7 +68,7 @@ export class SeasonComponent implements OnInit {
         this.seasonService.findGroups(seasonId)
                           .subscribe((groups: Rest.GroupTypeJson[]) => {
             this.roundtable.groups = groups;
-            if (this.roundtable.groups.length > 0) {
+            if (this.roundtable.groups.length > 0 && this.roundtable.selectedSeason) {
                 this.roundtable.selectedGroup = groups[0];
                 this.findRounds(this.roundtable.selectedSeason.id, this.roundtable.selectedGroup.id);
             }
@@ -84,13 +95,13 @@ export class SeasonComponent implements OnInit {
                     this.roundtable.selectedRound = season.rounds[0];
                 }
 
-                if (this.roundtable.selectedRound == null) {
-                    this.roundtable.table = null;
-                } else {
+                if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
                     this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+                } else {
+                    this.roundtable.table = undefined;
                 }
             } else {
-                this.roundtable.table = null;
+                this.roundtable.table = undefined;
             }
         });
     }
@@ -105,7 +116,7 @@ export class SeasonComponent implements OnInit {
 
   // ------------------------------------------------------------------------------
 
-    seasonSelected(event) {
+    seasonSelected(event: any) {
         console.debug('Selected season id: ' + event.target.value);
 
         const selectedSeasonId = event.target.value;
@@ -116,7 +127,7 @@ export class SeasonComponent implements OnInit {
         this.findGroups(selectedSeasonId);
     }
 
-    groupSelected(event) {
+    groupSelected(event: any) {
         console.debug('Selected group id: ' + event.target.value);
 
         const selectedGroupId = event.target.value;
@@ -124,10 +135,12 @@ export class SeasonComponent implements OnInit {
                                   .groups
                                   .find(group => group.id == selectedGroupId);
         this.roundtable.selectedGroup = selectedGroup;
-        this.findRounds(this.roundtable.selectedSeason.id, selectedGroupId);
+        if (this.roundtable.selectedSeason) {
+            this.findRounds(this.roundtable.selectedSeason.id, selectedGroupId);
+        }
     }
 
-    roundSelected(event) {
+    roundSelected(event: any) {
         console.debug('Selected round id: ' + event.target.value);
 
         const selectedRound = this.roundtable
@@ -135,7 +148,9 @@ export class SeasonComponent implements OnInit {
                                   .find(round => round.id == event.target.value);
 
         this.roundtable.selectedRound = selectedRound;
-        this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+        if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+            this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+        }
    }
 
     getColor(i: number) {
