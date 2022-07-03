@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { USERROLE } from '../user-role.enum';
-
 import { SeasonService} from './season.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from './../../environments/environment';
 import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
+import { from } from 'rxjs';
+import { sortedLastIndex } from 'lodash';
 
 export class Roundtable {
     seasons: Rest.SeasonJson[];
@@ -19,11 +19,11 @@ export class Roundtable {
 
     constructor() {
         this.seasons = [];
-        this.selectedSeason = new Betoffice.SeasonModel();
+        this.selectedSeason = undefined;
         this.groups = [];
-        this.selectedGroup = new Betoffice.GroupTypeModel();
+        this.selectedGroup = undefined;
         this.rounds = [];
-        this.selectedRound = new Betoffice.RoundModel();
+        this.selectedRound = undefined;
         this.table = new Betoffice.RoundAndTableModel();
     }
 };
@@ -58,7 +58,8 @@ export class SeasonComponent implements OnInit {
         this.seasonService.findSeasons()
                           .subscribe((seasons: Rest.SeasonJson[]) => {
             this.navigationRouterService.activate(NavigationRouterService.ROUTE_MEISTERSCHAFTEN);
-            this.roundtable.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
+            const sortedSeason = seasons.sort((s1, s2) => s2.id - s1.id);
+            this.copy(sortedSeason, this.roundtable.seasons);
             this.roundtable.selectedSeason = seasons[0];
             this.findGroups(this.roundtable.selectedSeason.id);
         });
@@ -67,7 +68,7 @@ export class SeasonComponent implements OnInit {
     findGroups(seasonId: number) {
         this.seasonService.findGroups(seasonId)
                           .subscribe((groups: Rest.GroupTypeJson[]) => {
-            this.roundtable.groups = groups;
+            this.copy(groups, this.roundtable.groups);
             if (this.roundtable.groups.length > 0 && this.roundtable.selectedSeason) {
                 this.roundtable.selectedGroup = groups[0];
                 this.findRounds(this.roundtable.selectedSeason.id, this.roundtable.selectedGroup.id);
@@ -78,7 +79,7 @@ export class SeasonComponent implements OnInit {
     findRounds(seasonId: number, groupId: number) {
         this.seasonService.findRounds(seasonId, groupId)
                           .subscribe((season: Rest.SeasonJson) => {
-            this.roundtable.rounds = season.rounds;
+            this.copy(season.rounds, this.roundtable.rounds);
             if (season.rounds != null && season.rounds.length > 0) {
                 const now = new Date();
                 let possibleSelectedRound = null;
@@ -151,7 +152,13 @@ export class SeasonComponent implements OnInit {
         if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
             this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
         }
-   }
+    }
+
+    private copy<T>(source: T[], target: T[]): T[] {
+        target.splice(0);
+        source.forEach(el => target.push(el));
+        return target;
+    }
 
     getColor(i: number) {
         if (i === 0) {
