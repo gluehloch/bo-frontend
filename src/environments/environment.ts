@@ -8,7 +8,7 @@ export const environment = {
     // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
     dateTimeFormat: 'dd.MM.yyyy HH:mm',
     // TODO Wird mit der Community Edition abgeschafft...
-    currentSeasonId: 32,
+    currentSeasonId: 33,
 
     production: false,
     rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',

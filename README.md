@@ -54,7 +54,7 @@ To get more help on the `angular-cli` use `ng help` or go check out the [Angular
 
 Einpacken aller SPA Dateien:
 ```
-tar -czf betoffice.tar.gz *.ico *.html *.js assets/ *.txt
+ tar -czf betoffice.tar.gz *.ico *.html *.js assets/ *.txt *.woff *.woff2 *.css
 ```
 oder
 ```

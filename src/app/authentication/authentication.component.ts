@@ -111,11 +111,19 @@ export class AuthenticationComponent implements OnInit {
             };
 
             this.authenticationService.logout(logout)
-                .subscribe((securityToken: Rest.SecurityTokenJson) => {
-                    this.sessionService.clearCredentials();
-                    this.navigationRouterService.logout();
-                    this.authenticationModel.clear();
-                    console.log('Logout successful.');
+                .subscribe({
+                    next: (securityToken: Rest.SecurityTokenJson) => {
+                        this.sessionService.clearCredentials();
+                        this.navigationRouterService.logout();
+                        this.authenticationModel.clear();
+                        console.log('Logout successful.', securityToken);
+                    },
+                    error: (errorResponse) => {
+                        this.sessionService.clearCredentials();
+                        this.navigationRouterService.logout();
+                        this.authenticationModel.clear();
+                        console.log('Logout not so successful. Server responsed with an error.', errorResponse);
+                    }
                 });
         }
     }
