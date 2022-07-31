@@ -35,7 +35,7 @@ export class SessionService {
         // TODO Token abgelaufen? Token erneuern?
         const securityTokenJson = this.readCredentials();
         // Probably there is an authorized user. I´m only the frontend.
-        return (securityTokenJson !== null && securityTokenJson.token !== null);
+        return securityTokenJson.token !== '';
     }
 
     public getUserRole(): USERROLE {

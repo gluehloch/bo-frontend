@@ -205,13 +205,14 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         });
 
         this.tippService.tipp(submitTipp)
-            .subscribe((roundJson: Rest.RoundJson) => {
-                this.updateModel(roundJson);
-                this.submitButtonModel.pressed = false;
-                this.submitButtonModel.responseStatusCode = 200;
-                this.submitButtonModel.progress = 100;
-            },
-                (err: HttpErrorResponse) => {
+            .subscribe({
+                next: (roundJson: Rest.RoundJson) => {
+                    this.updateModel(roundJson);
+                    this.submitButtonModel.pressed = false;
+                    this.submitButtonModel.responseStatusCode = 200;
+                    this.submitButtonModel.progress = 100;
+                },
+                error: (err: HttpErrorResponse) => {
                     this.submitButtonModel.pressed = false;
                     this.submitButtonModel.responseStatusCode = err.status;
                     this.submitButtonModel.responseErrorMessage = err.error;
@@ -227,7 +228,8 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
                         // The response body may contain clues as to what went wrong,
                         console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
                     }
-                });
+                }
+            });
     }
 
 }
