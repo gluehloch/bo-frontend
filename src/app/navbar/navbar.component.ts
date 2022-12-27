@@ -23,7 +23,7 @@ class NavMenu {
     meisterschaften = false;
     adminmenu = false;
 
-    currentNavState: NavState;
+    currentNavState: NavState | undefined;
 
     changeState(newState: NavState): void {
         this.home = false;

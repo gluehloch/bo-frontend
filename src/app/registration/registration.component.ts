@@ -7,8 +7,16 @@ class InputFieldModel {
     name: string;
     value: string;
     message: string;
-    invalid = false;
-    valid = false;
+    invalid: boolean;
+    valid: boolean;
+
+    constructor() {
+        this.name = '';
+        this.value = '';
+        this.message = '';
+        this.invalid = false;
+        this.valid = false;
+    }
 
     setMessage(message: string) {
         this.message = message;
@@ -17,7 +25,7 @@ class InputFieldModel {
     }
 
     setOk() {
-        this.message = null;
+        this.message = '';
         this.valid = true;
         this.invalid = !this.valid;
     }
@@ -153,6 +161,7 @@ export class RegistrationComponent implements OnInit {
 
     constructor(private navigationRouterService: NavigationRouterService,
         private registrationService: RegistrationService) {
+            this.registrationModel = new RegistrationModel();
     }
 
     ngOnInit() {

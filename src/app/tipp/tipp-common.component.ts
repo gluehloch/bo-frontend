@@ -2,55 +2,19 @@ import * as _ from 'lodash';
 
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { TippService, PingJson } from './tipp.service';
+import { TippService } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 import { SessionService } from '../session/session.service';
+import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
 
 export class SubmitButtonModel {
-    pressed: boolean;
-    responseStatusCode: number; // HTTP Status Code 200 ok, > 400 problems
-    responseErrorMessage: String; // An error message
-    progress: number;
+    pressed = false;
+    responseStatusCode = 200;  // HTTP Status Code 200 ok, > 400 problems
+    responseErrorMessage = ''; // An error message
+    progress = 0;
 }
-
-/*
-class RoundModel implements Rest.RoundJson {
-    id: number;
-    seasonId: number;
-    seasonName: string;
-    seasonYear: string;
-    dateTime: Date;
-    index: number;
-    lastRound: boolean;
-    tippable: boolean;
-    games: Rest.GameJson[];
-}
-
-class GameModel implements Rest.GameJson {
-    id: number;
-    index: number;
-    roundId: number;
-    dateTime: string;
-    homeTeam: Rest.TeamJson;
-    guestTeam: Rest.TeamJson;
-    halfTimeResult: Rest.GameResultJson;
-    result: Rest.GameResultJson;
-    overtimeResult: Rest.GameResultJson;
-    penaltyResult: Rest.GameResultJson;
-    finished: boolean;
-    ko: boolean;
-    tipps: Rest.GameTippJson[];
-    openligaid: number;
-}
-
-class GameTippModel implements Rest.GameTippJson {
-    nickname: string;
-    tipp: Rest.GameResultJson;
-    points: number;
-}
-*/
 
 /**
  * Verwaltet einen Tipp fuer ein Spiel. Aenderung werden notiert
@@ -79,8 +43,16 @@ class TippModelContainer {
     authenticated: boolean;
     summedUpPoints: number;
     modified: boolean;
-
     tippModels: TippModel[];
+
+    constructor() {
+        this.nickname = '';
+        this.authenticated = false;
+        this.summedUpPoints = 0;
+        this.modified = false;
+        this.tippModels = [];
+        this.round = new Betoffice.RoundModel();
+    }
 
     public reset() {
         this.tippModels = [];
@@ -219,7 +191,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         const submitTipp = {
             nickname: this.tippModelContainer.nickname,
             roundId: this.tippModelContainer.round.id,
-            submitTippGames: []
+            submitTippGames: [] as Betoffice.SubmitTippGameModel[],
         };
 
         this.tippModelContainer.tippModels.forEach(tippModel => {
@@ -233,13 +205,14 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         });
 
         this.tippService.tipp(submitTipp)
-            .subscribe((roundJson: Rest.RoundJson) => {
-                this.updateModel(roundJson);
-                this.submitButtonModel.pressed = false;
-                this.submitButtonModel.responseStatusCode = 200;
-                this.submitButtonModel.progress = 100;
-            },
-                (err: HttpErrorResponse) => {
+            .subscribe({
+                next: (roundJson: Rest.RoundJson) => {
+                    this.updateModel(roundJson);
+                    this.submitButtonModel.pressed = false;
+                    this.submitButtonModel.responseStatusCode = 200;
+                    this.submitButtonModel.progress = 100;
+                },
+                error: (err: HttpErrorResponse) => {
                     this.submitButtonModel.pressed = false;
                     this.submitButtonModel.responseStatusCode = err.status;
                     this.submitButtonModel.responseErrorMessage = err.error;
@@ -255,7 +228,8 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
                         // The response body may contain clues as to what went wrong,
                         console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
                     }
-                });
+                }
+            });
     }
 
 }

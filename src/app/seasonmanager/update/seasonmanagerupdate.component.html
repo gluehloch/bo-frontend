@@ -89,10 +89,10 @@
             [(ngModel)]="model.season.openligaLeagueSeason" />
     </div>
     <div class="d-grid gap-2">
-        <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block"
+        <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block" type="button"
             (click)="updateSeason()">Speichern</button>
-        <button class="btn btn-secondary" (click)="abort()">Abbrechen</button>
-    </div>        
+        <button class="btn btn-secondary" (click)="abort()" type="button">Abbrechen</button>
+    </div> 
 </form>
 
 <hr />
@@ -111,7 +111,7 @@
         </tr>
     </table>
     <div class="d-grid gap-2">
-        <button *ngIf="model.parties.length > 0"
+        <button type="button" *ngIf="model.parties.length > 0"
             [disabled]="!updateUserForm.form.valid || model.submitted"
             class="btn btn-md btn-primary btn-block"
             data-bs-toggle="modal" data-bs-target="#confirmDeleteAction">Entfernen</button>
@@ -132,7 +132,7 @@
     </table>
 
     <div class="d-grid gap-2">
-        <button *ngIf="model.potentialParties.length > 0"
+        <button type="button" *ngIf="model.potentialParties.length > 0"
             [disabled]="!updateUserForm.form.valid || model.submitted"
             class="btn btn-md btn-primary"
             data-bs-toggle="modal" data-bs-target="#confirmAddAction">Hinzufügen</button>

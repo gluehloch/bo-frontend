@@ -1,8 +1,8 @@
 <app-authentication-warning></app-authentication-warning>
-<div *ngIf="!matchModel.match">
+<div *ngIf="processing">
     <p>Bitte warten ...</p>
 </div>
-<div *ngIf="matchModel.match">
+<div *ngIf="!processing">
     <form class="row g-3" #updateMatchForm="ngForm" name="updateMatchForm" (ngSubmit)="updateMatch()">
         <div class="col-md-12">
             <label for="id" class="form-label">ID</label>

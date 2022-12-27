@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
 import { USERROLE } from '../user-role.enum';
 
 @Injectable({
@@ -8,7 +9,7 @@ export class SessionService {
 
     private static readonly BETOFFICE_CREDENTIAL = 'betofficeCredential';
 
-    redirectUrl: string;
+    redirectUrl: string | undefined;
 
     public storeCredentials(token: Rest.SecurityTokenJson) {
         localStorage.setItem(SessionService.BETOFFICE_CREDENTIAL, JSON.stringify(token));
@@ -20,7 +21,10 @@ export class SessionService {
 
     public readCredentials(): Rest.SecurityTokenJson {
         const credentialsAsJson = localStorage.getItem(SessionService.BETOFFICE_CREDENTIAL);
-        return JSON.parse(credentialsAsJson);
+        if (credentialsAsJson) {
+            return JSON.parse(credentialsAsJson);
+        }
+        return new Betoffice.SecurityTokenModel();
     }
 
     public getNickname() {
@@ -31,7 +35,7 @@ export class SessionService {
         // TODO Token abgelaufen? Token erneuern?
         const securityTokenJson = this.readCredentials();
         // Probably there is an authorized user. I´m only the frontend.
-        return (securityTokenJson !== null && securityTokenJson.token !== null);
+        return securityTokenJson.token !== '';
     }
 
     public getUserRole(): USERROLE {
