@@ -7,6 +7,7 @@ import { SeasonManagerService } from './seasonmanager.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
+import { Sorting } from '../betoffice-json/model/Sorting';
 
 @Component({
     selector: 'app-season-manager',
@@ -31,13 +32,7 @@ export class SeasonManagerComponent implements OnInit {
         this.seasonManagerService.findSeasons().subscribe(
             (seasons: Array<Rest.SeasonJson>) => {
                 this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
-                this.seasons = seasons.sort((s1, s2) => {
-                    const yearCompare = s1.year.localeCompare(s2.year);
-                    if (yearCompare === 0) {
-                        return s1.name.localeCompare(s2.name) * -1;
-                    }
-                    return -yearCompare;
-                });
+                this.seasons = seasons.sort(Sorting.compareSeason);
             }
         );
     }
