@@ -7,6 +7,7 @@ import { environment } from './../../environments/environment';
 import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
 import { from } from 'rxjs';
 import { sortedLastIndex } from 'lodash';
+import { Sorting } from '../betoffice-json/model/Sorting';
 
 export class Roundtable {
     seasons: Rest.SeasonJson[];
@@ -58,7 +59,7 @@ export class SeasonComponent implements OnInit {
         this.seasonService.findSeasons()
                           .subscribe((seasons: Rest.SeasonJson[]) => {
             this.navigationRouterService.activate(NavigationRouterService.ROUTE_MEISTERSCHAFTEN);
-            const sortedSeason = seasons.sort((s1, s2) => s2.id - s1.id);
+            const sortedSeason = seasons.sort(Sorting.compareSeason);
             this.copy(sortedSeason, this.roundtable.seasons);
             this.roundtable.selectedSeason = seasons[0];
             this.findGroups(this.roundtable.selectedSeason.id);
