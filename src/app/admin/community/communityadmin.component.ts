@@ -9,7 +9,7 @@ import { NavigationRouterService } from '../../navigationrouter.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-    selector: 'community-admin',
+    selector: 'app-community-admin',
     templateUrl: './communityadmin.component.html',
     styleUrls: ['./communityadmin.component.css']
 })
