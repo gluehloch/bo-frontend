@@ -9,7 +9,7 @@ import { NavigationRouterService } from '../navigationrouter.service';
 import { environment } from '../../environments/environment';
 
 @Component({
-    selector: 'season-manager',
+    selector: 'app-season-manager',
     templateUrl: './seasonmanager.component.html',
     styleUrls: ['./seasonmanager.component.css']
 })
@@ -31,7 +31,13 @@ export class SeasonManagerComponent implements OnInit {
         this.seasonManagerService.findSeasons().subscribe(
             (seasons: Array<Rest.SeasonJson>) => {
                 this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
-                this.seasons = [... seasons].sort((s1, s2) => s2.id - s1.id);
+                this.seasons = seasons.sort((s1, s2) => {
+                    const yearCompare = s1.year.localeCompare(s2.year);
+                    if (yearCompare === 0) {
+                        return s1.name.localeCompare(s2.name) * -1;
+                    }
+                    return -yearCompare;
+                });
             }
         );
     }
