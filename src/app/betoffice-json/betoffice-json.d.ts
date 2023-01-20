@@ -1,6 +1,11 @@
 // Generated using typescript-generator version 1.14.251 on 2018-05-12 17:16:11.
 
 declare namespace Rest {
+    interface PageParam {
+        page: number;
+        size: number;
+    }
+
     interface Slice {
         number: number;
         size: number;

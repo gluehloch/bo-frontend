@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -18,8 +18,11 @@ export class CommunityAdminService extends BetofficeService {
         return this.http.get<Array<Rest.Page>>(this.adminUrl + 'season/list',  {headers: this.createHeader()});
     */
 
-    findCommunities(): Observable<Rest.Page<Rest.CommunityJson>> {
-        return this.http.get<Rest.Page<Rest.CommunityJson>>(this.communityAdminUrl + 'communities',  {headers: this.createHeader()});
+    findCommunities(pageParam: Rest.PageParam): Observable<Rest.Page<Rest.CommunityJson>> {
+        const params = new HttpParams({fromObject: {page: pageParam.page, size: pageParam.size}});
+
+        return this.http.get<Rest.Page<Rest.CommunityJson>>(
+            this.communityAdminUrl + 'communities', {headers: this.createHeader()});
     }
 
 }

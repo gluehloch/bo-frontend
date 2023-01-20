@@ -7,6 +7,7 @@ import { CommunityAdminService } from './communityadmin.service';
 import { NavigationRouterService } from '../../navigationrouter.service';
 
 import { environment } from '../../../environments/environment';
+import { ɵallowPreviousPlayerStylesMerge } from '@angular/animations/browser';
 
 @Component({
     selector: 'app-community-admin',
@@ -42,14 +43,22 @@ export class CommunityAdminComponent implements OnInit {
         this.communityAdminService.findCommunities().subscribe(communityPage => {
             console.log(communityPage);
             this.communityPage = communityPage;
-            this.slices = Array(communityPage.totalPages).fill(communityPage.totalPages - 1).map((x, i) => i + 1);
+            this.slices = Array(communityPage.totalPages).fill(communityPage.totalPages - 1).map((x, i) => i);
         });
-
 /*
         this.route.queryParams.subscribe(params => {
             console.log('Community Admin 2', params);
         });
 */
+    }
+
+    previousPage(): void {
+    }
+
+    gotoPage(pageNo: number): void {
+    }
+
+    nextPage(): void {
     }
 
     /*
