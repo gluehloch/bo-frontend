@@ -40,7 +40,7 @@ export class CommunityAdminComponent implements OnInit {
         console.log('this.route.url', this.route.url);
         */
 
-        this.communityAdminService.findCommunities().subscribe(communityPage => {
+        this.communityAdminService.findCommunities({page: 1, size: 4}).subscribe(communityPage => {
             console.log(communityPage);
             this.communityPage = communityPage;
             this.slices = Array(communityPage.totalPages).fill(communityPage.totalPages - 1).map((x, i) => i);
@@ -59,6 +59,7 @@ export class CommunityAdminComponent implements OnInit {
     }
 
     nextPage(): void {
+
     }
 
     /*
