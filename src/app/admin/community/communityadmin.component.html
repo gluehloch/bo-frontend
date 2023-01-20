@@ -1,7 +1,48 @@
-
 <app-authentication-warning></app-authentication-warning>
 
 <h1>Community Verwaltung</h1>
 <div>
     Verwaltung der Community... TODO...
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <td>Abkürzung</td>
+                <td>Name</td>
+                <td>Community Ops</td>
+                <td>Meisterschaft</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let community of communityPage?.content">
+                <td>{{community.shortName}}</td>
+                <td>{{community.name}}</td>
+                <td>{{community.communityManager.nickname}}</td>
+                <td>{{community.season.name}} {{community.season.year}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <nav aria-label="community-paginator">
+        <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li *ngFor="let pageNo of slices" class="page-item" [class.active]="communityPage?.number === pageNo">
+                <a class="page-link" href="#">{{pageNo}}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+
+            <!--
+            <li class="page-item"  aria-current="page">
+                <span class="page-link">2</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            -->
+        </ul>
+    </nav>
 </div>

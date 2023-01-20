@@ -15,6 +15,8 @@ import { environment } from '../../../environments/environment';
 })
 export class CommunityAdminComponent implements OnInit {
 
+    slices: Array<number> = [];
+    communityPage: Rest.Page<Rest.CommunityJson> | undefined;
     seasons: Array<Rest.SeasonJson>;
 
     constructor(
@@ -23,19 +25,24 @@ export class CommunityAdminComponent implements OnInit {
         private communityAdminService: CommunityAdminService,
         private navigationRouterService: NavigationRouterService) {
 
-        this.seasons = new Array<Rest.SeasonJson>();
+        this.communityPage = undefined;
+        this.seasons = [];
   }
 
     ngOnInit() {
+        /*
         console.log('this.route.params', this.route.params);
         console.log('this.route.snapshot', this.route.snapshot);
         console.log('this.route.queryParamMap', this.route.queryParamMap);
         console.log('this.route.queryParams', this.route.queryParams);
         console.log('this.route.data', this.route.data);
         console.log('this.route.url', this.route.url);
+        */
 
-        this.communityAdminService.findCommunities().subscribe(parties => {
-            console.log(parties);
+        this.communityAdminService.findCommunities().subscribe(communityPage => {
+            console.log(communityPage);
+            this.communityPage = communityPage;
+            this.slices = Array(communityPage.totalPages).fill(communityPage.totalPages - 1).map((x, i) => i + 1);
         });
 
 /*
