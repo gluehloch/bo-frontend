@@ -16,6 +16,12 @@ import { ɵallowPreviousPlayerStylesMerge } from '@angular/animations/browser';
 })
 export class CommunityAdminComponent implements OnInit {
 
+    readonly defaultPageParam = {
+        page: 0,
+        size: 10,
+    } as Rest.PageParam;
+
+    pageParam = this.defaultPageParam;
     slices: Array<number> = [];
     communityPage: Rest.Page<Rest.CommunityJson> | undefined;
     seasons: Array<Rest.SeasonJson>;
@@ -31,35 +37,40 @@ export class CommunityAdminComponent implements OnInit {
   }
 
     ngOnInit() {
-        /*
-        console.log('this.route.params', this.route.params);
-        console.log('this.route.snapshot', this.route.snapshot);
-        console.log('this.route.queryParamMap', this.route.queryParamMap);
-        console.log('this.route.queryParams', this.route.queryParams);
-        console.log('this.route.data', this.route.data);
-        console.log('this.route.url', this.route.url);
-        */
+        this.findCommunities();
+    }
 
-        this.communityAdminService.findCommunities({page: 1, size: 4}).subscribe(communityPage => {
+    private findCommunities(): void {
+        this.communityAdminService.findCommunities(this.pageParam).subscribe(communityPage => {
             console.log(communityPage);
             this.communityPage = communityPage;
-            this.slices = Array(communityPage.totalPages).fill(communityPage.totalPages - 1).map((x, i) => i);
+            this.calculateSlices();
         });
-/*
-        this.route.queryParams.subscribe(params => {
-            console.log('Community Admin 2', params);
-        });
-*/
+    }
+
+    private calculateSlices(): void {
+        if (this.communityPage) {
+            this.slices = Array(this.communityPage.totalPages).fill(this.communityPage.totalPages - 1).map((x, i) => i);
+        }
     }
 
     previousPage(): void {
+        if (this.communityPage && this.pageParam.page > 0) {
+            this.pageParam.page = this.pageParam.page - 1;
+            this.findCommunities();
+        }
     }
 
     gotoPage(pageNo: number): void {
+        this.pageParam.page = pageNo;
+        this.findCommunities();
     }
 
     nextPage(): void {
-
+        if (this.communityPage && this.pageParam.page < this.communityPage?.totalPages - 1) {
+            this.pageParam.page = this.pageParam.page + 1;
+            this.findCommunities();
+        }
     }
 
     /*

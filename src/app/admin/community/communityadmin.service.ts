@@ -19,10 +19,14 @@ export class CommunityAdminService extends BetofficeService {
     */
 
     findCommunities(pageParam: Rest.PageParam): Observable<Rest.Page<Rest.CommunityJson>> {
-        const params = new HttpParams({fromString: JSON.stringify(pageParam)});
-
+        /*
+        const params = new HttpParams({fromString: JSON.stringify({pageParam: pageParam})});
         return this.http.get<Rest.Page<Rest.CommunityJson>>(
-            this.communityAdminUrl + 'communities/', {params: params, headers: this.createHeader()});
+            this.communityAdminUrl + 'communities', {params: params, headers: this.createHeader()});
+        */
+       const validUriParam = 'pageParam=' + encodeURIComponent(JSON.stringify(pageParam));
+        return this.http.get<Rest.Page<Rest.CommunityJson>>(
+            this.communityAdminUrl + 'communities?' + validUriParam, {headers: this.createHeader()});
     }
 
 }
