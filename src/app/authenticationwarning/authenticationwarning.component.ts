@@ -12,21 +12,21 @@ declare var $: any;
 })
 export class AuthenticationWarningComponent implements OnInit, OnDestroy, ModalComponent  {
 
-    @ViewChild('authenticationWarningModal') authenticationWarningModal: any; 
+    private static readonly ID = 'AuthenticationWarningComponent';
+    private static readonly HTML_ELEMENT_ID = '#authenticationWarning';
+
+    @ViewChild('authenticationWarningModal') authenticationWarningModal: any;
 
     // Exampel or an input element
     // @Input() id: string;
 
-    private static readonly ID = 'AuthenticationWarningComponent';
-    private static readonly HTML_ELEMENT_ID = '#authenticationWarning';
-
-    //private element: any;
+    // private element: any;
     httpError: any;
 
     readonly id = AuthenticationWarningComponent.ID;
 
     constructor(private router: Router, private modalService: ModalService, private el: ElementRef) {
-        //this.element = $(el.nativeElement);
+        // this.element = $(el.nativeElement);
     }
 
     ngOnInit() {
