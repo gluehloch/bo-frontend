@@ -28,7 +28,7 @@ import { RegistrationComponent } from './registration/registration.component';
 
 import { AuthenticationWarningComponent } from './authenticationwarning/authenticationwarning.component';
 
-import { GameResultComponent } from './gameresult/gameresult.component';
+import { GameResultComponent } from './shared/gameresult/gameresult.component';
 
 import { TippSelectorComponent } from './tipp/selector/tipp-selector.component';
 import { TippService } from './tipp/tipp.service';
