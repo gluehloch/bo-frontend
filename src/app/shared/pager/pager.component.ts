@@ -25,7 +25,6 @@ export class PagerComponent implements OnInit {
     }
 
     ngOnChanges(changes: { [property: string]: SimpleChanges }) {
-        // Extract changes to the input property by its name
         let change: SimpleChanges = changes['pagerModel']; 
 
         console.log('Change detected: pagerModel=', change, this.pagerModel);
@@ -34,10 +33,6 @@ export class PagerComponent implements OnInit {
         this.pagerModel.currentPage = changedPagerModel.currentPage;
         this.pagerModel.pages = changedPagerModel.pages;
         this.calculateSlices();
-    
-        // Whenever the data in the parent changes, this method gets triggered
-        // You can act on the changes here. You will have both the previous
-        // value and the  current value here.
     }
 
     private emitPageChangeEvent(): void {
@@ -83,19 +78,5 @@ export class PagerComponent implements OnInit {
             throw Error('nextPage(): Out of pager index.');
         }
     }
-
-    /*
-    updateSeason(season: Rest.SeasonJson) {
-        this.router.navigate(['./chiefop/seasonmanager/update', season.id]);
-    }
-
-    updateMatchday(season: Rest.SeasonJson) {
-        this.router.navigate(['chiefop/seasonmanager/updatematchday'], { queryParams: {seasonId: season.id }});
-    }
-
-    createSeason() {
-        this.router.navigate(['./chiefop/seasonmanager/create']);
-    }
-    */
 
 }

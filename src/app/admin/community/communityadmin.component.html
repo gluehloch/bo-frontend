@@ -23,7 +23,7 @@
             </tr>
         </tbody>
     </table>
-    <app-pager [pagerModel]="pagerModel" (pageEventEmitter)="updatePager(currentPage)"></app-pager>
+    <app-pager [pagerModel]="pagerModel" (pageEventEmitter)="updatePager($event)"></app-pager>
     <!--
     <nav aria-label="community-paginator">
         <ul class="pagination justify-content-end">

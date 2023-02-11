@@ -7,7 +7,6 @@ import { CommunityAdminService } from './communityadmin.service';
 import { NavigationRouterService } from '../../navigationrouter.service';
 
 import { environment } from '../../../environments/environment';
-import { ɵallowPreviousPlayerStylesMerge } from '@angular/animations/browser';
 
 import { PagerModel } from 'src/app/shared/pager/pager.component';
 
@@ -53,36 +52,8 @@ export class CommunityAdminComponent implements OnInit {
                 currentPage: communityPage.number,
                 pages: communityPage.totalPages,
             }
-            // this.calculateSlices();
         });
     }
-
-    /*
-    private calculateSlices(): void {
-        if (this.communityPage) {
-            this.slices = Array(this.communityPage.totalPages).fill(this.communityPage.totalPages - 1).map((x, i) => i);
-        }
-    }
-
-    previousPage(): void {
-        if (this.communityPage && this.pageParam.page > 0) {
-            this.pageParam.page = this.pageParam.page - 1;
-            this.findCommunities();
-        }
-    }
-
-    gotoPage(pageNo: number): void {
-        this.pageParam.page = pageNo;
-        this.findCommunities();
-    }
-
-    nextPage(): void {
-        if (this.communityPage && this.pageParam.page < this.communityPage?.totalPages - 1) {
-            this.pageParam.page = this.pageParam.page + 1;
-            this.findCommunities();
-        }
-    }
-    */
 
     /*
     updateSeason(season: Rest.SeasonJson) {
