@@ -29,6 +29,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AuthenticationWarningComponent } from './authenticationwarning/authenticationwarning.component';
 
 import { GameResultComponent } from './shared/gameresult/gameresult.component';
+import { PagerComponent } from './shared/pager/pager.component';
 
 import { TippSelectorComponent } from './tipp/selector/tipp-selector.component';
 import { TippService } from './tipp/tipp.service';
@@ -246,6 +247,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AuthenticationComponent,
         RegistrationComponent,
         GameResultComponent,
+        PagerComponent,
         TippSelectorComponent,
         TippComponent,
         TippSmallComponent,

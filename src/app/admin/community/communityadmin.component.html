@@ -23,6 +23,8 @@
             </tr>
         </tbody>
     </table>
+    <app-pager [pagerModel]="pagerModel" (pageEventEmitter)="updatePager(currentPage)"></app-pager>
+    <!--
     <nav aria-label="community-paginator">
         <ul class="pagination justify-content-end">
             <li class="page-item" [class.disabled]="communityPage?.number === 0">
@@ -40,4 +42,5 @@
             </li>
         </ul>
     </nav>
+    -->
 </div>

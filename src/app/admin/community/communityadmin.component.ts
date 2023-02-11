@@ -9,6 +9,8 @@ import { NavigationRouterService } from '../../navigationrouter.service';
 import { environment } from '../../../environments/environment';
 import { ɵallowPreviousPlayerStylesMerge } from '@angular/animations/browser';
 
+import { PagerModel } from 'src/app/shared/pager/pager.component';
+
 @Component({
     selector: 'app-community-admin',
     templateUrl: './communityadmin.component.html',
@@ -21,8 +23,7 @@ export class CommunityAdminComponent implements OnInit {
         size: 10,
     } as Rest.PageParam;
 
-    pageParam = this.defaultPageParam;
-    slices: Array<number> = [];
+    pagerModel = new PagerModel();
     communityPage: Rest.Page<Rest.CommunityJson> | undefined;
     seasons: Array<Rest.SeasonJson>;
 
@@ -37,17 +38,26 @@ export class CommunityAdminComponent implements OnInit {
   }
 
     ngOnInit() {
-        this.findCommunities();
+        this.findCommunities(this.defaultPageParam);
     }
 
-    private findCommunities(): void {
-        this.communityAdminService.findCommunities(this.pageParam).subscribe(communityPage => {
+    updatePager(currentPage: number) {
+        this.findCommunities({page: currentPage, size: this.defaultPageParam.size});
+    }
+
+    private findCommunities(pageParam: Rest.PageParam): void {
+        this.communityAdminService.findCommunities(pageParam).subscribe(communityPage => {
             console.log(communityPage);
             this.communityPage = communityPage;
-            this.calculateSlices();
+            this.pagerModel = {
+                currentPage: communityPage.number,
+                pages: communityPage.totalPages,
+            }
+            // this.calculateSlices();
         });
     }
 
+    /*
     private calculateSlices(): void {
         if (this.communityPage) {
             this.slices = Array(this.communityPage.totalPages).fill(this.communityPage.totalPages - 1).map((x, i) => i);
@@ -72,6 +82,7 @@ export class CommunityAdminComponent implements OnInit {
             this.findCommunities();
         }
     }
+    */
 
     /*
     updateSeason(season: Rest.SeasonJson) {

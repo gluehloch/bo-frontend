@@ -1,4 +1,9 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+
+export class PagerModel {
+    currentPage = 0;
+    pages = 0;
+}
 
 @Component({
     selector: 'app-pager',
@@ -7,20 +12,10 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 })
 export class PagerComponent implements OnInit {
 
-    @Input() page: Rest.PageParam | undefined;
-    @Output() pageEventEmitter = new EventEmitter<Rest.PageParam>();
+    @Input() pagerModel = new PagerModel();
+    @Output() pageEventEmitter = new EventEmitter<number>();
 
-    readonly defaultPageParam = {
-        number: 0,           // Die aktuelle Seite (0..N)
-        size: 10,            // Die Seitengroesse
-        numberOfElements: 0, // Anazhl aller Zeiien
-    } as Rest.Slice;
-
-    /** Current page and page size */
-    pageParam = this.defaultPageParam;
-    /** For every page a number  */
-    private paginatorModel: Array<number> = [];
-    private totalPages = 0;
+    slices: Array<number> = [];
 
     constructor() {
     }
@@ -29,11 +24,29 @@ export class PagerComponent implements OnInit {
         this.calculateSlices();
     }
 
+    ngOnChanges(changes: { [property: string]: SimpleChanges }) {
+        // Extract changes to the input property by its name
+        let change: SimpleChanges = changes['pagerModel']; 
+
+        console.log('Change detected: pagerModel=', change, this.pagerModel);
+
+        const changedPagerModel = change.currentValue as any as PagerModel;
+        this.pagerModel.currentPage = changedPagerModel.currentPage;
+        this.pagerModel.pages = changedPagerModel.pages;
+        this.calculateSlices();
+    
+        // Whenever the data in the parent changes, this method gets triggered
+        // You can act on the changes here. You will have both the previous
+        // value and the  current value here.
+    }
+
     private emitPageChangeEvent(): void {
-        this.pageEventEmitter.emit(this.page);
+        this.pageEventEmitter.emit(this.pagerModel.currentPage);
     }
 
     private calculateSlices(): void {
+        this.slices = Array(this.pagerModel.pages).fill(this.pagerModel.pages - 1).map((x, i) => i);
+        /*
         if (this.pageParam) {
             this.totalPages = Math.floor(this.pageParam.numberOfElements / this.pageParam.size);
             if (this.pageParam.numberOfElements % this.pageParam.size > 0) {
@@ -41,24 +54,33 @@ export class PagerComponent implements OnInit {
             }
             this.paginatorModel = Array(this.totalPages).fill(this.totalPages - 1).map((x, i) => i);
         }
+        */
     }
 
     previousPage(): void {
-        if (this.pageParam && this.pageParam.number > 0) {
-            this.pageParam.number--;
+        if (this.pagerModel.currentPage > 0) {
+            this.pagerModel.currentPage--;
             this.emitPageChangeEvent();
+        } else {
+            throw Error('previousPage(): Out of pager index.');
         }
     }
 
     gotoPage(pageNo: number): void {
-        this.pageParam.number = pageNo;
-        this.emitPageChangeEvent();
+        if (pageNo > 0 && pageNo < this.pagerModel.pages) {
+            this.pagerModel.currentPage = pageNo;
+            this.emitPageChangeEvent();
+        } else {
+            throw Error('gotoPage(): Out of pager index.');
+        }
     }
 
     nextPage(): void {
-        if (this.pageParam && this.pageParam.number < this.totalPages - 1) {
-            this.pageParam.number++
+        if (this.pagerModel.currentPage < this.pagerModel.pages - 1) {
+            this.pagerModel.currentPage++
             this.emitPageChangeEvent();
+        } else {
+            throw Error('nextPage(): Out of pager index.');
         }
     }
 
