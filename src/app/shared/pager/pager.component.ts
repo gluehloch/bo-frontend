@@ -62,7 +62,7 @@ export class PagerComponent implements OnInit {
     }
 
     gotoPage(pageNo: number): void {
-        if (pageNo > 0 && pageNo < this.pagerModel.pages) {
+        if (pageNo >= 0 && pageNo < this.pagerModel.pages) {
             this.pagerModel.currentPage = pageNo;
             this.emitPageChangeEvent();
         } else {
