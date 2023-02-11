@@ -8,58 +8,57 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 export class PagerComponent implements OnInit {
 
     @Input() page: Rest.PageParam | undefined;
-    @Output() pageEvent = new EventEmitter<boolean>();
+    @Output() pageEventEmitter = new EventEmitter<Rest.PageParam>();
 
     readonly defaultPageParam = {
-        page: 0,
-        size: 10,
-    } as Rest.PageParam;
+        number: 0,           // Die aktuelle Seite (0..N)
+        size: 10,            // Die Seitengroesse
+        numberOfElements: 0, // Anazhl aller Zeiien
+    } as Rest.Slice;
 
-    seasons: Array<Rest.SeasonJson>;
+    /** Current page and page size */
     pageParam = this.defaultPageParam;
-    slices: Array<number> = [];
+    /** For every page a number  */
+    private paginatorModel: Array<number> = [];
+    private totalPages = 0;
 
-    pages: Rest.Page<Rest.CommunityJson> | undefined;
-
-    constructor(
-        this.communityPage = undefined;
-        this.seasons = [];
-  }
-
-    ngOnInit() {
-        this.findCommunities();
+    constructor() {
     }
 
-    private findCommunities(): void {
-        this.communityAdminService.findCommunities(this.pageParam).subscribe(communityPage => {
-            console.log(communityPage);
-            this.communityPage = communityPage;
-            this.calculateSlices();
-        });
+    ngOnInit() {
+        this.calculateSlices();
+    }
+
+    private emitPageChangeEvent(): void {
+        this.pageEventEmitter.emit(this.page);
     }
 
     private calculateSlices(): void {
-        if (this.communityPage) {
-            this.slices = Array(this.communityPage.totalPages).fill(this.communityPage.totalPages - 1).map((x, i) => i);
+        if (this.pageParam) {
+            this.totalPages = Math.floor(this.pageParam.numberOfElements / this.pageParam.size);
+            if (this.pageParam.numberOfElements % this.pageParam.size > 0) {
+                this.totalPages++;
+            }
+            this.paginatorModel = Array(this.totalPages).fill(this.totalPages - 1).map((x, i) => i);
         }
     }
 
     previousPage(): void {
-        if (this.communityPage && this.pageParam.page > 0) {
-            this.pageParam.page = this.pageParam.page - 1;
-            this.findCommunities();
+        if (this.pageParam && this.pageParam.number > 0) {
+            this.pageParam.number--;
+            this.emitPageChangeEvent();
         }
     }
 
     gotoPage(pageNo: number): void {
-        this.pageParam.page = pageNo;
-        this.findCommunities();
+        this.pageParam.number = pageNo;
+        this.emitPageChangeEvent();
     }
 
     nextPage(): void {
-        if (this.communityPage && this.pageParam.page < this.communityPage?.totalPages - 1) {
-            this.pageParam.page = this.pageParam.page + 1;
-            this.findCommunities();
+        if (this.pageParam && this.pageParam.number < this.totalPages - 1) {
+            this.pageParam.number++
+            this.emitPageChangeEvent();
         }
     }
 
