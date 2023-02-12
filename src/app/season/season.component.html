@@ -11,21 +11,21 @@
     </div>
     -->
         <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
-        <select name="selectSeason" class="form-control form-control-sm" (change)="seasonSelected($event)">
+        <select title="Select season" name="selectSeason" class="form-control form-control-sm" (change)="seasonSelected($event)">
             <option *ngFor="let season of roundtable.seasons" [value]="season.id">
                 {{season.name}} {{season.year}}
             </option>
         </select>
         <div *ngIf="roundtable?.groups?.length > 1">
             <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
-            <select name="selectGroup" class="form-control form-control-sm" (change)="groupSelected($event)">
+            <select title="Select group" name="selectGroup" class="form-control form-control-sm" (change)="groupSelected($event)">
                 <option *ngFor="let group of roundtable.groups" [value]="group.id">
                     {{group.name}}
                 </option>
             </select>
         </div>
         <label for="selectRound" class="form-label">Runde auswählen:</label>
-        <select name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
+        <select title="Select round" name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
             <option *ngFor="let round of roundtable.rounds" [value]="round.id" [selected]="roundtable.selectedRound.id == round.id">
                 {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
             </option>
@@ -37,10 +37,10 @@
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th scope="col" style="text-align:right">Datum</th>
-                    <th scope="col" style="text-align:right">Heimmannschaft</th>
-                    <th scope="col" style="text-align:center">Ergebnis</th>
-                    <th scope="col" style="text-align:left">Gastmannschaft</th>
+                    <th scope="col" class="right">Datum</th>
+                    <th scope="col" class="right">Heimmannschaft</th>
+                    <th scope="col" class="center">Ergebnis</th>
+                    <th scope="col" class="left">Gastmannschaft</th>
                 </tr>
             </thead>
             <tbody>

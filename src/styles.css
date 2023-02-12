@@ -32,3 +32,16 @@ body > .container {
 code {
     font-size: 80%;
 }
+
+/** Tabellen Layout */
+th.left, td.left {
+    text-align: left;
+}
+
+th.center, td.center {
+    text-align:center;
+}
+
+th.right, ,td.right {
+    text-align: right;
+}
