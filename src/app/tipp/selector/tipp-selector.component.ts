@@ -52,7 +52,7 @@ export class TippSelectorComponent implements OnChanges {
      *
      * @param event Ein HTML DOM Event
      */
-    public onModelChange(event: any): void {
+    onModelChange(event: any): void {
         console.log('onModelChange', event);
 
         if (event.id === 'desktop') {

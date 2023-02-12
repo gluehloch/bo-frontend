@@ -94,6 +94,8 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     navigationRouterService: NavigationRouterService;
     tippModelContainer = new TippModelContainer();
 
+    contentReady = false;
+
     constructor(private sessionService: SessionService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
         this.submitButtonModel = new SubmitButtonModel();
         this.submitButtonModel.progress = 0;
@@ -148,14 +150,23 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         this.submitButtonModel.responseStatusCode = 0;
     }
 
+    private updateContentReady() {
+        this.contentReady = true;
+    }
+
     onInit() {
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_TIPP);
         this.checkAuthorization();
 
         if (this.tippModelContainer.authenticated) {
             this.tippService.nextTippRound(this.currentSeasonId, this.tippModelContainer.nickname)
-                .subscribe((roundJson: Rest.RoundJson) => {
-                    this.updateModel(roundJson);
+                .subscribe({
+                    next: (roundJson: Rest.RoundJson) => {
+                        this.updateModel(roundJson);
+                    }, 
+                    complete: () => {
+                        this.updateContentReady();
+                   },
                 });
         }
     }
@@ -228,7 +239,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
                         // The response body may contain clues as to what went wrong,
                         console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
                     }
-                }
+                },
             });
     }
 
