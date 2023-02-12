@@ -41,15 +41,6 @@ export class PagerComponent implements OnInit {
 
     private calculateSlices(): void {
         this.slices = Array(this.pagerModel.pages).fill(this.pagerModel.pages - 1).map((x, i) => i);
-        /*
-        if (this.pageParam) {
-            this.totalPages = Math.floor(this.pageParam.numberOfElements / this.pageParam.size);
-            if (this.pageParam.numberOfElements % this.pageParam.size > 0) {
-                this.totalPages++;
-            }
-            this.paginatorModel = Array(this.totalPages).fill(this.totalPages - 1).map((x, i) => i);
-        }
-        */
     }
 
     previousPage(): void {
