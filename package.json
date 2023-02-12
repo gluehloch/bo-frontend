@@ -1,6 +1,6 @@
 {
   "name": "betoffice",
-  "version": "1.5.1",
+  "version": "1.5.5",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
@@ -11,7 +11,8 @@
     "build-release": "ng build --configuration=production",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "check-types": "tsc --noEmit"
   },
   "private": true,
   "dependencies": {
@@ -26,7 +27,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "acorn": "^6.4.2",
-    "bootstrap-icons": "^1.0.0-alpha2",
+    "bootstrap-icons": "^1.6.1",
     "cookieconsent": "^3.1.1",
     "eslint-plugin-prettier": "^3.3.1",
     "jshint": "2.11.0",

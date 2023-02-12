@@ -1,4 +1,4 @@
-import { SeasonType, TeamType } from './../../betoffice-json/betofficetype';
+import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
 
 export class CreateSeasonModel {
 
@@ -8,4 +8,7 @@ export class CreateSeasonModel {
     submitted = false;
     season: Rest.SeasonJson;
 
+    constructor() {
+        this.season = new Betoffice.SeasonModel();
+    }
 }

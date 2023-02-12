@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 export class HomeComponent implements OnInit {
 
     currentSeasonId = environment.currentSeasonId;
-    teilnehmer: Rest.UserTableJson;
+    teilnehmer: Rest.UserTableJson | undefined;
 
     constructor(
         private homeService: HomeService,

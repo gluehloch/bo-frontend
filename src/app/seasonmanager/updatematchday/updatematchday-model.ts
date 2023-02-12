@@ -1,4 +1,4 @@
-import { SeasonType, TeamType } from './../../betoffice-json/betofficetype';
+import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
 
 export class UpdateMatchDayModel {
 
@@ -13,5 +13,11 @@ export class UpdateMatchDayModel {
 
   /** all uses associated with the selected season */
   parties: Array<Rest.SeasonMemberJson>;
+
+  constructor() {
+    this.season = new Betoffice.SeasonModel();
+    this.potentialParties = [];
+    this.parties = [];
+  }
 
 }

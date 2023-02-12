@@ -18,6 +18,17 @@ class PartyModel implements Rest.PartyJson {
     password: string;
     title: string;
 
+    constructor() {
+        this.id = 0;
+        this.nickname = '';
+        this.surname = '';
+        this.name = '';
+        this.phone = '';
+        this.mail = '';
+        this.password = '';
+        this.title = '';
+    }
+
     copy(party: Rest.PartyJson) {
         this.id = party.id;
         this.nickname =  party.nickname;

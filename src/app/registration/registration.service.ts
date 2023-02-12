@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { BetofficeService } from '../betoffice.service';
 import { environment } from 'src/environments/environment';
+import { SessionService } from '../session/session.service';
 
 export class ValidationCode {
 
@@ -57,9 +58,19 @@ export class RegistrationJson {
     supplement: string;
     acceptMail = false;
     acceptCookie = false;
-    applicationName = '';
+    applicationName: string;
     validationCodes: string[];
 
+    constructor() {
+        this.nickname = '';
+        this.name = '';
+        this.firstname = '';
+        this.password = '';
+        this.email = '';
+        this.applicationName = '';
+        this.supplement = '';
+        this.validationCodes = [];
+    }
 }
 
 @Injectable()
@@ -67,21 +78,23 @@ export class RegistrationService extends BetofficeService {
 
     protected registerUrl = environment.registerserviceUrl;
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     register(registrationModel: RegistrationJson): Observable<RegistrationJson> {
         return this.http.post<RegistrationJson>(this.registerUrl, registrationModel);
     }
 
-    login(): Observable<Rest.SecurityTokenJson> {
-        return null;
+    login(): Observable<Rest.SecurityTokenJson> | undefined {
+        return;
+        // TODO
         // return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "login", login, { headers: this.createHeader() });
     }
 
-    logout(): Observable<Rest.SecurityTokenJson> {
-        return null;
+    logout(): Observable<Rest.SecurityTokenJson> | undefined {
+        return;
+        // TODO
         // return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "logout", logout, { headers: this.createHeader() });
     }
 

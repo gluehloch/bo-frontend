@@ -16,12 +16,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     season = undefined;
 
-    private popupOpenSubscription: Subscription;
-    private popupCloseSubscription: Subscription;
-    private initializeSubscription: Subscription;
-    private statusChangeSubscription: Subscription;
-    private revokeChoiceSubscription: Subscription;
-    private noCookieLawSubscription: Subscription;
+    private popupOpenSubscription: Subscription | undefined;
+    private popupCloseSubscription: Subscription | undefined;
+    private initializeSubscription: Subscription | undefined;
+    private statusChangeSubscription: Subscription | undefined;
+    private revokeChoiceSubscription: Subscription | undefined;
+    private noCookieLawSubscription: Subscription | undefined;
 
     constructor(private ccService: NgcCookieConsentService,
             private translateService: TranslateService,
@@ -38,14 +38,15 @@ export class AppComponent implements OnInit, OnDestroy {
         this.translateService
             .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
             .subscribe(data => {
-                this.ccService.getConfig().content = this.ccService.getConfig().content || {} ;
-                this.ccService.getConfig().content.header = data['cookie.header'];
-                this.ccService.getConfig().content.message = data['cookie.message'];
-                this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
-                this.ccService.getConfig().content.allow = data['cookie.allow'];
-                this.ccService.getConfig().content.deny = data['cookie.deny'];
-                this.ccService.getConfig().content.link = data['cookie.link'];
-                this.ccService.getConfig().content.policy = data['cookie.policy'];
+                const config = this.ccService.getConfig();
+                config.content = this.ccService.getConfig().content || {} ;
+                config.content.header = data['cookie.header'];
+                config.content.message = data['cookie.message'];
+                config.content.dismiss = data['cookie.dismiss'];
+                config.content.allow = data['cookie.allow'];
+                config.content.deny = data['cookie.deny'];
+                config.content.link = data['cookie.link'];
+                config.content.policy = data['cookie.policy'];
                 this.ccService.destroy();
                 this.ccService.init(this.ccService.getConfig());
         });
@@ -65,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         this.initializeSubscription = this.ccService.initialize$.subscribe(
             (event: NgcInitializeEvent) => {
-                console.log('initialize');
+                console.log('initialize', event);
                 // you can use this.ccService.getConfig() to do stuff...
             });
 
@@ -87,19 +88,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
         this.noCookieLawSubscription = this.ccService.noCookieLaw$.subscribe(
             (event: NgcNoCookieLawEvent) => {
-                console.log('noCookieLaw');
+                console.log('noCookieLaw', event);
                 // you can use this.ccService.getConfig() to do stuff...
             });
     }
 
     ngOnDestroy() {
         // unsubscribe to cookieconsent observables to prevent memory leaks
-        this.popupOpenSubscription.unsubscribe();
-        this.popupCloseSubscription.unsubscribe();
-        this.initializeSubscription.unsubscribe();
-        this.statusChangeSubscription.unsubscribe();
-        this.revokeChoiceSubscription.unsubscribe();
-        this.noCookieLawSubscription.unsubscribe();
+        this.popupOpenSubscription?.unsubscribe();
+        this.popupCloseSubscription?.unsubscribe();
+        this.initializeSubscription?.unsubscribe();
+        this.statusChangeSubscription?.unsubscribe();
+        this.revokeChoiceSubscription?.unsubscribe();
+        this.noCookieLawSubscription?.unsubscribe();
     }
 
 }

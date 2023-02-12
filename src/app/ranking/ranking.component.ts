@@ -7,6 +7,8 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 import { SeasonService } from '../season/season.service';
+import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
+import { Sorting } from '../betoffice-json/model/Sorting';
 
 @Component({
   selector: 'app-ranking',
@@ -18,10 +20,11 @@ export class RankingComponent implements OnInit {
     readonly currentSeasonId = environment.currentSeasonId;
     readonly dateTimeFormat = environment.dateTimeFormat;
 
-    seasons: Rest.SeasonJson[];
-    selectedSeason: Rest.SeasonJson;
-    ranking: Rest.UserTableJson;
-    rankingRound: Rest.UserTableJson;
+    seasons: Betoffice.SeasonModel[] = [];
+    selectedSeason: Betoffice.SeasonModel | undefined;
+
+    ranking = new Betoffice.UserTableModel();
+    rankingRound = new Betoffice.UserTableModel();
 
     constructor(
         private seasonService: SeasonService,
@@ -47,25 +50,37 @@ export class RankingComponent implements OnInit {
         });
     }
 
-    findTipp(match: Rest.GameJson, user: Rest.UserJson): Rest.GameTippJson  {
-        return _.find(match.tipps, (t) => { return t.nickname === user.nickname });
+    findTipp(match: Rest.GameJson, user: Rest.UserJson): Rest.GameTippJson | undefined {
+        const tipp = _.find(match.tipps, (t) => t.nickname === user.nickname);
+        return tipp;
     }
 
     findSeasons() {
         this.seasonService.findSeasons()
                           .subscribe((seasons: Rest.SeasonJson[]) => {
-            this.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
+            this.seasons = seasons.sort(Sorting.compareSeason);
+            /*
+            this.seasons = seasons.sort((s1, s2) => {
+                const x = s1.year.localeCompare(s2.year);
+                if (x === 0) {
+                    return - s1.name.localeCompare(s2.name);
+                }
+                return - x;
+            });
+            */
             this.selectedSeason = seasons[0];
             this.calculateRanking(this.currentSeasonId);
         });
-    }    
+    }
 
     seasonSelected(event: any) {
         console.debug('Selected season id: ', event);
 
         const selectedSeasonId = event.target.value;
         this.selectedSeason = this.seasons.find(season => season.id == selectedSeasonId);
-        this.calculateRanking(this.selectedSeason.id);
+        if (this.selectedSeason) {
+            this.calculateRanking(this.selectedSeason.id);
+        }
     }
 
     private calculateRanking(seasonId: number) {

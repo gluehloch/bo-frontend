@@ -7,9 +7,10 @@ import { SeasonManagerService } from './seasonmanager.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
+import { Sorting } from '../betoffice-json/model/Sorting';
 
 @Component({
-    selector: 'season-manager',
+    selector: 'app-season-manager',
     templateUrl: './seasonmanager.component.html',
     styleUrls: ['./seasonmanager.component.css']
 })
@@ -27,14 +28,13 @@ export class SeasonManagerComponent implements OnInit {
   }
 
     ngOnInit() {
-        this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
-            this.seasonManagerService.findSeasons().subscribe(
-                (seasons: Array<Rest.SeasonJson>) => {
-                    this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
-                    this.seasons = seasons.sort((s1, s2) => s2.id - s1.id);
-                }
-            );
-        });
+        console.log('SeasonManagerComponent::ngOnInit');
+        this.seasonManagerService.findSeasons().subscribe(
+            (seasons: Array<Rest.SeasonJson>) => {
+                this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
+                this.seasons = seasons.sort(Sorting.compareSeason);
+            }
+        );
     }
 
     updateSeason(season: Rest.SeasonJson) {

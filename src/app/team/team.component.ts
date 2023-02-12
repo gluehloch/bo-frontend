@@ -19,7 +19,8 @@ export class TeamComponent implements OnInit {
         private router: Router,
         private teamService: TeamService,
         private navigationRouterService: NavigationRouterService) {
-        this.teamsModel = new Array();
+        this.teamsModel = [];
+        this.dfbFilterValue = '';
     }
 
     private sortTeams() {

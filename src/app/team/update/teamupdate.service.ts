@@ -4,12 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { BetofficeService } from '../../betoffice.service';
+import { SessionService } from 'src/app/session/session.service';
 
 @Injectable()
 export class TeamUpdateService extends BetofficeService {
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     findTeam(teamId: number): Observable<Rest.TeamJson> {

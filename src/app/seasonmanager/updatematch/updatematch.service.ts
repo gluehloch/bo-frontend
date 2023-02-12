@@ -9,12 +9,13 @@ import { environment } from '../../../environments/environment';
 
 import { USERROLE } from '../../user-role.enum';
 import { BetofficeService } from '../../betoffice.service';
+import { SessionService } from 'src/app/session/session.service';
 
 @Injectable()
 export class UpdateMatchService extends BetofficeService {
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     findMatch(matchId: number): Observable<Rest.GameJson> {

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { NavigationRouterService } from '../navigationrouter.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { USERROLE } from '../user-role.enum';
+import { SessionService } from '../session/session.service';
 
 enum NavState {
     home,
@@ -22,7 +23,7 @@ class NavMenu {
     meisterschaften = false;
     adminmenu = false;
 
-    currentNavState: NavState;
+    currentNavState: NavState | undefined;
 
     changeState(newState: NavState): void {
         this.home = false;
@@ -64,22 +65,23 @@ export class NavbarComponent {
     admin = false;
 
     constructor(
+        private sessionService: SessionService,
         private navigationRouterService: NavigationRouterService,
         private authenticationService: AuthenticationService) {
 
-        if (authenticationService.isAuthorized()) {
-            const nickname = authenticationService.readCredentials().nickname;
+        if (sessionService.isAuthorized()) {
+            const nickname = sessionService.readCredentials().nickname;
             this.loginOrLogout = this.textLogout + ' ' + nickname;
         } else {
             this.loginOrLogout = this.textLogin;
         }
-        this.admin = authenticationService.getUserRole() === USERROLE.ADMIN;
+        this.admin = sessionService.getUserRole() === USERROLE.ADMIN;
 
         navigationRouterService.sessionSource$.subscribe(
             loginOrLogoutState => {
                 if (loginOrLogoutState === 'login') {
-                    this.loginOrLogout = this.textLogout + ' ' + authenticationService.readCredentials().nickname;
-                    this.admin = authenticationService.getUserRole() === USERROLE.ADMIN;
+                    this.loginOrLogout = this.textLogout + ' ' + sessionService.readCredentials().nickname;
+                    this.admin = sessionService.getUserRole() === USERROLE.ADMIN;
                 } else if (loginOrLogoutState === 'logout') {
                     this.loginOrLogout = this.textLogin;
                     this.admin = false;
