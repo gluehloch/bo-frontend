@@ -26,7 +26,7 @@ export class CommunityAdminService extends BetofficeService {
         */
        const validUriParam = 'pageParam=' + encodeURIComponent(JSON.stringify(pageParam));
         return this.http.get<Rest.Page<Rest.CommunityJson>>(
-            this.communityAdminUrl + 'communities?' + validUriParam, {headers: this.createHeader()});
+            this.communityAdminUrl + 'communities?' + validUriParam);
     }
 
 }

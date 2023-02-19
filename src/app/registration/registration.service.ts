@@ -9,21 +9,21 @@ import { SessionService } from '../session/session.service';
 
 export class ValidationCode {
 
-    static readonly OK = new ValidationCode(1, 'OK');
-    static readonly KNOWN_DATA = new ValidationCode(1000, 'KNOWN_DATA');
-    static readonly KNOWN_NICKNAME = new ValidationCode(1001, 'KNOWN_NICKNAME');
-    static readonly KNOWN_MAILADDRESS = new ValidationCode(1002, 'KNOWN_MAILADDRESS');
-    static readonly UNKNOWN_APPLICATION = new ValidationCode(1003, 'UNKNOWN_APPLICATION');
-    static readonly MISSING_ACCEPT_EMAIL = new ValidationCode(1004, 'MISSING_ACCEPT_EMAIL');
+    static readonly OK                    = new ValidationCode(   1, 'OK');
+    static readonly KNOWN_DATA            = new ValidationCode(1000, 'KNOWN_DATA');
+    static readonly KNOWN_NICKNAME        = new ValidationCode(1001, 'KNOWN_NICKNAME');
+    static readonly KNOWN_MAILADDRESS     = new ValidationCode(1002, 'KNOWN_MAILADDRESS');
+    static readonly UNKNOWN_APPLICATION   = new ValidationCode(1003, 'UNKNOWN_APPLICATION');
+    static readonly MISSING_ACCEPT_EMAIL  = new ValidationCode(1004, 'MISSING_ACCEPT_EMAIL');
     static readonly MISSING_ACCEPT_COOKIE = new ValidationCode(1005, 'MISSING_ACCEPT_COOKIE');
-    static readonly UNKNOWN_TOKEN = new ValidationCode(1006, 'UNKNOWN_TOKEN');
-    static readonly PASSWORD_TOO_SHORT = new ValidationCode(1007, 'PASSWORD_TOO_SHORT');
-    static readonly NICKNAME_IS_EMPTY = new ValidationCode(1008, 'NICKNAME_IS_EMPTY');
-    static readonly EMAIL_IS_EMPTY = new ValidationCode(1009, 'EMAIL_IS_EMPTY');
-    static readonly FIRSTNAME_IS_EMPTY = new ValidationCode(1010, 'FIRSTNAME_IS_EMPTY');
-    static readonly EMAIL_IS_NOT_VALID = new ValidationCode(1011, 'EMAIL_IS_NOT_VALID');
-    static readonly EMAIL_IS_RESERVED = new ValidationCode(1012, 'EMAIL_IS_RESERVED');
-    static readonly ILLEGAL_ARGUMENTS = new ValidationCode(2000, 'ILLEGAL_ARGUMENTS');
+    static readonly UNKNOWN_TOKEN         = new ValidationCode(1006, 'UNKNOWN_TOKEN');
+    static readonly PASSWORD_TOO_SHORT    = new ValidationCode(1007, 'PASSWORD_TOO_SHORT');
+    static readonly NICKNAME_IS_EMPTY     = new ValidationCode(1008, 'NICKNAME_IS_EMPTY');
+    static readonly EMAIL_IS_EMPTY        = new ValidationCode(1009, 'EMAIL_IS_EMPTY');
+    static readonly FIRSTNAME_IS_EMPTY    = new ValidationCode(1010, 'FIRSTNAME_IS_EMPTY');
+    static readonly EMAIL_IS_NOT_VALID    = new ValidationCode(1011, 'EMAIL_IS_NOT_VALID');
+    static readonly EMAIL_IS_RESERVED     = new ValidationCode(1012, 'EMAIL_IS_RESERVED');
+    static readonly ILLEGAL_ARGUMENTS     = new ValidationCode(2000, 'ILLEGAL_ARGUMENTS');
 
     static readonly VALIDATON_CODES = [
         ValidationCode.OK,

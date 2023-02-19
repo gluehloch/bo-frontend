@@ -16,15 +16,15 @@ export class PartyService extends BetofficeService {
     }
 
     findParties(): Observable<Array<Rest.PartyJson>> {
-        return this.http.get<Array<Rest.PartyJson>>(this.adminUrl + 'user/list', { headers: this.createHeader() });
+        return this.http.get<Array<Rest.PartyJson>>(this.adminUrl + 'user/list');
     }
 
     updateParty(party: Rest.PartyJson): Observable<Rest.PartyJson> {
-        return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/update', party, { headers: this.createHeader() });
+        return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/update', party);
     }
 
     addParty(party: Rest.PartyJson): Observable<Rest.PartyJson> {
-        return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/add', party, { headers: this.createHeader() });
+        return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/add', party);
     }
 
 }

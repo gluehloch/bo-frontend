@@ -14,19 +14,19 @@ export class RankingService extends BetofficeService {
     }
 
     calculate(seasonId: number): Observable<Rest.UserTableJson> {
-        return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/season/' + seasonId, {headers: this.createHeader()});
+        return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/season/' + seasonId);
     }
 
     calculateRoundOnly(roundId: number): Observable<Rest.UserTableJson> {
-        return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/roundonly/' + roundId, {headers: this.createHeader()});
+        return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/roundonly/' + roundId);
     }
 
     nextRound(roundId: number) {
-        return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/round/'  + roundId + '/next', {headers: this.createHeader()});
+        return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/round/'  + roundId + '/next');
     }
 
     preRound(roundId: number) {
-        return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/round/'  + roundId + '/prev', {headers: this.createHeader()});
+        return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/round/'  + roundId + '/prev');
     }
 
 }

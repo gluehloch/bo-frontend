@@ -19,31 +19,31 @@ export class SeasonService extends BetofficeService {
     }
 
     findSeasons(): Observable<Array<Rest.SeasonJson>> {
-        return this.http.get<Array<Rest.SeasonJson>>(this.rootUrl + 'season/list', { headers: this.createHeader() });
+        return this.http.get<Array<Rest.SeasonJson>>(this.rootUrl + 'season/list');
     }
 
     findGroups(seasonId: number): Observable<Array<Rest.GroupTypeJson>> {
-        return this.http.get<Array<Rest.GroupTypeJson>>(this.rootUrl + 'season/' + seasonId + '/group/all', { headers: this.createHeader() });
+        return this.http.get<Array<Rest.GroupTypeJson>>(this.rootUrl + 'season/' + seasonId + '/group/all');
     }
 
     findCurrent(seasonId: number): Observable<Rest.RoundJson> {
-        return this.http.get<Rest.RoundJson>(this.rootUrl + 'season/' + seasonId + "/current", { headers: this.createHeader() });
+        return this.http.get<Rest.RoundJson>(this.rootUrl + 'season/' + seasonId + "/current");
     }
 
     findRounds(seasonId: number, groupId: number): Observable<Rest.SeasonJson> {
-        return this.http.get<Rest.SeasonJson>(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all', { headers: this.createHeader() });
+        return this.http.get<Rest.SeasonJson>(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all');
     }
 
     findRound(roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/group/" + groupId, { headers: this.createHeader() });
+        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/group/" + groupId);
     }
 
     nextRound(roundId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/next", { headers: this.createHeader() });
+        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/next");
     }
 
     prevRound(roundId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/prev", { headers: this.createHeader() });
+        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/prev");
     }
 
     /* Is not in usage anymore.

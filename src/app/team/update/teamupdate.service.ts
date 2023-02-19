@@ -14,11 +14,11 @@ export class TeamUpdateService extends BetofficeService {
     }
 
     findTeam(teamId: number): Observable<Rest.TeamJson> {
-        return this.http.get<Rest.TeamJson>(this.adminUrl + 'team/' + teamId, {headers: this.createHeader()});
+        return this.http.get<Rest.TeamJson>(this.adminUrl + 'team/' + teamId);
     }
 
     updateTeam(team: Rest.TeamJson): Observable<Rest.TeamJson> {
-        return this.http.post<Rest.TeamJson>(this.adminUrl + 'team/update', team, {headers: this.createHeader()});
+        return this.http.post<Rest.TeamJson>(this.adminUrl + 'team/update', team);
     }
 
 }

@@ -14,30 +14,30 @@ export class SeasonManagerUpdateService extends BetofficeService {
     }
 
     findSeason(seasonId: number): Observable<Rest.SeasonJson> {
-        return this.http.get<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId, { headers: this.createHeader() });
+        return this.http.get<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId);
     }
 
     updateSeason(season: Rest.SeasonJson): Observable<Rest.SeasonJson> {
-        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/update', season, { headers: this.createHeader() });
+        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/update', season);
     }
 
     findParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
-        return this.http.get<Array<Rest.SeasonMemberJson>>(this.adminUrl + 'season/' + seasonId + '/user', { headers: this.createHeader() });
+        return this.http.get<Array<Rest.SeasonMemberJson>>(this.adminUrl + 'season/' + seasonId + '/user');
     }
 
     findPotentialParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
         return this.http.get<Array<Rest.SeasonMemberJson>>(
-            this.adminUrl + 'season/' + seasonId + '/potentialuser', { headers: this.createHeader() });
+            this.adminUrl + 'season/' + seasonId + '/potentialuser');
     }
 
     addUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
         return this.http.post<Array<Rest.SeasonMemberJson>>(
-            this.adminUrl + 'season/' + seasonId + '/user/add', members, { headers: this.createHeader() });
+            this.adminUrl + 'season/' + seasonId + '/user/add', members);
     }
 
     removeUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
         return this.http.post<Array<Rest.SeasonMemberJson>>(
-            this.adminUrl + 'season/' + seasonId + '/user/remove', members, { headers: this.createHeader() });
+            this.adminUrl + 'season/' + seasonId + '/user/remove', members);
     }
 
 }

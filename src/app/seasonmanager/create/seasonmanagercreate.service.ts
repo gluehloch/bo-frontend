@@ -16,7 +16,7 @@ export class SeasonManagerCreateService extends BetofficeService {
     }
 
     createSeason(season: Rest.SeasonJson): Observable<Rest.SeasonJson> {
-        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/create', season, { headers: this.createHeader() });
+        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/create', season);
     }
 
 }

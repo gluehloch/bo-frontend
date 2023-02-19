@@ -79,6 +79,7 @@ import { CommunityAdminComponent } from './admin/community/communityadmin.compon
 import { CommunityAdminService } from './admin/community/communityadmin.service';
 import { AdministrationCanActivate } from './session/administration.canactivate';
 import { UserCanActivate } from './session/user.canactivate';
+import { httpInterceptorProviders } from './interceptors';
 
 const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
@@ -268,6 +269,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         CommunityAdminComponent,
     ],
     providers: [
+        httpInterceptorProviders,
         AdministrationCanActivate,
         UserCanActivate,
         CookieService,

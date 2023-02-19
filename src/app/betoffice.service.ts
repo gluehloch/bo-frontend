@@ -9,10 +9,11 @@ import { SessionService } from './session/session.service';
  */
 export abstract class BetofficeService {
 
-    protected rootUrl = environment.rootUrl;
+    protected rootUrl           = environment.rootUrl;
     protected authenticationUrl = environment.authenticationUrl;
-    protected adminUrl = environment.adminUrl;
+    protected adminUrl          = environment.adminUrl;
     protected communityAdminUrl = environment.communityAdminUrl;
+
     protected http: HttpClient;
     protected sessionService: SessionService;
 
@@ -36,6 +37,7 @@ export abstract class BetofficeService {
         // return Promise.reject(error.message);
     }
 
+    /*
     public createHeader(): HttpHeaders {
         let headers = new HttpHeaders()
             // TODO Is this necessary? All this no caching parameters?
@@ -59,8 +61,8 @@ export abstract class BetofficeService {
                 .append('betofficeNickname', 'undefined')
                 .append('Authorization', 'Bearer undefined');
         }
-
         return headers;
     }
+    */
 
 }
