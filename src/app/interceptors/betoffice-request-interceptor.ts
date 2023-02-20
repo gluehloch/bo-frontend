@@ -10,8 +10,11 @@ export class BetofficeRequestInterceptor implements HttpInterceptor {
     constructor(private sessionService: SessionService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(req);
+
+        /*
         const credentials = this.sessionService.readCredentials();
-        let authReq = null;
+        let authReq = req.clone();
         if (credentials && credentials.token) {
             authReq = req.clone({
                 headers: req.headers
@@ -38,6 +41,7 @@ export class BetofficeRequestInterceptor implements HttpInterceptor {
             });
         }
         return next.handle(authReq);
+        */
     }
 
 }
