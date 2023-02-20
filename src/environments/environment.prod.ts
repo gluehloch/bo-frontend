@@ -4,12 +4,12 @@ export const environment = {
     // TODO Wird mit der Community Edition abgeschafft...
     currentSeasonId: 33,
 
-    production: true,
-    website: 'tippdiekistebier.de',
-    rootUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
-    authenticationUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/authentication/',
-    adminUrl: 'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
-    communityAdminUrl: 'http://tippdiekistebier.de/betoffice-jweb/bo/community-admin/',
+    production:         true,
+    website:            'tippdiekistebier.de',
+    rootUrl:            'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
+    authenticationUrl:  'https://tippdiekistebier.de/betoffice-jweb/bo/authentication/',
+    adminUrl:           'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
+    communityAdminUrl:  'http://tippdiekistebier.de/betoffice-jweb/bo/community-admin/',
     registerserviceUrl: 'https://cookie.gluehloch.de/registrationservice/registration/register',
-    cookieserviceUrl: 'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie'
+    cookieserviceUrl:   'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
 };
