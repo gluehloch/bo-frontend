@@ -10,8 +10,6 @@ export class BetofficeRequestInterceptor implements HttpInterceptor {
     constructor(private sessionService: SessionService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // return next.handle(req);
-
         const credentials = this.sessionService.readCredentials();
         let authReq;
         if (credentials && credentials.token) {
@@ -22,11 +20,11 @@ export class BetofficeRequestInterceptor implements HttpInterceptor {
                     .append('Pragma', 'no-cache')
                     .append('Expires', '0')
                     .append('Content-Type', 'application/json')
-                    */
                     .append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
                     .append('Access-Control-Allow-Headers', 'Content-Type, x-auth-token')
                     .append('Access-Control-Allow-Origin', '*')
                     .append('Access-Control-Allow-Credentials', 'true')
+                    */
                     .append('betofficeToken', credentials.token)
                     .append('betofficeNickname', credentials.nickname)
                     .append('Authorization', 'Bearer ' + credentials.token)
@@ -39,11 +37,11 @@ export class BetofficeRequestInterceptor implements HttpInterceptor {
                     .append('Pragma', 'no-cache')
                     .append('Expires', '0')
                     .append('Content-Type', 'application/json')
-                    */
                     .append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
                     .append('Access-Control-Allow-Headers', 'Content-Type, x-auth-token')
                     .append('Access-Control-Allow-Origin', '*')
                     .append('Access-Control-Allow-Credentials', 'true')
+                    */
                     .append('betofficeToken', 'undefined')
                     .append('betofficeNickname', 'undefined')
                     .append('Authorization', 'Bearer undefined')
