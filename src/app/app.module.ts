@@ -7,6 +7,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { RouterModule } from '@angular/router';
 
+import { environment } from '../environments/environment';
 import { CookieModule } from 'ngx-cookie';
 
 import { AppComponent } from './app.component';
@@ -113,7 +114,7 @@ const cookieConfig: NgcCookieConsentConfig = {
 };
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, 'https://cookie.gluehloch.de/assets/', '.json');
+    return new TranslateHttpLoader(http, environment.cookieAssetsUrl, '.json');
 }
 
 @NgModule({

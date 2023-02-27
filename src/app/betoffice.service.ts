@@ -1,5 +1,5 @@
 // import { RequestOptions, Headers, Http, Response } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
 import { SessionService } from './session/session.service';
