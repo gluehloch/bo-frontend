@@ -19,7 +19,6 @@ export const environment = {
     // // cookieserviceUrl:    'http://localhost:9090/registrationservice/cookie/confirmCookie',
     cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
     cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
-    cookieserviceUrl: 'http://localhost:8080/registrationservice/cookie/confirmCookie',
     // registerserviceUrl:  'http://localhost:8080/registrationservice/registration/register',
     registerserviceUrl: 'http://localhost:8080/registrationservice/registration/register',
 

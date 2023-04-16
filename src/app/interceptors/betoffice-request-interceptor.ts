@@ -22,7 +22,6 @@ export class BetofficeRequestInterceptor implements HttpInterceptor {
                     .append('Content-Type', 'application/json')
                     .append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
                     .append('Access-Control-Allow-Headers', 'Content-Type, x-auth-token')
-                    .append('Access-Control-Allow-Origin', '*')
                     .append('Access-Control-Allow-Credentials', 'true')
                     */
                     .append('betofficeToken', credentials.token)
