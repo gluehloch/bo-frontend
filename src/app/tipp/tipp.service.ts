@@ -18,7 +18,11 @@ export class TippService extends BetofficeService {
         super(http, sessionService);
     }
 
-    nextTippRound(seasonId: number, nickName: string): Observable<Rest.RoundJson> {
+    rounds(seasonId: number): Observable<Rest.SeasonJson> {
+        return this.http.get<Rest.SeasonJson>(this.rootUrl + '/season/' + seasonId);
+    }
+
+    currentRound(seasonId: number, nickName: string): Observable<Rest.RoundJson> {
         return this.http.get<Rest.RoundJson>(
             this.rootUrl + 'tipp/' + seasonId + '/' + nickName + '/current');
     }
