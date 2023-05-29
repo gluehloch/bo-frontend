@@ -93,7 +93,9 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     submitButtonModel: SubmitButtonModel;
     navigationRouterService: NavigationRouterService;
     tippModelContainer = new TippModelContainer();
+
     season: Rest.SeasonJson | undefined;
+    selectedRound: Rest.RoundJson | undefined;
 
     contentReady = false;
 
@@ -120,6 +122,20 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
             this.tippModelContainer.authenticated = false;
         }
     }
+
+    roundSelected(event: any) {
+        console.debug('Selected round id: ' + event.target.value);
+
+        const selectedRound = this.season?.rounds.find(round => round.id == event.target.value);
+
+        this.selectedRound = selectedRound;
+        if (this.selectedRound) {
+            this.tippService.findTipp(this.selectedRound.id, this.tippModelContainer.nickname)
+                .subscribe((roundJson: Rest.RoundJson) => {
+                    this.updateModel(roundJson);
+                });
+        }
+    }    
 
     private updateModel(roundJson: Rest.RoundJson) {
         if (!roundJson) return;
@@ -159,6 +175,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     onInit() {
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_TIPP);
         this.checkAuthorization();
+        // TODO Chaining.... default select, wenn kein aktueller Spieltag vorhanden.
 
         this.tippService.rounds(this.currentSeasonId).subscribe(seasonJson => this.season = seasonJson);
 
