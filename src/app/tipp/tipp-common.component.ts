@@ -93,6 +93,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     submitButtonModel: SubmitButtonModel;
     navigationRouterService: NavigationRouterService;
     tippModelContainer = new TippModelContainer();
+    season: Rest.SeasonJson | undefined;
 
     constructor(private sessionService: SessionService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
         this.submitButtonModel = new SubmitButtonModel();
@@ -119,6 +120,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     }
 
     private updateModel(roundJson: Rest.RoundJson) {
+        if (!roundJson) return;
         roundJson.games = this.sortGames(roundJson.games);
         this.tippModelContainer.round = roundJson;
 
@@ -152,8 +154,10 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_TIPP);
         this.checkAuthorization();
 
+        this.tippService.rounds(this.currentSeasonId).subscribe(seasonJson => this.season = seasonJson);
+
         if (this.tippModelContainer.authenticated) {
-            this.tippService.nextTippRound(this.currentSeasonId, this.tippModelContainer.nickname)
+            this.tippService.currentRound(this.currentSeasonId, this.tippModelContainer.nickname)
                 .subscribe((roundJson: Rest.RoundJson) => {
                     this.updateModel(roundJson);
                 });
