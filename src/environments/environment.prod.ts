@@ -12,4 +12,5 @@ export const environment = {
     communityAdminUrl:  'http://tippdiekistebier.de/betoffice-jweb/bo/community-admin/',
     registerserviceUrl: 'https://cookie.gluehloch.de/registrationservice/registration/register',
     cookieserviceUrl:   'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
+    cookieAssetsUrl:    'https://cookie.gluehloch.de/registrationservice/assets/',
 };

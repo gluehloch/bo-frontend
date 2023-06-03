@@ -175,8 +175,8 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     onInit() {
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_TIPP);
         this.checkAuthorization();
-        // TODO Chaining.... default select, wenn kein aktueller Spieltag vorhanden.
 
+        // TODO: Chaining von Observables. Schwierig. Im Gegensatz zu Promises nicht so intuitiv.
         if (this.tippModelContainer.authenticated) {
             this.tippService.rounds(this.currentSeasonId)
                 .subscribe(seasonJson => {
