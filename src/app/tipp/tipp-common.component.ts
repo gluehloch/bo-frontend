@@ -177,17 +177,26 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         this.checkAuthorization();
         // TODO Chaining.... default select, wenn kein aktueller Spieltag vorhanden.
 
-        this.tippService.rounds(this.currentSeasonId).subscribe(seasonJson => this.season = seasonJson);
-
         if (this.tippModelContainer.authenticated) {
-            this.tippService.currentRound(this.currentSeasonId, this.tippModelContainer.nickname)
-                .subscribe({
-                    next: (roundJson: Rest.RoundJson) => {
-                        this.updateModel(roundJson);
-                    }, 
-                    complete: () => {
-                        this.updateContentReady();
-                   },
+            this.tippService.rounds(this.currentSeasonId)
+                .subscribe(seasonJson => {
+                    this.season = seasonJson;
+                    this.tippService.currentRound(this.currentSeasonId, this.tippModelContainer.nickname)
+                        .subscribe({
+                            next: (roundJson: Rest.RoundJson) => {
+                                if (roundJson) {
+                                    this.updateModel(roundJson);
+                                } else {
+                                    this.tippService.findTipp(seasonJson.rounds[0].id, this.tippModelContainer.nickname)
+                                        .subscribe(rr => {
+                                            this.updateModel(rr);
+                                        });
+                                }
+                            }, 
+                            complete: () => {
+                                this.updateContentReady();
+                        },
+                    });
                 });
         }
     }
