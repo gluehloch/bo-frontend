@@ -21,6 +21,16 @@
         </div>
     </div>
 </div>
+<div class="row mb-3">
+    <form id="selectRound" name="selectRound">
+        <label for="selectRound" class="form-label">Runde auswählen:</label>
+        <select title="Select round" name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
+            <option *ngFor="let round of season?.rounds" [value]="round.id" [selected]="selectedRound?.id == round.id">
+                {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
+            </option>
+        </select>
+    </form>
+</div>
 
 <div *ngIf="tippModelContainer.authenticated && tippModelContainer.round">
     <h2>{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
