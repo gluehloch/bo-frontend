@@ -1,0 +1,35 @@
+<app-authentication-warning></app-authentication-warning>
+<div>
+    <h1>Gruppen / Team Zuordnung für {{seasonGroupTeamModel.season.name}} {{seasonGroupTeamModel.season.year}}</h1>
+    <form #selectSeasonAndGroup="ngForm" name="selectSeasonAndGroup">
+        <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
+        <select name="selectGroup" class="form-select form-select-sm" (change)="groupSelected($event)">
+            <option *ngFor="let group of roundtable.groups" [value]="group.id">
+                {{group.name}}
+            </option>
+        </select>
+    </form>
+
+    <form #updateSeasonGroupTeam="ngForm" name="updateSeasonGroupTeam" id="updateSeasonGroupTeam">
+        <div *ngIf="seasonGroupTeamModel.teams">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Bezeichnung</th>
+                        <th scope="col">Logo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let team of seasonGroupTeamModel.teams">
+                        <td>{{team.name}}</td>
+                        <td>{{team.longName}}</td>
+                        <td>
+                            <img class="teamlogo" src="{{team.logo}}"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

@@ -81,6 +81,8 @@ import { CommunityAdminService } from './admin/community/communityadmin.service'
 import { AdministrationCanActivate } from './session/administration.canactivate';
 import { UserCanActivate } from './session/user.canactivate';
 import { httpInterceptorProviders } from './interceptors';
+import { UpdateTeamGroupComponent } from './seasonmanager/updateteamgroup/updateteamgroup.component';
+import { UpdateSeasonGroupTeamService } from './seasonmanager/updateteamgroup/updateteamgroup.service';
 
 const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
@@ -229,6 +231,11 @@ export function HttpLoaderFactory(http: HttpClient) {
                 canActivate: [AdministrationCanActivate]
             },
             {
+                path: 'chiefop/seasonmanager/updateteamgroup',
+                component: UpdateTeamGroupComponent,
+                canActivate: [AdministrationCanActivate],
+            },
+            {
                 path: 'chiefop/seasonmanager/updatematch',
                 component: UpdateMatchComponent,
                 canActivate: [AdministrationCanActivate]
@@ -265,6 +272,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         SeasonManagerComponent,
         SeasonManagerUpdateComponent,
         SeasonManagerCreateComponent,
+        UpdateTeamGroupComponent,
         UpdateMatchdayComponent,
         UpdateMatchComponent,
         CommunityAdminComponent,
@@ -290,6 +298,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         SeasonManagerService,
         SeasonManagerUpdateService,
         SeasonManagerCreateService,
+        UpdateSeasonGroupTeamService,
         UpdateMatchdayService,
         UpdateMatchService,
         CommunityAdminService,
