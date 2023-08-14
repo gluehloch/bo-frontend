@@ -1,34 +1,6 @@
 <app-authentication-warning></app-authentication-warning>
 
 <h1>Meisterschaft Verwaltung</h1>
-<!-- Modaler Dialog: Zustimmung fuer das Entfernen von Teilnehmer aus einer Spielgruppe. -->
-<div class="modal fade" id="confirmDeleteAction" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteAction"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteActionLLabel">Aktion bestätigen</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Bist du sicher, dass die folgenden Teilnehmer entfernt werden sollen?
-                <table *ngIf="model.parties.length > 0">
-                    <tr *ngFor="let party of model.parties">
-                        <td *ngIf="party.checked">{{party.nickname}}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                    (click)="removeUserSeason()">Speichern</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <form #updateSeasonForm="ngForm" name="seasonmanagerupdateform">
     <div class="mb-3">
         <label for="id" class="form-label">ID</label>
