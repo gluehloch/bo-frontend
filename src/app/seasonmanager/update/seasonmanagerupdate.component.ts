@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { SeasonManagerUpdateService } from './seasonmanagerupdate.service';
 import { UpdateSeasonModel } from './update-season-model';
 
-import { CheckableParty } from './checkable-party';
+import { CheckableParty } from '../../admin/community/update/checkable-party';
 
 @Component({
     selector: 'app-season-manager-update',

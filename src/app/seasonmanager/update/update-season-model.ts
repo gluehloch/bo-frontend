@@ -1,5 +1,5 @@
 import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
-import { CheckableParty } from './checkable-party';
+import { CheckableParty } from '../../admin/community/update/checkable-party';
 
 export class UpdateSeasonModel {
 
@@ -9,18 +9,8 @@ export class UpdateSeasonModel {
   submitted = false;
   season: Rest.SeasonJson;
 
-  /** all users not associated with the selected season */
-  potentialParties: Array<CheckableParty> = [];
-
-  /** all uses associated with the selected season */
-  parties: Array<CheckableParty> = [];
-
-  /** Filter to sort out not wanted users */
-  potentialUserFilter: string;
-
   constructor() {
     this.season = new Betoffice.SeasonModel();
-    this.potentialUserFilter = '';
   }
 
 }
