@@ -16,7 +16,7 @@ export class PartyService extends BetofficeService {
     }
 
     findParties(): Observable<Array<Rest.PartyJson>> {
-        return this.http.get<Array<Rest.PartyJson>>(this.adminUrl + 'user/list');
+        return this.http.get<Array<Rest.PartyJson>>(this.adminUrl + 'user');
     }
 
     updateParty(party: Rest.PartyJson): Observable<Rest.PartyJson> {

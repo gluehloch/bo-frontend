@@ -15,7 +15,7 @@ export class CommunityAdminService extends BetofficeService {
 
     /*
     findCommunities() : Observable<Rest.Page<Rest.CommunityJson>> {
-        return this.http.get<Array<Rest.Page>>(this.adminUrl + 'season/list',  {headers: this.createHeader()});
+        return this.http.get<Array<Rest.Page>>(this.adminUrl + 'season',  {headers: this.createHeader()});
     */
 
     findCommunities(pageParam: Rest.PageParam): Observable<Rest.Page<Rest.CommunityJson>> {

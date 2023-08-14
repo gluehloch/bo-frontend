@@ -17,7 +17,7 @@ export class UpdateMatchdayService extends BetofficeService {
     }
 
     findSeasons(): Observable<Array<Rest.SeasonJson>> {
-        return this.http.get<Array<Rest.SeasonJson>>(this.rootUrl + 'season/list');
+        return this.http.get<Array<Rest.SeasonJson>>(this.rootUrl + 'season');
     }
 
     findGroups(seasonId: number): Observable<Array<Rest.GroupTypeJson>> {

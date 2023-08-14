@@ -27,7 +27,6 @@ export class SeasonManagerUpdateComponent implements OnInit {
             this.seasonManagerUpdateService.findSeason(id).subscribe(
                 (season: Rest.SeasonJson) => {
                     this.model.season = season;
-                    //this.model.season.name = season.name;
                 });
         });
     }

@@ -14,7 +14,7 @@ export class SeasonManagerService extends BetofficeService {
     }
 
     findSeasons(): Observable<Array<Rest.SeasonJson>> {
-        return this.http.get<Array<Rest.SeasonJson>>(this.adminUrl + 'season/list');
+        return this.http.get<Array<Rest.SeasonJson>>(this.adminUrl + 'season');
     }
 
 }

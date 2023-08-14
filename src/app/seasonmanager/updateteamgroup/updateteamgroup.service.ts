@@ -17,7 +17,7 @@ export class UpdateSeasonGroupTeamService extends BetofficeService {
     }
 
     findTeams(): Observable<Array<Rest.TeamJson>> {
-        return this.http.get<Array<Rest.TeamJson>>(this.adminUrl + 'team/list');
+        return this.http.get<Array<Rest.TeamJson>>(this.adminUrl + 'team');
     }
 
 }

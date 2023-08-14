@@ -21,23 +21,8 @@ export class SeasonManagerUpdateService extends BetofficeService {
         return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/update', season);
     }
 
-    findParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
-        return this.http.get<Array<Rest.SeasonMemberJson>>(this.adminUrl + 'season/' + seasonId + '/user');
-    }
-
-    findPotentialParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {
-        return this.http.get<Array<Rest.SeasonMemberJson>>(
-            this.adminUrl + 'season/' + seasonId + '/potentialuser');
-    }
-
-    addUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
-        return this.http.post<Array<Rest.SeasonMemberJson>>(
-            this.adminUrl + 'season/' + seasonId + '/user/add', members);
-    }
-
-    removeUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
-        return this.http.post<Array<Rest.SeasonMemberJson>>(
-            this.adminUrl + 'season/' + seasonId + '/user/remove', members);
+    findGroupTypes(): Observable<Rest.GroupTypeJson> {
+        return this.http.get<Rest.GroupTypeJson>(this.adminUrl + 'groupType');
     }
 
 }
