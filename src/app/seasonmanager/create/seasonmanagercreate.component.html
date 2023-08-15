@@ -1,4 +1,4 @@
-<h1>Meisterschaften neu anlegen</h1>
+0<h1>Meisterschaften neu anlegen</h1>
 
 <form #createSeasonForm="ngForm" name="seasonmanagerupdateform">
     <div class="mb-3">
@@ -36,7 +36,6 @@
         <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason"
             [(ngModel)]="model.season.openligaLeagueSeason" />
     </div>
-
     <div class="d-grid gap-2">
         <button [disabled]="!createSeasonForm.form.valid || model.submitted" class="btn btn-primary"
             type="submit" (click)="createSeason()">Neu Anlegen</button>

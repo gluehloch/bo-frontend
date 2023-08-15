@@ -21,8 +21,12 @@ export class SeasonManagerUpdateService extends BetofficeService {
         return this.http.put<Rest.SeasonJson>(this.adminUrl + 'season', season);
     }
 
-    findGroupTypes(): Observable<Rest.GroupTypeJson> {
-        return this.http.get<Rest.GroupTypeJson>(this.adminUrl + 'groupType');
+    findGroupTypes(): Observable<Array<Rest.GroupTypeJson>> {
+        return this.http.get<Array<Rest.GroupTypeJson>>(this.adminUrl + 'groupType');
+    }
+
+    findGroupTypesBySeason(seasonId: number): Observable<Array<Rest.GroupTypeJson>> {
+        return this.http.get<Array<Rest.GroupTypeJson>>(this.rootUrl + 'season/' + seasonId + '/group');
     }
 
 }
