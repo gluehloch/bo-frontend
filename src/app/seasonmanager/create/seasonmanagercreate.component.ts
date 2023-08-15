@@ -17,22 +17,13 @@ import { environment } from '../../../environments/environment';
 
 export class SeasonManagerCreateComponent implements OnInit {
 
-    model: CreateSeasonModel;
+    model = new CreateSeasonModel();
 
-    constructor(private router: Router, private route: ActivatedRoute, private seasonManagerCreateService: SeasonManagerCreateService) {
-        this.model = new CreateSeasonModel();
-        this.model.season = {
-            id: 0,
-            name: '',
-            openligaLeagueSeason: '',
-            openligaLeagueShortcut: '',
-            currentRoundId: 0,
-            teamType: 'DFB',
-            seasonType: 'LEAGUE',
-            rounds: [],
-            year: ''
-        };
-        this.model.submitted = false;
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private seasonManagerCreateService: SeasonManagerCreateService
+    ) {
     }
 
     ngOnInit() {
@@ -49,7 +40,7 @@ export class SeasonManagerCreateComponent implements OnInit {
                 console.error(error);
             }
         );
-    }
+    }    
 
     abort() {
         this.router.navigate(['./chiefop/seasonmanager']);

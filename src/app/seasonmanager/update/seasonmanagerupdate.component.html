@@ -32,9 +32,12 @@
         <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason"
             [(ngModel)]="model.season.openligaLeagueSeason" />
     </div>
+    
     <div class="d-grid gap-2">
         <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block" type="button"
             (click)="updateSeason()">Speichern</button>
         <button class="btn btn-secondary" (click)="abort()" type="button">Abbrechen</button>
-    </div> 
+    </div>
+
+   
 </form>

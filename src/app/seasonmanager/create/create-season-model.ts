@@ -6,9 +6,16 @@ export class CreateSeasonModel {
     readonly teamTypes: Array<string> = ['DFB', 'FIFA'];
 
     submitted = false;
-    season: Rest.SeasonJson;
+    season: Rest.SeasonJson = {
+        id: 0,
+        name: '',
+        openligaLeagueSeason: '',
+        openligaLeagueShortcut: '',
+        currentRoundId: 0,
+        teamType: 'DFB',
+        seasonType: 'LEAGUE',
+        rounds: [],
+        year: ''
+    };
 
-    constructor() {
-        this.season = new Betoffice.SeasonModel();
-    }
 }

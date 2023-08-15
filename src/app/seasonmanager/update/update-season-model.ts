@@ -18,6 +18,8 @@ export class UpdateSeasonModel {
         rounds: [],
     };
 
+    teamsByGroup: Map<Rest.GroupTypeJson, Array<Rest.TeamJson>> = new Map();
+
     constructor() {
         this.season = new Betoffice.SeasonModel();
     }

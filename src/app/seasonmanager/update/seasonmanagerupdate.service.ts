@@ -18,7 +18,7 @@ export class SeasonManagerUpdateService extends BetofficeService {
     }
 
     updateSeason(season: Rest.SeasonJson): Observable<Rest.SeasonJson> {
-        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/update', season);
+        return this.http.put<Rest.SeasonJson>(this.adminUrl + 'season', season);
     }
 
     findGroupTypes(): Observable<Rest.GroupTypeJson> {
