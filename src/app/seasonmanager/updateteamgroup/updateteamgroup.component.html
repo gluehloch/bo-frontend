@@ -45,13 +45,12 @@
                                     <select class="form-select" name="selectTeam" id="selectTeam"
                                         aria-label="Mannschaft auswählen"
                                         *ngIf="startingAddingTeamToGroup?.id === groupType.id"
-                                        [(ngModel)]="selectedTeam"
-                                        (change)="addTeamToGroup(groupType, selectedTeam)">
-                                        *ngIf="startingAddingTeamToGroup?.id === groupType.id">
-                                        <option [ngValue]="undefined" selected>Mannschaft auswählen...</option>
-                                        <option *ngFor="let team of model.teamCandidates"
+                                        [(ngModel)]="model.selectedTeam"
+                                        (change)="addTeamToGroup(groupType, model.selectedTeam)">
+                                        <option [ngValue]="undefined" disabled>Mannschaft auswählen...</option>
+                                        <option *ngFor="let teamCandidate of model.teamCandidates"
                                             [ngValue]="teamCandidate">
-                                            {{team.name}}
+                                            {{teamCandidate.name}}
                                     </option>
                                     </select>
                                 </td>                                

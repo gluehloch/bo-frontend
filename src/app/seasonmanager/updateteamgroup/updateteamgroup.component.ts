@@ -68,6 +68,27 @@ export class UpdateTeamGroupComponent implements OnInit {
         });
     }
 
+    addTeamToGroup(groupType: Rest.GroupTypeJson, selectedTeam: Rest.TeamJson): void {
+        this.startProcessing();
+        this.updateSeasonGroupTeamService.addTeamToGroup(this.model.season.id, groupType, selectedTeam).subscribe({
+            next: season => {
+                console.debug('Added team to group of season.', season, groupType, selectedTeam);
+                this.model.getTeamsOfGroup(groupType).push(selectedTeam);
+                const index = this.model.teamCandidates.findIndex(t => t.id === selectedTeam.id);
+                if (index !== -1) {
+                    this.model.teamCandidates.splice(index, 1);
+                    this.model.selectedTeam = undefined;
+                }
+            },
+            error: error => {
+                console.error('Unable to execute request.', error);
+            },
+            complete: () => {
+               this.completeProcessing();
+            }
+        });
+    }
+
     removeGroup(groupType: Rest.GroupTypeJson): void {
         this.model.groupTypes = this.model.groupTypes.filter(i => i.id !== groupType.id);
         this.model.selectableGroupTypes.push(groupType);

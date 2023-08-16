@@ -28,6 +28,14 @@ export class UpdateSeasonGroupTeamService extends BetofficeService {
         return this.http.get<Array<Rest.GroupTypeJson>>(this.rootUrl + 'season/' + seasonId + '/group');
     }
 
+    addGroupToSeason(seasonId: number, groupType: Rest.GroupTypeJson): Observable<Rest.SeasonJson> {
+        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId + '/group', groupType);
+    }
+
+    remnoveGroupFromSeason(seasonId: number, groupType: Rest.GroupTypeJson): Observable<Rest.SeasonJson> {
+        return this.http.delete<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId + '/group/' + groupType.id);
+    }
+
     findGroupAndTeamsBySeason(seasonId: number): Observable<Rest.SeasonGroupTeamJson> {
         return this.http.get<Rest.SeasonGroupTeamJson>(this.adminUrl + 'season/' + seasonId + '/groupteam');
     }
@@ -36,12 +44,8 @@ export class UpdateSeasonGroupTeamService extends BetofficeService {
         return this.http.get<Array<Rest.TeamJson>>(this.adminUrl + 'season/' + seasonId + '/groupteam/' + groupType.id + '/candidates');
     }
 
-    addGroupToSeason(seasonId: number, groupType: Rest.GroupTypeJson): Observable<Rest.SeasonJson> {
-        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId + '/group', groupType);
-    }
-
-    remnoveGroupFromSeason(seasonId: number, groupType: Rest.GroupTypeJson): Observable<Rest.SeasonJson> {
-        return this.http.delete<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId + '/group/' + groupType.id);
+    addTeamToGroup(seasonId: number, groupType: Rest.GroupTypeJson, team: Rest.TeamJson): Observable<Rest.SeasonJson> {
+        return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId + '/groupteam/' + groupType.id, team);
     }
 
 }

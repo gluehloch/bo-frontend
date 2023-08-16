@@ -18,6 +18,7 @@ export class UpdateTeamGroupModel {
     seasonGroupTeam: Rest.SeasonGroupTeamJson | undefined;
 
     teamCandidates: Array<Rest.TeamJson> = [];
+    selectedTeam: Rest.TeamJson | undefined;
 
     getTeamsOfGroup(groupType: Rest.GroupTypeJson): Rest.TeamJson[] {
         if (this.seasonGroupTeam) {
