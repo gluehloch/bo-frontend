@@ -18,24 +18,24 @@ export class UpdateTeamGroupComponent implements OnInit {
 
     constructor(private router: Router,
         private route: ActivatedRoute,
-        private upadateSeasonGroupTeamService: UpdateSeasonGroupTeamService) {
+        private updateSeasonGroupTeamService: UpdateSeasonGroupTeamService) {
     }
 
     ngOnInit() {
         this.startProcessing();
         this.route.params.pipe(map(params => params['id'])).subscribe((seasonId) => {
-            const findSeason = this.upadateSeasonGroupTeamService.findSeason(seasonId);
-            const findGroupTypes = this.upadateSeasonGroupTeamService.findGroupTypes();
-            const findSeasonGroupTypes = this.upadateSeasonGroupTeamService.findGroupTypesBySeason(seasonId);
+            const findSeason = this.updateSeasonGroupTeamService.findSeason(seasonId);
+            const findGroupTypes = this.updateSeasonGroupTeamService.findGroupTypes();
+            const findSeasonGroupTypes = this.updateSeasonGroupTeamService.findGroupTypesBySeason(seasonId);
+            const findGroupTeams = this.updateSeasonGroupTeamService.findGroupAndTeamsBySeason(seasonId);
 
-            forkJoin([findSeason, findGroupTypes, findSeasonGroupTypes]).subscribe({
+            forkJoin([findSeason, findGroupTypes, findSeasonGroupTypes, findGroupTeams]).subscribe({
                 next: results => {
                     this.model.season = results[0];
                     this.model.selectableGroupTypes = results[1];
                     this.model.groupTypes = results[2];
-
-                    this.model.selectableGroupTypes = this.model.selectableGroupTypes
-                        .filter(i => (this.model.groupTypes.find(j => j.id === i.id)) === undefined);
+                    this.updateGroupSelectables();
+                    this.model.seasonGroupTeam = results[3];
                 },
                 error: error => {
                     console.error('Unable to execute request.', error);
@@ -51,10 +51,39 @@ export class UpdateTeamGroupComponent implements OnInit {
         this.model.groupTypes = this.model.groupTypes.filter(i => i.id !== groupType.id);
         this.model.selectableGroupTypes.push(groupType);
         this.model.selectableGroupTypes.sort((i, j) => i.name.localeCompare(j.name));
+
+        this.startProcessing();
+        this.updateSeasonGroupTeamService.remnoveGroupFromSeason(this.model.season.id, groupType).subscribe({
+            next: season => {
+                console.debug('Added group to season.');
+            },
+            error: error => {
+                console.error('Unable to execute request.', error);
+            },
+            complete: () => {
+               this.completeProcessing();
+            }
+        });
     }
 
     addGroup(selectedGroupType: Rest.GroupTypeJson): void {
         this.model.groupTypes.push(selectedGroupType);
+        this.updateGroupSelectables();
+
+        this.updateSeasonGroupTeamService.addGroupToSeason(this.model.season.id, selectedGroupType).subscribe({
+            next: season => {
+                console.debug('Removed group from season.');
+            },
+            error: error => {
+                console.error('Unable to execute request.', error);
+            },
+            complete: () => {
+               this.completeProcessing();
+            }            
+        });
+    }
+
+    private updateGroupSelectables(): void {
         this.model.selectableGroupTypes = this.model.selectableGroupTypes
             .filter(i => (this.model.groupTypes.find(j => j.id === i.id)) === undefined);
     }

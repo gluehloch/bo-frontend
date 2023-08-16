@@ -182,4 +182,14 @@ declare namespace Rest {
         openligaid: number;
     }
 
+    interface GroupTeamJson {
+        groupType: GroupTypeJson;
+        teams: TeamJson[];
+    }
+
+    interface SeasonGroupTeamJson {
+        season: SeasonJson;
+        groupTeams: GroupTeamJson[];
+    }
+
 }

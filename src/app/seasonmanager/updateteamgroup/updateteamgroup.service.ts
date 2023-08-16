@@ -28,6 +28,10 @@ export class UpdateSeasonGroupTeamService extends BetofficeService {
         return this.http.get<Array<Rest.GroupTypeJson>>(this.rootUrl + 'season/' + seasonId + '/group');
     }
 
+    findGroupAndTeamsBySeason(seasonId: number): Observable<Rest.SeasonGroupTeamJson> {
+        return this.http.get<Rest.SeasonGroupTeamJson>(this.adminUrl + 'season/' + seasonId + '/groupteams');
+    }
+
     addGroupToSeason(seasonId: number, groupType: Rest.GroupTypeJson): Observable<Rest.SeasonJson> {
         return this.http.post<Rest.SeasonJson>(this.adminUrl + 'season/' + seasonId + '/group', groupType);
     }

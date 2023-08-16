@@ -16,4 +16,6 @@ export class UpdateTeamGroupModel {
 
     groupTypes: Array<Rest.GroupTypeJson> = [];
     teamsByGroup: Map<Rest.GroupTypeJson, Array<Rest.TeamJson>> = new Map();
+
+    seasonGroupTeam: Rest.SeasonGroupTeamJson | undefined;
 }
