@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector: 'app-season-manager-update',
-    templateUrl: './seasonmanagerupdate.component.html',
-    styleUrls: ['./seasonmanagerupdate.component.css']
+    templateUrl: './updatecommunityuser.component.html',
+    styleUrls: ['./updatecommunityuser.component.css']
 })
 export class UpdateCommunityUserComponent implements OnInit {
 
@@ -26,6 +26,7 @@ export class UpdateCommunityUserComponent implements OnInit {
         */
     }
 
+    /*
     private fromPartyToCheckableParty(party: Rest.SeasonMemberJson): CheckableParty {
         const checkableParty = new CheckableParty();
         checkableParty.id = party.id;
@@ -54,6 +55,7 @@ export class UpdateCommunityUserComponent implements OnInit {
         });
         return checkedParties;
     }
+    */
 
     /*
     private findParties(id: number) {

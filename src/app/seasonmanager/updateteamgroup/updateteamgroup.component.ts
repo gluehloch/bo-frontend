@@ -129,7 +129,8 @@ export class UpdateTeamGroupComponent implements OnInit {
         });
     }
 
-    addGroup(selectedGroupType: Rest.GroupTypeJson): void {
+    addGroup(selectedGroupType: Rest.GroupTypeJson | undefined): void {
+        if (!selectedGroupType) return;
         this.model.groupTypes.push(selectedGroupType);
         this.updateGroupSelectables();
 
