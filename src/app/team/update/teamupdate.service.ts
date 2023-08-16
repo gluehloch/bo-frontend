@@ -18,7 +18,7 @@ export class TeamUpdateService extends BetofficeService {
     }
 
     updateTeam(team: Rest.TeamJson): Observable<Rest.TeamJson> {
-        return this.http.post<Rest.TeamJson>(this.adminUrl + 'team/update', team);
+        return this.http.put<Rest.TeamJson>(this.adminUrl + 'team', team);
     }
 
 }
