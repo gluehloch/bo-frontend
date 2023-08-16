@@ -26,6 +26,7 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Logo</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,6 +34,12 @@
                                 <td>{{team.name}}</td>
                                 <td>
                                     <img class="teamlogo" src="{{team.logo}}" style="max-width: 20px; max-height: 20px" />
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-secondary"
+                                        (click)="removeTeamFromGroup(groupType, team)">
+                                        Entfernen
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
