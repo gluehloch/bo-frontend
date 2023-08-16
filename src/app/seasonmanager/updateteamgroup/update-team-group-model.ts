@@ -15,7 +15,16 @@ export class UpdateTeamGroupModel {
     selectedGroupType: Rest.GroupTypeJson | undefined;
 
     groupTypes: Array<Rest.GroupTypeJson> = [];
-    teamsByGroup: Map<Rest.GroupTypeJson, Array<Rest.TeamJson>> = new Map();
-
     seasonGroupTeam: Rest.SeasonGroupTeamJson | undefined;
+
+    teamCandidates: Array<Rest.TeamJson> = [];
+
+    getTeamsOfGroup(groupType: Rest.GroupTypeJson): Rest.TeamJson[] {
+        if (this.seasonGroupTeam) {
+            const groupTeam = this.seasonGroupTeam.groupTeams.find(gt => gt.groupType.id === groupType.id);
+            if (groupTeam) return groupTeam.teams;
+        }
+
+        return [];
+    }
 }

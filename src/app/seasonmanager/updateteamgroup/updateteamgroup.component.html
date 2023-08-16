@@ -17,6 +17,7 @@
                                 <th>
                                     {{groupType.name}}
                                     <button type="button" class="btn btn-sm btn-secondary"
+                                        *ngIf="model.getTeamsOfGroup(groupType).length === 0"
                                         (click)="removeGroup(groupType)">
                                         Gruppe entfernen
                                     </button>
@@ -24,23 +25,37 @@
                             </tr>
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">Bezeichnung</th>
                                 <th scope="col">Logo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>TODO Find all teams of group and season.</td>
-                            </tr>
-                            <!--
-                            <tr *ngFor="let team of seasonGroupTeamModel.teams">
+                            <tr *ngFor="let team of model.getTeamsOfGroup(groupType)">
                                 <td>{{team.name}}</td>
-                                <td>{{team.longName}}</td>
                                 <td>
-                                    <img class="teamlogo" src="{{team.logo}}"/>
+                                    <img class="teamlogo" src="{{team.logo}}" style="max-width: 20px; max-height: 20px" />
                                 </td>
                             </tr>
-                            -->
+                            <tr>
+                                <td colspan="3">
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        *ngIf="!startingAddingTeamToGroup"
+                                        (click)="startAddTeamToGroup(groupType)">
+                                        Mannschaft hinzufügen
+                                    </button>
+                                    <select class="form-select" name="selectTeam" id="selectTeam"
+                                        aria-label="Mannschaft auswählen"
+                                        *ngIf="startingAddingTeamToGroup?.id === groupType.id"
+                                        [(ngModel)]="selectedTeam"
+                                        (change)="addTeamToGroup(groupType, selectedTeam)">
+                                        *ngIf="startingAddingTeamToGroup?.id === groupType.id">
+                                        <option [ngValue]="undefined" selected>Mannschaft auswählen...</option>
+                                        <option *ngFor="let team of model.teamCandidates"
+                                            [ngValue]="teamCandidate">
+                                            {{team.name}}
+                                    </option>
+                                    </select>
+                                </td>                                
+                            </tr>
                         </tbody>
                     </table>
                 </div>

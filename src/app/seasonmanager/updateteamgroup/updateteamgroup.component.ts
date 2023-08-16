@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs';
 export class UpdateTeamGroupComponent implements OnInit {
 
     model = new UpdateTeamGroupModel();
+    startingAddingTeamToGroup: Rest.GroupTypeJson | undefined;
     processing = false;
 
     constructor(private router: Router,
@@ -44,6 +45,26 @@ export class UpdateTeamGroupComponent implements OnInit {
                     this.completeProcessing();
                 }
             });
+        });
+    }
+
+    startAddTeamToGroup(groupType: Rest.GroupTypeJson): void {
+        this.startingAddingTeamToGroup = groupType;
+        this.findTeamsForAdding(groupType);
+    }
+
+    private findTeamsForAdding(groupType: Rest.GroupTypeJson): void {
+        this.startProcessing();
+        this.updateSeasonGroupTeamService.findGroupTeamCandidates(this.model.season.id, groupType).subscribe({
+            next: teams => {
+                this.model.teamCandidates = teams;
+            },
+            error: error => {
+                console.error('Unable to execute request.', error);
+            },
+            complete: () => {
+               this.completeProcessing();
+            }
         });
     }
 
