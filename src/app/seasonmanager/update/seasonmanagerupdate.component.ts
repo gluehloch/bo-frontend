@@ -28,17 +28,10 @@ export class SeasonManagerUpdateComponent implements OnInit {
         this.startProcessing();
         this.route.params.pipe(map(params => params['id'])).subscribe((seasonId) => {
             const findSeason = this.seasonManagerUpdateService.findSeason(seasonId);
-            const findGroupTypes = this.seasonManagerUpdateService.findGroupTypes();
-            const findSeasonGroupTypes = this.seasonManagerUpdateService.findGroupTypesBySeason(seasonId);
 
-            forkJoin([findSeason, findGroupTypes, findSeasonGroupTypes]).subscribe({
-                next: results => {
-                    this.model.season = results[0];
-                    this.model.selectableGroupTypes = results[1];
-                    this.model.groupTypes = results[2];
-
-                    this.model.selectableGroupTypes = this.model.selectableGroupTypes
-                        .filter(i => (this.model.groupTypes.find(j => j.id === i.id)) === undefined);
+            findSeason.subscribe({
+                next: seasonJson => {
+                    this.model.season = seasonJson;
                 },
                 error: error => {
                     console.error('Unable to execute request.', error);
@@ -53,8 +46,8 @@ export class SeasonManagerUpdateComponent implements OnInit {
     updateSeason() {
         this.startProcessing();
         this.seasonManagerUpdateService.updateSeason(this.model.season).subscribe({
-            next: (season: Rest.SeasonJson) => {
-                this.model.season = season;
+            next: seasonJson => {
+                this.model.season = seasonJson;
                 this.navigateToOverview();
             },
             error: error => {

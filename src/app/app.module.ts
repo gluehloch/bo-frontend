@@ -231,7 +231,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 canActivate: [AdministrationCanActivate]
             },
             {
-                path: 'chiefop/seasonmanager/updateteamgroup',
+                path: 'chiefop/seasonmanager/updateteamgroup/:id',
                 component: UpdateTeamGroupComponent,
                 canActivate: [AdministrationCanActivate],
             },

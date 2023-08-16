@@ -32,33 +32,6 @@
         <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason"
             [(ngModel)]="model.season.openligaLeagueSeason" />
     </div>
-    <div class="mb-3">
-        <label for="groupTypes" class="form-label">Gruppen der Meisterschaft</label>
-        <ng-template [ngIf]="model.groupTypes.length === 0">
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Es ist keine Gruppe der Meisterschaft zugeordnet.">
-            </div>
-        </ng-template>
-        <ng-template [ngIf]="model.groupTypes.length > 0">
-            <div class="col-sm-10">
-                <span *ngFor="let groupType of model.groupTypes; let index = index">
-                    {{groupType.name}}
-                    <span *ngIf="index < model.groupTypes.length - 1">, </span>
-                </span>
-            </div>
-        </ng-template>
-    </div>
-    <div class="mb-3">
-        <label for="groupTypes" class="form-label">Gruppen zur Meisterschaft hinzufügen</label>
-        <select class="form-select" id="selectedGroupType" name="selectedGroupType"
-            aria-label="Default select example"
-            [(ngModel)]="model.selectedGroupType">
-            <option *ngFor="let groupType of model.selectableGroupTypes"
-                [value]="groupType.id">
-                {{groupType.name}}
-            </option>
-          </select>
-    </div>
 
     <div class="d-grid gap-2">
         <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block" type="button"

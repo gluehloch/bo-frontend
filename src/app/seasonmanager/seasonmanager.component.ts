@@ -27,7 +27,7 @@ export class SeasonManagerComponent implements OnInit {
         this.seasons = new Array<Rest.SeasonJson>();
   }
 
-    ngOnInit() {
+    ngOnInit(): void {
         console.log('SeasonManagerComponent::ngOnInit');
         this.seasonManagerService.findSeasons().subscribe(
             (seasons: Array<Rest.SeasonJson>) => {
@@ -37,15 +37,19 @@ export class SeasonManagerComponent implements OnInit {
         );
     }
 
-    updateSeason(season: Rest.SeasonJson) {
+    updateSeason(season: Rest.SeasonJson): void {
         this.router.navigate(['./chiefop/seasonmanager/update', season.id]);
     }
 
-    updateMatchday(season: Rest.SeasonJson) {
-        this.router.navigate(['chiefop/seasonmanager/updatematchday'], { queryParams: {seasonId: season.id }});
+    updateTeamGroup(season: Rest.SeasonJson): void {
+        this.router.navigate(['./chiefop/seasonmanager/updateteamgroup', season.id]);
     }
 
-    createSeason() {
+    updateMatchday(season: Rest.SeasonJson): void {
+        this.router.navigate(['./chiefop/seasonmanager/updatematchday'], { queryParams: {seasonId: season.id }});
+    }
+
+    createSeason(): void {
         this.router.navigate(['./chiefop/seasonmanager/create']);
     }
 
