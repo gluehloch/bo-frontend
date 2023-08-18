@@ -11,7 +11,7 @@
     "experimentalDecorators": true,
     "strictNullChecks": true,
     // TODO enable me: "exactOptionalPropertyTypes": true,
-    "target": "es5",
+    "target": "ES2015",
     "typeRoots": [
       "node_modules/@types"
     ],
