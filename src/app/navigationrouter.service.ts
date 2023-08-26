@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class NavigationRouterService {
@@ -20,15 +20,15 @@ export class NavigationRouterService {
     sessionSource$ = this.sessionSource.asObservable();
 
     // Service message commands
-    activate(activatedRoute: string) {
+    activate(activatedRoute: string): void {
         this.navigationSource.next(activatedRoute);
     }
 
-    login() {
+    login(): void {
         this.sessionSource.next('login');
     }
 
-    logout() {
+    logout(): void {
         this.sessionSource.next('logout');
     }
 

@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-// TODO Was ist das hier?
-
 import { Observable } from 'rxjs';
-import 'rxjs/Rx';
 
-import { environment } from '../../environments/environment';
 import { BetofficeService } from '../betoffice.service';
-
-import { USERROLE } from '../user-role.enum';
-
+import { SessionService } from '../session/session.service';
 
 export interface Login {
     nickname: string;
@@ -25,16 +19,16 @@ export interface Logout {
 @Injectable()
 export class AuthenticationService extends BetofficeService {
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     login(login: Login): Observable<Rest.SecurityTokenJson> {
-        return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "login", login, { headers: this.createHeader() });
+        return this.http.post<Rest.SecurityTokenJson>(this.authenticationUrl + "login", login);
     }
 
     logout(logout: Logout): Observable<Rest.SecurityTokenJson> {
-        return this.http.post<Rest.SecurityTokenJson>(this.rootUrl + "logout", logout, { headers: this.createHeader() });
+        return this.http.post<Rest.SecurityTokenJson>(this.authenticationUrl + "logout", logout);
     }
 
 }

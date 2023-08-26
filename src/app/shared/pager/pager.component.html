@@ -1,0 +1,17 @@
+<nav aria-label="paginator">
+    <ul class="pagination justify-content-end">
+        <li class="page-item" [class.disabled]="pagerModel.currentPage === 0">
+            <a class="page-link" [routerLink]="" (click)="previousPage()" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let slice of slices" class="page-item" [class.active]="pagerModel.currentPage === slice">
+            <a class="page-link" [routerLink]="" (click)="gotoPage(slice)">{{slice + 1}}</a>
+        </li>
+        <li class="page-item" [class.disabled]="pagerModel.currentPage === pagerModel.pages - 1">
+            <a class="page-link" [routerLink]="" (click)="nextPage()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
+import { environment } from '../environments/environment';
 import { CookieModule } from 'ngx-cookie';
 
 import { AppComponent } from './app.component';
@@ -24,11 +24,15 @@ import { HomeComponent } from './home/home.component';
 
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { RegistrationService } from './registration/registration.service';
+import { RegistrationComponent } from './registration/registration.component';
 
 import { AuthenticationWarningComponent } from './authenticationwarning/authenticationwarning.component';
 
-import { GameResultComponent } from './gameresult/gameresult.component';
+import { GameResultComponent } from './shared/gameresult/gameresult.component';
+import { PagerComponent } from './shared/pager/pager.component';
 
+import { TippSelectorComponent } from './tipp/selector/tipp-selector.component';
 import { TippService } from './tipp/tipp.service';
 import { TippComponent } from './tipp/tipp.component';
 import { TippSmallComponent } from './tipp/tipp-small.component';
@@ -41,8 +45,7 @@ import { TippResultComponent } from './ranking/tippresult.component';
 import { RankingService } from './ranking/ranking.service';
 import { RankingComponent } from './ranking/ranking.component';
 
-// import { SessionService } from './session/session.service';
-import { SessionComponent } from './session/session.component';
+import { SessionService } from './session/session.service';
 
 import { PartyService } from './party/party.service';
 import { PartyComponent } from './party/party.component';
@@ -73,12 +76,19 @@ import { CookieService } from './app.cookie.service';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CommunityAdminComponent } from './admin/community/communityadmin.component';
+import { CommunityAdminService } from './admin/community/communityadmin.service';
+import { AdministrationCanActivate } from './session/administration.canactivate';
+import { UserCanActivate } from './session/user.canactivate';
+import { httpInterceptorProviders } from './interceptors';
+import { UpdateTeamGroupComponent } from './seasonmanager/updateteamgroup/updateteamgroup.component';
+import { UpdateSeasonGroupTeamService } from './seasonmanager/updateteamgroup/updateteamgroup.service';
 
 const cookieConfig: NgcCookieConsentConfig = {
     cookie: {
         domain: 'tippdiekistebier.de'
     },
-    position: 'bottom-right',
+    position: 'top-right',
     palette: {
         popup: {
             'background': '#2b482a',
@@ -106,7 +116,7 @@ const cookieConfig: NgcCookieConsentConfig = {
 };
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, 'https://cookie.gluehloch.de/assets/', '.json');
+    return new TranslateHttpLoader(http, environment.cookieAssetsUrl, '.json');
 }
 
 @NgModule({
@@ -116,7 +126,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         HttpClientModule,
         CookieModule.forRoot(),
         FormsModule,
-        HttpModule,
+        ReactiveFormsModule,
         NgcCookieConsentModule.forRoot(cookieConfig),
         TranslateModule.forRoot({
             loader: {
@@ -140,6 +150,10 @@ export function HttpLoaderFactory(http: HttpClient) {
                 component: HomeComponent
             },
             {
+                path: 'register',
+                component: RegistrationComponent
+            },
+            {
                 path: 'login',
                 component: AuthenticationComponent
             },
@@ -155,15 +169,18 @@ export function HttpLoaderFactory(http: HttpClient) {
             */
             {
                 path: 'tipp',
-                component: TippComponent
+                component: TippComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'tipp-small',
-                component: TippSmallComponent
+                component: TippSmallComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'tipp-mobile',
-                component: TippMobileComponent
+                component: TippMobileComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'ranking',
@@ -175,39 +192,58 @@ export function HttpLoaderFactory(http: HttpClient) {
             },
             {
                 path: 'chiefop/party',
-                component: PartyComponent
+                component: PartyComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/party/update/:id',
-                component: PartyUpdateComponent
+                component: PartyUpdateComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/team',
-                component: TeamComponent
+                component: TeamComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/team/update/:id',
-                component: TeamUpdateComponent
+                component: TeamUpdateComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager',
-                component: SeasonManagerComponent
+                component: SeasonManagerComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/create',
-                component: SeasonManagerCreateComponent
+                component: SeasonManagerCreateComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/update/:id',
-                component: SeasonManagerUpdateComponent
+                component: SeasonManagerUpdateComponent,
+                canActivate: [AdministrationCanActivate]
             },
             {
                 path: 'chiefop/seasonmanager/updatematchday',
-                component: UpdateMatchdayComponent
+                component: UpdateMatchdayComponent,
+                canActivate: [AdministrationCanActivate]
+            },
+            {
+                path: 'chiefop/seasonmanager/updateteamgroup/:id',
+                component: UpdateTeamGroupComponent,
+                canActivate: [AdministrationCanActivate],
             },
             {
                 path: 'chiefop/seasonmanager/updatematch',
-                component: UpdateMatchComponent
+                component: UpdateMatchComponent,
+                canActivate: [AdministrationCanActivate]
+            },
+            {
+                path: 'chiefop/community',
+                component: CommunityAdminComponent,
+                canActivate: [AdministrationCanActivate]
             }
         ])
     ],
@@ -218,14 +254,16 @@ export function HttpLoaderFactory(http: HttpClient) {
         HomeComponent,
         AuthenticationWarningComponent,
         AuthenticationComponent,
+        RegistrationComponent,
         GameResultComponent,
+        PagerComponent,
+        TippSelectorComponent,
         TippComponent,
         TippSmallComponent,
         TippMobileComponent,
         SeasonComponent,
         TippResultComponent,
         RankingComponent,
-        SessionComponent,
         PartyComponent,
         PartyUpdateComponent,
         TeamComponent,
@@ -234,14 +272,21 @@ export function HttpLoaderFactory(http: HttpClient) {
         SeasonManagerComponent,
         SeasonManagerUpdateComponent,
         SeasonManagerCreateComponent,
+        UpdateTeamGroupComponent,
         UpdateMatchdayComponent,
-        UpdateMatchComponent
+        UpdateMatchComponent,
+        CommunityAdminComponent,
     ],
     providers: [
+        httpInterceptorProviders,
+        AdministrationCanActivate,
+        UserCanActivate,
         CookieService,
         HomeService,
         NavigationRouterService,
         AuthenticationService,
+        SessionService,
+        RegistrationService,
         TippService,
         SeasonService,
         RankingService,
@@ -253,8 +298,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         SeasonManagerService,
         SeasonManagerUpdateService,
         SeasonManagerCreateService,
+        UpdateSeasonGroupTeamService,
         UpdateMatchdayService,
         UpdateMatchService,
+        CommunityAdminService,
         ModalService
     ],
     bootstrap: [AppComponent]

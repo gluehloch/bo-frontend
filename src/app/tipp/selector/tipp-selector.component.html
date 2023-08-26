@@ -1,0 +1,29 @@
+<form id="tipp-selector" name="tipp-selector" [formGroup]="form">
+    <div class="form-group">
+        <!--
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary">
+                <span class="bi bi-toggle-on"></span> {{selectionState}}</button>
+        </div>
+        -->
+
+        <!--
+        <label for="tippFromSelection">Formular wechseln</label>
+        -->
+        <select id="tippFromSelection"
+            formControlName="state" class="form-control" aria-label=".form-select-sm toppselector"
+            (ngModelChange)="onModelChange($event)">
+            <option [ngValue]="null" disabled>Bitte auswählen....</option>
+            <option *ngFor="let state of states"
+                [ngValue]="state">
+                {{state.name}}
+            </option>
+        </select>
+    </div>
+<!--
+    <p>Selected: {{form.value | json}}</p>
+    <button id="submit" name="submit"
+        type="button" class="btn btn-primary btn-sm"
+        (click)="clickButton()">Change me</button>
+-->
+</form>

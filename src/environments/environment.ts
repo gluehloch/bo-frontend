@@ -6,21 +6,22 @@
 export const environment = {
 
     // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
-    dateTimeFormat: 'dd.MM.yyyy HH:mm',
+    dateTimeFormat:      'dd.MM.yyyy HH:mm',
     // TODO Wird mit der Community Edition abgeschafft...
-    currentSeasonId: 30,
+    currentSeasonId:     33,
 
-    production: false,
-    rootUrl: 'http://localhost:8080/betoffice-jweb/bo/office/',
-    adminUrl: 'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
-    cookieserviceUrl: 'http://localhost:9090/registrationservice/cookie/confirmCookie',
+    production:          false,
+    rootUrl:             'http://localhost:8080/betoffice-jweb/bo/office/',
+    authenticationUrl:   'http://localhost:8080/betoffice-jweb/bo/authentication/',
+    adminUrl:            'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
+    communityAdminUrl:   'http://localhost:8080/betoffice-jweb/bo/community-admin/',
 
-    /*
-    rootUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/office/',
-    adminUrl: 'http://192.168.0.101:8080/betoffice-jweb/bo/chiefoperator/',
-    cookieserviceUrl: 'http://192.168.0.101:9090/registrationservice/cookie/confirmCookie',
-    */
+    // // cookieserviceUrl:    'http://localhost:9090/registrationservice/cookie/confirmCookie',
+    cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
+    cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
+    // registerserviceUrl:  'http://localhost:8080/registrationservice/registration/register',
+    registerserviceUrl: 'http://localhost:8080/registrationservice/registration/register',
 
-    website: 'andre-winkler.de.localhost'
+    website:             'andre-winkler.de.localhost',
 
 };

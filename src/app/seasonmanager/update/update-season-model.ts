@@ -1,20 +1,25 @@
-import { CheckableParty } from './checkable-party';
+import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
 
 export class UpdateSeasonModel {
 
-  readonly seasonTypes: Array<string> = ['CL', 'CUP', 'EC', 'LEAGUE', 'UEFACUP', 'WC'];
-  readonly teamTypes: Array<string> = ['DFB', 'FIFA'];
+    readonly seasonTypes: Array<string> = ['CL', 'CUP', 'EC', 'LEAGUE', 'UEFACUP', 'WC'];
+    readonly teamTypes: Array<string> = ['DFB', 'FIFA'];
 
-  submitted = false;
-  season: Rest.SeasonJson;
+    submitted = false;
+    season: Rest.SeasonJson = {
+        id: 0,
+        name: '',
+        year: '',
+        openligaLeagueSeason: '',
+        openligaLeagueShortcut: '',
+        currentRoundId: 0,
+        teamType: 'DFB',
+        seasonType: 'LEAGUE',
+        rounds: [],
+    };
 
-  /** all users not associated with the selected season */
-  potentialParties: Array<CheckableParty> = [];
-
-  /** all uses associated with the selected season */
-  parties: Array<CheckableParty> = [];
-
-  /** Filter to sort out not wanted users */
-  potentialUserFilter: string;
+    constructor() {
+        this.season = new Betoffice.SeasonModel();
+    }
 
 }

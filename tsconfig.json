@@ -6,9 +6,12 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "strictNullChecks": true,
+    // TODO enable me: "exactOptionalPropertyTypes": true,
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],

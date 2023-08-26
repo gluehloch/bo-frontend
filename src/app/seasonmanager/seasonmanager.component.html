@@ -1,40 +1,43 @@
-<h1>Meisterschaften Verwaltung</h1>
+<app-authentication-warning></app-authentication-warning>
 
+<h1>Meisterschaften Verwaltung</h1>
 <div>
     <a class="btn btn-secondary btn-sm" (click)="createSeason()">Neue Meisterschaft</a>
 </div>
-
 <hr />
-
 <div *ngIf="seasons.length != 0">
     <table class="table table-striped table-sm">
-        <tr>
-            <th></th>
-            <th></th>
-            <th>Name</th>
-            <th>Jahr</th>
-            <th>Meisterschaft-Modus</th>
-            <th>Teilnehmer-Typ</th>
-            <th>OpenligaLeagueSeason</th>
-            <th>OpenligaLeagueShortcut</th>
-        </tr>
-        <tr *ngFor="let season of seasons">
-            <td>
-                <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">
-                    Edit
-                </button>
-            </td>
-            <td>
-                <button class="btn btn-primary btn-sm" type="submit" (click)="updateMatchday(season)">
-                    Aktualisieren
-                </button>
-            </td>
-            <td>{{season.name}}</td>
-            <td>{{season.year}}</td>
-            <td>{{season.seasonType}}</td>
-            <td>{{season.teamType}}</td>
-            <td>{{season.openligaLeagueSeason}}</td>
-            <td>{{season.openligaLeagueShortcut}}</td>
-        </tr>
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Jahr</th>
+                <th scope="col">Meisterschaft-Modus</th>
+                <th scope="col">Teilnehmer-Typ</th>
+                <th scope="col">OpenligaLeagueSeason</th>
+                <th scope="col">OpenligaLeagueShortcut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let season of seasons">
+                <td>
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateTeamGroup(season)">Gruppen/Mannschaften</button>
+                </td>                
+                <td>
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateMatchday(season)">Aktualisieren</button>
+                </td>
+                <td>{{season.name}}</td>
+                <td>{{season.year}}</td>
+                <td>{{season.seasonType}}</td>
+                <td>{{season.teamType}}</td>
+                <td>{{season.openligaLeagueSeason}}</td>
+                <td>{{season.openligaLeagueShortcut}}</td>
+            </tr>
+        </tbody>
     </table>
 </div>

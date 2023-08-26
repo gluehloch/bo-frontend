@@ -3,12 +3,13 @@ import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { USERROLE } from '../../user-role.enum';
-
 import { UpdateMatchService } from './updatematch.service';
 import { ModalService } from './../../modal/modal.service';
 
 import { environment } from './../../../environments/environment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
 
 class MatchModel {
     seasonId: number;
@@ -18,7 +19,15 @@ class MatchModel {
     match: Rest.GameJson;
 
     // TODO Some common form disabling/submitting mechanism?
-    submitted: false;
+    submitted: boolean;
+
+    constructor() {
+        this.seasonId = -1;
+        this.roundId = -1;
+        this.matchId = -1;
+        this.match = new Betoffice.GameModel();
+        this.submitted = false;
+    }
 }
 
 @Component({
@@ -30,19 +39,30 @@ export class UpdateMatchComponent implements OnInit {
 
     dateTimeFormat = environment.dateTimeFormat;
     matchModel: MatchModel;
+    processing = true;
 
     constructor(private router: Router,
-        private route: ActivatedRoute,
+        private activatedRoute: ActivatedRoute,
         private updateMatchService: UpdateMatchService,
         private modalService: ModalService) {
 
         this.matchModel = new MatchModel();
-        this.matchModel.match = null;
+
+        // TODO: Remove me: Kann ich besser durch eine 'CanActivate' Guard implementiert werden.
+        const id: Observable<string> = activatedRoute.params.pipe(map(p => p.id));
+        const url: Observable<string> = activatedRoute.url.pipe(map(segments => segments.join('/')));
+        // route.data includes both `data` and `resolve`
+        const user = activatedRoute.data.pipe(map(d => d.user)); 
+        
+
+        url.subscribe(str => {
+            console.log('URL', str);
+        });
     }
 
     ngOnInit() {
-        this.route.queryParams.subscribe((params) => {
-            console.log('matchId=' + params.matchId + ' / roundId=' + params.roundId);
+        this.activatedRoute.queryParams.subscribe((params) => {
+            console.log('params=', params, ', matchId=' + params.matchId + ' / roundId=' + params.roundId);
             this.matchModel.seasonId = params.seasonId;
             this.matchModel.roundId = params.roundId;
             this.matchModel.matchId = params.matchId;
@@ -55,6 +75,7 @@ export class UpdateMatchComponent implements OnInit {
 
     private findMatch(matchId: number) {
         console.log('Match loading: ' + matchId);
+        this.processing = true;
         this.updateMatchService
             .findMatch(matchId)
             .subscribe(
@@ -63,9 +84,11 @@ export class UpdateMatchComponent implements OnInit {
                     this.matchModel.match = match;
                 },
                 (error) => {
-                    console.error('Ein Fehler: ' + error);
-                    console.dir(error);
+                    console.error('Die Match-Daten konnten nicht vom Backend geladen werden.',  error);
                     // TODO Error handling not implemented.
+                },
+                () => {
+                    this.processing = false;
                 }
             );
     }
@@ -81,8 +104,7 @@ export class UpdateMatchComponent implements OnInit {
                 },
                 (error) => {
                     this.modalService.open('AuthenticationWarningComponent', error.status);
-                    console.error('Ein Fehler: ' + error);
-                    console.dir(error);
+                    console.error('Die Match-Daten konnten nicht gespeichert werden.',  error);
                     // TODO Error handling not implemented.
                 }
             );
@@ -96,8 +118,7 @@ export class UpdateMatchComponent implements OnInit {
                     this.matchModel.match = match;
                 },
                 (error) => {
-                    console.error('Ein Fehler', error);
-                    console.dir(error);
+                    console.error('Die Match-Daten konnten nicht vom Backend geladen werden.',  error);
                     // TODO Error handling not implemented.
                 }
             );

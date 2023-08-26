@@ -1,43 +1,44 @@
-<h1>Meisterschaften neu anlegen</h1>
+0<h1>Meisterschaften neu anlegen</h1>
 
-<form #createSeasonForm="ngForm" name="seasonmanagerupdateform" >
-  <div class="form-group">
-    <label for="id">ID</label>
-    <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="model.season.id"/>
-  </div>
-  <div class="form-group">
-      <!-- ng-class="{'has-warning': party.nickname} -->
-    <label for="name">Name</label>
-    <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name" required />
-  </div>
-  <div class="form-group">
-    <label for="year">Jahrgang</label>
-    <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year" required />
-  </div>
-  <div class="form-group">
-    <label for="seasonType">Meisterschaftstyp</label>
-    <select id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType" required>
-      <option *ngFor="let seasonType of model.seasonTypes" [value]="seasonType">{{seasonType}}</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="teamType">Mannschaftstyp</label>
-    <select id="teamType" name="teamType" [(ngModel)]="model.season.teamType" required>
-      <option *ngFor="let teamType of model.teamTypes" [value]="teamType">{{teamType}}</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="openligaLeagueShortcut">Openleague Shortcut</label>
-    <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut" [(ngModel)]="model.season.openligaLeagueShortcut"/>
-  </div>
-  <div class="form-group">
-    <label for="openligaLeagueSeason">Openleague Jahrgang/League</label>
-    <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason" [(ngModel)]="model.season.openligaLeagueSeason"/>
-  </div>
-
-  <button
-    [disabled]="!createSeasonForm.form.valid || model.submitted"
-    class="btn btn-lg btn-primary btn-block"
-    type="submit"
-    (click)="createSeason()">Neu Anlegen</button>
+<form #createSeasonForm="ngForm" name="seasonmanagerupdateform">
+    <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
+        <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="model.season.id" />
+    </div>
+    <div class="mb-3">
+        <!-- ng-class="{'has-warning': party.nickname} -->
+        <label for="name" class="form-label">Name</label>
+        <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name" required />
+    </div>
+    <div class="mb-3">
+        <label for="year" class="form-label">Jahrgang</label>
+        <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year" required />
+    </div>
+    <div class="mb-3">
+        <label for="seasonType" class="form-label">Meisterschaftstyp</label>
+        <select class="form-select" id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType" required>
+            <option *ngFor="let seasonType of model.seasonTypes" [value]="seasonType">{{seasonType}}</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="teamType" class="form-label">Mannschaftstyp</label>
+        <select class="form-select" id="teamType" name="teamType" [(ngModel)]="model.season.teamType" required>
+            <option *ngFor="let teamType of model.teamTypes" [value]="teamType">{{teamType}}</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="openligaLeagueShortcut" class="form-label">Openleague Shortcut</label>
+        <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut"
+            [(ngModel)]="model.season.openligaLeagueShortcut" />
+    </div>
+    <div class="mb-3">
+        <label for="openligaLeagueSeason" class="form-label">Openleague Jahrgang/League</label>
+        <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason"
+            [(ngModel)]="model.season.openligaLeagueSeason" />
+    </div>
+    <div class="d-grid gap-2">
+        <button [disabled]="!createSeasonForm.form.valid || model.submitted" class="btn btn-primary"
+            type="submit" (click)="createSeason()">Neu Anlegen</button>
+        <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+    </div>
 </form>

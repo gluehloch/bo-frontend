@@ -1,57 +1,20 @@
 import * as _ from 'lodash';
 
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie';
 
-import { TippService, PingJson } from './tipp.service';
+import { TippService } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
+import { SessionService } from '../session/session.service';
+import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
 
 export class SubmitButtonModel {
-    pressed: boolean;
-    responseStatusCode: number; // HTTP Status Code 200 ok, > 400 problems
-    responseErrorMessage: String; // An error message
-    progress: number;
+    pressed = false;
+    responseStatusCode = 200;  // HTTP Status Code 200 ok, > 400 problems
+    responseErrorMessage = ''; // An error message
+    progress = 0;
 }
-
-/*
-class RoundModel implements Rest.RoundJson {
-    id: number;
-    seasonId: number;
-    seasonName: string;
-    seasonYear: string;
-    dateTime: Date;
-    index: number;
-    lastRound: boolean;
-    tippable: boolean;
-    games: Rest.GameJson[];
-}
-
-class GameModel implements Rest.GameJson {
-    id: number;
-    index: number;
-    roundId: number;
-    dateTime: string;
-    homeTeam: Rest.TeamJson;
-    guestTeam: Rest.TeamJson;
-    halfTimeResult: Rest.GameResultJson;
-    result: Rest.GameResultJson;
-    overtimeResult: Rest.GameResultJson;
-    penaltyResult: Rest.GameResultJson;
-    finished: boolean;
-    ko: boolean;
-    tipps: Rest.GameTippJson[];
-    openligaid: number;
-}
-
-class GameTippModel implements Rest.GameTippJson {
-    nickname: string;
-    tipp: Rest.GameResultJson;
-    points: number;
-}
-*/
 
 /**
  * Verwaltet einen Tipp fuer ein Spiel. Aenderung werden notiert
@@ -80,8 +43,16 @@ class TippModelContainer {
     authenticated: boolean;
     summedUpPoints: number;
     modified: boolean;
-
     tippModels: TippModel[];
+
+    constructor() {
+        this.nickname = '';
+        this.authenticated = false;
+        this.summedUpPoints = 0;
+        this.modified = false;
+        this.tippModels = [];
+        this.round = new Betoffice.RoundModel();
+    }
 
     public reset() {
         this.tippModels = [];
@@ -114,7 +85,7 @@ class TippModelContainer {
     }
 }
 
-export class TippCommonComponent implements OnInit {
+export abstract class TippCommonComponent /*implements OnInit*/ {
 
     dateTimeFormat = environment.dateTimeFormat;
     currentSeasonId = environment.currentSeasonId;
@@ -123,7 +94,12 @@ export class TippCommonComponent implements OnInit {
     navigationRouterService: NavigationRouterService;
     tippModelContainer = new TippModelContainer();
 
-    constructor(private cookieService: CookieService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
+    season: Rest.SeasonJson | undefined;
+    selectedRound: Rest.RoundJson | undefined;
+
+    contentReady = false;
+
+    constructor(private sessionService: SessionService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
         this.submitButtonModel = new SubmitButtonModel();
         this.submitButtonModel.progress = 0;
         this.navigationRouterService = navigationRouterService;
@@ -138,16 +114,31 @@ export class TippCommonComponent implements OnInit {
     }
 
     checkAuthorization() {
-        if (this.tippService.isAuthorized()) {
-            this.tippModelContainer.nickname = this.tippService.readCredentials().nickname;
+        if (this.sessionService.isAuthorized()) {
+            this.tippModelContainer.nickname = this.sessionService.getNickname();
             this.tippModelContainer.authenticated = true;
         } else {
-            this.tippModelContainer.nickname = null;
+            this.tippModelContainer.nickname = '';
             this.tippModelContainer.authenticated = false;
         }
     }
 
+    roundSelected(event: any) {
+        console.debug('Selected round id: ' + event.target.value);
+
+        const selectedRound = this.season?.rounds.find(round => round.id == event.target.value);
+
+        this.selectedRound = selectedRound;
+        if (this.selectedRound) {
+            this.tippService.findTipp(this.selectedRound.id, this.tippModelContainer.nickname)
+                .subscribe((roundJson: Rest.RoundJson) => {
+                    this.updateModel(roundJson);
+                });
+        }
+    }    
+
     private updateModel(roundJson: Rest.RoundJson) {
+        if (!roundJson) return;
         roundJson.games = this.sortGames(roundJson.games);
         this.tippModelContainer.round = roundJson;
 
@@ -177,14 +168,35 @@ export class TippCommonComponent implements OnInit {
         this.submitButtonModel.responseStatusCode = 0;
     }
 
-    ngOnInit() {
+    private updateContentReady() {
+        this.contentReady = true;
+    }
+
+    onInit() {
         this.navigationRouterService.activate(NavigationRouterService.ROUTE_TIPP);
         this.checkAuthorization();
 
+        // TODO: Chaining von Observables. Schwierig. Im Gegensatz zu Promises nicht so intuitiv.
         if (this.tippModelContainer.authenticated) {
-            this.tippService.nextTippRound(this.currentSeasonId, this.tippModelContainer.nickname)
-                .subscribe((roundJson: Rest.RoundJson) => {
-                    this.updateModel(roundJson);
+            this.tippService.rounds(this.currentSeasonId)
+                .subscribe(seasonJson => {
+                    this.season = seasonJson;
+                    this.tippService.currentRound(this.currentSeasonId, this.tippModelContainer.nickname)
+                        .subscribe({
+                            next: (roundJson: Rest.RoundJson) => {
+                                if (roundJson) {
+                                    this.updateModel(roundJson);
+                                } else {
+                                    this.tippService.findTipp(seasonJson.rounds[0].id, this.tippModelContainer.nickname)
+                                        .subscribe(rr => {
+                                            this.updateModel(rr);
+                                        });
+                                }
+                            }, 
+                            complete: () => {
+                                this.updateContentReady();
+                        },
+                    });
                 });
         }
     }
@@ -220,7 +232,7 @@ export class TippCommonComponent implements OnInit {
         const submitTipp = {
             nickname: this.tippModelContainer.nickname,
             roundId: this.tippModelContainer.round.id,
-            submitTippGames: []
+            submitTippGames: [] as Betoffice.SubmitTippGameModel[],
         };
 
         this.tippModelContainer.tippModels.forEach(tippModel => {
@@ -234,20 +246,21 @@ export class TippCommonComponent implements OnInit {
         });
 
         this.tippService.tipp(submitTipp)
-            .subscribe((roundJson: Rest.RoundJson) => {
-                this.updateModel(roundJson);
-                this.submitButtonModel.pressed = false;
-                this.submitButtonModel.responseStatusCode = 200;
-                this.submitButtonModel.progress = 100;
-            },
-                (err: HttpErrorResponse) => {
+            .subscribe({
+                next: (roundJson: Rest.RoundJson) => {
+                    this.updateModel(roundJson);
+                    this.submitButtonModel.pressed = false;
+                    this.submitButtonModel.responseStatusCode = 200;
+                    this.submitButtonModel.progress = 100;
+                },
+                error: (err: HttpErrorResponse) => {
                     this.submitButtonModel.pressed = false;
                     this.submitButtonModel.responseStatusCode = err.status;
                     this.submitButtonModel.responseErrorMessage = err.error;
                     this.submitButtonModel.progress = 100;
-                    if (err.status == 403) {
+                    if (err.status === 403 || err.status === 401) {
                         console.log('Access denied.');
-                        this.tippService.clearCredentials();
+                        this.sessionService.clearCredentials();
                     } else if (err.error instanceof Error) {
                         // A client-side or network error occurred. Handle it accordingly.
                         console.log('An error occurred:', err.error.message);
@@ -256,7 +269,8 @@ export class TippCommonComponent implements OnInit {
                         // The response body may contain clues as to what went wrong,
                         console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
                     }
-                });
+                },
+            });
     }
 
 }

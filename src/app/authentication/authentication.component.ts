@@ -1,65 +1,32 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie';
+import { Component,OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthenticationService } from './authentication.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { USERROLE } from '../user-role.enum';
 
+import { environment } from '../../environments/environment';
+import { SessionService } from '../session/session.service';
+
 class AuthenticationModel {
 
-    nickname = 'Nickname';
-    password = 'Password';
+    nickname = '';
+    password = '';
+    lastlogin = '';
+    token = '';
+    authenticationTries = 0;
+    authenticated = false;
+    admin = false;
 
-    // --------------------------------------------------------------------------
-
-    private _token: string;
-
-    set token(token: string) {
-        this._token = token;
+    clear() {
+        this.authenticated = false;
+        this.nickname = '';
+        this.password = '';
+        this.token = '';
+        this.admin = false;
+        this.authenticationTries = 0;
     }
-
-    get token() {
-        return this._token;
-    }
-
-    // --------------------------------------------------------------------------
-
-    private _authenticationTries = 0;
-
-    get authenticationTries() {
-        return this._authenticationTries;
-    }
-
-    set authenticationTries(num: number) {
-        this._authenticationTries = num;
-    }
-
-    // --------------------------------------------------------------------------
-
-    private _authenticated = false;
-
-    get authenticated() {
-        return this._authenticated;
-    }
-
-    set authenticated(loggedIn: boolean) {
-        this._authenticated = loggedIn;
-    }
-
-    // --------------------------------------------------------------------------
-
-    private _admin = false;
-
-    get admin() {
-        return this._admin;
-    }
-
-    set admin(admin: boolean) {
-        this._admin = admin;
-    }
-
-    // --------------------------------------------------------------------------
 
 }
 
@@ -70,14 +37,17 @@ class AuthenticationModel {
 })
 export class AuthenticationComponent implements OnInit {
 
+    dateTimeFormat = environment.dateTimeFormat;
     authenticationModel: AuthenticationModel;
 
     constructor(
-        private cookieService: CookieService,
+        private router: Router,
+        private sessionService: SessionService,
         private authenticationService: AuthenticationService,
         private navigationRouterService: NavigationRouterService) {
+
         this.authenticationModel = new AuthenticationModel();
-        this.authenticationModel.token = null;
+        this.authenticationModel.token = '';
     }
 
     ngOnInit() {
@@ -86,17 +56,15 @@ export class AuthenticationComponent implements OnInit {
     }
 
     init() {
-        if (this.authenticationService.isAuthorized()) {
-            const securityToken = this.authenticationService.readCredentials();
+        if (this.sessionService.isAuthorized()) {
+            const securityToken = this.sessionService.readCredentials();
             this.authenticationModel.authenticated = true;
             this.authenticationModel.nickname = securityToken.nickname;
             this.authenticationModel.token = securityToken.token;
-            this.authenticationModel.admin = (this.authenticationService.getUserRole() === USERROLE.ADMIN);
+            this.authenticationModel.lastlogin = securityToken.loginTime;
+            this.authenticationModel.admin = (this.sessionService.getUserRole() === USERROLE.ADMIN);
         } else {
-            this.authenticationModel.authenticated = false;
-            this.authenticationModel.nickname = null;
-            this.authenticationModel.token = null;
-            this.authenticationModel.admin = false;
+            this.authenticationModel.clear();
         }
     }
 
@@ -111,32 +79,51 @@ export class AuthenticationComponent implements OnInit {
         this.authenticationService.login(login)
             .subscribe((securityToken: Rest.SecurityTokenJson) => {
                 if (securityToken.token === 'no_authorization') {
-                    console.info('Login was not successful');
-                    this.authenticationService.clearCredentials();
+                    console.log('Login was not successful');
+                    this.sessionService.clearCredentials();
                 } else {
-                    console.info('Login success!');
-                    this.authenticationService.storeCredentials(securityToken);
+                    console.log('Login success!');
+                    this.sessionService.storeCredentials(securityToken);
                     this.navigationRouterService.login();
+
+                    this.authenticationModel.authenticated = true;
+                    this.authenticationModel.nickname = securityToken.nickname;
+                    this.authenticationModel.token = securityToken.token;
+                    this.authenticationModel.lastlogin = securityToken.loginTime;
+                    this.authenticationModel.admin = (this.sessionService.getUserRole() === USERROLE.ADMIN);                    
+
+                    if (this.sessionService.redirectUrl) {
+                        const url = this.sessionService.redirectUrl || '';
+                        this.sessionService.redirectUrl = '';
+                        this.router.navigateByUrl(url);
+                    }
                 }
-                this.init();
             });
     }
 
     logout() {
         this.authenticationModel.authenticationTries = 0;
 
-        if (this.authenticationService.isAuthorized()) {
+        if (this.sessionService.isAuthorized()) {
             const logout = {
                 nickname: this.authenticationModel.nickname,
                 token: this.authenticationModel.token
             };
 
             this.authenticationService.logout(logout)
-                .subscribe((securityToken: Rest.SecurityTokenJson) => {
-                    this.authenticationService.clearCredentials();
-                    this.init();
-                    this.navigationRouterService.logout();
-                    console.info('Logout successful.');
+                .subscribe({
+                    next: (securityToken: Rest.SecurityTokenJson) => {
+                        this.sessionService.clearCredentials();
+                        this.navigationRouterService.logout();
+                        this.authenticationModel.clear();
+                        console.log('Logout successful.', securityToken);
+                    },
+                    error: (errorResponse) => {
+                        this.sessionService.clearCredentials();
+                        this.navigationRouterService.logout();
+                        this.authenticationModel.clear();
+                        console.log('Logout not so successful. Server responsed with an error.', errorResponse);
+                    }
                 });
         }
     }

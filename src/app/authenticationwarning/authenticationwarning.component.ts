@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ModalService, ModalComponent } from './../modal/modal.service';
@@ -12,19 +12,21 @@ declare var $: any;
 })
 export class AuthenticationWarningComponent implements OnInit, OnDestroy, ModalComponent  {
 
-    // Exampel or an input element
-    // @Input() id: string;
-
     private static readonly ID = 'AuthenticationWarningComponent';
     private static readonly HTML_ELEMENT_ID = '#authenticationWarning';
 
-    private element: any;
+    @ViewChild('authenticationWarningModal') authenticationWarningModal: any;
+
+    // Exampel or an input element
+    // @Input() id: string;
+
+    // private element: any;
     httpError: any;
 
     readonly id = AuthenticationWarningComponent.ID;
 
     constructor(private router: Router, private modalService: ModalService, private el: ElementRef) {
-        this.element = $(el.nativeElement);
+        // this.element = $(el.nativeElement);
     }
 
     ngOnInit() {

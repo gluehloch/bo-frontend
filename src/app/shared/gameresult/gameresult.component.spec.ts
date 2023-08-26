@@ -25,7 +25,7 @@ describe('GameresultComponent', () => {
             openligaid: 0,
             index: 0,
             roundId: 0,
-            dateTime: null,
+            dateTime: '',
             homeTeam: {
                 id: 0,
                 openligaid: 0,

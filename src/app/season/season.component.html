@@ -10,24 +10,23 @@
       </div>
     </div>
     -->
-        <label for="selectSeason">Meisterschaft auswählen:</label>
-        <select name="selectSeason" class="form-control form-control-sm" (change)="seasonSelected($event)">
+        <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
+        <select title="Select season" name="selectSeason" class="form-control form-control-sm" (change)="seasonSelected($event)">
             <option *ngFor="let season of roundtable.seasons" [value]="season.id">
                 {{season.name}} {{season.year}}
             </option>
         </select>
         <div *ngIf="roundtable?.groups?.length > 1">
-            <label for="selectGroup">Gruppe auswählen:</label>
-            <select name="selectGroup" class="form-control form-control-sm" (change)="groupSelected($event)">
+            <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
+            <select title="Select group" name="selectGroup" class="form-control form-control-sm" (change)="groupSelected($event)">
                 <option *ngFor="let group of roundtable.groups" [value]="group.id">
                     {{group.name}}
                 </option>
             </select>
         </div>
-        <label for="selectRound">Runde auswählen:</label>
-        <select name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
-            <option *ngFor="let round of roundtable.rounds" [value]="round.id"
-                [selected]="roundtable.selectedRound.id == round.id">
+        <label for="selectRound" class="form-label">Runde auswählen:</label>
+        <select title="Select round" name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
+            <option *ngFor="let round of roundtable.rounds" [value]="round.id" [selected]="selectedRound?.id == round.id">
                 {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
             </option>
         </select>
@@ -36,20 +35,30 @@
     <div *ngIf="roundtable.table">
         <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
         <table class="table table-striped table-sm">
-            <tr>
-                <th style="text-align:right">Datum</th>
-                <th style="text-align:right">Heimmannschaft</th>
-                <th style="text-align:center">Ergebnis</th>
-                <th style="text-align:left">Gastmannschaft</th>
-            </tr>
-            <tr *ngFor="let game of roundtable.table.roundJson.games">
-                <td style="text-align:right">{{game.dateTime | date: dateTimeFormat}}</td>
-                <td style="text-align:right">{{game.homeTeam.name}}</td>
-                <td style="text-align:center">
-                    <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
-                </td>
-                <td style="text-align:left">{{game.guestTeam.name}}</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th scope="col" class="right">Datum</th>
+                    <th scope="col" class="right">Heimmannschaft</th>
+                    <th scope="col" class="center">Ergebnis</th>
+                    <th scope="col" class="left">Gastmannschaft</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let game of roundtable.table.roundJson.games">
+                    <td style="text-align:right">{{game.dateTime | date: dateTimeFormat}}</td>
+                    <td style="text-align:right">
+                        {{game.homeTeam.name}}
+                        <img class="teamlogo" src="{{game.homeTeam.logo}}">
+                    </td>
+                    <td style="text-align:center">
+                        <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
+                    </td>
+                    <td style="text-align:left">
+                        <img class="teamlogo" src="{{game.guestTeam.logo}}">
+                        {{game.guestTeam.name}}
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
@@ -71,22 +80,25 @@
 -->
     <div *ngIf="roundtable.table">
         <table class="table table-striped table-sm">
-            <th>Pos</th>
-            <th>Team</th>
-            <th>Punkte</th>
-            <th>Tore</th>
-            <th>g:r:v</th>
-            <tr *ngFor="let teamResult of roundtable.table.groupTeamTableJsons.teamResultJsons; index as i"
-                [ngClass]="getColor(i)">
-                <td>{{teamResult.tablePosition}}</td>
-                <td>
-                    <img *ngIf="teamResult.team.logo.startsWith('http')"  src="{{teamResult.team.logo}}" style="max-height: 24px; max-width: 24px; margin-right: 1em;">
-                    {{teamResult.team.name}}
-                </td>
-                <td>{{teamResult.win * 3 + teamResult.remis}}</td>
-                <td>{{teamResult.posGoals}}:{{teamResult.negGoals}}</td>
-                <td>{{teamResult.win}}:{{teamResult.remis}}:{{teamResult.lost}} </td>
-            </tr>
+            <thead>
+                <th scope="col">Pos</th>
+                <th scope="col">Team</th>
+                <th scope="col">Punkte</th>
+                <th scope="col">Tore</th>
+                <th scope="col">g:r:v</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let teamResult of roundtable.table.groupTeamTableJsons.teamResultJsons; index as i" [ngClass]="getColor(i)">
+                    <td>{{teamResult.tablePosition}}</td>
+                    <td>
+                        <img class="teamlogo" src="{{teamResult.team.logo}}">
+                        {{teamResult.team.name}}
+                    </td>
+                    <td>{{teamResult.win * 3 + teamResult.remis}}</td>
+                    <td>{{teamResult.posGoals}}:{{teamResult.negGoals}}</td>
+                    <td>{{teamResult.win}}:{{teamResult.remis}}:{{teamResult.lost}} </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

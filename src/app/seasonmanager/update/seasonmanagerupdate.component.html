@@ -1,151 +1,43 @@
+<app-authentication-warning></app-authentication-warning>
+
 <h1>Meisterschaft Verwaltung</h1>
-
-<!-- Modaler Dialog: Zustimmung fuer das Entfernen von Teilnehmer aus einer Spielgruppe. -->
-<div class="modal fade" id="confirmDeleteAction" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteAction"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteActionLLabel">Aktion bestätigen</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Bist du sicher, dass die folgenden Teilnehmer entfernt werden sollen?
-                <table *ngIf="model.parties.length > 0">
-                    <tr *ngFor="let party of model.parties">
-                        <td *ngIf="party.checked">{{party.nickname}}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
-                    (click)="removeUserSeason()">Speichern</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modaler Dialog: Zustimmung fuer das Hinzufuegen von Teilnehmer zu einer Spielgruppe. -->
-<div class="modal fade" id="confirmAddAction" tabindex="-1" role="dialog" aria-labelledby="confirmAddAction"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmAddActionLLabel">Aktion bestätigen</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Bist du sicher, dass die folgenden Teilnehmer der Spielgruppe hinzugefügt werden sollen?
-                <table *ngIf="model.potentialParties.length > 0">
-                    <tr *ngFor="let party of model.potentialParties">
-                        <td *ngIf="party.checked">{{party.nickname}}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
-                    (click)="addUserSeason()">Speichern</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <form #updateSeasonForm="ngForm" name="seasonmanagerupdateform">
-    <div class="form-group">
-        <label for="id">ID</label>
+    <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
         <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="model.season.id" />
     </div>
-    <div class="form-group">
-        <label for="name">Name</label>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
         <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name" required />
     </div>
-    <div class="form-group">
-        <label for="year">Jahrgang</label>
+    <div class="mb-3">
+        <label for="year" class="form-label">Jahrgang</label>
         <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year" required />
     </div>
-    <div class="form-group">
-        <label for="seasonType">Meisterschaftstyp</label>
+    <div class="mb-3">
+        <label for="seasonType" class="form-label">Meisterschaftstyp</label>
         <input class="form-control" id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType" disabled />
     </div>
-    <div class="form-group">
-        <label for="teamType">Mannschaftstyp</label>
+    <div class="mb-3">
+        <label for="teamType" class="form-label">Mannschaftstyp</label>
         <input class="form-control" id="teamType" name="teamType" [(ngModel)]="model.season.teamType" disabled />
     </div>
-    <div class="form-group">
-        <label for="openligaLeagueShortcut">Openleague Shortcut</label>
+    <div class="mb-3">
+        <label for="openligaLeagueShortcut" class="form-label">Openleague Shortcut</label>
         <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut"
             [(ngModel)]="model.season.openligaLeagueShortcut" />
     </div>
-    <div class="form-group">
-        <label for="openligaLeagueSeason">Openleague Jahrgang/League</label>
+    <div class="mb-3">
+        <label for="openligaLeagueSeason" class="form-label">Openleague Jahrgang/League</label>
         <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason"
             [(ngModel)]="model.season.openligaLeagueSeason" />
     </div>
-    <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block"
-        (click)="updateSeason()">Speichern</button>
-</form>
 
-<hr />
-<h3>Teilnehmer Zuordnung</h3>
-
-<h4>Die aktiven Teilnehmer</h4>
-<form #updateUserForm="ngForm" name="seasonmangeruserupdateform">
-    <div *ngIf="model.parties.length == 0" class="alert alert-info">
-        Keine Teilnehmer zugeordnet.
+    <div class="d-grid gap-2">
+        <button [disabled]="!updateSeasonForm.form.valid || model.submitted" class="btn btn-md btn-primary btn-block" type="button"
+            (click)="updateSeason()">Speichern</button>
+        <button class="btn btn-secondary" (click)="abort()" type="button">Abbrechen</button>
     </div>
-    <table *ngIf="model.parties.length > 0">
-        <tr *ngFor="let party of model.parties">
-            <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}" [(ngModel)]="party.checked" />
-            </td>
-            <td>{{party.nickname}}</td>
-        </tr>
-    </table>
-    <button *ngIf="model.parties.length > 0" [disabled]="!updateUserForm.form.valid || model.submitted"
-        class="btn btn-md btn-primary btn-block" data-toggle="modal"
-        data-target="#confirmDeleteAction">Entfernen</button>
 
-    <hr />
-    <h4>Die potentiellen Teilnehmer</h4>
-    <div *ngIf="model.potentialParties.length == 0" class="alert alert-info">
-        Keine potentiellen Teilnehmer vorhanden.
-    </div>
-    <input class="form-control" id="potentialUserFiler" name="potentialUserFilter"
-        [(ngModel)]="model.potentialUserFilter" />
-    <table *ngIf="model.potentialParties.length > 0">
-        <tr *ngFor="let party of model.potentialParties | usernamefilter: model.potentialUserFilter">
-            <td><input type="checkbox" id="{{party.nickname}}" name="{{party.nickname}}" [(ngModel)]="party.checked" />
-            </td>
-            <td>{{party.nickname}}</td>
-        </tr>
-    </table>
-    <button *ngIf="model.potentialParties.length > 0" [disabled]="!updateUserForm.form.valid || model.submitted"
-        class="btn btn-md btn-primary btn-block" data-toggle="modal" data-target="#confirmAddAction">Hinzufügen</button>
+   
 </form>
-
-<!--
-  <button
-    [disabled]="!updateUserSeasonForm.form.valid || model.submitted"
-    class="btn btn-lg btn-primary btn-block"
-    (click)="updateUserSeason()">Speichern</button>
-  <hr/>
-
-  <h3>Ligenzuordnung</h3>
-  <button
-    [disabled]="!updateLeagueSeasonForm.form.valid || model.submitted"
-    class="btn btn-lg btn-primary btn-block"
-    (click)="updateLeagueSeason()">Speichern</button>
-  <hr/>
-
-  <h3>Mannschaftszuordnung zu Ligen</h3>
-  <button
-    [disabled]="!updateTeamLeagueSeasonForm.form.valid || model.submitted"
-    class="btn btn-lg btn-primary btn-block"
-    (click)="updateTeamLeagueSeason()">Speichern</button>
-  <hr/>
-  -->
