@@ -38,8 +38,8 @@
         </div>
     </div>
 
-    <div [hidden]="!authenticationModel.authenticated">
-        <div class="card">
+    <div [hidden]="!authenticationModel.authenticated" class="vertical-center">
+        <div class="card authentication-center">
             <h5 class="card-header">
                 <div *ngIf="authenticationModel.authenticated">Abmeldung</div>
             </h5>
