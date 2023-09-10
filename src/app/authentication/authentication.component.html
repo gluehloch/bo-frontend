@@ -7,7 +7,7 @@
     -->
 
     <div [hidden]="authenticationModel.authenticated" class="vertical-center">
-        <div class="card authentication-center">
+        <div class="card">
             <h5 class="card-header">
                 <div *ngIf="!authenticationModel.authenticated">Anmeldung</div>
             </h5>
@@ -39,7 +39,7 @@
     </div>
 
     <div [hidden]="!authenticationModel.authenticated" class="vertical-center">
-        <div class="card authentication-center">
+        <div class="card">
             <h5 class="card-header">
                 <div *ngIf="authenticationModel.authenticated">Abmeldung</div>
             </h5>
