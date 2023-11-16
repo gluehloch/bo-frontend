@@ -44,7 +44,7 @@ export class SeasonComponent implements OnInit {
     }
 
     ngOnInit() {
-       this.findSeasons();
+        this.findSeasons();
     }
 
     private sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
