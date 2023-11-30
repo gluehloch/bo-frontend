@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SeasonService} from './season.service';
+import { SeasonService } from './season.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from './../../environments/environment';
 import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
-import { from } from 'rxjs';
-import { sortedLastIndex } from 'lodash';
 import { Sorting } from '../betoffice-json/model/Sorting';
 
 export class Roundtable {
@@ -112,11 +110,10 @@ export class SeasonComponent implements OnInit {
         this.seasonService.findRound(roundId, groupId)
                           .subscribe((round: Rest.RoundAndTableJson) => {
             this.roundtable.table = round;
-            this.roundtable.table.roundJson.games = this.sortGames(this.roundtable.table.roundJson.games);
+            const games = this.sortGames(this.roundtable.table.roundJson.games);
+            this.roundtable.table.roundJson.games = games;
         });
     }
-
-  // ------------------------------------------------------------------------------
 
     seasonSelected(event: any) {
         console.debug('Selected season id: ' + event.target.value);
@@ -143,7 +140,7 @@ export class SeasonComponent implements OnInit {
     }
 
     roundSelected(event: any) {
-        console.debug('Selected round id: ' + event.target.value);
+        console.debug('Selected round id: ', event.target.value);
 
         const selectedRound = this.roundtable
                                   .rounds
@@ -153,6 +150,10 @@ export class SeasonComponent implements OnInit {
         if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
             this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
         }
+    }
+
+    onClickDetails(game: Rest.GameJson): void {
+        
     }
 
     private copy<T>(source: T[], target: T[]): T[] {

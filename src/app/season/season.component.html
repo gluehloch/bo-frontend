@@ -41,6 +41,7 @@
                     <th scope="col" class="right">Heimmannschaft</th>
                     <th scope="col" class="center">Ergebnis</th>
                     <th scope="col" class="left">Gastmannschaft</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -56,6 +57,9 @@
                     <td style="text-align:left">
                         <img class="teamlogo" src="{{game.guestTeam.logo}}">
                         {{game.guestTeam.name}}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" (click)="onClickDetails(game)">Details</button>
                     </td>
                 </tr>
             </tbody>
