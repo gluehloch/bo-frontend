@@ -45,23 +45,34 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let game of roundtable.table.roundJson.games">
-                    <td style="text-align:right">{{game.dateTime | date: dateTimeFormat}}</td>
-                    <td style="text-align:right">
-                        {{game.homeTeam.name}}
-                        <img class="teamlogo" src="{{game.homeTeam.logo}}">
-                    </td>
-                    <td style="text-align:center">
-                        <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
-                    </td>
-                    <td style="text-align:left">
-                        <img class="teamlogo" src="{{game.guestTeam.logo}}">
-                        {{game.guestTeam.name}}
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-secondary btn-sm" (click)="onClickDetails(game)">Details</button>
-                    </td>
-                </tr>
+                <ng-container *ngFor="let game of roundtable.table.roundJson.games">
+                    <tr>
+                        <td class="date">{{game.dateTime | date: dateTimeFormat}}</td>
+                        <td class="homeTeam">
+                            {{game.homeTeam.name}}
+                            <img class="teamlogo" src="{{game.homeTeam.logo}}" alt=""/>
+                        </td>
+                        <td class="result">
+                            <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
+                        </td>
+                        <td class="guestTeam">
+                            <img class="teamlogo" src="{{game.guestTeam.logo}}" alt=""/>
+                            {{game.guestTeam.name}}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary btn-sm" (click)="onClickDetails(game)">...</button>
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="expandedGame.get(game)">
+                        <tr>
+                            <td></td>
+                            <td colspan="3">
+                                Spielinformationen...
+                            </td>
+                            <td></td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
             </tbody>
         </table>
     </div>

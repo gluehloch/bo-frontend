@@ -36,6 +36,7 @@ export class SeasonComponent implements OnInit {
 
     dateTimeFormat = environment.dateTimeFormat;
     roundtable: Roundtable;
+    expandedGame: Map<Rest.GameJson, boolean> = new Map<Rest.GameJson, boolean>();
 
     constructor(private seasonService: SeasonService, private navigationRouterService: NavigationRouterService) {
         this.roundtable = new Roundtable();
@@ -150,10 +151,18 @@ export class SeasonComponent implements OnInit {
         if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
             this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
         }
+
+        this.expandedGame.clear();
+        for (const game of this.roundtable.selectedRound?.games || []) {
+            this.expandedGame.set(game, false);
+        }
     }
 
     onClickDetails(game: Rest.GameJson): void {
-        
+        const expanded = this.expandedGame.get(game);
+        expanded
+            ? this.expandedGame.set(game, false)
+            : this.expandedGame.set(game, true);
     }
 
     private copy<T>(source: T[], target: T[]): T[] {
