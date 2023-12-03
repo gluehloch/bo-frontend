@@ -40,6 +40,17 @@ declare namespace Rest {
         tipps: GameTippJson[];
     }
 
+    interface GoalJson {
+        playerName: string;
+        minute: number;
+        goalType: 'REGULAR' | 'PENALTY' | 'OVERTIME' | 'OWNGOAL';
+        gameResult: GameResultJson;
+    }
+
+    interface GameDetailsJson extends GameJson {
+        goals: GoalJson[];
+    }
+
     interface GameResultJson extends Serializable {
         homeGoals: number;
         guestGoals: number;

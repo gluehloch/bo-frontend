@@ -163,6 +163,7 @@ export class SeasonComponent implements OnInit {
         expanded
             ? this.expandedGame.set(game, false)
             : this.expandedGame.set(game, true);
+        
     }
 
     private copy<T>(source: T[], target: T[]): T[] {
