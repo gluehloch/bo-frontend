@@ -180,11 +180,20 @@ export class SeasonComponent implements OnInit {
         expandedGameDetail.expanded = !expandedGameDetail.expanded;
 
         if (expandedGameDetail.expanded && expandedGameDetail.detail === undefined) {
-            this.seasonService.findGameDetails(game.id)
-                              .subscribe((gameDetails: Rest.GameDetailsJson) => {
-                const expandedGameDetail = new ExpandedGameDetail()
-                expandedGameDetail.detail = gameDetails;
-            });
+            this.seasonService
+                .findGameDetails(game.id)
+                .subscribe(
+                    (gameDetails: Rest.GameDetailsJson) => {
+                        const expandedGameDetail = new ExpandedGameDetail()
+                        expandedGameDetail.detail = gameDetails;
+                    },
+                    (error: any) => {
+                        console.error('Error while loading game details for game: ', game, error);
+                    },
+                    () => {
+                        console.debug('Completed loading game details for game: ', game);
+                    }
+                );
         }
     }
 
