@@ -42,7 +42,7 @@ export class SeasonService extends BetofficeService {
     }
 
     findGameDetails(gameId: number): Observable<Rest.GameDetailsJson> {
-        return this.http.get<Rest.GameDetailsJson>(this.rootUrl + '/game-details' + gameId);
+        return this.http.get<Rest.GameDetailsJson>(this.rootUrl + 'game-details/' + gameId);
     }
 
     /* Is not in usage anymore.

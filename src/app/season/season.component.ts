@@ -27,6 +27,12 @@ export class Roundtable {
     }
 };
 
+class ExpandedGameDetail {
+    expanded = false;
+    detail: Rest.GameDetailsJson | undefined;
+    game: Rest.GameJson | undefined;
+}
+
 @Component({
     selector: 'app-seasons',
     templateUrl: './season.component.html',
@@ -36,7 +42,7 @@ export class SeasonComponent implements OnInit {
 
     dateTimeFormat = environment.dateTimeFormat;
     roundtable: Roundtable;
-    expandedGame: Map<Rest.GameJson, boolean> = new Map<Rest.GameJson, boolean>();
+    expandedGames: Map<number, ExpandedGameDetail> = new Map<number, ExpandedGameDetail>();
 
     constructor(private seasonService: SeasonService, private navigationRouterService: NavigationRouterService) {
         this.roundtable = new Roundtable();
@@ -113,6 +119,7 @@ export class SeasonComponent implements OnInit {
             this.roundtable.table = round;
             const games = this.sortGames(this.roundtable.table.roundJson.games);
             this.roundtable.table.roundJson.games = games;
+            this.initGames(games);
         });
     }
 
@@ -151,19 +158,34 @@ export class SeasonComponent implements OnInit {
         if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
             this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
         }
+    }
 
-        this.expandedGame.clear();
-        for (const game of this.roundtable.selectedRound?.games || []) {
-            this.expandedGame.set(game, false);
-        }
+    private initGames(games: Rest.GameJson[]): void {
+        this.expandedGames.clear();
+        for (const game of games) {
+            const expandedGameDetail = new ExpandedGameDetail();
+            expandedGameDetail.expanded = false;
+            expandedGameDetail.detail = undefined;
+            expandedGameDetail.game = game;
+            this.expandedGames.set(game.id, expandedGameDetail);
+        }        
     }
 
     onClickDetails(game: Rest.GameJson): void {
-        const expanded = this.expandedGame.get(game);
-        expanded
-            ? this.expandedGame.set(game, false)
-            : this.expandedGame.set(game, true);
-        
+        const expandedGameDetail = this.expandedGames.get(game.id);
+        if (expandedGameDetail === undefined) {
+            console.error('No expanded game detail found for game: ', game);
+            return;
+        }
+        expandedGameDetail.expanded = !expandedGameDetail.expanded;
+
+        if (expandedGameDetail.expanded && expandedGameDetail.detail === undefined) {
+            this.seasonService.findGameDetails(game.id)
+                              .subscribe((gameDetails: Rest.GameDetailsJson) => {
+                const expandedGameDetail = new ExpandedGameDetail()
+                expandedGameDetail.detail = gameDetails;
+            });
+        }
     }
 
     private copy<T>(source: T[], target: T[]): T[] {
