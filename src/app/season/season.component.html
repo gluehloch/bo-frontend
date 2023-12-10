@@ -69,7 +69,7 @@
                                 <td></td>
                                 <td colspan="3">
                                     <ng-container *ngFor="let goal of expandedGames.get(game.id).detail.goals">
-                                        <p>
+                                        <p style="font-size: 0.8em;">
                                             {{goal.minute}}. {{goal.playerName}} {{goal.goalType}}
                                             {{goal.gameResult.homeGoals}}:{{goal.gameResult.guestGoals}}
                                         </p>
@@ -80,7 +80,7 @@
                         </ng-container>
                         <ng-container *ngIf="!expandedGames.get(game.id).detail"> 
                             <tr>
-                                <td></td>
+                                <td><div class="loader"></div></td>
                                 <td colspan="3"></td>
                                 <td></td>
                             </tr>

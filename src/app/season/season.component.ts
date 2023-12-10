@@ -184,7 +184,6 @@ export class SeasonComponent implements OnInit {
                 .findGameDetails(game.id)
                 .subscribe(
                     (gameDetails: Rest.GameDetailsJson) => {
-                        const expandedGameDetail = new ExpandedGameDetail()
                         expandedGameDetail.detail = gameDetails;
                     },
                     (error: any) => {
