@@ -63,19 +63,28 @@
                             <button type="button" class="btn btn-secondary btn-sm" (click)="onClickDetails(game)">...</button>
                         </td>
                     </tr>
-                    <ng-container *ngIf="expandedGames.get(game.id)?.expanded">
-                        <tr>
-                            <td></td>
-                            <td colspan="3">
-                                <ng-container *ngFor="let goal of expandedGames.get(game.id)?.detail.goals">
-                                    <p>
-                                        {{goal.minute}}. {{goal.playerName}} {{goal.goalType}}
-                                        {{goal.gameResult.homeGoals}}:{{goal.gameResult.guestGoals}}
-                                    </p>
-                                </ng-container>
-                            </td>
-                            <td></td>
-                        </tr>
+                    <ng-container *ngIf="expandedGames.get(game.id).expanded">
+                        <ng-container *ngIf="expandedGames.get(game.id).detail">
+                            <tr>
+                                <td></td>
+                                <td colspan="3">
+                                    <ng-container *ngFor="let goal of expandedGames.get(game.id).detail.goals">
+                                        <p>
+                                            {{goal.minute}}. {{goal.playerName}} {{goal.goalType}}
+                                            {{goal.gameResult.homeGoals}}:{{goal.gameResult.guestGoals}}
+                                        </p>
+                                    </ng-container>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!expandedGames.get(game.id).detail"> 
+                            <tr>
+                                <td></td>
+                                <td colspan="3"></td>
+                                <td></td>
+                            </tr>
+                        </ng-container>
                     </ng-container>
                 </ng-container>
             </tbody>
