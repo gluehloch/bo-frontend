@@ -7,7 +7,8 @@ const bolocalhost = 'http://localhost:8080/';
 const nginxProxy = 'http://localhost:9999/';
 
 // const betofficeJWeb = 'betoffice-jweb/'
-const betofficeJWeb = 'betoffice-jweb/'
+const betofficeJWeb = 'betoffice-jweb/';
+const registrationservice = 'registrationservice/';
 
 const prefix = nginxProxy;
 
@@ -24,12 +25,12 @@ export const environment = {
     adminUrl:            prefix + betofficeJWeb + 'bo/chiefoperator/',
     communityAdminUrl:   prefix + betofficeJWeb + 'bo/community-admin/',
 
-    cookieserviceUrl:    'http://localhost:9090/registrationservice/cookie/confirmCookie',
+    cookieserviceUrl:    prefix + registrationservice + 'cookie/confirmCookie',
     // cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
     // cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
-    cookieAssetsUrl:     'http://localhost:9090/registrationservice/assets/',
+    cookieAssetsUrl:     prefix + registrationservice + 'assets/',
     // registerserviceUrl:  'http://localhost:8080/registrationservice/registration/register',
-    registerserviceUrl: 'http://localhost:9090/registrationservice/registration/register',
+    registerserviceUrl:  prefix + registrationservice + 'registration/register',
 
     website:             'andre-winkler.de.localhost',
 
