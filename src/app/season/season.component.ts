@@ -205,7 +205,7 @@ export class SeasonComponent implements OnInit {
         expandedGameDetail.expanded = !expandedGameDetail.expanded;
 
         if (expandedGameDetail.expanded && expandedGameDetail.detail === undefined) {
-            this.loading = true;
+            this.addLoading();
             this.seasonService
                 .findGameDetails(game.id)
                 .subscribe(
@@ -217,7 +217,7 @@ export class SeasonComponent implements OnInit {
                         console.error('Error while loading game details for game: ', game, error);
                     },
                     () => {
-                        this.loading = false;
+                        this.removeLoading();
                     }
                 );
         }
