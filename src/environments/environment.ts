@@ -26,11 +26,11 @@ export const environment = {
     communityAdminUrl:   prefix + betofficeJWeb + 'bo/community-admin/',
 
     cookieserviceUrl:    prefix + registrationservice + 'cookie/confirmCookie',
+    cookieAssetsUrl:     prefix + registrationservice + 'assets/',
+    registerserviceUrl:  prefix + registrationservice + 'registration/register',
     // cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
     // cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
-    cookieAssetsUrl:     prefix + registrationservice + 'assets/',
     // registerserviceUrl:  'http://localhost:8080/registrationservice/registration/register',
-    registerserviceUrl:  prefix + registrationservice + 'registration/register',
 
     website:             'andre-winkler.de.localhost',
 
