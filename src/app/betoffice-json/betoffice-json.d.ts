@@ -20,6 +20,7 @@ declare namespace Rest {
 
     interface CommunityJson {
         name: string;
+        year: string;
         shortName: string;
         communityManager: UserJson;
         season: SeasonJson;

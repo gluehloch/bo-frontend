@@ -34,7 +34,7 @@
         <div *ngFor="let tipp of tippModelContainer.tippModels; let index = index">
             <div class="row">
                 <div class="form-group col-md-2">
-                    <button id="prev" name="orev" type="button" class="btn btn-primary btn-sm" (click)="prev()">Prev</button>
+                    <button id="prev" name="orev" type="button" class="btn btn-primary btn-sm" (click)="last()">Prev</button>
                 </div>
                 <div class="form-group col-md-8">
                     <div style="text-align: center; font-size: smaller;">{{tipp.game.dateTime | date: dateTimeFormat}}</div>

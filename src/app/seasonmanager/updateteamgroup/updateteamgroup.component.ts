@@ -68,7 +68,8 @@ export class UpdateTeamGroupComponent implements OnInit {
         });
     }
 
-    addTeamToGroup(groupType: Rest.GroupTypeJson, selectedTeam: Rest.TeamJson): void {
+    addTeamToGroup(groupType: Rest.GroupTypeJson, selectedTeam: Rest.TeamJson | undefined): void {
+        if (!selectedTeam) return;
         this.startProcessing();
         this.updateSeasonGroupTeamService.addTeamToGroup(this.model.season.id, groupType, selectedTeam).subscribe({
             next: season => {

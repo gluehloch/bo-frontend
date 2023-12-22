@@ -1,5 +1,5 @@
-const urlTippDieKisteBier = 'https://tippdiekistebier.de/betoffice-jweb/bo/';
-const urlRegistrationService = 'https://tippdiekistebier.de/registrationservice/';
+const urlBetoffice = '/betoffice-jweb/bo/';
+const urlRegistration = '/registrationservice/';
 
 export const environment = {
     // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
@@ -9,11 +9,11 @@ export const environment = {
 
     production:         true,
     website:            'tippdiekistebier.de',
-    rootUrl:            urlTippDieKisteBier + 'office/',
-    authenticationUrl:  urlTippDieKisteBier + 'authentication/',
-    adminUrl:           urlTippDieKisteBier + 'chiefoperator/',
-    communityAdminUrl:  urlTippDieKisteBier + 'community-admin/',
-    registerserviceUrl: urlRegistrationService + 'registration/register',
-    cookieserviceUrl:   urlRegistrationService + 'cookie/confirmCookie',
-    cookieAssetsUrl:    urlRegistrationService + 'assets/',
+    rootUrl:            urlBetoffice + 'office/',
+    authenticationUrl:  urlBetoffice + 'authentication/',
+    adminUrl:           urlBetoffice + 'chiefoperator/',
+    communityAdminUrl:  urlBetoffice + 'community-admin/',
+    registerserviceUrl: urlRegistration + 'registration/register',
+    cookieserviceUrl:   urlRegistration + 'cookie/confirmCookie',
+    cookieAssetsUrl:    urlRegistration + 'assets/',
 };

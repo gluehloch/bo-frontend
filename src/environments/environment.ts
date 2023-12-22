@@ -3,14 +3,14 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
-const bolocalhost = 'http://localhost:8080/';
-const nginxProxy = 'http://localhost:9999/';
+const bolocalhost = 'http://localhost:8080';
+const nginxProxy = 'http://localhost:9999';
 
 // const betofficeJWeb = 'betoffice-jweb/'
-const betofficeJWeb = 'betoffice-jweb/';
+const betofficeJWeb = '/betoffice-jweb/';
 const registrationservice = 'registrationservice/';
 
-const prefix = nginxProxy;
+// const prefix = nginxProxy;
 
 export const environment = {
 
@@ -20,14 +20,14 @@ export const environment = {
     currentSeasonId:     35,
 
     production:          false,
-    rootUrl:             prefix + betofficeJWeb + 'bo/office/',
-    authenticationUrl:   prefix + betofficeJWeb + 'bo/authentication/',
-    adminUrl:            prefix + betofficeJWeb + 'bo/chiefoperator/',
-    communityAdminUrl:   prefix + betofficeJWeb + 'bo/community-admin/',
+    rootUrl:             betofficeJWeb + 'bo/office/',
+    authenticationUrl:   betofficeJWeb + 'bo/authentication/',
+    adminUrl:            betofficeJWeb + 'bo/chiefoperator/',
+    communityAdminUrl:   betofficeJWeb + 'bo/community-admin/',
 
-    cookieserviceUrl:    prefix + registrationservice + 'cookie/confirmCookie',
-    cookieAssetsUrl:     prefix + registrationservice + 'assets/',
-    registerserviceUrl:  prefix + registrationservice + 'registration/register',
+    cookieserviceUrl:    registrationservice + 'cookie/confirmCookie',
+    cookieAssetsUrl:     registrationservice + 'assets/',
+    registerserviceUrl:  registrationservice + 'registration/register',
     // cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
     // cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
     // registerserviceUrl:  'http://localhost:8080/registrationservice/registration/register',
