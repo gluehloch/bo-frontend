@@ -6,8 +6,8 @@
 const bolocalhost = 'http://localhost:8080';
 const nginxProxy = 'http://localhost:9999';
 
-// const betofficeJWeb = 'betoffice-jweb/'
-const betofficeJWeb = '/betoffice-jweb/';
+const betofficeJWeb = 'betoffice-jweb/'
+// const betofficeJWeb = 'betoffice-jweb_SNAP/'
 const registrationservice = 'registrationservice/';
 
 // const prefix = nginxProxy;
