@@ -7,7 +7,7 @@ import { UpdateMatchdayService } from './updatematchday.service';
 import { ModalService } from './../../modal/modal.service';
 
 import { environment } from './../../../environments/environment';
-import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
+import { Betoffice } from 'src/app/betoffice-json/model/betoffice-data-model';
 
 export class Roundtable {
     seasonId: number;

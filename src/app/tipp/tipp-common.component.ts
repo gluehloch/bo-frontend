@@ -7,7 +7,7 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 import { SessionService } from '../session/session.service';
-import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
+import { Betoffice } from '../betoffice-json/model/betoffice-data-model';
 
 export class SubmitButtonModel {
     pressed = false;

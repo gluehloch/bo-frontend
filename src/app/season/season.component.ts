@@ -4,7 +4,7 @@ import { SeasonService } from './season.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from './../../environments/environment';
-import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
+import { Betoffice } from '../betoffice-json/model/betoffice-data-model';
 import { Sorting } from '../betoffice-json/model/Sorting';
 
 type State = 'prepare' | 'ready';

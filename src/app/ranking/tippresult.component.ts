@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'; // First, import Input
-import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
+import { Betoffice } from '../betoffice-json/model/betoffice-data-model';
 
 @Component({
     selector: 'app-tippresult',

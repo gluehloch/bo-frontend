@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Betoffice } from '../betoffice-json/model/betoffoce-data-model';
+import { Betoffice } from '../betoffice-json/model/betoffice-data-model';
 import { USERROLE } from '../user-role.enum';
 
 @Injectable({

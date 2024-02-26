@@ -1,4 +1,4 @@
-import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
+import { Betoffice } from 'src/app/betoffice-json/model/betoffice-data-model';
 
 export class CreateSeasonModel {
 

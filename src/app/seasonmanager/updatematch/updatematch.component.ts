@@ -9,7 +9,7 @@ import { ModalService } from './../../modal/modal.service';
 import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Betoffice } from 'src/app/betoffice-json/model/betoffoce-data-model';
+import { Betoffice } from 'src/app/betoffice-json/model/betoffice-data-model';
 
 class MatchModel {
     seasonId: number;
