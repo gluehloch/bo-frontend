@@ -25,21 +25,12 @@ export const environment = {
     adminUrl:            betofficeJWeb + 'bo/chiefoperator/',
     communityAdminUrl:   betofficeJWeb + 'bo/community-admin/',
 
-<<<<<<< HEAD
-    cookieserviceUrl:    'http://localhost:9090/registrationservice/cookie/confirmCookie',
-    // cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
-    cookieAssetsUrl:     'http://localhost:9090/registrationservice/assets/',
-    // cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
-    registerserviceUrl:  'http://localhost:9090/registrationservice/registration/register',
-    // registerserviceUrl: 'http://localhost:8080/registrationservice/registration/register',
-=======
     cookieserviceUrl:    registrationservice + 'cookie/confirmCookie',
     cookieAssetsUrl:     registrationservice + 'assets/',
     registerserviceUrl:  registrationservice + 'registration/register',
     // cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
     // cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
     // registerserviceUrl:  'http://localhost:8080/registrationservice/registration/register',
->>>>>>> master
 
     website:             'andre-winkler.de.localhost',
 
