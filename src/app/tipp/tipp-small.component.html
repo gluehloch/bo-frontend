@@ -121,13 +121,13 @@
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-3" style="padding: .5rem .75rem">
-                            <input class="form-control" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
+                            <input class="form-control form-control-sm" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
                                 name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" max="15" min="0" type="number"
                                 size="1" [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.homeGoals}}"
                                 [(ngModel)]="tipp.homeGoals" style="text-align:right" />
                         </div>
                         <div class="col-3" style="padding: .5rem .75rem">
-                            <input class="form-control" id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
+                            <input class="form-control form-control-sm" id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
                                 name="{{tippModelContainer.round.id}}gast{{tipp.game.id}}" max="15" min="0" type="number"
                                 size="1" [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.guestGoals}}"
                                 [(ngModel)]="tipp.guestGoals" style="text-align:left" />
