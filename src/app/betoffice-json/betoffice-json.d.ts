@@ -20,6 +20,7 @@ declare namespace Rest {
 
     interface CommunityJson {
         name: string;
+        year: string;
         shortName: string;
         communityManager: UserJson;
         season: SeasonJson;
@@ -38,6 +39,17 @@ declare namespace Rest {
         finished: boolean;
         ko: boolean;
         tipps: GameTippJson[];
+    }
+
+    interface GoalJson {
+        playerName: string;
+        minute: number;
+        goalType: 'REGULAR' | 'PENALTY' | 'OVERTIME' | 'OWNGOAL';
+        gameResult: GameResultJson;
+    }
+
+    interface GameDetailsJson extends GameJson {
+        goals: GoalJson[];
     }
 
     interface GameResultJson extends Serializable {

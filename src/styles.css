@@ -45,3 +45,20 @@ th.center, td.center {
 th.right, td.right {
     text-align: right;
 }
+
+/*
+.loader {
+    margin: 1em;
+    border: 20px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 20px solid rgb(2, 27, 13);
+    width: 10em;
+    height: 10em;
+    animation: spinner 4s linear infinite;
+}
+  
+@keyframes spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+*/

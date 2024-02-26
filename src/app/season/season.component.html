@@ -1,4 +1,5 @@
 <div>
+    <app-spinner [enabled]="loading"/>
     <form name="selectSeasonAndGroup">
         <!--
     <div class="dropdown" name="selectSeason">
@@ -16,7 +17,7 @@
                 {{season.name}} {{season.year}}
             </option>
         </select>
-        <div *ngIf="roundtable?.groups?.length > 1">
+        <div *ngIf="roundtable.groups.length > 1">
             <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
             <select title="Select group" name="selectGroup" class="form-control form-control-sm" (change)="groupSelected($event)">
                 <option *ngFor="let group of roundtable.groups" [value]="group.id">
@@ -26,7 +27,7 @@
         </div>
         <label for="selectRound" class="form-label">Runde auswählen:</label>
         <select title="Select round" name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
-            <option *ngFor="let round of roundtable.rounds" [value]="round.id" [selected]="selectedRound?.id == round.id">
+            <option *ngFor="let round of roundtable.rounds" [value]="round.id" [selected]="roundtable.selectedRound?.id == round.id">
                 {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
             </option>
         </select>
@@ -41,23 +42,63 @@
                     <th scope="col" class="right">Heimmannschaft</th>
                     <th scope="col" class="center">Ergebnis</th>
                     <th scope="col" class="left">Gastmannschaft</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let game of roundtable.table.roundJson.games">
-                    <td style="text-align:right">{{game.dateTime | date: dateTimeFormat}}</td>
-                    <td style="text-align:right">
-                        {{game.homeTeam.name}}
-                        <img class="teamlogo" src="{{game.homeTeam.logo}}">
-                    </td>
-                    <td style="text-align:center">
-                        <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
-                    </td>
-                    <td style="text-align:left">
-                        <img class="teamlogo" src="{{game.guestTeam.logo}}">
-                        {{game.guestTeam.name}}
-                    </td>
-                </tr>
+                <ng-container *ngFor="let game of roundtable.table.roundJson.games">
+                    <tr>
+                        <td class="date">{{game.dateTime | date: dateTimeFormat}}</td>
+                        <td class="homeTeam">
+                            {{game.homeTeam.name}}
+                            <img class="teamlogo" src="{{game.homeTeam.logo}}" alt=""/>
+                        </td>
+                        <td class="result">
+                            <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
+                        </td>
+                        <td class="guestTeam">
+                            <img class="teamlogo" src="{{game.guestTeam.logo}}" alt=""/>
+                            {{game.guestTeam.name}}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary btn-sm" (click)="onClickDetails(game)">
+                                ...
+                            </button>
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="expandedGames.get(game.id)?.expanded">
+                        <ng-container *ngIf="expandedGames.get(game.id)?.detail">
+                            <tr>
+                                <td></td>
+                                <td colspan="3">
+                                    <ng-container *ngFor="let goal of expandedGames.get(game.id)?.detail?.goals">
+                                        <div style="font-size: 0.8em;">
+                                            {{goal.minute}}. {{goal.playerName}} {{goal.goalType}}
+                                            {{goal.gameResult.homeGoals}}:{{goal.gameResult.guestGoals}}
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="!expandedGames.get(game.id)?.detail?.finished">
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="3">
+                                                <div style="font-size: 0.8em;">Das Spiel ist noch nicht beendet.</div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </ng-container>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!expandedGames.get(game.id)?.detail"> 
+                            <tr>
+                                <td></td>
+                                <td colspan="3">Es liegen keine Spieldaten vor.</td>
+                                <td></td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
             </tbody>
         </table>
     </div>

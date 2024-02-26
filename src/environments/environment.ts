@@ -3,6 +3,15 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
+const bolocalhost = 'http://localhost:8080';
+const nginxProxy = 'http://localhost:9999';
+
+const betofficeJWeb = 'betoffice-jweb/'
+// const betofficeJWeb = 'betoffice-jweb_SNAP/'
+const registrationservice = 'registrationservice/';
+
+// const prefix = nginxProxy;
+
 export const environment = {
 
     // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
@@ -11,17 +20,26 @@ export const environment = {
     currentSeasonId:     35,
 
     production:          false,
-    rootUrl:             'http://localhost:8080/betoffice-jweb/bo/office/',
-    authenticationUrl:   'http://localhost:8080/betoffice-jweb/bo/authentication/',
-    adminUrl:            'http://localhost:8080/betoffice-jweb/bo/chiefoperator/',
-    communityAdminUrl:   'http://localhost:8080/betoffice-jweb/bo/community-admin/',
+    rootUrl:             betofficeJWeb + 'bo/office/',
+    authenticationUrl:   betofficeJWeb + 'bo/authentication/',
+    adminUrl:            betofficeJWeb + 'bo/chiefoperator/',
+    communityAdminUrl:   betofficeJWeb + 'bo/community-admin/',
 
+<<<<<<< HEAD
     cookieserviceUrl:    'http://localhost:9090/registrationservice/cookie/confirmCookie',
     // cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
     cookieAssetsUrl:     'http://localhost:9090/registrationservice/assets/',
     // cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
     registerserviceUrl:  'http://localhost:9090/registrationservice/registration/register',
     // registerserviceUrl: 'http://localhost:8080/registrationservice/registration/register',
+=======
+    cookieserviceUrl:    registrationservice + 'cookie/confirmCookie',
+    cookieAssetsUrl:     registrationservice + 'assets/',
+    registerserviceUrl:  registrationservice + 'registration/register',
+    // cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
+    // cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
+    // registerserviceUrl:  'http://localhost:8080/registrationservice/registration/register',
+>>>>>>> master
 
     website:             'andre-winkler.de.localhost',
 

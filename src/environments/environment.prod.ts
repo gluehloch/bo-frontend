@@ -1,3 +1,6 @@
+const urlBetoffice = '/betoffice-jweb/bo/';
+const urlRegistration = '/registrationservice/';
+
 export const environment = {
     // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
     dateTimeFormat: 'dd.MM.yyyy HH:mm',
@@ -6,11 +9,11 @@ export const environment = {
 
     production:         true,
     website:            'tippdiekistebier.de',
-    rootUrl:            'https://tippdiekistebier.de/betoffice-jweb/bo/office/',
-    authenticationUrl:  'https://tippdiekistebier.de/betoffice-jweb/bo/authentication/',
-    adminUrl:           'https://tippdiekistebier.de/betoffice-jweb/bo/chiefoperator/',
-    communityAdminUrl:  'https://tippdiekistebier.de/betoffice-jweb/bo/community-admin/',
-    registerserviceUrl: 'https://cookie.gluehloch.de/registrationservice/registration/register',
-    cookieserviceUrl:   'https://cookie.gluehloch.de/registrationservice/cookie/confirmCookie',
-    cookieAssetsUrl:    'https://cookie.gluehloch.de/registrationservice/assets/',
+    rootUrl:            urlBetoffice + 'office/',
+    authenticationUrl:  urlBetoffice + 'authentication/',
+    adminUrl:           urlBetoffice + 'chiefoperator/',
+    communityAdminUrl:  urlBetoffice + 'community-admin/',
+    registerserviceUrl: urlRegistration + 'registration/register',
+    cookieserviceUrl:   urlRegistration + 'cookie/confirmCookie',
+    cookieAssetsUrl:    urlRegistration + 'assets/',
 };

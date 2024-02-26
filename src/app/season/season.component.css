@@ -2,3 +2,19 @@ img.teamlogo {
     max-height: 24px;
     max-width: 24px;
 }
+
+td.date {
+    text-align: right;
+}
+
+td.homeTeam {
+    text-align: right;
+}
+
+td.guestTeam {
+    text-align: left;
+}
+
+td.result {
+    text-align: center;
+}

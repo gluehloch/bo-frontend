@@ -19,5 +19,11 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "disableTypeScriptVersionCheck": true,
+    "strictTemplates": true,
+  }  
 }
