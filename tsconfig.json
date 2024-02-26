@@ -25,5 +25,6 @@
     "strictInjectionParameters": true,
     "disableTypeScriptVersionCheck": true,
     "strictTemplates": true,
+    "noImplicitAny": true,
   }  
 }

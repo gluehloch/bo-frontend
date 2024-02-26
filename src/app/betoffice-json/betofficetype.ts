@@ -18,7 +18,7 @@ export enum SeasonType {
   /** EC Eurochampionchip */
   EC
 
-}
+};
 
 export enum TeamType {
 
