@@ -1,24 +1,24 @@
 // Generated using typescript-generator version 1.14.251 on 2018-05-12 17:16:11.
 
 declare namespace Rest {
-    interface PageParam {
+    type PageParam = {
         page: number;
         size: number;
     }
 
-    interface Slice {
+    type Slice = {
         number: number;
         size: number;
         numberOfElements: number;
     }
 
-    interface Page<CONTENT_TYPE> extends Slice {
+    type Page<CONTENT_TYPE> = Slice & {
         totalPages: number;
         totalElements: number;
         content: CONTENT_TYPE[];
     }
 
-    interface CommunityJson {
+    type CommunityJson = {
         name: string;
         year: string;
         shortName: string;
@@ -26,7 +26,7 @@ declare namespace Rest {
         season: SeasonJson;
     }
 
-    interface GameJson extends AbstractOpenligaid {
+    type GameJson = AbstractOpenligaid & {
         index: number;
         roundId: number;
         dateTime: string;
@@ -41,42 +41,44 @@ declare namespace Rest {
         tipps: GameTippJson[];
     }
 
-    interface GoalJson {
+    type GoalType = 'REGULAR' | 'PENALTY' | 'OVERTIME' | 'OWNGOAL';
+    
+    type GoalJson = {
         playerName: string;
         minute: number;
-        goalType: 'REGULAR' | 'PENALTY' | 'OVERTIME' | 'OWNGOAL';
+        goalType: Rest.GoalType;
         gameResult: GameResultJson;
     }
 
-    interface GameDetailsJson extends GameJson {
+    type GameDetailsJson = GameJson & {
         goals: GoalJson[];
     }
 
-    interface GameResultJson extends Serializable {
+    type GameResultJson = Serializable & {
         homeGoals: number;
         guestGoals: number;
     }
 
-    interface GameTippJson {
+    type GameTippJson = {
         nickname: string;
         tipp: GameResultJson;
         points: number;
     }
 
-    interface GroupTeamTableJson {
+    type GroupTeamTableJson = {
         groupTypeJson: GroupTypeJson;
         teamResultJsons: TeamResultJson[];
     }
 
-    interface GroupTypeJson extends AbstractOpenligaid {
+    type GroupTypeJson = AbstractOpenligaid & {
         name: string;
     }
 
-    interface HistoryTeamVsTeamJson {
+    type HistoryTeamVsTeamJson = {
         teamVsTeamJsons: TeamVsTeamJson[];
     }
 
-    interface PartyJson extends AbstractIdentifier, Serializable {
+    type PartyJson = AbstractIdentifier & Serializable & {
         nickname: string;
         name: string;
         surname: string;
@@ -86,12 +88,12 @@ declare namespace Rest {
         title: string;
     }
 
-    interface RoundAndTableJson {
+    type RoundAndTableJson = {
         roundJson: RoundJson;
         groupTeamTableJsons: GroupTeamTableJson;
     }
 
-    interface RoundJson extends AbstractIdentifier {
+    type RoundJson = AbstractIdentifier & {
         seasonId: number;
         seasonName: string;
         seasonYear: string;
@@ -102,7 +104,7 @@ declare namespace Rest {
         games: GameJson[];
     }
 
-    interface SeasonJson extends AbstractIdentifier, Serializable {
+    type SeasonJson = AbstractIdentifier & Serializable & {
         name: string;
         year: string;
         seasonType: string;
@@ -113,28 +115,28 @@ declare namespace Rest {
         rounds: RoundJson[];
     }
 
-    interface SeasonMemberJson extends AbstractIdentifier {
+    type SeasonMemberJson = AbstractIdentifier & {
         nickname: string;
     }
 
-    interface SecurityTokenJson extends TokenJson {
+    type SecurityTokenJson = TokenJson & {
         nickname: string;
         role: string;
         loginTime: string;
     }
 
-    interface SubmitTippGameJson extends Serializable {
+    type SubmitTippGameJson = Serializable & {
         gameId: number;
         tippResult: GameResultJson;
     }
 
-    interface SubmitTippRoundJson extends Serializable {
+    type SubmitTippRoundJson = Serializable & {
         nickname: string;
         roundId: number;
         submitTippGames: SubmitTippGameJson[];
     }
 
-    interface TeamJson extends AbstractOpenligaid {
+    type TeamJson = AbstractOpenligaid & {
         name: string;
         longName: string;
         shortName: string;
@@ -143,7 +145,7 @@ declare namespace Rest {
         type: string;
     }
 
-    interface TeamResultJson extends Serializable {
+    type TeamResultJson = Serializable & {
         team: TeamJson;
         posGoals: number;
         negGoals: number;
@@ -153,7 +155,7 @@ declare namespace Rest {
         tablePosition: number;
     }
 
-    interface TeamVsTeamJson {
+    type TeamVsTeamJson = {
         homeTeamName: string;
         guestTeamName: string;
         matchDate: string;
@@ -161,11 +163,11 @@ declare namespace Rest {
         guestTeamGoals: number;
     }
 
-    interface TokenJson extends Serializable {
+    type TokenJson = Serializable & {
         token: string;
     }
 
-    interface UserJson extends AbstractIdentifier {
+    type UserJson = AbstractIdentifier & {
         nickname: string;
         win: number;
         toto: number;
@@ -174,32 +176,32 @@ declare namespace Rest {
         position: number;
     }
 
-    interface UserTableJson {
+    type UserTableJson = {
         season: SeasonJson;
         round: RoundJson;
         users: UserJson[];
     }
 
-    interface AbstractOpenligaid extends AbstractIdentifier, OpenligaObject {
+    type AbstractOpenligaid = AbstractIdentifier & OpenligaObject & {
     }
 
-    interface Serializable {
+    type Serializable = {
     }
 
-    interface AbstractIdentifier {
+    type AbstractIdentifier = {
         id: number;
     }
 
-    interface OpenligaObject {
+    type OpenligaObject = {
         openligaid: number;
     }
 
-    interface GroupTeamJson {
+    type GroupTeamJson = {
         groupType: GroupTypeJson;
         teams: TeamJson[];
     }
 
-    interface SeasonGroupTeamJson {
+    type SeasonGroupTeamJson = {
         season: SeasonJson;
         groupTeams: GroupTeamJson[];
     }
