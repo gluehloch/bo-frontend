@@ -166,6 +166,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         this.tippModelContainer.modified = false;
         this.tippModelContainer.calcPoints();
         this.submitButtonModel.responseStatusCode = 0;
+        this.selectedRound = roundJson;
     }
 
     private updateContentReady() {
