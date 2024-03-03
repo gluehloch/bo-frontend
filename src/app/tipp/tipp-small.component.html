@@ -111,7 +111,7 @@
 
                 <ng-template #gameIsFinished>
                     <div class="row"
-                        [ngClass]="{'jackpot': tipp.game.tipps[0]?.points == 13, 'win': tipp.game.tipps[0]?.points == 10, 'ticket': tipp.game.tipps[0]?.points == 0 }">
+                        [ngClass]="{'jackpot': tipp.game.tipps[0].points == 13, 'win': tipp.game.tipps[0].points == 10, 'ticket': tipp.game.tipps[0].points == 0 }">
                         <div class="col" style="text-align: center; padding: .5rem .75rem">
                             {{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
                     </div>
