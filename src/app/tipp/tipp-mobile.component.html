@@ -56,8 +56,8 @@
                     <button type="button" class="btn btn-secondary btn-sm">1:2</button>
                 </div>
                 <div class="col-sm-1">
-                    <input class="form-control form-control-sm" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
-                        name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" max="15" min="0" type="number"
+                    <input class="form-control form-control-sm input.goals" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
+                        name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" max="3" min="2" type="number"
                         size="2" [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.homeGoals}}"
                         [(ngModel)]="tipp.homeGoals"/>
                 </div>

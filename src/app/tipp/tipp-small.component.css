@@ -14,3 +14,15 @@ img.teamlogo {
     max-height: 24px;
     max-width: 24px;
 }
+
+.input-goals-home {
+    /*width: auto !important;*/
+    /*min-width: 12px;*/
+    text-align: right;
+}
+
+.input-goals-guest {
+    /*width: auto !important;*/
+    /*min-width: 12px;*/
+    text-align: left;
+}
