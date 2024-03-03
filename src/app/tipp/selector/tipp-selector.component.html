@@ -13,9 +13,9 @@
         <select id="tippFromSelection"
             formControlName="state" class="form-control" aria-label=".form-select-sm toppselector"
             (ngModelChange)="onModelChange($event)">
-            <option [ngValue]="null" disabled>Bitte auswählen....</option>
+            <option disabled>Bitte auswählen....</option>
             <option *ngFor="let state of states"
-                [ngValue]="state">
+                [ngValue]="state" [selected]="selectionState === state.id">
                 {{state.name}}
             </option>
         </select>
