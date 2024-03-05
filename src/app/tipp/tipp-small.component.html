@@ -1,7 +1,5 @@
-<div *ngIf="!contentReady">
-    Wird geladen ...
-</div>
-<div *ngIf="contentReady">
+<div>
+    <app-spinner [enabled]="!contentReady"/>
     <div class="row mb-3">
         <div class="col" *ngIf="!tippModelContainer.authenticated">
             <div class="form-group">
