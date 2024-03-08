@@ -22,7 +22,15 @@
         </div>
         <div class="col-md-12">
             <label for="dateTime" class="form-label">Anstoss (Datum und Uhrzeit)</label>
-            <input type="text" readonly class="form-control" id="dateTime" name="dateTime" value="{{matchModel.match.dateTime | date: dateTimeFormat}}"/>
+            <input type="datetime" class="form-control" id="dateTime" name="dateTime" [(ngModel)]="matchModel.match.dateTime"/>
+            <!-- value="{{matchModel.match.dateTime | date: dateTimeFormat}}" -->
+            <input
+                type="datetime-local"
+                id="meeting-time"
+                name="meeting-time"
+                value="2018-06-12T19:30"
+                min="2018-06-07T00:00"
+                max="2018-06-14T00:00" />            
         </div>
 
         <div class="col-md-6">
