@@ -91,7 +91,6 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     currentSeasonId = environment.currentSeasonId;
 
     submitButtonModel: SubmitButtonModel;
-    navigationRouterService: NavigationRouterService;
     tippModelContainer = new TippModelContainer();
 
     season: Rest.SeasonJson | undefined;
@@ -99,10 +98,9 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
 
     contentReady = false;
 
-    constructor(private sessionService: SessionService, private tippService: TippService, navigationRouterService: NavigationRouterService) {
+    constructor(private sessionService: SessionService, private tippService: TippService, private navigationRouterService: NavigationRouterService) {
         this.submitButtonModel = new SubmitButtonModel();
         this.submitButtonModel.progress = 0;
-        this.navigationRouterService = navigationRouterService;
     }
 
     sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
