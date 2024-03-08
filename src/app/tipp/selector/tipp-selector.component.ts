@@ -15,7 +15,7 @@ export class TippSelectorComponent implements OnChanges {
     states = [
         {id: 'desktop', name: 'Desktop'},
         {id: 'small', name: 'Kompakt'},
-        /*{id: 'mobile', name: 'Mobile Screen'},*/
+        {id: 'mobile', name: 'Mobile Screen'},
     ];
 
     form = new FormGroup({
