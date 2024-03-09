@@ -11,7 +11,7 @@
         <label for="selectRound" class="form-label">Runde auswählen:</label>
         <select name="selectRound" class="form-select form-select-sm" (change)="roundSelected($event)">
             <option *ngFor="let round of roundtable.rounds" [value]="round.id"
-                [selected]="roundtable?.selectedRound?.id == round.id">
+                [selected]="roundtable.selectedRound?.id == round.id">
                 {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
             </option>
         </select>

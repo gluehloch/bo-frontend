@@ -25,6 +25,10 @@ export class TippSelectorComponent implements OnChanges {
     constructor(private router: Router) {
     }
 
+    ngOnInit() {
+        console.log('ngOnInit', this.selectionState);
+    }
+
     /**
      * Reagiert auf Aenderungen an den Properties, die mit {@code @Input}
      * annotiert sind.

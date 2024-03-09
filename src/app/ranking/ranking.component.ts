@@ -20,6 +20,7 @@ export class RankingComponent implements OnInit {
     readonly currentSeasonId = environment.currentSeasonId;
     readonly dateTimeFormat = environment.dateTimeFormat;
 
+    contentReady = false;
     seasons: Betoffice.SeasonModel[] = [];
     selectedSeason: Betoffice.SeasonModel | undefined;
 
@@ -97,6 +98,7 @@ export class RankingComponent implements OnInit {
         this.rankingService.calculateRoundOnly(this.ranking.round.id)
                            .subscribe((userTableJson: Rest.UserTableJson) => {
             this.rankingRound = userTableJson;
+            this.contentReady = true;
         });
     }
 
