@@ -6,12 +6,14 @@
 const bolocalhost = 'http://localhost:8080';
 const nginxProxy = 'http://localhost:9999';
 
-const betofficeJWeb = 'betoffice-jweb/'
+// const betofficeJWeb = 'betoffice-jweb/'
 // const betofficeJWeb = 'betoffice-jweb_SNAP/'
+const betofficeJWeb = 'http://localhost:9999/betoffice-BOOT/';
 const registrationservice = 'registrationservice/';
 
 // const prefix = nginxProxy;
 
+/*
 export const environment = {
 
     // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
@@ -35,3 +37,30 @@ export const environment = {
     website:             'andre-winkler.de.localhost',
 
 };
+*/
+
+// Spring Boot: http://localhost:8080/betoffice-BOOT/bo/office/ping
+export const environment = {
+
+    // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
+    dateTimeFormat:      'dd.MM.yyyy HH:mm',
+    // TODO Wird mit der Community Edition abgeschafft...
+    currentSeasonId:     35,
+
+    production:          false,
+    rootUrl:             betofficeJWeb + 'office/',
+    authenticationUrl:   betofficeJWeb + 'authentication/',
+    adminUrl:            betofficeJWeb + 'chiefoperator/',
+    communityAdminUrl:   betofficeJWeb + 'community-admin/',
+
+    cookieserviceUrl:    registrationservice + 'cookie/confirmCookie',
+    cookieAssetsUrl:     registrationservice + 'assets/',
+    registerserviceUrl:  registrationservice + 'registration/register',
+    // cookieserviceUrl:    'http://localhost:8080/registrationservice/cookie/confirmCookie',
+    // cookieAssetsUrl:     'http://localhost:8080/registrationservice/assets/',
+    // registerserviceUrl:  'http://localhost:8080/registrationservice/registration/register',
+
+    website:             'andre-winkler.de.localhost',
+
+};
+
