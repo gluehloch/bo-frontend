@@ -1,4 +1,4 @@
-const urlBetoffice = '/betoffice-jweb/bo/';
+const urlBetoffice = '/betoffice-war/';
 const urlRegistration = '/registrationservice/';
 
 export const environment = {
