@@ -1,4 +1,4 @@
-const urlBetoffice = '/betoffice-war/';
+const betoffice = '/betoffice-war/';
 const urlRegistration = '/registrationservice/';
 
 export const environment = {
@@ -9,10 +9,10 @@ export const environment = {
 
     production:         true,
     website:            'tippdiekistebier.de',
-    rootUrl:            urlBetoffice + 'office/',
-    authenticationUrl:  urlBetoffice + 'authentication/',
-    adminUrl:           urlBetoffice + 'chiefoperator/',
-    communityAdminUrl:  urlBetoffice + 'community-admin/',
+    rootUrl:            betoffice + 'office/',
+    authenticationUrl:  betoffice + 'authentication/',
+    adminUrl:           betoffice + 'chiefoperator/',
+    communityAdminUrl:  betoffice + 'community-admin/',
     registerserviceUrl: urlRegistration + 'registration/register',
     cookieserviceUrl:   urlRegistration + 'cookie/confirmCookie',
     cookieAssetsUrl:    urlRegistration + 'assets/',
