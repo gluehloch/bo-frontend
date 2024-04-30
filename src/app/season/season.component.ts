@@ -149,7 +149,7 @@ export class SeasonComponent implements OnInit {
     }
 
     seasonSelected(event: any) {
-        console.debug('Selected season id: ' + event.target.value);
+        console.debug('Selected season id: ', event.target.value);
 
         const selectedSeasonId = event.target.value;
         const selectedSeason = this.roundtable
@@ -160,7 +160,7 @@ export class SeasonComponent implements OnInit {
     }
 
     groupSelected(event: any) {
-        console.debug('Selected group id: ' + event.target.value);
+        console.debug('Selected group id: ', event.target.value);
 
         const selectedGroupId = event.target.value;
         const selectedGroup = this.roundtable
@@ -182,6 +182,32 @@ export class SeasonComponent implements OnInit {
         this.roundtable.selectedRound = selectedRound;
         if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
             this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+        }
+    }
+
+    next() {
+        const selectedRoundIndex = this.roundtable
+                                  .rounds
+                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
+        if (selectedRoundIndex < this.roundtable.rounds.length - 1) {
+            const nextRound = this.roundtable.rounds[selectedRoundIndex + 1];
+            this.roundtable.selectedRound = nextRound;
+            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(nextRound.id, this.roundtable.selectedGroup.id);
+            }
+        }
+    }
+
+    last() {
+        const selectedRoundIndex = this.roundtable
+                                  .rounds
+                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
+        if (selectedRoundIndex > 0) {
+            const lastRound = this.roundtable.rounds[selectedRoundIndex - 1];
+            this.roundtable.selectedRound = lastRound;
+            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(lastRound.id, this.roundtable.selectedGroup.id);
+            }
         }
     }
 

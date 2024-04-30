@@ -11,26 +11,42 @@
       </div>
     </div>
     -->
-        <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
-        <select title="Select season" name="selectSeason" class="form-control form-control-sm" (change)="seasonSelected($event)">
-            <option *ngFor="let season of roundtable.seasons" [value]="season.id">
-                {{season.name}} {{season.year}}
-            </option>
-        </select>
-        <div *ngIf="roundtable.groups.length > 1">
-            <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
-            <select title="Select group" name="selectGroup" class="form-control form-control-sm" (change)="groupSelected($event)">
-                <option *ngFor="let group of roundtable.groups" [value]="group.id">
-                    {{group.name}}
+        <div class="mb-3">
+            <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
+            <select title="Select season" id="selectSeason" name="selectSeason" class="form-select form-select-sm" (change)="seasonSelected($event)">
+                <option *ngFor="let season of roundtable.seasons" [value]="season.id">
+                    {{season.name}} {{season.year}}
                 </option>
             </select>
         </div>
-        <label for="selectRound" class="form-label">Runde auswählen:</label>
-        <select title="Select round" name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
-            <option *ngFor="let round of roundtable.rounds" [value]="round.id" [selected]="roundtable.selectedRound?.id == round.id">
-                {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
-            </option>
-        </select>
+        <div class="mb-3">
+            <div *ngIf="roundtable.groups.length > 1">
+                <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
+                <select title="Select group" id="selectGroup" name="selectGroup" class="form-select form-select-sm" (change)="groupSelected($event)">
+                    <option *ngFor="let group of roundtable.groups" [value]="group.id">
+                        {{group.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="selectRound" class="form-label">Runde auswählen:</label>
+            <select title="Select round" id="selectRound" name="selectRound" class="form-select form-select-sm" (change)="roundSelected($event)">
+                <option *ngFor="let round of roundtable.rounds" [value]="round.id" [selected]="roundtable.selectedRound?.id == round.id">
+                    {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
+                </option>
+            </select>
+        </div>
+        <div class="row mb-3">
+            <div class="btn-group" role="group" aria-label="Nächster Letzer">
+                <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
+                    *ngIf="roundtable.selectedRound && roundtable.selectedRound.index > 0">
+                    <i class="bi bi-caret-left-fill"></i> Letzter</button>
+                <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
+                    *ngIf="roundtable.selectedRound && roundtable.selectedRound.index < roundtable.rounds.length">Nächster 
+                    <i class="bi bi-caret-right-fill"></i></button>
+            </div>
+        </div>
     </form>
 
     <div *ngIf="roundtable.table">
