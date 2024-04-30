@@ -173,6 +173,7 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     updateOpenligaDb() {
+        this.loading = true;
         if (this.roundtable.selectedGroup) {
             this.updateMatchdayService
                 .updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
@@ -183,6 +184,9 @@ export class UpdateMatchdayComponent implements OnInit {
                     (error) => {
                         console.dir(error);
                         this.modalService.open('AuthenticationWarningComponent', error.status);
+                    },
+                    () => {
+                        this.loading = false;
                     }
                 );
         }
