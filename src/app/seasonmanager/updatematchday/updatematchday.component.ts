@@ -34,6 +34,7 @@ export class Roundtable {
 })
 export class UpdateMatchdayComponent implements OnInit {
 
+    loading = true;
     dateTimeFormat = environment.dateTimeFormat;
     roundtable: Roundtable;
 
@@ -88,6 +89,7 @@ export class UpdateMatchdayComponent implements OnInit {
             } else {
                 console.info('Es fehlt eine ausgewählte Gruppe zum Abruf der Rundendaten.');
             }
+            this.loading = false;
         });
     }
 
@@ -118,6 +120,32 @@ export class UpdateMatchdayComponent implements OnInit {
             if (selectedRound) {
                 this.roundtable.selectedRound = selectedRound;
                 this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+            }
+        }
+    }
+
+    last(): void {
+        const selectedRoundIndex = this.roundtable
+                                  .rounds
+                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
+        if (selectedRoundIndex > 0) {
+            const lastRound = this.roundtable.rounds[selectedRoundIndex - 1];
+            this.roundtable.selectedRound = lastRound;
+            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(lastRound.id, this.roundtable.selectedGroup.id);
+            }
+        }
+    }
+
+    next(): void {
+        const selectedRoundIndex = this.roundtable
+                                  .rounds
+                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
+        if (selectedRoundIndex < this.roundtable.rounds.length - 1) {
+            const nextRound = this.roundtable.rounds[selectedRoundIndex + 1];
+            this.roundtable.selectedRound = nextRound;
+            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(nextRound.id, this.roundtable.selectedGroup.id);
             }
         }
     }
