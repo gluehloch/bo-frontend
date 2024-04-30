@@ -34,6 +34,7 @@ export class Roundtable {
 })
 export class UpdateMatchdayComponent implements OnInit {
 
+    loading = true;
     dateTimeFormat = environment.dateTimeFormat;
     roundtable: Roundtable;
 
@@ -88,6 +89,7 @@ export class UpdateMatchdayComponent implements OnInit {
             } else {
                 console.info('Es fehlt eine ausgewählte Gruppe zum Abruf der Rundendaten.');
             }
+            this.loading = false;
         });
     }
 
@@ -122,6 +124,32 @@ export class UpdateMatchdayComponent implements OnInit {
         }
     }
 
+    last(): void {
+        const selectedRoundIndex = this.roundtable
+                                  .rounds
+                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
+        if (selectedRoundIndex > 0) {
+            const lastRound = this.roundtable.rounds[selectedRoundIndex - 1];
+            this.roundtable.selectedRound = lastRound;
+            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(lastRound.id, this.roundtable.selectedGroup.id);
+            }
+        }
+    }
+
+    next(): void {
+        const selectedRoundIndex = this.roundtable
+                                  .rounds
+                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
+        if (selectedRoundIndex < this.roundtable.rounds.length - 1) {
+            const nextRound = this.roundtable.rounds[selectedRoundIndex + 1];
+            this.roundtable.selectedRound = nextRound;
+            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(nextRound.id, this.roundtable.selectedGroup.id);
+            }
+        }
+    }
+
     updateMatch(game: Rest.GameJson) {
         if (this.roundtable.selectedRound) {
             this.router.navigate(['./chiefop/seasonmanager/updatematch'],
@@ -145,6 +173,7 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     updateOpenligaDb() {
+        this.loading = true;
         if (this.roundtable.selectedGroup) {
             this.updateMatchdayService
                 .updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
@@ -155,6 +184,9 @@ export class UpdateMatchdayComponent implements OnInit {
                     (error) => {
                         console.dir(error);
                         this.modalService.open('AuthenticationWarningComponent', error.status);
+                    },
+                    () => {
+                        this.loading = false;
                     }
                 );
         }
