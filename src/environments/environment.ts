@@ -6,8 +6,10 @@
 const bolocalhost = 'http://localhost:8080';
 const nginxProxy = 'http://localhost:9999';
 
-const betofficeJWeb = 'betoffice-jweb/'
+// const betoffice = 'betoffice-war/';
+const betoffice = '/betoffice-boot/';
 // const betofficeJWeb = 'betoffice-jweb_SNAP/'
+// const betofficeJWeb = 'http://localhost:9999/betoffice-BOOT/';
 const registrationservice = 'registrationservice/';
 
 // const prefix = nginxProxy;
@@ -20,10 +22,10 @@ export const environment = {
     currentSeasonId:     35,
 
     production:          false,
-    rootUrl:             betofficeJWeb + 'bo/office/',
-    authenticationUrl:   betofficeJWeb + 'bo/authentication/',
-    adminUrl:            betofficeJWeb + 'bo/chiefoperator/',
-    communityAdminUrl:   betofficeJWeb + 'bo/community-admin/',
+    rootUrl:             betoffice + 'office/',
+    authenticationUrl:   betoffice + 'authentication/',
+    adminUrl:            betoffice + 'chiefoperator/',
+    communityAdminUrl:   betoffice + 'community-admin/',
 
     cookieserviceUrl:    registrationservice + 'cookie/confirmCookie',
     cookieAssetsUrl:     registrationservice + 'assets/',

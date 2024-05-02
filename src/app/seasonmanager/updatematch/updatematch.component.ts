@@ -95,6 +95,10 @@ export class UpdateMatchComponent implements OnInit {
 
     updateMatch() {
         console.dir('Update match ' + this.matchModel.match);
+        let gameDateTime = new Date(this.matchModel.match.dateTime);
+        console.log('game datetime=', this.matchModel.match.dateTime, gameDateTime);
+        // let formattedDateTime = gameDateTime.
+        // .toZonedDateTime();
         this.updateMatchService
             .updateMatch(this.matchModel.match)
             .subscribe(

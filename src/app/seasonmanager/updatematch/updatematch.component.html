@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-12">
             <label for="dateTime" class="form-label">Anstoss (Datum und Uhrzeit)</label>
-            <input type="text" readonly class="form-control" id="dateTime" name="dateTime" value="{{matchModel.match.dateTime | date: dateTimeFormat}}"/>
+            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime" [(ngModel)]="matchModel.match.dateTime"/>
         </div>
 
         <div class="col-md-6">
