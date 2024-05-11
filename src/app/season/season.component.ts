@@ -4,9 +4,9 @@ import { SeasonService } from './season.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from './../../environments/environment';
-import { Sorting } from '../betoffice-json/model/Sorting';
-import { GamesPreprocessor, Processing, SeasonGroupRoundSelectorService } from '../components/seasonroundgame/SeasonGroupRoundSelectorService';
-import { RoundtableModel } from '../components/seasonroundgame/RoundtableModel';
+
+import { GamesPreprocessor, Processing, SeasonGroupRoundSelectorService } from '../shared/seasonroundgame/SeasonGroupRoundSelectorService';
+import { RoundtableModel } from '../shared/seasonroundgame/RoundtableModel';
 
 class ExpandedGameDetail {
     expanded = false;
