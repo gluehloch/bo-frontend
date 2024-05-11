@@ -98,29 +98,11 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
     }
 
     next() {
-        const selectedRoundIndex = this.roundtable
-                                  .rounds
-                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
-        if (selectedRoundIndex < this.roundtable.rounds.length - 1) {
-            const nextRound = this.roundtable.rounds[selectedRoundIndex + 1];
-            this.roundtable.selectedRound = nextRound;
-            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                this.findRoundAndTable(nextRound.id, this.roundtable.selectedGroup.id);
-            }
-        }
+        this.seasonGroupRoundSelectorService.next();
     }
 
     last() {
-        const selectedRoundIndex = this.roundtable
-                                  .rounds
-                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
-        if (selectedRoundIndex > 0) {
-            const lastRound = this.roundtable.rounds[selectedRoundIndex - 1];
-            this.roundtable.selectedRound = lastRound;
-            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                this.findRoundAndTable(lastRound.id, this.roundtable.selectedGroup.id);
-            }
-        }
+        this.seasonGroupRoundSelectorService.last();
     }
 
     initGames(games: Rest.GameJson[]): void {

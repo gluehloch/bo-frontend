@@ -21,10 +21,11 @@ export class SeasonGroupRoundSelectorService {
         private gamesPreprocessor: GamesPreprocessor) {
     }
 
-    findSeasons() {
+    findSeasons(): void {
         this.processing.start();
-        this.seasonService.findSeasons()
-                        .subscribe((seasons: Rest.SeasonJson[]) => {
+        this.seasonService
+                .findSeasons()
+                .subscribe((seasons: Rest.SeasonJson[]) => {
             const sortedSeason = seasons.sort(Sorting.compareSeason);
             this.copy(sortedSeason, this.roundtable.seasons);
             this.roundtable.selectedSeason = seasons[0];
@@ -33,18 +34,20 @@ export class SeasonGroupRoundSelectorService {
         });
     }
 
-    seasonSelected(selectedSeasonId: number) {
+    seasonSelected(selectedSeasonId: number): void {
         const selectedSeason = this.roundtable
-                                   .seasons
-                                   .find(season => season.id == selectedSeasonId);
+                .seasons
+                .find(season => season.id == selectedSeasonId);
+
         this.roundtable.selectedSeason = selectedSeason;
         this.findGroups(selectedSeasonId);
     }
 
-    findGroups(seasonId: number) {
+    findGroups(seasonId: number): void {
         this.processing.start();
-        this.seasonService.findGroups(seasonId)
-                        .subscribe((groups: Rest.GroupTypeJson[]) => {
+        this.seasonService
+                .findGroups(seasonId)
+                .subscribe((groups: Rest.GroupTypeJson[]) => {
             this.copy(groups, this.roundtable.groups);
             if (this.roundtable.groups.length > 0 && this.roundtable.selectedSeason) {
                 this.roundtable.selectedGroup = groups[0];
@@ -54,20 +57,21 @@ export class SeasonGroupRoundSelectorService {
         });
     }
 
-    groupSelected(selectedGroupId: number) {
+    groupSelected(selectedGroupId: number): void {
         const selectedGroup = this.roundtable
-                                  .groups
-                                  .find(group => group.id == selectedGroupId);
+                .groups
+                .find(group => group.id == selectedGroupId);
         this.roundtable.selectedGroup = selectedGroup;
         if (this.roundtable.selectedSeason) {
             this.findRounds(this.roundtable.selectedSeason.id, selectedGroupId);
         }
     }
 
-    findRounds(seasonId: number, groupId: number) {
+    findRounds(seasonId: number, groupId: number): void {
         this.processing.start();
-        this.seasonService.findRounds(seasonId, groupId)
-                        .subscribe((season: Rest.SeasonJson) => {
+        this.seasonService
+                .findRounds(seasonId, groupId)
+                .subscribe((season: Rest.SeasonJson) => {
             this.copy(season.rounds, this.roundtable.rounds);
             if (season.rounds != null && season.rounds.length > 0) {
                 const now = new Date();
@@ -97,10 +101,10 @@ export class SeasonGroupRoundSelectorService {
         });
     }
 
-    roundSelected(selectedRoundId: number) {
+    roundSelected(selectedRoundId: number): void {
         const selectedRound = this.roundtable
-                                  .rounds
-                                  .find(round => round.id == selectedRoundId);
+            .rounds
+            .find(round => round.id == selectedRoundId);
 
         this.roundtable.selectedRound = selectedRound;
         if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
@@ -108,16 +112,45 @@ export class SeasonGroupRoundSelectorService {
         }
     }
 
-    findRoundAndTable(roundId: number, groupId: number) {
+    findRoundAndTable(roundId: number, groupId: number): void {
         this.processing.start();
-        this.seasonService.findRound(roundId, groupId)
-                        .subscribe((round: Rest.RoundAndTableJson) => {
+        this.seasonService
+                .findRound(roundId, groupId)
+                .subscribe((round: Rest.RoundAndTableJson) => {
             this.roundtable.table = round;
             const games = this.sortGames(this.roundtable.table.roundJson.games);
             this.roundtable.table.roundJson.games = games;
             this.initGames(games);
             this.processing.stop();
         });
+    }
+
+    next(): void {
+        const selectedRoundIndex = this.roundtable
+            .rounds
+            .findIndex(round => round.id == this.roundtable.selectedRound?.id);
+
+        if (selectedRoundIndex < this.roundtable.rounds.length - 1) {
+            const nextRound = this.roundtable.rounds[selectedRoundIndex + 1];
+            this.roundtable.selectedRound = nextRound;
+            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(nextRound.id, this.roundtable.selectedGroup.id);
+            }
+        }
+    }
+
+    last(): void {
+        const selectedRoundIndex = this.roundtable
+                .rounds
+                .findIndex(round => round.id == this.roundtable.selectedRound?.id);
+
+        if (selectedRoundIndex > 0) {
+            const lastRound = this.roundtable.rounds[selectedRoundIndex - 1];
+            this.roundtable.selectedRound = lastRound;
+            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(lastRound.id, this.roundtable.selectedGroup.id);
+            }
+        }
     }
 
     private copy<T>(source: T[], target: T[]): T[] {
