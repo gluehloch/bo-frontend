@@ -3,9 +3,6 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
-const bolocalhost = 'http://localhost:8080';
-const nginxProxy = 'http://localhost:9999';
-
 // const betoffice = 'betoffice-war/';
 const betoffice = '/betoffice-boot/';
 // const betofficeJWeb = 'betoffice-jweb_SNAP/'
