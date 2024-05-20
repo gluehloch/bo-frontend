@@ -75,7 +75,7 @@ fi
 PATH=${DIR}/node_modules/.bin/:$PATH
 # TODO npm install
 cd $DIR
-ng build --prod
+ng build --configuration=production
 
 # Package distribution
 cd $DIST_DIR
