@@ -119,28 +119,13 @@
         </table>
     </div>
 
-    <!-- TODO Currently disabled. Check the drop down box above!
-    <div class="btn-group btn-group-justified" role="group">
-      <div class="btn-group" role="group">
-        <button class="btn btn-default" type="submit" ng-click="last(round)" ng-show="round.index > 1">Letzter</button>
-      </div>
-      <div class="btn-group" role="group">
-        <button class="btn btn-default" type="submit" ng-click="next(round)" ng-show="!round.lastRound">Nächster</button>
-      </div>
-    </div>
-    -->
-
-    <!--
-    <div class="alert alert-danger" ng-show="round.serviceResponseMessage.status == 'ERROR'">
-      FEHLER: Dieser Spieltag existiert nicht!
-    </div>
--->
     <div *ngIf="roundtable.table">
         <table class="table table-striped table-sm">
             <thead>
                 <th scope="col">Pos</th>
-                <th scope="col">Team</th>
+                <th scope="col" style="width:50%">Team</th>
                 <th scope="col">Punkte</th>
+                <th scope="col">Differenz</th>
                 <th scope="col">Tore</th>
                 <th scope="col">g:r:v</th>
             </thead>
@@ -151,7 +136,8 @@
                         <img class="teamlogo" src="{{teamResult.team.logo}}">
                         {{teamResult.team.name}}
                     </td>
-                    <td>{{teamResult.win * 3 + teamResult.remis}}</td>
+                    <td style="text-align: center">{{teamResult.win * 3 + teamResult.remis}}</td>
+                    <td style="text-align: center">{{teamResult.posGoals - teamResult.negGoals}}</td>
                     <td>{{teamResult.posGoals}}:{{teamResult.negGoals}}</td>
                     <td>{{teamResult.win}}:{{teamResult.remis}}:{{teamResult.lost}} </td>
                 </tr>
