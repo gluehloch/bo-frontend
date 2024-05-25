@@ -1,16 +1,6 @@
 <div>
     <app-spinner [enabled]="loading"/>
     <form name="selectSeasonAndGroup">
-        <!--
-    <div class="dropdown" name="selectSeason">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{season?.name}} {{season?.year}}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a *ngFor="let season of roundtable.seasons" class="dropdown-item" (click)="seasonSelected(season)">{{season.name}} {{season.year}}</a>
-      </div>
-    </div>
-    -->
         <div class="mb-3">
             <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
             <select title="Select season" id="selectSeason" name="selectSeason" class="form-select form-select-sm" (change)="seasonSelected($event)">
@@ -51,7 +41,7 @@
 
     <div *ngIf="roundtable.table">
         <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
-        <table class="table table-striped table-sm">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th scope="col" class="right">Datum</th>
@@ -82,38 +72,11 @@
                             </button>
                         </td>
                     </tr>
-                    <ng-container *ngIf="expandedGames.get(game.id)?.expanded">
-                        <ng-container *ngIf="expandedGames.get(game.id)?.detail">
-                            <tr>
-                                <td></td>
-                                <td colspan="3">
-                                    <ng-container *ngFor="let goal of expandedGames.get(game.id)?.detail?.goals">
-                                        <div style="font-size: 0.8em;">
-                                            {{goal.minute}}. {{goal.playerName}} {{goal.goalType}}
-                                            {{goal.gameResult.homeGoals}}:{{goal.gameResult.guestGoals}}
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="!expandedGames.get(game.id)?.detail?.finished">
-                                        <tr>
-                                            <td></td>
-                                            <td colspan="3">
-                                                <div style="font-size: 0.8em;">Das Spiel ist noch nicht beendet.</div>
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                    </ng-container>
-                                </td>
-                                <td></td>
-                            </tr>
-                        </ng-container>
-                        <ng-container *ngIf="!expandedGames.get(game.id)?.detail"> 
-                            <tr>
-                                <td></td>
-                                <td colspan="3">Es liegen keine Spieldaten vor.</td>
-                                <td></td>
-                            </tr>
-                        </ng-container>
-                    </ng-container>
+                    <tr [style.display]="expandedGames.get(game.id)?.expanded ? 'table-row' : 'none'">
+                        <td colspan="5">
+                            <goals [display]="expandedGames.get(game.id)?.expanded" [game]="game"/>
+                        </td>
+                    </tr>
                 </ng-container>
             </tbody>
         </table>
