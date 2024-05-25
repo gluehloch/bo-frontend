@@ -9,9 +9,13 @@ import { GamesPreprocessor, Processing, SeasonGroupRoundSelectorService } from '
 import { RoundtableModel } from '../shared/seasonroundgame/RoundtableModel';
 
 class ExpandedGameDetail {
-    expanded = false;
-    detail: Rest.GameDetailsJson | undefined;
-    game: Rest.GameJson | undefined;
+    expanded: boolean;
+    readonly game: Rest.GameJson;
+
+    constructor(expanded: boolean, game: Rest.GameJson) {
+        this.expanded = expanded;
+        this.game = game;
+    }
 }
 
 @Component({
@@ -27,6 +31,7 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
     dateTimeFormat = environment.dateTimeFormat;
     roundtable: RoundtableModel;
     seasonGroupRoundSelectorService: SeasonGroupRoundSelectorService;
+    /** Number == game.id */
     expandedGames: Map<number, ExpandedGameDetail> = new Map<number, ExpandedGameDetail>();
 
     constructor(private seasonService: SeasonService, private navigationRouterService: NavigationRouterService) {
@@ -58,12 +63,11 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
         }
     }
 
-    private sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
-        return games.sort((g1, g2) => {
-            const date1 = new Date(g1.dateTime);
-            const date2 = new Date(g2.dateTime);
-            return date1.getTime() - date2.getTime();
-        });
+    onClickDetails(game: Rest.GameJson): void {
+        const egd = this.expandedGames.get(game.id);
+        if (egd) {
+            egd.expanded = !egd.expanded;    
+        }
     }
 
     findSeasons() {
@@ -108,39 +112,9 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
     initGames(games: Rest.GameJson[]): void {
         this.expandedGames.clear();
         for (const game of games) {
-            const expandedGameDetail = new ExpandedGameDetail();
-            expandedGameDetail.expanded = false;
-            expandedGameDetail.detail = undefined;
-            expandedGameDetail.game = game;
+            const expandedGameDetail = new ExpandedGameDetail(false, game);
             this.expandedGames.set(game.id, expandedGameDetail);
         }        
-    }
-
-    onClickDetails(game: Rest.GameJson): void {
-        const expandedGameDetail = this.expandedGames.get(game.id);
-        if (expandedGameDetail === undefined) {
-            console.error('No expanded game detail found for game: ', game);
-            return;
-        }
-        expandedGameDetail.expanded = !expandedGameDetail.expanded;
-
-        if (expandedGameDetail.expanded && expandedGameDetail.detail === undefined) {
-            this.addLoading();
-            this.seasonService
-                .findGameDetails(game.id)
-                .subscribe(
-                    (gameDetails: Rest.GameDetailsJson) => {
-                        expandedGameDetail.detail = gameDetails;
-                        console.debug('Completed loading game details for game: ', game, gameDetails);
-                    },
-                    (error: any) => {
-                        console.error('Error while loading game details for game: ', game, error);
-                    },
-                    () => {
-                        this.removeLoading();
-                    }
-                );
-        }
     }
 
     getColor(i: number) {

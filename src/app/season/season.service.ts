@@ -41,10 +41,6 @@ export class SeasonService extends BetofficeService {
         return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/prev");
     }
 
-    findGameDetails(gameId: number): Observable<Rest.GameDetailsJson> {
-        return this.http.get<Rest.GameDetailsJson>(this.rootUrl + 'game-details/' + gameId);
-    }
-
     /* Is not in usage anymore.
     update(roundId: number) : Observable<Rest.RoundAndTableJson> {
       return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/update", {headers: this.createHeader()});
