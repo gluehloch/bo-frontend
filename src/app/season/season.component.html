@@ -1,16 +1,6 @@
 <div>
     <app-spinner [enabled]="loading"/>
     <form name="selectSeasonAndGroup">
-        <!--
-    <div class="dropdown" name="selectSeason">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{season?.name}} {{season?.year}}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a *ngFor="let season of roundtable.seasons" class="dropdown-item" (click)="seasonSelected(season)">{{season.name}} {{season.year}}</a>
-      </div>
-    </div>
-    -->
         <div class="mb-3">
             <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
             <select title="Select season" id="selectSeason" name="selectSeason" class="form-select form-select-sm" (change)="seasonSelected($event)">
@@ -51,7 +41,7 @@
 
     <div *ngIf="roundtable.table">
         <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
-        <table class="table table-striped table-sm">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th scope="col" class="right">Datum</th>
@@ -82,65 +72,23 @@
                             </button>
                         </td>
                     </tr>
-                    <ng-container *ngIf="expandedGames.get(game.id)?.expanded">
-                        <ng-container *ngIf="expandedGames.get(game.id)?.detail">
-                            <tr>
-                                <td></td>
-                                <td colspan="3">
-                                    <ng-container *ngFor="let goal of expandedGames.get(game.id)?.detail?.goals">
-                                        <div style="font-size: 0.8em;">
-                                            {{goal.minute}}. {{goal.playerName}} {{goal.goalType}}
-                                            {{goal.gameResult.homeGoals}}:{{goal.gameResult.guestGoals}}
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="!expandedGames.get(game.id)?.detail?.finished">
-                                        <tr>
-                                            <td></td>
-                                            <td colspan="3">
-                                                <div style="font-size: 0.8em;">Das Spiel ist noch nicht beendet.</div>
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                    </ng-container>
-                                </td>
-                                <td></td>
-                            </tr>
-                        </ng-container>
-                        <ng-container *ngIf="!expandedGames.get(game.id)?.detail"> 
-                            <tr>
-                                <td></td>
-                                <td colspan="3">Es liegen keine Spieldaten vor.</td>
-                                <td></td>
-                            </tr>
-                        </ng-container>
-                    </ng-container>
+                    <tr [style.display]="expandedGames.get(game.id)?.expanded ? 'table-row' : 'none'">
+                        <td colspan="5">
+                            <goals [display]="expandedGames.get(game.id)?.expanded" [game]="game"/>
+                        </td>
+                    </tr>
                 </ng-container>
             </tbody>
         </table>
     </div>
 
-    <!-- TODO Currently disabled. Check the drop down box above!
-    <div class="btn-group btn-group-justified" role="group">
-      <div class="btn-group" role="group">
-        <button class="btn btn-default" type="submit" ng-click="last(round)" ng-show="round.index > 1">Letzter</button>
-      </div>
-      <div class="btn-group" role="group">
-        <button class="btn btn-default" type="submit" ng-click="next(round)" ng-show="!round.lastRound">Nächster</button>
-      </div>
-    </div>
-    -->
-
-    <!--
-    <div class="alert alert-danger" ng-show="round.serviceResponseMessage.status == 'ERROR'">
-      FEHLER: Dieser Spieltag existiert nicht!
-    </div>
--->
     <div *ngIf="roundtable.table">
         <table class="table table-striped table-sm">
             <thead>
                 <th scope="col">Pos</th>
-                <th scope="col">Team</th>
+                <th scope="col" style="width:50%">Team</th>
                 <th scope="col">Punkte</th>
+                <th scope="col">Differenz</th>
                 <th scope="col">Tore</th>
                 <th scope="col">g:r:v</th>
             </thead>
@@ -151,7 +99,8 @@
                         <img class="teamlogo" src="{{teamResult.team.logo}}">
                         {{teamResult.team.name}}
                     </td>
-                    <td>{{teamResult.win * 3 + teamResult.remis}}</td>
+                    <td style="text-align: center">{{teamResult.win * 3 + teamResult.remis}}</td>
+                    <td style="text-align: center">{{teamResult.posGoals - teamResult.negGoals}}</td>
                     <td>{{teamResult.posGoals}}:{{teamResult.negGoals}}</td>
                     <td>{{teamResult.win}}:{{teamResult.remis}}:{{teamResult.lost}} </td>
                 </tr>

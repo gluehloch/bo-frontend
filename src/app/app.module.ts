@@ -29,6 +29,8 @@ import { RegistrationComponent } from './registration/registration.component';
 
 import { AuthenticationWarningComponent } from './authenticationwarning/authenticationwarning.component';
 
+import { GoalsComponent } from './shared/goals/goals.component';
+import { GoalsService } from './shared/goals/goals.service';
 import { GameResultComponent } from './shared/gameresult/gameresult.component';
 import { PagerComponent } from './shared/pager/pager.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
@@ -256,6 +258,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AuthenticationWarningComponent,
         AuthenticationComponent,
         RegistrationComponent,
+        GoalsComponent,
         GameResultComponent,
         PagerComponent,
         SpinnerComponent,
@@ -284,6 +287,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdministrationCanActivate,
         UserCanActivate,
         CookieService,
+        GoalsService,
         HomeService,
         NavigationRouterService,
         AuthenticationService,

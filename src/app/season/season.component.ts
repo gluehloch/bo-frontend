@@ -4,35 +4,18 @@ import { SeasonService } from './season.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from './../../environments/environment';
-import { Betoffice } from '../betoffice-json/model/betoffice-data-model';
-import { Sorting } from '../betoffice-json/model/Sorting';
 
-type State = 'prepare' | 'ready';
-export class Roundtable {
-    state: State = 'prepare';
-    seasons: Rest.SeasonJson[];
-    selectedSeason: Rest.SeasonJson | undefined;
-    groups: Rest.GroupTypeJson[];
-    selectedGroup: Rest.GroupTypeJson | undefined;
-    rounds: Rest.RoundJson[];
-    selectedRound: Rest.RoundJson | undefined;
-    table: Rest.RoundAndTableJson | undefined;
-
-    constructor() {
-        this.seasons = [];
-        this.selectedSeason = undefined;
-        this.groups = [];
-        this.selectedGroup = undefined;
-        this.rounds = [];
-        this.selectedRound = undefined;
-        this.table = new Betoffice.RoundAndTableModel();
-    }
-};
+import { GamesPreprocessor, Processing, SeasonGroupRoundSelectorService } from '../shared/seasonroundgame/SeasonGroupRoundSelectorService';
+import { RoundtableModel } from '../shared/seasonroundgame/RoundtableModel';
 
 class ExpandedGameDetail {
-    expanded = false;
-    detail: Rest.GameDetailsJson | undefined;
-    game: Rest.GameJson | undefined;
+    expanded: boolean;
+    readonly game: Rest.GameJson;
+
+    constructor(expanded: boolean, game: Rest.GameJson) {
+        this.expanded = expanded;
+        this.game = game;
+    }
 }
 
 @Component({
@@ -40,219 +23,98 @@ class ExpandedGameDetail {
     templateUrl: './season.component.html',
     styleUrls: ['./season.component.css']
 })
-export class SeasonComponent implements OnInit {
+export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
 
     loading = false;
     loadingCounter = 0;
 
     dateTimeFormat = environment.dateTimeFormat;
-    roundtable: Roundtable = new Roundtable();
+    roundtable: RoundtableModel;
+    seasonGroupRoundSelectorService: SeasonGroupRoundSelectorService;
+    /** Number == game.id */
     expandedGames: Map<number, ExpandedGameDetail> = new Map<number, ExpandedGameDetail>();
 
     constructor(private seasonService: SeasonService, private navigationRouterService: NavigationRouterService) {
-        this.roundtable = new Roundtable();
+        this.roundtable = new RoundtableModel();
+        this.seasonGroupRoundSelectorService = new SeasonGroupRoundSelectorService(this, this.seasonService, this.roundtable, this);
     }
 
     ngOnInit() {
         this.findSeasons();
     }
 
-    addLoading() {
+    start(): void {
+        this.addLoading();
+    }
+
+    stop(): void {
+        this.removeLoading();
+    }
+
+    private addLoading() {
         this.loadingCounter++;
         this.loading = true;
     }
 
-    removeLoading() {
+    private removeLoading() {
         this.loadingCounter--;
         if (this.loadingCounter <= 0) {
             this.loading = false;
         }
     }
 
-    private sortGames(games: Rest.GameJson[]): Rest.GameJson[] {
-        return games.sort((g1, g2) => {
-            const date1 = new Date(g1.dateTime);
-            const date2 = new Date(g2.dateTime);
-            return date1.getTime() - date2.getTime();
-        });
+    onClickDetails(game: Rest.GameJson): void {
+        const egd = this.expandedGames.get(game.id);
+        if (egd) {
+            egd.expanded = !egd.expanded;    
+        }
     }
 
     findSeasons() {
-        this.addLoading();
-        this.seasonService.findSeasons()
-                          .subscribe((seasons: Rest.SeasonJson[]) => {
-            this.navigationRouterService.activate(NavigationRouterService.ROUTE_MEISTERSCHAFTEN);
-            const sortedSeason = seasons.sort(Sorting.compareSeason);
-            this.copy(sortedSeason, this.roundtable.seasons);
-            this.roundtable.selectedSeason = seasons[0];
-            this.findGroups(this.roundtable.selectedSeason.id);
-            this.removeLoading();
-        });
+        this.seasonGroupRoundSelectorService.findSeasons();
     }
 
     findGroups(seasonId: number) {
-        this.addLoading();
-        this.seasonService.findGroups(seasonId)
-                          .subscribe((groups: Rest.GroupTypeJson[]) => {
-            this.copy(groups, this.roundtable.groups);
-            if (this.roundtable.groups.length > 0 && this.roundtable.selectedSeason) {
-                this.roundtable.selectedGroup = groups[0];
-                this.findRounds(this.roundtable.selectedSeason.id, this.roundtable.selectedGroup.id);
-            }
-            this.removeLoading();
-        });
+        this.seasonGroupRoundSelectorService.findGroups(seasonId);
     }
 
     findRounds(seasonId: number, groupId: number) {
-        this.addLoading();
-        this.seasonService.findRounds(seasonId, groupId)
-                          .subscribe((season: Rest.SeasonJson) => {
-            this.copy(season.rounds, this.roundtable.rounds);
-            if (season.rounds != null && season.rounds.length > 0) {
-                const now = new Date();
-                let possibleSelectedRound = null;
-                season.rounds.forEach(round => {
-                    const roundDate = new Date(round.dateTime);
-                    if (roundDate < now) {
-                        possibleSelectedRound = round;
-                    }
-                });
-
-                if (possibleSelectedRound != null) {
-                    this.roundtable.selectedRound = possibleSelectedRound;
-                } else {
-                    this.roundtable.selectedRound = season.rounds[0];
-                }
-
-                if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                    this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
-                } else {
-                    this.roundtable.table = undefined;
-                }
-            } else {
-                this.roundtable.table = undefined;
-            }
-            this.removeLoading();
-        });
+        this.seasonGroupRoundSelectorService.findRounds(seasonId, groupId);
     }
 
     findRoundAndTable(roundId: number, groupId: number) {
-        this.addLoading();
-        this.seasonService.findRound(roundId, groupId)
-                          .subscribe((round: Rest.RoundAndTableJson) => {
-            this.roundtable.table = round;
-            const games = this.sortGames(this.roundtable.table.roundJson.games);
-            this.roundtable.table.roundJson.games = games;
-            this.initGames(games);
-            this.removeLoading();
-        });
+        this.seasonGroupRoundSelectorService.findRoundAndTable(roundId, groupId);
     }
 
     seasonSelected(event: any) {
         console.debug('Selected season id: ', event.target.value);
-
-        const selectedSeasonId = event.target.value;
-        const selectedSeason = this.roundtable
-                                   .seasons
-                                   .find(season => season.id == selectedSeasonId);
-        this.roundtable.selectedSeason = selectedSeason;
-        this.findGroups(selectedSeasonId);
+        this.seasonGroupRoundSelectorService.seasonSelected(event.target.value);
     }
 
     groupSelected(event: any) {
         console.debug('Selected group id: ', event.target.value);
-
-        const selectedGroupId = event.target.value;
-        const selectedGroup = this.roundtable
-                                  .groups
-                                  .find(group => group.id == selectedGroupId);
-        this.roundtable.selectedGroup = selectedGroup;
-        if (this.roundtable.selectedSeason) {
-            this.findRounds(this.roundtable.selectedSeason.id, selectedGroupId);
-        }
+        this.seasonGroupRoundSelectorService.groupSelected(event.target.value);
     }
 
     roundSelected(event: any) {
         console.debug('Selected round id: ', event.target.value);
-
-        const selectedRound = this.roundtable
-                                  .rounds
-                                  .find(round => round.id == event.target.value);
-
-        this.roundtable.selectedRound = selectedRound;
-        if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-            this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
-        }
+        this.seasonGroupRoundSelectorService.roundSelected(event.target.value);
     }
 
     next() {
-        const selectedRoundIndex = this.roundtable
-                                  .rounds
-                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
-        if (selectedRoundIndex < this.roundtable.rounds.length - 1) {
-            const nextRound = this.roundtable.rounds[selectedRoundIndex + 1];
-            this.roundtable.selectedRound = nextRound;
-            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                this.findRoundAndTable(nextRound.id, this.roundtable.selectedGroup.id);
-            }
-        }
+        this.seasonGroupRoundSelectorService.next();
     }
 
     last() {
-        const selectedRoundIndex = this.roundtable
-                                  .rounds
-                                  .findIndex(round => round.id == this.roundtable.selectedRound?.id);
-        if (selectedRoundIndex > 0) {
-            const lastRound = this.roundtable.rounds[selectedRoundIndex - 1];
-            this.roundtable.selectedRound = lastRound;
-            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                this.findRoundAndTable(lastRound.id, this.roundtable.selectedGroup.id);
-            }
-        }
+        this.seasonGroupRoundSelectorService.last();
     }
 
-    private initGames(games: Rest.GameJson[]): void {
+    initGames(games: Rest.GameJson[]): void {
         this.expandedGames.clear();
         for (const game of games) {
-            const expandedGameDetail = new ExpandedGameDetail();
-            expandedGameDetail.expanded = false;
-            expandedGameDetail.detail = undefined;
-            expandedGameDetail.game = game;
+            const expandedGameDetail = new ExpandedGameDetail(false, game);
             this.expandedGames.set(game.id, expandedGameDetail);
         }        
-    }
-
-    onClickDetails(game: Rest.GameJson): void {
-        const expandedGameDetail = this.expandedGames.get(game.id);
-        if (expandedGameDetail === undefined) {
-            console.error('No expanded game detail found for game: ', game);
-            return;
-        }
-        expandedGameDetail.expanded = !expandedGameDetail.expanded;
-
-        if (expandedGameDetail.expanded && expandedGameDetail.detail === undefined) {
-            this.addLoading();
-            this.seasonService
-                .findGameDetails(game.id)
-                .subscribe(
-                    (gameDetails: Rest.GameDetailsJson) => {
-                        expandedGameDetail.detail = gameDetails;
-                        console.debug('Completed loading game details for game: ', game, gameDetails);
-                    },
-                    (error: any) => {
-                        console.error('Error while loading game details for game: ', game, error);
-                    },
-                    () => {
-                        this.removeLoading();
-                    }
-                );
-        }
-    }
-
-    private copy<T>(source: T[], target: T[]): T[] {
-        target.splice(0);
-        source.forEach(el => target.push(el));
-        return target;
     }
 
     getColor(i: number) {
