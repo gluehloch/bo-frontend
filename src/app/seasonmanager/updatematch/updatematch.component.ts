@@ -39,6 +39,7 @@ export class UpdateMatchComponent implements OnInit {
 
     dateTimeFormat = environment.dateTimeFormat;
     matchModel: MatchModel;
+    localDateTime: string = '';
     processing = true;
 
     constructor(private router: Router,
@@ -81,6 +82,19 @@ export class UpdateMatchComponent implements OnInit {
             .subscribe(
                 (match: Rest.GameJson) => {
                     console.dir('Match loaded.', match);
+                    const dateTime = new Date(match.dateTime);
+                    const month = (dateTime.getMonth() + 1 + '').padStart(2, '0');
+                    const date = (dateTime.getDate() + '').padStart(2, '0');
+                    const hours = (dateTime.getHours()  + '').padStart(2, '0');
+                    const minutes = (dateTime.getMinutes()  + '').padStart(2, '0');
+
+                    const x = dateTime.getFullYear()
+                        + '-' + month
+                        + '-' + date
+                        + 'T' + hours
+                        + ':' + minutes;
+
+                    this.localDateTime = x;
                     this.matchModel.match = match;
                 },
                 (error) => {
@@ -95,8 +109,23 @@ export class UpdateMatchComponent implements OnInit {
 
     updateMatch() {
         console.dir('Update match ' + this.matchModel.match);
-        let gameDateTime = new Date(this.matchModel.match.dateTime);
+        let gameDateTime = new Date(this.localDateTime);
         console.log('game datetime=', this.matchModel.match.dateTime, gameDateTime);
+
+        const month = (gameDateTime.getMonth() + 1 + '').padStart(2, '0');
+        const date = (gameDateTime.getDate() + '').padStart(2, '0');
+        const hours = (gameDateTime.getHours()  + '').padStart(2, '0');
+        const minutes = (gameDateTime.getMinutes()  + '').padStart(2, '0');
+
+        const x = gameDateTime.getFullYear()
+            + '-' + month
+            + '-' + date
+            + 'T' + hours
+            + ':' + minutes
+            + '+0200';
+        console.log('best dateTime', x);
+        this.matchModel.match.dateTime = x;
+
         // let formattedDateTime = gameDateTime.
         // .toZonedDateTime();
         this.updateMatchService
