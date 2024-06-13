@@ -63,6 +63,11 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
         }
     }
 
+    isExpanded(game: Rest.GameJson): boolean {
+        const egd = this.expandedGames.get(game.id);
+        return egd ? egd.expanded : false;
+    }
+
     onClickDetails(game: Rest.GameJson): void {
         const egd = this.expandedGames.get(game.id);
         if (egd) {

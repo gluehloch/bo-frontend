@@ -74,7 +74,7 @@
                     </tr>
                     <tr [style.display]="expandedGames.get(game.id)?.expanded ? 'table-row' : 'none'">
                         <td colspan="5">
-                            <goals [display]="expandedGames.get(game.id)?.expanded" [game]="game"/>
+                            <goals [display]="isExpanded(game)" [game]="game"/>
                         </td>
                     </tr>
                 </ng-container>

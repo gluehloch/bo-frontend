@@ -18,8 +18,8 @@ export class GoalsComponent implements OnInit {
     @Input() display: boolean = false;
     @Input() game: Rest.GameJson | undefined;
 
-    private loading = false;
-    private gameDetail = new GameDetail();
+    loading = false;
+    gameDetail = new GameDetail();
 
     constructor(private goalService: GoalsService) { }
 
