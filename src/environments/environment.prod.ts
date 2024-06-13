@@ -5,7 +5,7 @@ export const environment = {
     // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
     dateTimeFormat: 'dd.MM.yyyy HH:mm',
     // TODO Wird mit der Community Edition abgeschafft...
-    currentSeasonId: 35,
+    currentSeasonId: 36,
 
     production:         true,
     website:            'tippdiekistebier.de',
