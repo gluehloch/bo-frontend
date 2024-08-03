@@ -38,7 +38,7 @@ export class GoalsComponent implements OnInit {
 
     private showDetails(game: Rest.GameJson): void {
         if (this.gameDetail.detail === undefined) {
-            console.error('Start loading of game goals:', this.game);
+            console.debug('Start loading of game goals:', this.game);
             this.loading = true;
             this.goalService
                 .findGameDetails(game.id)
