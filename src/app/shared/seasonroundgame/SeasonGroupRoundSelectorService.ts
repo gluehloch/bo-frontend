@@ -48,7 +48,14 @@ export class SeasonGroupRoundSelectorService {
         this.seasonService
                 .findGroups(seasonId)
                 .subscribe((groups: Rest.GroupTypeJson[]) => {
-            this.copy(groups, this.roundtable.groups);
+
+            this.roundtable.groups.splice(0);
+            groups.filter(g => g.type === 'PRELIMINARY_ROUND').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.type === 'KNOCKOUT_ROUND').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.type === 'SEMI_FINAL').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.type === 'FINAL').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.type === 'LEAGUE').forEach(group => this.roundtable.groups.push(group));
+
             if (this.roundtable.groups.length > 0 && this.roundtable.selectedSeason) {
                 this.roundtable.selectedGroup = groups[0];
                 this.findRounds(this.roundtable.selectedSeason.id, this.roundtable.selectedGroup.id);
