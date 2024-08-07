@@ -3,7 +3,6 @@ import './polyfills.ts';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { environment } from './environments/environment';
-import { HttpLoaderFactory } from './app/app.module';
 import { AppComponent } from './app/app.component';
 import { CommunityAdminComponent } from './app/admin/community/communityadmin.component';
 import { UpdateMatchComponent } from './app/seasonmanager/updatematch/updatematch.component';
@@ -25,9 +24,6 @@ import { AuthenticationComponent } from './app/authentication/authentication.com
 import { RegistrationComponent } from './app/registration/registration.component';
 import { HomeComponent } from './app/home/home.component';
 import { provideRouter } from '@angular/router';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieModule } from 'ngx-cookie';
 import { withInterceptorsFromDi, provideHttpClient, HttpClient } from '@angular/common/http';
@@ -59,38 +55,6 @@ import { UserCanActivate } from './app/session/user.canactivate';
 import { AdministrationCanActivate } from './app/session/administration.canactivate';
 import { httpInterceptorProviders } from './app/interceptors';
 
-const cookieConfig: NgcCookieConsentConfig = {
-    cookie: {
-        domain: 'tippdiekistebier.de'
-    },
-    position: 'top-right',
-    palette: {
-        popup: {
-            'background': '#2b482a',
-            'text': '#ffffff',
-            'link': '#ffffff'
-        },
-        button: {
-            'background': '#bfc418',
-            'text': '#000000',
-            'border': 'transparent'
-        }
-    },
-    theme: 'edgeless',
-    type: 'opt-out',
-    content: {
-        message: 'Diese Webseite verwendet Cookies.',
-        dismiss: 'Verstanden',
-        deny: 'Verweigern',
-        allow: 'Erlauben',
-        link: 'Mehr Infos',
-        href: 'http://tippdiekistebier.de/impressum',
-        target: '',
-        policy: 'Cookie Policy'
-    }
-};
-
-
 
 if (environment.production) {
     enableProdMode();
@@ -98,13 +62,12 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, CookieModule.forRoot(), FormsModule, ReactiveFormsModule, NgcCookieConsentModule.forRoot(cookieConfig), TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        })),
+        importProvidersFrom(
+            BrowserModule,
+            CookieModule.forRoot(),
+            FormsModule,
+            ReactiveFormsModule,
+        ),
         httpInterceptorProviders,
         AdministrationCanActivate,
         UserCanActivate,

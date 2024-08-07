@@ -36,7 +36,6 @@
     "lodash": "^4.17.21",
     "ng2-pdf-viewer": "^5.3.4",
     "ngx-cookie": "^1.0.1",
-    "ngx-cookieconsent": "^2.2.3",
     "npm": "^6.14.11",
     "rxjs": "^6.6.6",
     "tslib": "^2.1.0",
