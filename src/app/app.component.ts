@@ -1,7 +1,7 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
