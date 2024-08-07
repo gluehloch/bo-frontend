@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
 
 import { SeasonManagerCreateService } from './seasonmanagercreate.service';
 import { CreateSeasonModel } from './create-season-model';

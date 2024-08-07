@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
 
 import { USERROLE } from '../user-role.enum';
 import { PartyService } from './party.service';
