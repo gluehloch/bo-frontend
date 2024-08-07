@@ -10,6 +10,9 @@ import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Betoffice } from 'src/app/betoffice-json/model/betoffice-data-model';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 
 class MatchModel {
     seasonId: number;
@@ -33,7 +36,9 @@ class MatchModel {
 @Component({
     selector: 'app-match-detail',
     templateUrl: './updatematch.component.html',
-    styleUrls: ['./updatematch.component.css']
+    styleUrls: ['./updatematch.component.css'],
+    standalone: true,
+    imports: [AuthenticationWarningComponent, NgIf, FormsModule]
 })
 export class UpdateMatchComponent implements OnInit {
 

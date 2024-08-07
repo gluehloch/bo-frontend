@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChange } from "@angular/core";
 import { GoalsService } from "./goals.service";
+import { NgIf, NgFor } from "@angular/common";
 
 class GameDetail {
     display: boolean = false;
@@ -11,7 +12,9 @@ class GameDetail {
 @Component({
     selector: 'goals',
     templateUrl: './goals.component.html',
-    styleUrls: ['./goals.component.css']
+    styleUrls: ['./goals.component.css'],
+    standalone: true,
+    imports: [NgIf, NgFor]
 })
 export class GoalsComponent implements OnInit {
 

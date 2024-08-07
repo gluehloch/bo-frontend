@@ -8,6 +8,10 @@ import { ModalService } from './../../modal/modal.service';
 
 import { environment } from './../../../environments/environment';
 import { Betoffice } from 'src/app/betoffice-json/model/betoffice-data-model';
+import { NgFor, NgIf, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
+import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 
 export class Roundtable {
     seasonId: number;
@@ -30,7 +34,9 @@ export class Roundtable {
 @Component({
     selector: 'app-seasons',
     templateUrl: './updatematchday.component.html',
-    styleUrls: ['./updatematchday.component.css']
+    styleUrls: ['./updatematchday.component.css'],
+    standalone: true,
+    imports: [AuthenticationWarningComponent, SpinnerComponent, FormsModule, NgFor, NgIf, DatePipe]
 })
 export class UpdateMatchdayComponent implements OnInit {
 

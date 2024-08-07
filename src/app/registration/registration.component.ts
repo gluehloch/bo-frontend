@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { RegistrationService, RegistrationJson, ValidationCode } from './registration.service';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 class InputFieldModel {
     name: string;
@@ -149,7 +151,9 @@ interface ValidationCodeToInputFieldMapper {
 @Component({
     selector: 'app-registration',
     templateUrl: './registration.component.html',
-    styleUrls: ['./registration.component.css']
+    styleUrls: ['./registration.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgIf]
 })
 export class RegistrationComponent implements OnInit {
 

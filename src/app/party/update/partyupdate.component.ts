@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
 
 import { map } from 'rxjs/operators';
 
 import { PartyUpdateService } from './partyupdate.service';
 
 import { environment } from '../../../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 class PartyModel implements Rest.PartyJson {
     id: number;
@@ -44,7 +44,9 @@ class PartyModel implements Rest.PartyJson {
 @Component({
     selector: 'party',
     templateUrl: './partyupdate.component.html',
-    styleUrls: ['./partyupdate.component.css']
+    styleUrls: ['./partyupdate.component.css'],
+    standalone: true,
+    imports: [FormsModule]
 })
 export class PartyUpdateComponent implements OnInit {
 
