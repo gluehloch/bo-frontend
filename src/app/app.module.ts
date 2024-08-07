@@ -139,11 +139,6 @@ export function HttpLoaderFactory(http: HttpClient) {
             }
         }),
         RouterModule.forRoot([
-            /*
-            {
-              path: '',
-              redirectTo: 'home'
-            },*/
             {
                 path: '',
                 component: HomeComponent
@@ -164,12 +159,6 @@ export function HttpLoaderFactory(http: HttpClient) {
                 path: 'logout',
                 component: AuthenticationComponent
             },
-            /* TODO Anzeige der Login/Logout Daten inklusive Tippzeitpunkte.
-            {
-              path: 'session',
-              component: SessionComponent
-            },
-            */
             {
                 path: 'tipp',
                 component: TippComponent,
