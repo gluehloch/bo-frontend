@@ -5,11 +5,14 @@ import { map } from 'rxjs/operators';
 import { TeamUpdateService } from './teamupdate.service';
 
 import { environment } from '../../../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-teamupdate',
     templateUrl: './teamupdate.component.html',
-    styleUrls: ['./teamupdate.component.css']
+    styleUrls: ['./teamupdate.component.css'],
+    standalone: true,
+    imports: [FormsModule]
 })
 export class TeamUpdateComponent implements OnInit {
 

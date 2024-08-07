@@ -5,11 +5,16 @@ import { map } from 'rxjs/operators';
 import { UpdateSeasonGroupTeamService } from './updateteamgroup.service';
 import { UpdateTeamGroupModel } from './update-team-group-model';
 import { forkJoin } from 'rxjs';
+import { NgIf, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 
 @Component({
     selector: 'app-updateteamgroup',
     templateUrl: './updateteamgroup.component.html',
-    styleUrls: ['./updateteamgroup.component.css']
+    styleUrls: ['./updateteamgroup.component.css'],
+    standalone: true,
+    imports: [AuthenticationWarningComponent, FormsModule, NgIf, NgFor]
 })
 export class UpdateTeamGroupComponent implements OnInit {
 

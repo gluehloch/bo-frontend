@@ -7,11 +7,14 @@ import { PartyService } from './party.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'party',
-  templateUrl: './party.component.html',
-  styleUrls: ['./party.component.css']
+    selector: 'party',
+    templateUrl: './party.component.html',
+    styleUrls: ['./party.component.css'],
+    standalone: true,
+    imports: [NgIf, NgFor]
 })
 export class PartyComponent implements OnInit {
 

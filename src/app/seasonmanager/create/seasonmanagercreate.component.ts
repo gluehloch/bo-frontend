@@ -8,11 +8,15 @@ import { CreateSeasonModel } from './create-season-model';
 import { SeasonType, TeamType } from '../../betoffice-json/betofficetype';
 
 import { environment } from '../../../environments/environment';
+import { NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-season-manager-create',
     templateUrl: './seasonmanagercreate.component.html',
-    styleUrls: ['./seasonmanagercreate.component.css']
+    styleUrls: ['./seasonmanagercreate.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgFor]
 })
 
 export class SeasonManagerCreateComponent implements OnInit {

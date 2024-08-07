@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 export class PagerModel {
     currentPage = 0;
@@ -8,7 +10,9 @@ export class PagerModel {
 @Component({
     selector: 'app-pager',
     templateUrl: './pager.component.html',
-    styleUrls: ['./pager.component.css']
+    styleUrls: ['./pager.component.css'],
+    standalone: true,
+    imports: [RouterLink, NgFor]
 })
 export class PagerComponent implements OnInit {
 

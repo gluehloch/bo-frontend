@@ -8,6 +8,8 @@ import { USERROLE } from '../user-role.enum';
 
 import { environment } from '../../environments/environment';
 import { SessionService } from '../session/session.service';
+import { FormsModule } from '@angular/forms';
+import { NgIf, DatePipe } from '@angular/common';
 
 class AuthenticationModel {
 
@@ -33,7 +35,9 @@ class AuthenticationModel {
 @Component({
     selector: 'app-authentication',
     templateUrl: './authentication.component.html',
-    styleUrls: ['./authentication.component.css']
+    styleUrls: ['./authentication.component.css'],
+    standalone: true,
+    imports: [NgIf, FormsModule, DatePipe]
 })
 export class AuthenticationComponent implements OnInit {
 

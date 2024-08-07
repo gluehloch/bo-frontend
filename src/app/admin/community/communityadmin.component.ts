@@ -9,11 +9,16 @@ import { NavigationRouterService } from '../../navigationrouter.service';
 import { environment } from '../../../environments/environment';
 
 import { PagerModel } from 'src/app/shared/pager/pager.component';
+import { PagerComponent } from '../../shared/pager/pager.component';
+import { NgFor } from '@angular/common';
+import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 
 @Component({
     selector: 'app-community-admin',
     templateUrl: './communityadmin.component.html',
-    styleUrls: ['./communityadmin.component.css']
+    styleUrls: ['./communityadmin.component.css'],
+    standalone: true,
+    imports: [AuthenticationWarningComponent, NgFor, PagerComponent]
 })
 export class CommunityAdminComponent implements OnInit {
 

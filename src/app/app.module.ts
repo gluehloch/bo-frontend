@@ -248,10 +248,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 component: CommunityAdminComponent,
                 canActivate: [AdministrationCanActivate]
             }
-        ])
-    ],
-    declarations: [
-        AppComponent,
+        ]),
         NavbarComponent,
         UsernameFilter,
         HomeComponent,
@@ -280,8 +277,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         UpdateTeamGroupComponent,
         UpdateMatchdayComponent,
         UpdateMatchComponent,
-        CommunityAdminComponent,
+        CommunityAdminComponent
     ],
+    declarations: [AppComponent],
     providers: [
         httpInterceptorProviders,
         AdministrationCanActivate,

@@ -1,12 +1,15 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 @Component({
     selector: 'app-tipp-selector',
     templateUrl: './tipp-selector.component.html',
-    styleUrls: ['./tipp-selector.component.css']
+    styleUrls: ['./tipp-selector.component.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgFor]
 })
 export class TippSelectorComponent implements OnChanges {
 

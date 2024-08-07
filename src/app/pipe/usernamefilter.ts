@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'usernamefilter',
-    pure: false
+    pure: false,
+    standalone: true
 })
 export class UsernameFilter implements PipeTransform {
     transform(usernames: any[], filter: Object): any {
