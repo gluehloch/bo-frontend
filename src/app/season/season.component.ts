@@ -82,21 +82,23 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
         }
     }
 
-    findSeasons() {
+    private findSeasons() {
         this.seasonGroupRoundSelectorService.findSeasons();
     }
 
-    findGroups(seasonId: number) {
+    /* TODO remove 
+    private findGroups(seasonId: number) {
         this.seasonGroupRoundSelectorService.findGroups(seasonId);
     }
 
-    findRounds(seasonId: number, groupId: number) {
+    private findRounds(seasonId: number, groupId: number) {
         this.seasonGroupRoundSelectorService.findRounds(seasonId, groupId);
     }
 
-    findRoundAndTable(roundId: number, groupId: number) {
-        this.seasonGroupRoundSelectorService.findRoundAndTable(roundId, groupId);
+    private findRoundAndTable(seasonId: number, roundId: number, groupId: number) {
+        this.seasonGroupRoundSelectorService.findRoundAndTable(seasonId, roundId, groupId);
     }
+    */
 
     seasonSelected(event: any) {
         console.debug('Selected season id: ', event.target.value);

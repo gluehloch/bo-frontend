@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { UpdateMatchdayService } from './updatematchday.service';
@@ -40,7 +40,7 @@ export class Roundtable {
 })
 export class UpdateMatchdayComponent implements OnInit {
 
-    loading = true;
+    loading = signal(true);
     dateTimeFormat = environment.dateTimeFormat;
     roundtable: Roundtable;
 
@@ -73,36 +73,43 @@ export class UpdateMatchdayComponent implements OnInit {
     private findRounds(seasonId: number, groupId: number) {
         this.updateMatchdayService
                 .findRounds(seasonId, groupId)
-                .subscribe((season: Rest.SeasonJson) => {
-            this.roundtable.rounds = season.rounds;
+                .subscribe(
+                    (season: Rest.SeasonJson) => {
+                        if (season.rounds.length > 0) {
+                            this.roundtable.rounds = season.rounds;
 
-            const selectRoundId = this.roundtable.roundId ? this.roundtable.roundId : season.currentRoundId;
-
-            if (selectRoundId) {
-                const index = _.findIndex(this.roundtable.rounds, e => { return e.id == selectRoundId });
-                if (index === -1) {
-                    // In der Gruppenphase kann es durchaus moeglich sein,
-                    // dass fuer den aktuellen Spieltag in dieser Gruppe kein Spieltag
-                    // vorgesehen ist. Mmh. Das ist jetzt bloed. Also default:
-                    this.roundtable.selectedRound = season.rounds[0];
-                } else {
-                    this.roundtable.selectedRound = season.rounds[index];
-                }
-            } else {
-                this.roundtable.selectedRound = season.rounds[0];
-            }
-
-            if (this.roundtable.selectedGroup) {
-                this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
-            } else {
-                console.info('Es fehlt eine ausgewählte Gruppe zum Abruf der Rundendaten.');
-            }
-            this.loading = false;
-        });
+                            const selectRoundId = this.roundtable.roundId ? this.roundtable.roundId : season.currentRoundId;    
+                            if (selectRoundId) {
+                                const index = _.findIndex(this.roundtable.rounds, e => { return e.id == selectRoundId });
+                                if (index === -1) {
+                                    // In der Gruppenphase kann es durchaus moeglich sein,
+                                    // dass fuer den aktuellen Spieltag in dieser Gruppe kein Spieltag
+                                    // vorgesehen ist. Mmh. Das ist jetzt bloed. Also default:
+                                    this.roundtable.selectedRound = season.rounds[0];
+                                } else {
+                                    this.roundtable.selectedRound = season.rounds[index];
+                                }
+                            } else {
+                                this.roundtable.selectedRound = season.rounds[0];
+                            }
+                
+                            if (this.roundtable.selectedGroup) {
+                                this.findRoundAndTable(seasonId, this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+                            } else {
+                                console.info('Es fehlt eine ausgewählte Gruppe zum Abruf der Rundendaten.');
+                            }
+                        }
+                    },
+                    (error) => {
+                        console.error(error);
+                    }, () => {
+                        this.loading.set(false);
+                    }
+                );
     }
 
-    private findRoundAndTable(roundId: number, groupId: number) {
-        this.updateMatchdayService.findRound(roundId, groupId)
+    private findRoundAndTable(seasonId: number, roundId: number, groupId: number) {
+        this.updateMatchdayService.findRound(seasonId, roundId, groupId)
             .subscribe((round: Rest.RoundAndTableJson) => {
                 this.roundtable.table = round;
             });
@@ -127,7 +134,7 @@ export class UpdateMatchdayComponent implements OnInit {
             const selectedRound = this.roundtable.rounds.find(round => round.id === parseInt(selectedRoundId, 10));
             if (selectedRound) {
                 this.roundtable.selectedRound = selectedRound;
-                this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+                this.findRoundAndTable(this.roundtable.seasonId, this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
             }
         }
     }
@@ -140,7 +147,7 @@ export class UpdateMatchdayComponent implements OnInit {
             const lastRound = this.roundtable.rounds[selectedRoundIndex - 1];
             this.roundtable.selectedRound = lastRound;
             if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                this.findRoundAndTable(lastRound.id, this.roundtable.selectedGroup.id);
+                this.findRoundAndTable(this.roundtable.seasonId, lastRound.id, this.roundtable.selectedGroup.id);
             }
         }
     }
@@ -153,7 +160,7 @@ export class UpdateMatchdayComponent implements OnInit {
             const nextRound = this.roundtable.rounds[selectedRoundIndex + 1];
             this.roundtable.selectedRound = nextRound;
             if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                this.findRoundAndTable(nextRound.id, this.roundtable.selectedGroup.id);
+                this.findRoundAndTable(this.roundtable.seasonId, nextRound.id, this.roundtable.selectedGroup.id);
             }
         }
     }
@@ -168,7 +175,7 @@ export class UpdateMatchdayComponent implements OnInit {
     updateMatchDay() {
         if (this.roundtable.selectedGroup) {
             this.updateMatchdayService
-            .updateMatchday(this.roundtable.table.roundJson, this.roundtable.selectedGroup)
+            .updateMatchday(this.roundtable.seasonId, this.roundtable.table.roundJson, this.roundtable.selectedGroup)
             .subscribe(
                 (round: Rest.RoundAndTableJson) => {
                     this.roundtable.table = round;
@@ -181,10 +188,10 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     updateOpenligaDb() {
-        this.loading = true;
+        this.loading.set(true);
         if (this.roundtable.selectedGroup) {
             this.updateMatchdayService
-                .updateByOpenligaDb(this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
+                .updateByOpenligaDb(this.roundtable.seasonId, this.roundtable.table.roundJson.id, this.roundtable.selectedGroup.id)
                 .subscribe(
                     (round: Rest.RoundAndTableJson) => {
                         this.roundtable.table = round;
@@ -194,7 +201,7 @@ export class UpdateMatchdayComponent implements OnInit {
                         this.modalService.open('AuthenticationWarningComponent', error.status);
                     },
                     () => {
-                        this.loading = false;
+                        this.loading.set(false);
                     }
                 );
         }
@@ -204,7 +211,7 @@ export class UpdateMatchdayComponent implements OnInit {
         if (this.roundtable.selectedGroup) {
             const selectedGroup = this.roundtable.selectedGroup;
             this.updateMatchdayService
-                .createOrUpdateByOpenligaDb(this.roundtable.table.roundJson.id, selectedGroup.id)
+                .createOrUpdateByOpenligaDb(this.roundtable.seasonId, this.roundtable.table.roundJson.id, selectedGroup.id)
                 .subscribe(
                     (round: Rest.RoundAndTableJson) => {
                         this.roundtable.table = round;

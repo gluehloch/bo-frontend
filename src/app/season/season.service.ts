@@ -29,26 +29,16 @@ export class SeasonService extends BetofficeService {
         return this.http.get<Rest.SeasonJson>(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all');
     }
 
-    findRound(roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/group/" + groupId);
+    findRound(seasonId: number, roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
+        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/' + seasonId + '/roundtable/' + roundId + "/group/" + groupId);
     }
 
-    nextRound(roundId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/next");
+    nextRound(seasonId: number, roundId: number): Observable<Rest.RoundAndTableJson> {
+        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/' + seasonId + '/roundtable/' + roundId + "/next");
     }
 
-    prevRound(roundId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/roundtable/' + roundId + "/prev");
+    prevRound(seasonId: number, roundId: number): Observable<Rest.RoundAndTableJson> {
+        return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/' + seasonId + '/roundtable/' + roundId + "/prev");
     }
-
-    /* Is not in usage anymore.
-    update(roundId: number) : Observable<Rest.RoundAndTableJson> {
-      return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/update", {headers: this.createHeader()});
-    }
-  
-    createOrUpdate( roundId: number) :  Observable<Rest.RoundAndTableJson> {
-      return this.http.post<Rest.RoundAndTableJson>(this.rootUrl + 'season/round/' + roundId + "/create", {headers: this.createHeader()});
-    }
-    */
 
 }

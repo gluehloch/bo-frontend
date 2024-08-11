@@ -97,7 +97,7 @@ export class SeasonGroupRoundSelectorService {
                 }
 
                 if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                    this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+                    this.findRoundAndTable(seasonId, this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
                 } else {
                     this.roundtable.table = undefined;
                 }
@@ -114,15 +114,15 @@ export class SeasonGroupRoundSelectorService {
             .find(round => round.id == selectedRoundId);
 
         this.roundtable.selectedRound = selectedRound;
-        if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-            this.findRoundAndTable(this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
+        if (this.roundtable.selectedSeason && this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+            this.findRoundAndTable(this.roundtable.selectedSeason.id, this.roundtable.selectedRound.id, this.roundtable.selectedGroup.id);
         }
     }
 
-    findRoundAndTable(roundId: number, groupId: number): void {
+    findRoundAndTable(seasonId: number, roundId: number, groupId: number): void {
         this.processing.start();
         this.seasonService
-                .findRound(roundId, groupId)
+                .findRound(seasonId, roundId, groupId)
                 .subscribe((round: Rest.RoundAndTableJson) => {
             this.roundtable.table = round;
             const games = this.sortGames(this.roundtable.table.roundJson.games);
@@ -140,8 +140,8 @@ export class SeasonGroupRoundSelectorService {
         if (selectedRoundIndex < this.roundtable.rounds.length - 1) {
             const nextRound = this.roundtable.rounds[selectedRoundIndex + 1];
             this.roundtable.selectedRound = nextRound;
-            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                this.findRoundAndTable(nextRound.id, this.roundtable.selectedGroup.id);
+            if (this.roundtable.selectedSeason && this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(this.roundtable.selectedSeason.id, nextRound.id, this.roundtable.selectedGroup.id);
             }
         }
     }
@@ -154,8 +154,8 @@ export class SeasonGroupRoundSelectorService {
         if (selectedRoundIndex > 0) {
             const lastRound = this.roundtable.rounds[selectedRoundIndex - 1];
             this.roundtable.selectedRound = lastRound;
-            if (this.roundtable.selectedRound && this.roundtable.selectedGroup) {
-                this.findRoundAndTable(lastRound.id, this.roundtable.selectedGroup.id);
+            if (this.roundtable.selectedSeason && this.roundtable.selectedRound && this.roundtable.selectedGroup) {
+                this.findRoundAndTable(this.roundtable.selectedSeason.id, lastRound.id, this.roundtable.selectedGroup.id);
             }
         }
     }

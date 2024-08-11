@@ -23,8 +23,7 @@ export class TippService extends BetofficeService {
     }
 
     currentRound(seasonId: number, nickName: string): Observable<Rest.RoundJson> {
-        return this.http.get<Rest.RoundJson>(
-            this.rootUrl + 'tipp/' + seasonId + '/' + nickName + '/current');
+        return this.http.get<Rest.RoundJson>(this.rootUrl + 'tipp/' + seasonId + '/' + nickName + '/current');
     }
 
     findTipp(roundId: number, nickName: string): Observable<Rest.RoundJson> {

@@ -1,6 +1,6 @@
 <app-authentication-warning></app-authentication-warning>
 <div>
-    <app-spinner [enabled]="loading"/>
+    <app-spinner [enabled]="loading()"/>
     <form #selectSeasonAndGroup="ngForm" name="selectSeasonAndGroup">
         <div class="mb-3">
             <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
