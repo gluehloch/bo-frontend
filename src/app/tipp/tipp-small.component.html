@@ -108,10 +108,18 @@
                 <div *ngIf="tipp.game.finished; then gameIsFinished else gameIsNotFinished"></div>
 
                 <ng-template #gameIsFinished>
-                    <div class="row"
-                        [ngClass]="{'jackpot': tipp.game.tipps[0].points == 13, 'win': tipp.game.tipps[0].points == 10, 'ticket': tipp.game.tipps[0].points == 0 }">
-                        <div class="col" style="text-align: center; padding: .5rem .75rem">
-                            {{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
+                    <div *ngIf="tipp.game.tipps[0]">
+                        <div class="row"
+                            [ngClass]="{'jackpot': tipp.game.tipps[0].points == 13, 'win': tipp.game.tipps[0].points == 10, 'ticket': tipp.game.tipps[0].points == 0 }">
+                            <div class="col" style="text-align: center; padding: .5rem .75rem">
+                                {{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
+                        </div>
+                    </div>
+                    <div *ngIf="!tipp.game.tipps[0]">
+                        <div class="row">
+                            <div class="col" style="text-align: center; padding: .5rem .75rem">
+                                {{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
+                        </div>                        
                     </div>
                 </ng-template>
 
