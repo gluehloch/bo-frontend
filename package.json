@@ -27,7 +27,7 @@
     "acorn": "^6.4.2",
     "betoffice": "file:",
     "bootstrap": "^5.3.2",
-    "bootstrap-icons": "^1.6.1",
+    "bootstrap-icons": "1.11.0",
     "eslint-plugin-prettier": "^3.3.1",
     "jshint": "2.11.0",
     "lodash": "^4.17.21",
