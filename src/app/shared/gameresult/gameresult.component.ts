@@ -3,7 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
     selector: 'app-gameresult',
     templateUrl: './gameresult.component.html',
-    styleUrls: ['./gameresult.component.css']
+    styleUrls: ['./gameresult.component.css'],
+    standalone: true
 })
 export class GameResultComponent implements OnInit {
 

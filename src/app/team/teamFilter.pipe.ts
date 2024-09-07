@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'teamFilter',
-    pure: false
+    pure: false,
+    standalone: true
 })
 export class TeamFilter implements PipeTransform {
 

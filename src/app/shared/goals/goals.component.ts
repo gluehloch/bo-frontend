@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChange } from "@angular/core";
 import { GoalsService } from "./goals.service";
+import { NgIf, NgFor } from "@angular/common";
 
 class GameDetail {
     display: boolean = false;
@@ -11,15 +12,17 @@ class GameDetail {
 @Component({
     selector: 'goals',
     templateUrl: './goals.component.html',
-    styleUrls: ['./goals.component.css']
+    styleUrls: ['./goals.component.css'],
+    standalone: true,
+    imports: [NgIf, NgFor]
 })
 export class GoalsComponent implements OnInit {
 
     @Input() display: boolean = false;
     @Input() game: Rest.GameJson | undefined;
 
-    private loading = false;
-    private gameDetail = new GameDetail();
+    loading = false;
+    gameDetail = new GameDetail();
 
     constructor(private goalService: GoalsService) { }
 
@@ -38,7 +41,7 @@ export class GoalsComponent implements OnInit {
 
     private showDetails(game: Rest.GameJson): void {
         if (this.gameDetail.detail === undefined) {
-            console.error('Start loading of game goals:', this.game);
+            console.debug('Start loading of game goals:', this.game);
             this.loading = true;
             this.goalService
                 .findGameDetails(game.id)

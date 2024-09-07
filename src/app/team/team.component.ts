@@ -3,11 +3,16 @@ import { Router } from '@angular/router';
 
 import { TeamService } from './team.service';
 import { NavigationRouterService } from '../navigationrouter.service';
+import { TeamFilter } from './teamFilter.pipe';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
     selector: 'teams',
     templateUrl: './team.component.html',
-    styleUrls: ['./team.component.css']
+    styleUrls: ['./team.component.css'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, TeamFilter]
 })
 export class TeamComponent implements OnInit {
 

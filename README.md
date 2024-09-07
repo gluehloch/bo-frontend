@@ -1,10 +1,12 @@
 # Testangie
 
-Momentan arbeitet diese Projekt mit angular-cli 1.4.7. Um alte Resistanten los zu werden, empfiehlt es
-sich, die folgenden Befehle auszuführen:
+## Development Setup
 
-Falls noch eine alte BETA Version vorhanden ist:
+* Visual Studio Code
+* https://marketplace.visualstudio.com/items?itemName=Angular.ng-template
+* node / npm
 
+## Angular neu installieren
 ```
 npm uninstall -g angular-cli
 npm uninstall --save-dev angular-cli

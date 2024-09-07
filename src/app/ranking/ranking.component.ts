@@ -9,11 +9,18 @@ import { environment } from '../../environments/environment';
 import { SeasonService } from '../season/season.service';
 import { Betoffice } from '../betoffice-json/model/betoffice-data-model';
 import { Sorting } from '../betoffice-json/model/Sorting';
+import { TippResultComponent } from './tippresult.component';
+import { GameResultComponent } from '../shared/gameresult/gameresult.component';
+import { NgFor, NgIf, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
-  selector: 'app-ranking',
-  templateUrl: './ranking.component.html',
-  styleUrls: ['./ranking.component.css']
+    selector: 'app-ranking',
+    templateUrl: './ranking.component.html',
+    styleUrls: ['./ranking.component.css'],
+    standalone: true,
+    imports: [SpinnerComponent, FormsModule, NgFor, NgIf, GameResultComponent, TippResultComponent, DatePipe]
 })
 export class RankingComponent implements OnInit {
 

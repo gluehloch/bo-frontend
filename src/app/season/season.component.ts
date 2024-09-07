@@ -7,6 +7,11 @@ import { environment } from './../../environments/environment';
 
 import { GamesPreprocessor, Processing, SeasonGroupRoundSelectorService } from '../shared/seasonroundgame/SeasonGroupRoundSelectorService';
 import { RoundtableModel } from '../shared/seasonroundgame/RoundtableModel';
+import { GoalsComponent } from '../shared/goals/goals.component';
+import { GameResultComponent } from '../shared/gameresult/gameresult.component';
+import { NgFor, NgIf, NgClass, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 class ExpandedGameDetail {
     expanded: boolean;
@@ -21,7 +26,9 @@ class ExpandedGameDetail {
 @Component({
     selector: 'app-seasons',
     templateUrl: './season.component.html',
-    styleUrls: ['./season.component.css']
+    styleUrls: ['./season.component.css'],
+    standalone: true,
+    imports: [SpinnerComponent, FormsModule, NgFor, NgIf, GameResultComponent, GoalsComponent, NgClass, DatePipe]
 })
 export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
 
@@ -63,6 +70,11 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
         }
     }
 
+    isExpanded(game: Rest.GameJson): boolean {
+        const egd = this.expandedGames.get(game.id);
+        return egd ? egd.expanded : false;
+    }
+
     onClickDetails(game: Rest.GameJson): void {
         const egd = this.expandedGames.get(game.id);
         if (egd) {
@@ -70,21 +82,23 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
         }
     }
 
-    findSeasons() {
+    private findSeasons() {
         this.seasonGroupRoundSelectorService.findSeasons();
     }
 
-    findGroups(seasonId: number) {
+    /* TODO remove 
+    private findGroups(seasonId: number) {
         this.seasonGroupRoundSelectorService.findGroups(seasonId);
     }
 
-    findRounds(seasonId: number, groupId: number) {
+    private findRounds(seasonId: number, groupId: number) {
         this.seasonGroupRoundSelectorService.findRounds(seasonId, groupId);
     }
 
-    findRoundAndTable(roundId: number, groupId: number) {
-        this.seasonGroupRoundSelectorService.findRoundAndTable(roundId, groupId);
+    private findRoundAndTable(seasonId: number, roundId: number, groupId: number) {
+        this.seasonGroupRoundSelectorService.findRoundAndTable(seasonId, roundId, groupId);
     }
+    */
 
     seasonSelected(event: any) {
         console.debug('Selected season id: ', event.target.value);

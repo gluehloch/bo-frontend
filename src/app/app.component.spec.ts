@@ -10,11 +10,9 @@ import { USERROLE } from './user-role.enum';
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppModule,
-        AppComponent
-      ],
-    });
+    imports: [AppModule,
+        AppComponent]
+});
     TestBed.compileComponents();
   });
 

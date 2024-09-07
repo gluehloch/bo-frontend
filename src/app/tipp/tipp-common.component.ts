@@ -24,7 +24,7 @@ class TippModel {
     private oldHomeGoals: number;
     private oldGuestGoals: number;
 
-    constructor(public game: Rest.GameJson, public homeGoals: number, public guestGoals: number, public points: number) {
+    constructor(public exists: boolean,  public game: Rest.GameJson, public homeGoals: number, public guestGoals: number, public points: number) {
         this.oldHomeGoals = homeGoals;
         this.oldGuestGoals = guestGoals;
     }
@@ -150,13 +150,14 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
             let gameTippModel;
             if (game.tipps && game.tipps[0] && game.tipps[0].tipp) {
                 gameTippModel = new TippModel(
+                        true,
                         game,
                         game.tipps[0].tipp.homeGoals,
                         game.tipps[0].tipp.guestGoals,
                         game.tipps[0].points);
             } else {
                 console.log('Kein Tipp Gefunden', game);
-                gameTippModel = new TippModel(game, 0, 0, 0);
+                gameTippModel = new TippModel(false, game, 0, 0, 0);
             }
             this.tippModelContainer.add(gameTippModel);
         }

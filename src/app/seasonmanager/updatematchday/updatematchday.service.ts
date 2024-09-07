@@ -8,12 +8,16 @@ import { environment } from '../../../environments/environment';
 import { USERROLE } from '../../user-role.enum';
 import { BetofficeService } from '../../betoffice.service';
 import { SessionService } from 'src/app/session/session.service';
+import { SeasonService } from 'src/app/season/season.service';
 
 @Injectable()
 export class UpdateMatchdayService extends BetofficeService {
 
-    constructor(http: HttpClient, sessionService: SessionService) {
+    private seasonService: SeasonService;
+
+    constructor(http: HttpClient, sessionService: SessionService, seasonService: SeasonService) {
         super(http, sessionService);
+        this.seasonService = seasonService;
     }
 
     findSeasons(): Observable<Array<Rest.SeasonJson>> {
@@ -29,37 +33,33 @@ export class UpdateMatchdayService extends BetofficeService {
     }
 
     findRounds(seasonId: number, groupId: number): Observable<Rest.SeasonJson> {
-        return this.http.get<Rest.SeasonJson>(
-            this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all');
+        return this.http.get<Rest.SeasonJson>(this.rootUrl + 'season/' + seasonId + '/group/' + groupId + '/round/all');
     }
 
-    findRound(roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(
-            this.rootUrl + 'season/roundtable/' + roundId + '/group/' + groupId);
+    findRound(seasonId: number, roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
+        return this.seasonService.findRound(seasonId, roundId, groupId);
     }
 
-    nextRound(roundId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(
-            this.rootUrl + 'season/roundtable/' + roundId + '/next');
+    nextRound(seasonId: number, roundId: number): Observable<Rest.RoundAndTableJson> {
+        return this.seasonService.nextRound(seasonId, roundId);
     }
 
-    prevRound(roundId: number): Observable<Rest.RoundAndTableJson> {
-        return this.http.get<Rest.RoundAndTableJson>(
-            this.rootUrl + 'season/roundtable/' + roundId + '/prev');
+    prevRound(seasonId: number, roundId: number): Observable<Rest.RoundAndTableJson> {
+        return this.seasonService.prevRound(seasonId, roundId);
     }
 
-    updateByOpenligaDb(roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
+    updateByOpenligaDb(seasonId: number, roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
         return this.http.post<Rest.RoundAndTableJson>(
-            this.adminUrl + 'season/round/' + roundId + '/group/' + groupId + '/ligadbupdate', null);
+            this.adminUrl + 'season/' + seasonId + '/round/' + roundId + '/group/' + groupId + '/ligadbupdate', null);
     }
 
-    createOrUpdateByOpenligaDb(roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
+    createOrUpdateByOpenligaDb(seasonId: number, roundId: number, groupId: number): Observable<Rest.RoundAndTableJson> {
         return this.http.post<Rest.RoundAndTableJson>(
-            this.adminUrl + 'season/round/' + roundId + '/group/' + groupId + '/ligadbcreate', null);
+            this.adminUrl + 'season/' + seasonId + '/round/' + roundId + '/group/' + groupId + '/ligadbcreate', null);
     }
 
-    updateMatchday(round: Rest.RoundJson, group: Rest.GroupTypeJson): Observable<Rest.RoundAndTableJson> {
+    updateMatchday(seasonId: number, round: Rest.RoundJson, group: Rest.GroupTypeJson): Observable<Rest.RoundAndTableJson> {
         return this.http.post<Rest.RoundAndTableJson>(
-            this.adminUrl + 'season/round/' + round.id + '/group/' + group.id + '/update', round);
+            this.adminUrl + 'season/' + seasonId + '/round/' + round.id + '/group/' + group.id + '/update', round);
     }
 }

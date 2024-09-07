@@ -3,10 +3,8 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
-const betoffice = '/betoffice-war/';
-// const betoffice = '/betoffice-boot/';
-// const betofficeJWeb = 'betoffice-jweb_SNAP/'
-// const betofficeJWeb = 'http://localhost:9999/betoffice-BOOT/';
+// const betoffice = '/betoffice-war/'; 
+const betoffice = '/betoffice-boot/';
 const registrationservice = '/registrationservice/';
 
 // const prefix = nginxProxy;
@@ -16,7 +14,7 @@ export const environment = {
     // Der alte Filter mit Zeitzone: 'dd.MM.yyyy HH:mm': '+0200'
     dateTimeFormat:      'dd.MM.yyyy HH:mm',
     // TODO Wird mit der Community Edition abgeschafft...
-    currentSeasonId:     35,
+    currentSeasonId:     37,
 
     production:          false,
     rootUrl:             betoffice + 'office/',

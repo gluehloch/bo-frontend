@@ -72,6 +72,7 @@ declare namespace Rest {
 
     type GroupTypeJson = AbstractOpenligaid & {
         name: string;
+        type: 'LEAGUE' | 'PRELIMINARY_ROUND' | 'KNOCKOUT_ROUND' | 'SEMI_FINAL' | 'FINAL';
     }
 
     type HistoryTeamVsTeamJson = {

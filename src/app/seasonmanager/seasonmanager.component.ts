@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
 import { map } from 'rxjs/operators';
 
 import { SeasonManagerService } from './seasonmanager.service';
@@ -8,11 +7,15 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 import { Sorting } from '../betoffice-json/model/Sorting';
+import { NgIf, NgFor } from '@angular/common';
+import { AuthenticationWarningComponent } from '../authenticationwarning/authenticationwarning.component';
 
 @Component({
     selector: 'app-season-manager',
     templateUrl: './seasonmanager.component.html',
-    styleUrls: ['./seasonmanager.component.css']
+    styleUrls: ['./seasonmanager.component.css'],
+    standalone: true,
+    imports: [AuthenticationWarningComponent, NgIf, NgFor]
 })
 export class SeasonManagerComponent implements OnInit {
 

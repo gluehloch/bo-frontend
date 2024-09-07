@@ -108,11 +108,25 @@
                 <div *ngIf="tipp.game.finished; then gameIsFinished else gameIsNotFinished"></div>
 
                 <ng-template #gameIsFinished>
-                    <div class="row"
-                        [ngClass]="{'jackpot': tipp.game.tipps[0].points == 13, 'win': tipp.game.tipps[0].points == 10, 'ticket': tipp.game.tipps[0].points == 0 }">
-                        <div class="col" style="text-align: center; padding: .5rem .75rem">
-                            {{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
-                    </div>
+                    <div *ngIf="tipp.exists; then tippExists else tippDoesNotExist"></div>
+                    <ng-template #tippExists>
+                        <div *ngIf="tipp.exists">
+                            <div class="row" [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
+                                <div class="col" style="text-align: center; padding: .5rem .75rem">
+                                    {{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #tippDoesNotExist>
+                        <!-- Es liegt kein Tipp für dieses Spiel vor. -->
+                        <div *ngIf="!tipp.exists">
+                            <div class="row">
+                                <div class="col" style="text-align: center; padding: .5rem .75rem">
+                                    <i>Kein Tipp abgegeben bzw. Tipp nach Spielbeginn erfolgt.</i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>>
                 </ng-template>
 
                 <ng-template #gameIsNotFinished>
