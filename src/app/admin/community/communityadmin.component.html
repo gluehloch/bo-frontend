@@ -30,23 +30,4 @@
         </tbody>
     </table>
     <app-pager [pagerModel]="pagerModel" (pageEventEmitter)="updatePager($event)"></app-pager>
-    <!--
-    <nav aria-label="community-paginator">
-        <ul class="pagination justify-content-end">
-            <li class="page-item" [class.disabled]="communityPage?.number === 0">
-                <a class="page-link" [routerLink]="" (click)="previousPage()" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li *ngFor="let pageNo of slices" class="page-item" [class.active]="communityPage?.number === pageNo">
-                <a class="page-link" [routerLink]="" (click)="gotoPage(pageNo)">{{pageNo + 1}}</a>
-            </li>
-            <li class="page-item" [class.disabled]="communityPage?.number === communityPage?.totalPages - 1">
-                <a class="page-link" [routerLink]="" (click)="nextPage()" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    -->
 </div>

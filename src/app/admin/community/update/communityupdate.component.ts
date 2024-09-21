@@ -1,29 +1,37 @@
-import { Component, OnInit } from "@angular/core";
+import { map } from 'rxjs/operators';
+
+import { Component, OnInit, provideExperimentalCheckNoChangesForDebug } from "@angular/core";
 import { CheckableParty } from "./checkable-party";
 import { ActivatedRoute, Router } from "@angular/router";
+import { FormsModule } from '@angular/forms';
+import { NgFor } from "@angular/common";
+import { CommunityUpdateService } from "./communityupdate.service";
 
 @Component({
     selector: 'app-community-update',
     templateUrl: './communityupdate.component.html',
-    styleUrls: ['./communityupdate.component.css']
+    styleUrls: ['./communityupdate.component.css'],
+    standalone: true,
+    imports: [NgFor, FormsModule],
 })
 export class CommunityUpdateComponent implements OnInit {
 
+    model: Rest.CommunityJson | undefined;
+
     constructor(
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private communityUpdateService: CommunityUpdateService) {
     }
 
     ngOnInit() {
-        /*
-        this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
-            this.seasonManagerUpdateService.findSeason(id).subscribe(
-                (season: Rest.SeasonJson) => this.model.season = season);
+        this.route.params.pipe(map(params => params['shortName'])).subscribe((shortName) => {
+            this.communityUpdateService.findCommunity(shortName).subscribe(
+                (community: Rest.CommunityJson) => this.model = community);
 
-            this.findParties(id);
-            this.findPotentialParties(id);
+            // this.findParties(id);
+            // this.findPotentialParties(id);
         });
-        */
     }
 
     /*

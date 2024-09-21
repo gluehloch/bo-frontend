@@ -19,10 +19,9 @@ declare namespace Rest {
     }
 
     type CommunityJson = {
-        id: number;
+        shortName: string;
         name: string;
         year: string;
-        shortName: string;
         communityManager: UserJson;
         season: SeasonJson;
     }

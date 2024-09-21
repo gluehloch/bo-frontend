@@ -11,6 +11,7 @@ import { PagerModel } from 'src/app/shared/pager/pager.component';
 import { PagerComponent } from '../../shared/pager/pager.component';
 import { NgFor } from '@angular/common';
 import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-community-admin',
@@ -60,7 +61,7 @@ export class CommunityAdminComponent implements OnInit {
     }
 
     updateCommunity(community: Rest.CommunityJson) {
-        this.router.navigate(['./chiefop/community/update', community.id]);
+        this.router.navigate(['./chiefop/community/update', community.shortName]);
     }
 
     /*

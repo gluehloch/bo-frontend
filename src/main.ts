@@ -56,6 +56,7 @@ import { CookieService } from './app/app.cookie.service';
 import { UserCanActivate } from './app/session/user.canactivate';
 import { AdministrationCanActivate } from './app/session/administration.canactivate';
 import { httpInterceptorProviders } from './app/interceptors';
+import { CommunityUpdateService } from './app/admin/community/update/communityupdate.service';
 
 
 if (environment.production) {
@@ -94,6 +95,7 @@ bootstrapApplication(AppComponent, {
         UpdateMatchdayService,
         UpdateMatchService,
         CommunityAdminService,
+        CommunityUpdateService,
         ModalService,
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi()),
