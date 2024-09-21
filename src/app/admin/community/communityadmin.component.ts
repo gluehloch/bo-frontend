@@ -59,6 +59,10 @@ export class CommunityAdminComponent implements OnInit {
         });
     }
 
+    updateCommunity(community: Rest.CommunityJson) {
+        this.router.navigate(['./chiefop/community/update', community.id]);
+    }
+
     /*
     updateSeason(season: Rest.SeasonJson) {
         this.router.navigate(['./chiefop/seasonmanager/update', season.id]);

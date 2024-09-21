@@ -1,10 +1,12 @@
 import './polyfills';
 
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
+
 import { CommunityAdminComponent } from './app/admin/community/communityadmin.component';
+import { CommunityUpdateComponent } from './app/admin/community/update/communityupdate.component';
+
 import { UpdateMatchComponent } from './app/seasonmanager/updatematch/updatematch.component';
 import { UpdateTeamGroupComponent } from './app/seasonmanager/updateteamgroup/updateteamgroup.component';
 import { UpdateMatchdayComponent } from './app/seasonmanager/updatematchday/updatematchday.component';
@@ -15,6 +17,7 @@ import { TeamUpdateComponent } from './app/team/update/teamupdate.component';
 import { TeamComponent } from './app/team/team.component';
 import { PartyUpdateComponent } from './app/party/update/partyupdate.component';
 import { PartyComponent } from './app/party/party.component';
+
 import { SeasonComponent } from './app/season/season.component';
 import { RankingComponent } from './app/ranking/ranking.component';
 import { TippMobileComponent } from './app/tipp/tipp-mobile.component';
@@ -191,6 +194,11 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'chiefop/community',
                 component: CommunityAdminComponent,
+                canActivate: [AdministrationCanActivate]
+            },
+            {
+                path: 'chiefop/community/update/:id',
+                component: CommunityUpdateComponent,
                 canActivate: [AdministrationCanActivate]
             }
         ])

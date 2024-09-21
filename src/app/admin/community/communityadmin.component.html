@@ -22,7 +22,9 @@
                 <td>{{community.communityManager.nickname}}</td>
                 <td>{{community.season.name}} {{community.season.year}}</td>
                 <td>
-                    <i class="bi bi-gear"></i>
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="updateCommunity(community)">
+                        <i class="bi bi-gear"></i>
+                    </button>
                 </td>
             </tr>
         </tbody>

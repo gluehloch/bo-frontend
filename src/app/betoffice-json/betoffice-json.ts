@@ -19,6 +19,7 @@ declare namespace Rest {
     }
 
     type CommunityJson = {
+        id: number;
         name: string;
         year: string;
         shortName: string;

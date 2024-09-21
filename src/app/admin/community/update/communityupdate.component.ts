@@ -3,11 +3,11 @@ import { CheckableParty } from "./checkable-party";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-    selector: 'app-season-manager-update',
-    templateUrl: './updatecommunityuser.component.html',
-    styleUrls: ['./updatecommunityuser.component.css']
+    selector: 'app-community-update',
+    templateUrl: './communityupdate.component.html',
+    styleUrls: ['./communityupdate.component.css']
 })
-export class UpdateCommunityUserComponent implements OnInit {
+export class CommunityUpdateComponent implements OnInit {
 
     constructor(
         private router: Router,

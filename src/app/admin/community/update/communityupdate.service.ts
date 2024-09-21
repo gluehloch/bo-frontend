@@ -7,7 +7,7 @@ import { BetofficeService } from "src/app/betoffice.service";
 import { SessionService } from "src/app/session/session.service";
 
 @Injectable()
-export class UpdateCommunityUserService extends BetofficeService {
+export class CommunityUpdateService extends BetofficeService {
 
     constructor(http: HttpClient, sessionService: SessionService) {
         super(http, sessionService);
