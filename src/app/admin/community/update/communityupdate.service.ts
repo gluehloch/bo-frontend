@@ -13,8 +13,8 @@ export class CommunityUpdateService extends BetofficeService {
         super(http, sessionService);
     }
 
-    findCommunity(communityReference: string): Observable<Rest.CommunityJson> {
-        return this.http.get<Rest.CommunityJson>(this.adminUrl + 'community/' + communityReference);
+    findCommunity(communityId: number): Observable<Rest.CommunityJson> {
+        return this.http.get<Rest.CommunityJson>(this.communityAdminUrl + 'community/' + communityId);
     }
 
     findParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {

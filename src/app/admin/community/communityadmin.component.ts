@@ -61,7 +61,7 @@ export class CommunityAdminComponent implements OnInit {
     }
 
     updateCommunity(community: Rest.CommunityJson) {
-        this.router.navigate(['./chiefop/community/update', community.shortName]);
+        this.router.navigate(['./chiefop/community/update', community.id]);
     }
 
     /*

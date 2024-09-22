@@ -25,8 +25,8 @@ export class CommunityUpdateComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params.pipe(map(params => params['shortName'])).subscribe((shortName) => {
-            this.communityUpdateService.findCommunity(shortName).subscribe(
+        this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
+            this.communityUpdateService.findCommunity(id).subscribe(
                 (community: Rest.CommunityJson) => this.model = community);
 
             // this.findParties(id);
