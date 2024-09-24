@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 
-import { Component, OnInit, provideExperimentalCheckNoChangesForDebug } from "@angular/core";
+import { Component, Input, OnInit, provideExperimentalCheckNoChangesForDebug } from "@angular/core";
 import { CheckableParty } from "./checkable-party";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
@@ -18,6 +18,13 @@ export class CommunityUpdateComponent implements OnInit {
 
     model: Rest.CommunityJson | undefined;
 
+    @Input()
+    set id(communityId: number) {
+        this.communityUpdateService.findCommunity(communityId).subscribe(
+            (community: Rest.CommunityJson) => this.model = community
+        );
+    }
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -25,13 +32,14 @@ export class CommunityUpdateComponent implements OnInit {
     }
 
     ngOnInit() {
+        /*
         this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
             this.communityUpdateService.findCommunity(id).subscribe(
                 (community: Rest.CommunityJson) => this.model = community);
-
             // this.findParties(id);
             // this.findPotentialParties(id);
         });
+        */
     }
 
     /*

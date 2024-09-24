@@ -26,7 +26,7 @@ import { TippComponent } from './app/tipp/tipp.component';
 import { AuthenticationComponent } from './app/authentication/authentication.component';
 import { RegistrationComponent } from './app/registration/registration.component';
 import { HomeComponent } from './app/home/home.component';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { withInterceptorsFromDi, provideHttpClient, HttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -203,7 +203,7 @@ bootstrapApplication(AppComponent, {
                 component: CommunityUpdateComponent,
                 canActivate: [AdministrationCanActivate]
             }
-        ])
+        ], withComponentInputBinding())
     ]
 })
     .catch(err => console.log(err));
