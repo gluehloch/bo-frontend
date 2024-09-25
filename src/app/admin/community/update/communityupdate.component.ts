@@ -1,27 +1,32 @@
 import { map } from 'rxjs/operators';
 
-import { Component, Input, OnInit, provideExperimentalCheckNoChangesForDebug } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { CheckableParty } from "./checkable-party";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
-import { NgFor } from "@angular/common";
+import { NgFor, NgIf } from "@angular/common";
 import { CommunityUpdateService } from "./communityupdate.service";
 
+import { AuthenticationWarningComponent } from '../../../authenticationwarning/authenticationwarning.component';
+import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 @Component({
     selector: 'app-community-update',
     templateUrl: './communityupdate.component.html',
     styleUrls: ['./communityupdate.component.css'],
     standalone: true,
-    imports: [NgFor, FormsModule],
+    imports: [SpinnerComponent, AuthenticationWarningComponent, NgFor, NgIf, FormsModule],
 })
 export class CommunityUpdateComponent implements OnInit {
 
+    contentReady = false;
     model: Rest.CommunityJson | undefined;
 
     @Input()
     set id(communityId: number) {
         this.communityUpdateService.findCommunity(communityId).subscribe(
-            (community: Rest.CommunityJson) => this.model = community
+            (community: Rest.CommunityJson) => this.model = community,
+            (error) => console.error(error),
+            ()  => this.contentReady = true
         );
     }
 
