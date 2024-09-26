@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { CommunityAdminService } from './communityadmin.service';
@@ -24,7 +24,7 @@ export class CommunityAdminComponent implements OnInit {
         size: 10,
     } as Rest.PageParam;
 
-    contentReady = false;
+    contentReady = signal(false);
     pagerModel = new PagerModel();
     communityPage: Rest.Page<Rest.CommunityJson> | undefined;
     seasons: Array<Rest.SeasonJson>;
@@ -46,7 +46,7 @@ export class CommunityAdminComponent implements OnInit {
     }
 
     private findCommunities(pageParam: Rest.PageParam): void {
-        this.contentReady = false;
+        this.contentReady.set(false);
         this.communityAdminService.findCommunities(pageParam).subscribe(
             communityPage => {
                 console.log(communityPage);
@@ -60,7 +60,7 @@ export class CommunityAdminComponent implements OnInit {
                 console.log('Community request failed. ', error);
             },
             () => {
-                this.contentReady = true;
+                this.contentReady.set(true);
             }
         );
     }

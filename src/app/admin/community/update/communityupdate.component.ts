@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, signal } from "@angular/core";
 import { CheckableParty } from "./checkable-party";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 })
 export class CommunityUpdateComponent implements OnInit {
 
-    contentReady = false;
+    contentReady = signal(false);
     model: Rest.CommunityJson | undefined;
 
     @Input()
@@ -26,7 +26,7 @@ export class CommunityUpdateComponent implements OnInit {
         this.communityUpdateService.findCommunity(communityId).subscribe(
             (community: Rest.CommunityJson) => this.model = community,
             (error) => console.error(error),
-            ()  => this.contentReady = true
+            ()  => this.contentReady.set(true)
         );
     }
 

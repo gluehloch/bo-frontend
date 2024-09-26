@@ -1,8 +1,8 @@
 <app-authentication-warning></app-authentication-warning>
 
-<app-spinner [enabled]="!contentReady"/>
+<app-spinner [enabled]="!contentReady()"/>
 
-<ng-template *ngIf="!contentReady">
+<ng-template *ngIf="!contentReady()">
     <h1>Community ... wird geladen...</h1>
 </ng-template>
 <ng-template *ngIf="contentReady">
