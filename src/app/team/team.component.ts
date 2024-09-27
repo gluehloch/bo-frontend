@@ -7,6 +7,7 @@ import { TeamFilter } from './teamFilter.pipe';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
 
+type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
 @Component({
     selector: 'teams',
     templateUrl: './team.component.html',
@@ -18,14 +19,15 @@ export class TeamComponent implements OnInit {
 
     // Team Types: DFB, FIFA
     teamsModel: Array<Rest.TeamJson>;
-    dfbFilterValue: string;
+    dfbFilterValue: dfbFilterType;
+    teamNameFilter: string = '';
 
     constructor(
         private router: Router,
         private teamService: TeamService,
         private navigationRouterService: NavigationRouterService) {
         this.teamsModel = [];
-        this.dfbFilterValue = '';
+        this.dfbFilterValue = 'alle';
     }
 
     private sortTeams() {
@@ -50,12 +52,15 @@ export class TeamComponent implements OnInit {
         });
     }
 
-    changeDfbFilter(value: boolean) {
-        if (!this.dfbFilterValue) {
-            this.dfbFilterValue = 'DFB';
-        } else {
-            this.dfbFilterValue = '';
+    changeDfbFilter(event: Event) {
+        const value = (event.target as HTMLInputElement).value;
+        if (value === 'DFB' || value === 'FIFA' || value === 'alle') {
+            this.dfbFilterValue = value;
         }
+    }
+
+    changeTeamNameFilter(x: string) {
+        console.log('changeTeamNameFilter', x, this.teamNameFilter);
     }
 
 }

@@ -1,12 +1,24 @@
 <h1>Mannschaften</h1>
 <div *ngIf="teamsModel.length != 0">
     <form>
-        <div class="form-check">
-            <label class="form-check-label">
-                <input #dfbFilter type="checkbox" class="form-check-input"
-                    (change)="changeDfbFilter(dfbFilter.checked)">
-                DFB Mannschaften
-            </label>
+        <div class="row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="teamNameFilter" name="teamNameFilter"
+                        (ngModel)="teamNameFilter" (ngModelChange)="changeTeamNameFilter()">
+                    <label for="teamNameFilter">Mannschaftsname</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <select #dfbFilter class="form-select" id="teamTypeFilter" (change)="changeDfbFilter($event)">
+                        <option selected value="alle">Alle</option>
+                        <option value="DFB">DFB</option>
+                        <option value="FIFA">FIFA</option>
+                    </select>
+                    <label for="teamTypeFilter">Mannschaftstyp Filtern</label>
+                </div>
+            </div>
         </div>
     </form>
     <table class="table table-striped table-sm">
@@ -24,7 +36,7 @@
         </thead>
         <!-- | teamFilter: 'DFB' -->
         <tbody>
-            <tr *ngFor="let team of teamsModel | teamFilter:dfbFilterValue">
+            <tr *ngFor="let team of teamsModel | teamFilter:dfbFilterValue:teamNameFilter">
                 <td>
                     <button class="btn btn-primary btn-sm" type="submit" (click)="updateTeam(team)">
                         <i class="bi bi-gear"></i>
