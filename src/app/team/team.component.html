@@ -26,7 +26,9 @@
         <tbody>
             <tr *ngFor="let team of teamsModel | teamFilter:dfbFilterValue">
                 <td>
-                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateTeam(team)">Edit</button>
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateTeam(team)">
+                        <i class="bi bi-gear"></i>
+                    </button>
                 </td>
                 <td>{{team.name}}</td>
                 <td>{{team.longName}}</td>

@@ -15,7 +15,9 @@
         <tbody>
             <tr *ngFor="let party of partiesModel">
                 <td>
-                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateParty(party)">Edit</button>
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateParty(party)">
+                        <i class="bi bi-gear"></i>
+                    </button>
                 </td>
                 <td>{{party.nickname}}</td>
                 <td>{{party.name}}</td>
