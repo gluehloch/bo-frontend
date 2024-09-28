@@ -1,21 +1,18 @@
-<h1>Mannschaften</h1>
+<h1>Mannschaften Ergebnis Vergleich</h1>
 <form>
     <div class="row g-2">
         <div class="col-md">
             <div class="form-floating">
-                <input type="text" class="form-control" id="teamNameFilter" name="teamNameFilter" 
-                    [(ngModel)]="teamNameFilter" (ngModelChange)="this.changeTeamNameFilter()">
-                <label for="teamNameFilter">Mannschaftsname</label>
+                <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter" 
+                    [(ngModel)]="homeTeamNameFilter" (ngModelChange)="this.changeHomeTeamNameFilter()">
+                <label for="homeTeamNameFilter">Heimmannschaft</label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating">
-                <select #dfbFilter class="form-select" id="teamTypeFilter" (change)="changeDfbFilter($event)">
-                    <option selected value="alle">Alle</option>
-                    <option value="DFB">DFB</option>
-                    <option value="FIFA">FIFA</option>
-                </select>
-                <label for="teamTypeFilter">Mannschaftstyp Filtern</label>
+                <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter" 
+                    [(ngModel)]="guestTeamNameFilter" (ngModelChange)="this.changeGuestTeamNameFilter()">
+                <label for="guestTeamNameFilter">Gastmannschaft</label>
             </div>
         </div>
     </div>

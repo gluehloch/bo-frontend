@@ -57,6 +57,8 @@ import { UserCanActivate } from './app/session/user.canactivate';
 import { AdministrationCanActivate } from './app/session/administration.canactivate';
 import { httpInterceptorProviders } from './app/interceptors';
 import { CommunityUpdateService } from './app/admin/community/update/communityupdate.service';
+import { ResearchService } from './app/research/research.service';
+import { ResearchComponent } from './app/research/research.component';
 
 
 if (environment.production) {
@@ -83,6 +85,7 @@ bootstrapApplication(AppComponent, {
         TippService,
         SeasonService,
         RankingService,
+        ResearchService,
         SeasonService,
         PartyService,
         PartyUpdateService,
@@ -142,6 +145,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'season',
                 component: SeasonComponent
+            },
+            {
+                path: 'research',
+                component: ResearchComponent
             },
             {
                 path: 'chiefop/party',
