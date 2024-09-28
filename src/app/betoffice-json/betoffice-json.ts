@@ -138,13 +138,15 @@ declare namespace Rest {
         submitTippGames: SubmitTippGameJson[];
     }
 
+    type TeamType = 'DFB' | 'FIFA';
+
     type TeamJson = AbstractOpenligaid & {
         name: string;
         longName: string;
         shortName: string;
         xshortName: string;
         logo: string;
-        type: string;
+        type: TeamType;
     }
 
     type TeamResultJson = Serializable & {
