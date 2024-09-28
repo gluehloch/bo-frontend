@@ -21,8 +21,8 @@ type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
 export class TeamComponent implements OnInit {
 
     // Team Types: DFB, FIFA
-    teamsModel: Array<Rest.TeamJson>;
-    dfbFilterValue: dfbFilterType;
+    teamsModel: Array<Rest.TeamJson> = [];
+    dfbFilterValue: dfbFilterType = 'alle';
     private searchSubject = new Subject<string>();
     teamNameFilter: string = '';
 
@@ -30,8 +30,6 @@ export class TeamComponent implements OnInit {
         private router: Router,
         private teamService: TeamService,
         private navigationRouterService: NavigationRouterService) {
-        this.teamsModel = [];
-        this.dfbFilterValue = 'alle';
     }
 
     private sortTeams() {
@@ -40,7 +38,6 @@ export class TeamComponent implements OnInit {
 
     ngOnInit() {
         this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-            console.log('changeTeamNameFilter', this.teamNameFilter);
             const teamType = this.dfbFilterValue === 'alle'
                 ? undefined
                 : this.dfbFilterValue === 'DFB' ? 'DFB' : 'FIFA';
