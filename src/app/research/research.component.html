@@ -3,14 +3,14 @@
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter" 
+                <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter" tabindex="0"
                     [(ngModel)]="homeTeamNameFilter" (ngModelChange)="this.changeHomeTeamNameFilter()">
                 <label for="homeTeamNameFilter">Heimmannschaft Filter</label>
             </div>
         </div>
         <div class="col">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter" 
+                <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter" tabindex="2"
                     [(ngModel)]="guestTeamNameFilter" (ngModelChange)="this.changeGuestTeamNameFilter()">
                 <label for="guestTeamNameFilter">Gastmannschaft Filter</label>
             </div>
@@ -19,8 +19,9 @@
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
-                <select #homeTeamSelect class="form-select" id="homeTeamSelect" (change)="selectHomeTeam($event)" title="Auswahl Heimmannschaft"
-                    [(ngModel)]="selectedHomeTeam" name="selectedHomeTeam">
+                <select #homeTeamSelect class="form-select" id="homeTeamSelect" (change)="selectHomeTeam($event)" tabindex="1"
+                    title="Auswahl Heimmannschaft" name="selectedHomeTeam"
+                    [(ngModel)]="selectedHomeTeam">
                     <option *ngFor="let team of homeTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
                 <label for="homeTeamSelect">Heimmannschaft auswählen</label>
@@ -28,8 +29,9 @@
         </div>
         <div class="col">
             <div class="form-floating mb-3">
-                <select #guestTeamSelect class="form-select" id="guestTeamSelect" (change)="selectGuestTeam($event)" title="Auswahl Gastmannschaft"
-                    [(ngModel)]="selectedGuestTeam" name="selectedGuestTeam">
+                <select #guestTeamSelect class="form-select" id="guestTeamSelect" (change)="selectGuestTeam($event)" tabindex="3"
+                    title="Auswahl Gastmannschaft" name="selectedGuestTeam"
+                    [(ngModel)]="selectedGuestTeam">
                     <option *ngFor="let team of guestTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
                 <label for="homeTeamSelect">Gastmannschaft auswählen</label>
@@ -47,8 +49,8 @@
         </tr>
     </thead>
     <tbody>
-            <tr *ngFor="let game of games?.games">
-                <td>{{game.matchDate}}</td>
+            <tr *ngFor="let game of games?.games; index as i">
+                <td>{{dates[i]}}</td>
                 <td>{{game.homeTeamName}}</td>
                 <td>{{game.guestTeamName}}</td>
                 <td>{{game.homeTeamGoals}} : {{game.guestTeamGoals}}</td>

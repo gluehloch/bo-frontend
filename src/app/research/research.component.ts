@@ -9,6 +9,8 @@ import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ResearchService } from './research.service';
 
+import * as moment from 'moment';
+
 type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
 @Component({
     selector: 'research',
@@ -32,16 +34,12 @@ export class ResearchComponent implements OnInit {
     guestTeams: Array<Rest.TeamJson> = [];
     
     games: Rest.HistoryTeamVsTeamJson | undefined;
+    dates: string[] = [];
 
     constructor(
         private router: Router,
         private researchService: ResearchService,
         private navigationRouterService: NavigationRouterService) {
-    }
-
-    private sortTeams() {
-        this.homeTeams.sort((a, b) => a.longName.localeCompare(b.longName));
-        this.guestTeams.sort((a, b) => a.longName.localeCompare(b.longName));
     }
 
     ngOnInit() {
@@ -70,11 +68,11 @@ export class ResearchComponent implements OnInit {
     }
 
     changeHomeTeamNameFilter() {
-        this.queryGames();
+        this.searchHomeSubject.next(this.homeTeamNameFilter);
     }
 
     changeGuestTeamNameFilter() {
-        this.queryGames();
+        this.searchGuestSubject.next(this.guestTeamNameFilter);
     }
 
     selectHomeTeam(event: Event) {
@@ -90,6 +88,7 @@ export class ResearchComponent implements OnInit {
             this.researchService.findGames(this.selectedHomeTeam.id, this.selectedGuestTeam.id).subscribe(
                 (history: Rest.HistoryTeamVsTeamJson) => {
                     this.games = history;
+                    this.dates = this.games.games.map((game) => moment(game.matchDate).format('DD.MM.YYYY HH:mm'));
                 },
                 (error) => {
                     console.log(error);
