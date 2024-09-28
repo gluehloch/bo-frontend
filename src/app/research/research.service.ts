@@ -27,4 +27,9 @@ export class ResearchService extends BetofficeService {
         return this.http.get<Array<Rest.TeamJson>>(this.adminUrl + 'team-search', {params: params});
     }
 
+    findGames(homeTeamId: number, guestTeamId: number): Observable<Rest.HistoryTeamVsTeamJson> {
+        const params = { homeTeam: homeTeamId, guestTeam: guestTeamId };
+        return this.http.get<Rest.HistoryTeamVsTeamJson>(this.rootUrl  + 'research/teamvsteam', { params: params });
+    }
+
 }

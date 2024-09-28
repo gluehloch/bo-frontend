@@ -24,7 +24,7 @@ export class TeamService extends BetofficeService {
         } else {
             params = {filter: filter};
         };
-        return this.http.get<Array<Rest.TeamJson>>(this.adminUrl + 'team-search', {params: params});
+        return this.http.get<Array<Rest.TeamJson>>(this.adminUrl + 'team-search', { params: params });
     }
 
     updateTeam(team: Rest.TeamJson): Observable<Rest.TeamJson> {

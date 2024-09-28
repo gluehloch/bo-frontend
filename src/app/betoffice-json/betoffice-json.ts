@@ -76,10 +76,6 @@ declare namespace Rest {
         type: 'LEAGUE' | 'PRELIMINARY_ROUND' | 'KNOCKOUT_ROUND' | 'SEMI_FINAL' | 'FINAL';
     }
 
-    type HistoryTeamVsTeamJson = {
-        teamVsTeamJsons: TeamVsTeamJson[];
-    }
-
     type PartyJson = AbstractIdentifier & Serializable & {
         nickname: string;
         name: string;
@@ -165,6 +161,10 @@ declare namespace Rest {
         matchDate: string;
         homeTeamGoals: number;
         guestTeamGoals: number;
+    }
+
+    type HistoryTeamVsTeamJson = {
+        games: TeamVsTeamJson[];
     }
 
     type TokenJson = Serializable & {

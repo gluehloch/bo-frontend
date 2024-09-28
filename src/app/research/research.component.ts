@@ -15,58 +15,89 @@ type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
     templateUrl: './research.component.html',
     styleUrls: ['./research.component.css'],
     standalone: true,
-    imports: [NgIf, FormsModule, NgFor]
+    imports: [NgIf, NgFor, FormsModule]
 })
 export class ResearchComponent implements OnInit {
+
+    private searchHomeSubject = new Subject<string>();
+    private searchGuestSubject = new Subject<string>();
 
     homeTeamNameFilter = '';
     guestTeamNameFilter = '';
 
-    // Team Types: DFB, FIFA
-    teamsModel: Array<Rest.TeamJson>;
-    dfbFilterValue: dfbFilterType;
-    private searchSubject = new Subject<string>();
-    teamNameFilter: string = '';
+    selectedGuestTeam: Rest.TeamJson | undefined;
+    selectedHomeTeam: Rest.TeamJson | undefined;
+
+    homeTeams: Array<Rest.TeamJson> = [];
+    guestTeams: Array<Rest.TeamJson> = [];
+    
+    games: Rest.HistoryTeamVsTeamJson | undefined;
 
     constructor(
         private router: Router,
-        private teamService: ResearchService,
+        private researchService: ResearchService,
         private navigationRouterService: NavigationRouterService) {
-        this.teamsModel = [];
-        this.dfbFilterValue = 'alle';
     }
 
     private sortTeams() {
-        this.teamsModel.sort((a, b) => a.longName.localeCompare(b.longName));
+        this.homeTeams.sort((a, b) => a.longName.localeCompare(b.longName));
+        this.guestTeams.sort((a, b) => a.longName.localeCompare(b.longName));
     }
 
     ngOnInit() {
-        this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-            console.log('changeTeamNameFilter', this.teamNameFilter);
-            const teamType = this.dfbFilterValue === 'alle'
-                ? undefined
-                : this.dfbFilterValue === 'DFB' ? 'DFB' : 'FIFA';
-            this.teamService.findTeamsByFilter(searchValue, teamType).subscribe((teams: Array<Rest.TeamJson>) => {
-                this.teamsModel = teams;
+        this.searchHomeSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+            this.researchService.findTeamsByFilter(searchValue, undefined).subscribe((teams: Array<Rest.TeamJson>) => {
+                this.homeTeams = teams;
             });
           });
 
-        this.teamService.findTeams().subscribe((teams: Array<Rest.TeamJson>) => {
-            this.teamsModel = teams;
+        this.searchGuestSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+            this.researchService.findTeamsByFilter(searchValue, undefined).subscribe((teams: Array<Rest.TeamJson>) => {
+                this.guestTeams = teams;
+            });
+        });
+
+        this.researchService.findTeams().subscribe((teams: Array<Rest.TeamJson>) => {
+            this.homeTeams = teams;
+            this.guestTeams = teams;
             this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
         });
     }
 
     ngOnDestroy() {
-        this.searchSubject.complete();
+        this.searchHomeSubject.complete();
+        this.searchGuestSubject.complete();
     }
 
     changeHomeTeamNameFilter() {
-
+        this.queryGames();
     }
 
     changeGuestTeamNameFilter() {
-
+        this.queryGames();
     }
 
+    selectHomeTeam(event: Event) {
+        this.queryGames();
+    }
+
+    selectGuestTeam(event: Event) {
+        this.queryGames();
+    }
+
+    private queryGames(): void {
+        if (this.selectedHomeTeam && this.selectedGuestTeam) {
+            this.researchService.findGames(this.selectedHomeTeam.id, this.selectedGuestTeam.id).subscribe(
+                (history: Rest.HistoryTeamVsTeamJson) => {
+                    this.games = history;
+                },
+                (error) => {
+                    console.log(error);
+                },
+                () => {
+                    console.log('complete');
+                }
+            );
+        }
+    }
 }
