@@ -58,6 +58,7 @@ export class CommunityAdminComponent implements OnInit {
             },
             error => {
                 console.log('Community request failed. ', error);
+                this.contentReady.set(true);
             },
             () => {
                 this.contentReady.set(true);
