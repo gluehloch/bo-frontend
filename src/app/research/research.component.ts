@@ -60,7 +60,7 @@ export class ResearchComponent implements OnInit {
         this.researchService.findTeams().subscribe((teams: Array<Rest.TeamJson>) => {
             this.homeTeams = teams;
             this.guestTeams = teams;
-            this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
+            this.navigationRouterService.activate(NavigationRouterService.ROUTE_RESEARCH);
         });
     }
 
