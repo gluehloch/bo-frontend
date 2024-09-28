@@ -39,12 +39,14 @@ export class TeamComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.searchSubject.pipe(debounceTime(500)).subscribe((searchValue) => {
+        this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
             console.log('changeTeamNameFilter', this.teamNameFilter);
-            this.teamService.findTeamsByFilter(searchValue, undefined).subscribe((teams: Array<Rest.TeamJson>) => {
+            const teamType = this.dfbFilterValue === 'alle'
+                ? undefined
+                : this.dfbFilterValue === 'DFB' ? 'DFB' : 'FIFA';
+            this.teamService.findTeamsByFilter(searchValue, teamType).subscribe((teams: Array<Rest.TeamJson>) => {
                 this.teamsModel = teams;
-                this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
-            });            
+            });
           });
 
         this.teamService.findTeams().subscribe((teams: Array<Rest.TeamJson>) => {
@@ -73,9 +75,10 @@ export class TeamComponent implements OnInit {
         if (value === 'DFB' || value === 'FIFA' || value === 'alle') {
             this.dfbFilterValue = value;
         }
+        this.changeTeamNameFilter();
     }
 
-    changeTeamNameFilter(x: string) {
+    changeTeamNameFilter() {
         this.searchSubject.next(this.teamNameFilter);
     }
 
