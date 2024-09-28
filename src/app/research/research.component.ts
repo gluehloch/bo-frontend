@@ -112,6 +112,7 @@ export class ResearchComponent implements OnInit {
                 },
                 (error) => {
                     console.log(error);
+                    this.contentReady.set(true);
                 },
                 () => {
                     this.contentReady.set(true);
