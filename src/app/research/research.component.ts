@@ -100,6 +100,14 @@ export class ResearchComponent implements OnInit {
         this.queryGames();
     }
 
+    changeHomeAndGuestSelect(event: Event) {
+
+    }
+
+    changeReverseSelect(event: Event) {
+
+    }
+
     private queryGames(): void {
         if (this.selectedHomeTeam && this.selectedGuestTeam) {
             this.contentReady.set(false);

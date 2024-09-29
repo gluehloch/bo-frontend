@@ -12,6 +12,19 @@
             </div>
         </div>
         <div class="col">
+            <div class="form-floating mb-1">
+                <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" (change)="changeHomeAndGuestSelect($event)" name="homeAndGuestSelect" title="homeAndGuest">
+                    <option selected value="HEIM">Heim und Gast</option>
+                    <option value="HEIM">Heim oder Gast</option>
+                    <option value="HEIM">Nur Heim</option>
+                    <option value="GAST">Nur Gast</option>
+                </select>
+                <label for="homeAndGuestSelect">Heim und Gast</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter" tabindex="0"
                     [(ngModel)]="homeTeamNameFilter" (ngModelChange)="this.changeHomeTeamNameFilter()">
