@@ -1,11 +1,13 @@
 <app-authentication-warning></app-authentication-warning>
 
+<app-spinner [enabled]="!contentReady()"/>
+
 <h1>Community Verwaltung</h1>
 <div>
-    Verwaltung der Community... TODO...
     <table class="table table-sm table-hover">
         <thead>
             <tr>
+                <td></td>
                 <td>Abkürzung</td>
                 <td>Name</td>
                 <td>Jahrgang</td>
@@ -15,6 +17,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let community of communityPage?.content">
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="updateCommunity(community)">
+                        <i class="bi bi-gear"></i>
+                    </button>
+                </td>
                 <td>{{community.shortName}}</td>
                 <td>{{community.name}}</td>
                 <td>{{community.year}}</td>
@@ -24,23 +31,4 @@
         </tbody>
     </table>
     <app-pager [pagerModel]="pagerModel" (pageEventEmitter)="updatePager($event)"></app-pager>
-    <!--
-    <nav aria-label="community-paginator">
-        <ul class="pagination justify-content-end">
-            <li class="page-item" [class.disabled]="communityPage?.number === 0">
-                <a class="page-link" [routerLink]="" (click)="previousPage()" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li *ngFor="let pageNo of slices" class="page-item" [class.active]="communityPage?.number === pageNo">
-                <a class="page-link" [routerLink]="" (click)="gotoPage(pageNo)">{{pageNo + 1}}</a>
-            </li>
-            <li class="page-item" [class.disabled]="communityPage?.number === communityPage?.totalPages - 1">
-                <a class="page-link" [routerLink]="" (click)="nextPage()" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    -->
 </div>

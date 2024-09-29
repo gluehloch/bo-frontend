@@ -7,10 +7,14 @@ import { BetofficeService } from "src/app/betoffice.service";
 import { SessionService } from "src/app/session/session.service";
 
 @Injectable()
-export class UpdateCommunityUserService extends BetofficeService {
+export class CommunityUpdateService extends BetofficeService {
 
     constructor(http: HttpClient, sessionService: SessionService) {
         super(http, sessionService);
+    }
+
+    findCommunity(communityId: number): Observable<Rest.CommunityJson> {
+        return this.http.get<Rest.CommunityJson>(this.communityAdminUrl + 'community/' + communityId);
     }
 
     findParties(seasonId: number): Observable<Array<Rest.SeasonMemberJson>> {

@@ -1,0 +1,87 @@
+<app-spinner [enabled]="!contentReady()"/>
+<h1>Mannschaften Ergebnis Vergleich</h1>
+<p>
+    Alle Spiele der Fussball Bundesliga seit der Meisterschaft 2000/2001.
+    Plus alle Spiele der Welt- und Europameisterschaften seit 2002.
+</p>
+<form>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <select #dfbFilter class="form-select" id="teamTypeFilter" (change)="changeTeamTypeFilter($event)" name="teamTypeFilter">
+                    <option selected value="DFB">DFB</option>
+                    <option value="FIFA">FIFA</option>
+                </select>
+                <label for="teamTypeFilter">Mannschaftstyp Filtern</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-1">
+                <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" (change)="changeHomeAndGuestSelect($event)" 
+                        [(ngModel)]="researchFilterValue" name="homeAndGuestSelect" title="homeAndGuest">
+                    <option selected value="HOME_AND_GUEST">Heim und Gast</option>
+                    <option value="HOME_OR_GUEST">Heim oder Gast</option>
+                    <option value="ONLY_HOME">Nur Heim</option>
+                    <option value="ONLY_GUEST">Nur Gast</option>
+                </select>
+                <label for="homeAndGuestSelect">Heim und Gast</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter" tabindex="0"
+                    [(ngModel)]="homeTeamNameFilter" (ngModelChange)="this.changeHomeTeamNameFilter()">
+                <label for="homeTeamNameFilter">Heimmannschaft Filter</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter" tabindex="2"
+                    [(ngModel)]="guestTeamNameFilter" (ngModelChange)="this.changeGuestTeamNameFilter()">
+                <label for="guestTeamNameFilter">Gastmannschaft Filter</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <select #homeTeamSelect class="form-select" id="homeTeamSelect" (change)="selectHomeTeam($event)" tabindex="1"
+                    title="Auswahl Heimmannschaft" name="selectedHomeTeam"
+                    [(ngModel)]="selectedHomeTeam">
+                    <option *ngFor="let team of homeTeams" [ngValue]="team">{{ team.name }}</option>
+                </select>
+                <label for="homeTeamSelect">Heimmannschaft auswählen</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <select #guestTeamSelect class="form-select" id="guestTeamSelect" (change)="selectGuestTeam($event)" tabindex="3"
+                    title="Auswahl Gastmannschaft" name="selectedGuestTeam"
+                    [(ngModel)]="selectedGuestTeam">
+                    <option *ngFor="let team of guestTeams" [ngValue]="team">{{ team.name }}</option>
+                </select>
+                <label for="homeTeamSelect">Gastmannschaft auswählen</label>
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Datum</th>
+            <th scope="col">Heim</th>
+            <th scope="col">Gast</th>
+            <th scope="col">Tore</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr *ngFor="let game of games?.games; index as i">
+                <td>{{dates[i]}}</td>
+                <td>{{game.homeTeamName}}</td>
+                <td>{{game.guestTeamName}}</td>
+                <td>{{game.homeTeamGoals}} : {{game.guestTeamGoals}}</td>
+            </tr>
+    </tbody>
+</table>

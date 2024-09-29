@@ -25,7 +25,7 @@ export class TeamUpdateComponent implements OnInit {
             shortName: '',
             xshortName: '',
             logo: '',
-            type: '',
+            type: 'DFB' as Rest.TeamType,
             openligaid: 0
         }
         this.team = team;
