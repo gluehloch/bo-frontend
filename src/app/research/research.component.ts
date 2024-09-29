@@ -50,15 +50,25 @@ export class ResearchComponent implements OnInit {
 
     ngOnInit() {
         this.searchHomeSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-            this.researchService.findTeamsByFilter(searchValue, this.toTeamType()).subscribe((teams: Array<Rest.TeamJson>) => {
-                this.homeTeams = teams;
-            });
+            this.researchService.findTeamsByFilter(searchValue, this.toTeamType()).subscribe(
+                (teams: Array<Rest.TeamJson>) => {
+                    this.homeTeams = teams;
+                },
+                (error) => {
+                    console.log('homeTeams -> findTeamsByFilter', error);
+                }
+            );
           });
 
         this.searchGuestSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-            this.researchService.findTeamsByFilter(searchValue, this.toTeamType()).subscribe((teams: Array<Rest.TeamJson>) => {
-                this.guestTeams = teams;
-            });
+            this.researchService.findTeamsByFilter(searchValue, this.toTeamType()).subscribe(
+                (teams: Array<Rest.TeamJson>) => {
+                    this.guestTeams = teams;
+                },
+                (error) => {
+                    console.log('guestTeams -> findTeamsByFilter', error);
+                }                
+            );
         });
 
         this.researchService.findDfbTeams().subscribe((teams: Array<Rest.TeamJson>) => {
