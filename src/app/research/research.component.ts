@@ -5,7 +5,7 @@ import { NavigationRouterService } from '../navigationrouter.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
 
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ResearchService } from './research.service';
 
@@ -121,40 +121,21 @@ export class ResearchComponent implements OnInit {
     }
 
     private queryGames(): void {
+        let obs: Observable<Rest.HistoryTeamVsTeamJson> | undefined;
         if (this.researchFilterValue === 'ONLY_HOME' && this.selectedHomeTeam) {
             this.contentReady.set(false);
-            this.researchService.findGamesWithHomeTeam(this.selectedHomeTeam.id).subscribe(
-                (history: Rest.HistoryTeamVsTeamJson) => {
-                    this.games = history;
-                    this.dates = this.games.games.map((game) => moment(game.matchDate).format('DD.MM.YYYY HH:mm'));
-                },
-                (error) => {
-                    console.log(error);
-                    this.contentReady.set(true);
-                },
-                () => {
-                    this.contentReady.set(true);
-                }
-            );
+            obs = this.researchService.findGamesWithHomeTeam(this.selectedHomeTeam.id);
         } else if (this.researchFilterValue === 'ONLY_GUEST' && this.selectedGuestTeam) {
             this.contentReady.set(false);
-            this.researchService.findGamesWithGuestTeam(this.selectedGuestTeam.id).subscribe(
-                (history: Rest.HistoryTeamVsTeamJson) => {
-                    this.games = history;
-                    this.dates = this.games.games.map((game) => moment(game.matchDate).format('DD.MM.YYYY HH:mm'));
-                },
-                (error) => {
-                    console.log(error);
-                    this.contentReady.set(true);
-                },
-                () => {
-                    this.contentReady.set(true);
-                }
-            );
+            obs = this.researchService.findGamesWithGuestTeam(this.selectedGuestTeam.id);
         } else if (this.selectedHomeTeam && this.selectedGuestTeam) {
             this.contentReady.set(false);
             const spin = this.researchFilterValue === 'HOME_OR_GUEST';
-            this.researchService.findGamesTeamVsTeam(this.selectedHomeTeam.id, this.selectedGuestTeam.id, spin).subscribe(
+            obs = this.researchService.findGamesTeamVsTeam(this.selectedHomeTeam.id, this.selectedGuestTeam.id, spin);
+        }
+
+        if (obs) {
+            obs.subscribe(
                 (history: Rest.HistoryTeamVsTeamJson) => {
                     this.games = history;
                     this.dates = this.games.games.map((game) => moment(game.matchDate).format('DD.MM.YYYY HH:mm'));
@@ -169,4 +150,5 @@ export class ResearchComponent implements OnInit {
             );
         }
     }
+
 }
