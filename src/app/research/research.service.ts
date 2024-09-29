@@ -17,6 +17,14 @@ export class ResearchService extends BetofficeService {
         return this.http.get<Array<Rest.TeamJson>>(this.adminUrl + 'team');
     }
 
+    findDfbTeams(): Observable<Array<Rest.TeamJson>> {
+        return this.http.get<Array<Rest.TeamJson>>(this.rootUrl  + 'research/team/dfb');
+    }
+
+    findFifaTeams(): Observable<Array<Rest.TeamJson>> {
+        return this.http.get<Array<Rest.TeamJson>>(this.rootUrl  + 'research/team/fifa');
+    }
+
     findTeamsByFilter(filter: string, teamType: Rest.TeamType | undefined): Observable<Array<Rest.TeamJson>> {
         let params = {};
         if (teamType !== undefined) {

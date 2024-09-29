@@ -12,7 +12,7 @@ import { ResearchService } from './research.service';
 import * as moment from 'moment';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
-type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
+type dfbFilterType = 'DFB' | 'FIFA';
 @Component({
     selector: 'research',
     templateUrl: './research.component.html',
@@ -29,7 +29,7 @@ export class ResearchComponent implements OnInit {
 
     homeTeamNameFilter = '';
     guestTeamNameFilter = '';
-    dfbFilterValue: dfbFilterType = 'alle';
+    dfbFilterValue: dfbFilterType = 'DFB';
 
     selectedGuestTeam: Rest.TeamJson | undefined;
     selectedHomeTeam: Rest.TeamJson | undefined;
@@ -59,7 +59,7 @@ export class ResearchComponent implements OnInit {
             });
         });
 
-        this.researchService.findTeams().subscribe((teams: Array<Rest.TeamJson>) => {
+        this.researchService.findDfbTeams().subscribe((teams: Array<Rest.TeamJson>) => {
             this.homeTeams = teams;
             this.guestTeams = teams;
             this.navigationRouterService.activate(NavigationRouterService.ROUTE_RESEARCH);
@@ -72,14 +72,12 @@ export class ResearchComponent implements OnInit {
     }
 
     private toTeamType(): Rest.TeamType | undefined {
-        return this.dfbFilterValue === 'alle'
-            ? undefined
-            : this.dfbFilterValue === 'DFB' ? 'DFB' : 'FIFA';
+        return this.dfbFilterValue === 'DFB' ? 'DFB' : 'FIFA';
     }
 
     changeTeamTypeFilter(event: Event) {
         const value = (event.target as HTMLInputElement).value;
-        if (value === 'DFB' || value === 'FIFA' || value === 'alle') {
+        if (value === 'DFB' || value === 'FIFA') {
             this.dfbFilterValue = value;
         }
         this.changeHomeTeamNameFilter();
