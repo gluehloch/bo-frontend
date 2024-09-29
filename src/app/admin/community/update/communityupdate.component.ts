@@ -9,6 +9,20 @@ import { CommunityUpdateService } from "./communityupdate.service";
 
 import { AuthenticationWarningComponent } from '../../../authenticationwarning/authenticationwarning.component';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
+
+type PartialCommunityJson = {
+    id: number;
+    name: string;
+    shortName: string;
+    year: string;
+    communityManager: {
+        nickname: string;
+    },
+    season: {
+        name: string;
+    }
+}
+
 @Component({
     selector: 'app-community-update',
     templateUrl: './communityupdate.component.html',
@@ -19,7 +33,18 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 export class CommunityUpdateComponent implements OnInit {
 
     contentReady = signal(false);
-    model: Rest.CommunityJson | undefined;
+    model: Rest.CommunityJson | PartialCommunityJson = {
+        id: 0,
+        name: '',
+        shortName: '',
+        year: '',
+        communityManager: {
+            nickname: '' 
+        },
+        season: {
+            name: ''
+        },
+    };
 
     @Input()
     set id(communityId: number) {
@@ -45,6 +70,12 @@ export class CommunityUpdateComponent implements OnInit {
             // this.findPotentialParties(id);
         });
         */
+    }
+
+    updateCommunity() {
+    }
+
+    abort() {
     }
 
     /*
