@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 type dfbFilterType = 'DFB' | 'FIFA';
+type ResearchFilterType = 'HOME_AND_GUEST' | 'HOME_OR_GUEST' | 'ONLY_HOME' | 'ONLY_GUEST';
 @Component({
     selector: 'research',
     templateUrl: './research.component.html',
@@ -30,6 +31,7 @@ export class ResearchComponent implements OnInit {
     homeTeamNameFilter = '';
     guestTeamNameFilter = '';
     dfbFilterValue: dfbFilterType = 'DFB';
+    researchFilterValue: ResearchFilterType = 'HOME_AND_GUEST';
 
     selectedGuestTeam: Rest.TeamJson | undefined;
     selectedHomeTeam: Rest.TeamJson | undefined;
@@ -101,17 +103,18 @@ export class ResearchComponent implements OnInit {
     }
 
     changeHomeAndGuestSelect(event: Event) {
-
+        this.queryGames();
     }
 
     changeReverseSelect(event: Event) {
-
+        this.queryGames();
     }
 
     private queryGames(): void {
         if (this.selectedHomeTeam && this.selectedGuestTeam) {
             this.contentReady.set(false);
-            this.researchService.findGames(this.selectedHomeTeam.id, this.selectedGuestTeam.id).subscribe(
+            const spin = this.researchFilterValue === 'HOME_OR_GUEST';
+            this.researchService.findGames(this.selectedHomeTeam.id, this.selectedGuestTeam.id, spin).subscribe(
                 (history: Rest.HistoryTeamVsTeamJson) => {
                     this.games = history;
                     this.dates = this.games.games.map((game) => moment(game.matchDate).format('DD.MM.YYYY HH:mm'));
