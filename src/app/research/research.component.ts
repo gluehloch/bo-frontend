@@ -13,7 +13,7 @@ import * as moment from 'moment';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 type dfbFilterType = 'DFB' | 'FIFA';
-type ResearchFilterType = 'HOME_AND_GUEST' | 'HOME_OR_GUEST' | 'ONLY_HOME' | 'ONLY_GUEST';
+type ResearchFilterType = 'HOME_AND_GUEST' | 'HOME_OR_GUEST' | 'ONLY_HOME' | 'ONLY_GUEST' | 'BY_TEAM';
 @Component({
     selector: 'research',
     templateUrl: './research.component.html',
@@ -111,10 +111,40 @@ export class ResearchComponent implements OnInit {
     }
 
     private queryGames(): void {
-        if (this.selectedHomeTeam && this.selectedGuestTeam) {
+        if (this.researchFilterValue === 'ONLY_HOME' && this.selectedHomeTeam) {
+            this.contentReady.set(false);
+            this.researchService.findGamesWithHomeTeam(this.selectedHomeTeam.id).subscribe(
+                (history: Rest.HistoryTeamVsTeamJson) => {
+                    this.games = history;
+                    this.dates = this.games.games.map((game) => moment(game.matchDate).format('DD.MM.YYYY HH:mm'));
+                },
+                (error) => {
+                    console.log(error);
+                    this.contentReady.set(true);
+                },
+                () => {
+                    this.contentReady.set(true);
+                }
+            );
+        } else if (this.researchFilterValue === 'ONLY_GUEST' && this.selectedGuestTeam) {
+            this.contentReady.set(false);
+            this.researchService.findGamesWithGuestTeam(this.selectedGuestTeam.id).subscribe(
+                (history: Rest.HistoryTeamVsTeamJson) => {
+                    this.games = history;
+                    this.dates = this.games.games.map((game) => moment(game.matchDate).format('DD.MM.YYYY HH:mm'));
+                },
+                (error) => {
+                    console.log(error);
+                    this.contentReady.set(true);
+                },
+                () => {
+                    this.contentReady.set(true);
+                }
+            );
+        } else if (this.selectedHomeTeam && this.selectedGuestTeam) {
             this.contentReady.set(false);
             const spin = this.researchFilterValue === 'HOME_OR_GUEST';
-            this.researchService.findGames(this.selectedHomeTeam.id, this.selectedGuestTeam.id, spin).subscribe(
+            this.researchService.findGamesTeamVsTeam(this.selectedHomeTeam.id, this.selectedGuestTeam.id, spin).subscribe(
                 (history: Rest.HistoryTeamVsTeamJson) => {
                     this.games = history;
                     this.dates = this.games.games.map((game) => moment(game.matchDate).format('DD.MM.YYYY HH:mm'));
