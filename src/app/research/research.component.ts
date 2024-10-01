@@ -28,6 +28,7 @@ export class ResearchComponent implements OnInit {
     private searchHomeSubject = new Subject<string>();
     private searchGuestSubject = new Subject<string>();
 
+    limit = 100;
     homeTeamNameFilter = '';
     guestTeamNameFilter = '';
     dfbFilterValue: dfbFilterType = 'DFB';
@@ -124,7 +125,7 @@ export class ResearchComponent implements OnInit {
         let obs: Observable<Rest.HistoryTeamVsTeamJson> | undefined;
         if (this.researchFilterValue === 'ONLY_HOME' && this.selectedHomeTeam) {
             this.contentReady.set(false);
-            obs = this.researchService.findGamesWithHomeTeam(this.selectedHomeTeam.id);
+            obs = this.researchService.findGamesWithHomeTeam(this.selectedHomeTeam.id, this.limit);
         } else if (this.researchFilterValue === 'ONLY_GUEST' && this.selectedGuestTeam) {
             this.contentReady.set(false);
             obs = this.researchService.findGamesWithGuestTeam(this.selectedGuestTeam.id);

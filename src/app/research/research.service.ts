@@ -40,8 +40,8 @@ export class ResearchService extends BetofficeService {
         return this.http.get<Rest.HistoryTeamVsTeamJson>(this.rootUrl  + 'research/game/team-vs-team', { params: params });
     }
 
-    findGamesWithHomeTeam(teamId: number): Observable<Rest.HistoryTeamVsTeamJson> {
-        const params = { team: teamId };
+    findGamesWithHomeTeam(teamId: number, limit: number): Observable<Rest.HistoryTeamVsTeamJson> {
+        const params = { team: teamId, limit: limit };
         return this.http.get<Rest.HistoryTeamVsTeamJson>(this.rootUrl  + 'research/game/home-team', { params: params });
     }
 
