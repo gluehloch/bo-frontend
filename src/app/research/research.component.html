@@ -5,11 +5,12 @@
     Plus alle Spiele der Welt- und Europameisterschaften seit 2002.
 </p>
 <form>
-    <input type="submit" hidden />
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
-                <select #dfbFilter class="form-select" id="teamTypeFilter" (change)="changeTeamTypeFilter($event)" name="teamTypeFilter">
+                <select #dfbFilter class="form-select" id="teamTypeFilter" name="teamTypeFilter"
+                        (change)="changeTeamTypeFilter($event)"
+                        [(ngModel)]="dfbFilterValue">
                     <option selected value="DFB">DFB</option>
                     <option value="FIFA">FIFA</option>
                 </select>
@@ -18,8 +19,9 @@
         </div>
         <div class="col">
             <div class="form-floating mb-1">
-                <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" (change)="changeHomeAndGuestSelect($event)" 
-                        [(ngModel)]="researchFilterValue" name="homeAndGuestSelect" title="homeAndGuest">
+                <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" name="homeAndGuestSelect" title="homeAndGuest"
+                        (change)="changeHomeAndGuestSelect($event)" 
+                        [(ngModel)]="researchFilterValue">
                     <option selected value="HOME_AND_GUEST">Heim und Gast</option>
                     <option value="HOME_OR_GUEST">Heim oder Gast</option>
                     <option value="ONLY_HOME">Nur Heim</option>
@@ -30,8 +32,9 @@
         </div>
         <div class="col">
             <div class="form-floating mb-1">
-                <input type="number" class="form-control" id="limit" placeholder="100" [(ngModel)]="limit" name="limit"
-                    (change)="changeHomeAndGuestSelect($event)">
+                <input type="number" class="form-control" id="limit" placeholder="100" name="limit"
+                    (change)="changeHomeAndGuestSelect($event)"
+                    [(ngModel)]="limit">
                 <label for="limit">Maximale Anzahl</label>
             </div>
         </div>
@@ -39,14 +42,15 @@
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter" tabindex="0"
-                    [(ngModel)]="homeTeamNameFilter" (ngModelChange)="this.changeHomeTeamNameFilter()">
+                <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter"
+                    (ngModelChange)="this.changeHomeTeamNameFilter()"
+                    [(ngModel)]="homeTeamNameFilter">
                 <label for="homeTeamNameFilter">Heimmannschaft Filter</label>
             </div>
         </div>
         <div class="col">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter" tabindex="2"
+                <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter"
                     [(ngModel)]="guestTeamNameFilter" (ngModelChange)="this.changeGuestTeamNameFilter()">
                 <label for="guestTeamNameFilter">Gastmannschaft Filter</label>
             </div>
@@ -55,8 +59,9 @@
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
-                <select #homeTeamSelect class="form-select" id="homeTeamSelect" (change)="selectHomeTeam($event)" tabindex="1"
+                <select #homeTeamSelect class="form-select" id="homeTeamSelect"
                     title="Auswahl Heimmannschaft" name="selectedHomeTeam"
+                    (ngModelChange)="selectHomeTeam($event)" 
                     [(ngModel)]="selectedHomeTeam">
                     <option *ngFor="let team of homeTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
@@ -65,8 +70,9 @@
         </div>
         <div class="col">
             <div class="form-floating mb-3">
-                <select #guestTeamSelect class="form-select" id="guestTeamSelect" (change)="selectGuestTeam($event)" tabindex="3"
+                <select #guestTeamSelect class="form-select" id="guestTeamSelect"
                     title="Auswahl Gastmannschaft" name="selectedGuestTeam"
+                    (ngModelChange)="selectGuestTeam($event)"
                     [(ngModel)]="selectedGuestTeam">
                     <option *ngFor="let team of guestTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>

@@ -89,10 +89,12 @@ export class ResearchComponent implements OnInit {
     }
 
     changeTeamTypeFilter(event: Event) {
+        /*
         const value = (event.target as HTMLInputElement).value;
         if (value === 'DFB' || value === 'FIFA') {
             this.dfbFilterValue = value;
         }
+        */
         this.changeHomeTeamNameFilter();
         this.changeGuestTeamNameFilter();
     }
