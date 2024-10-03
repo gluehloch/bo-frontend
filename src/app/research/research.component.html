@@ -61,7 +61,7 @@
             <div class="form-floating mb-3">
                 <select #homeTeamSelect class="form-select" id="homeTeamSelect"
                     title="Auswahl Heimmannschaft" name="selectedHomeTeam"
-                    (ngModelChange)="selectHomeTeam(selectedHomeTeam)" 
+                    (ngModelChange)="selectHomeTeam($event)" 
                     [(ngModel)]="selectedHomeTeam">
                     <option *ngFor="let team of homeTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
@@ -72,7 +72,7 @@
             <div class="form-floating mb-3">
                 <select #guestTeamSelect class="form-select" id="guestTeamSelect"
                     title="Auswahl Gastmannschaft" name="selectedGuestTeam"
-                    (ngModelChange)="selectGuestTeam(selectedGuestTeam)"
+                    (ngModelChange)="selectGuestTeam($event)"
                     [(ngModel)]="selectedGuestTeam">
                     <option *ngFor="let team of guestTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
@@ -91,7 +91,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngIf="games === undefined">
+        <tr *ngIf="games === undefined  || games.games.length === 0">
             <td colspan="4">Keine Spiele gefunden.</td>
         </tr>
         <tr *ngFor="let game of games?.games; index as i">

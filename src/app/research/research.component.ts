@@ -111,39 +111,37 @@ export class ResearchComponent implements OnInit {
         this.searchGuestSubject.next(this.guestTeamNameFilter);
     }
 
-    selectHomeTeam(event: unknown) {
-        console.log('selectedHomeTeam:', this.selectedHomeTeam, event);
-        this.queryGames();
+    selectHomeTeam(team: Rest.TeamJson) {
+        this.queryGames(team, this.selectedGuestTeam);
     }
 
-    selectGuestTeam(event: unknown) {
-        console.log('selectedGuestTeam:', this.selectedHomeTeam, event);
-        this.queryGames();
+    selectGuestTeam(team: Rest.TeamJson) {
+        this.queryGames(this.selectedHomeTeam, team);
     }
 
     changeHomeAndGuestSelect(event: Event) {
-        this.queryGames();
+        this.queryGames(this.selectedHomeTeam, this.selectedGuestTeam);
     }
 
     changeReverseSelect(event: Event) {
-        this.queryGames();
+        this.queryGames(this.selectedHomeTeam, this.selectedGuestTeam);
     }
 
-    private queryGames(): void {
+    private queryGames(homeTeam: Rest.TeamJson | undefined, guestTeam: Rest.TeamJson | undefined): void {
         let obs: Observable<Rest.HistoryTeamVsTeamJson> | undefined;
-        if (this.researchFilterValue === 'ONLY_HOME' && this.selectedHomeTeam) {
+        if (this.researchFilterValue === 'ONLY_HOME' && homeTeam) {
             this.contentReady.set(false);
-            obs = this.researchService.findGamesWithHomeTeam(this.selectedHomeTeam.id, this.limit);
-        } else if (this.researchFilterValue === 'ONLY_GUEST' && this.selectedGuestTeam) {
+            obs = this.researchService.findGamesWithHomeTeam(homeTeam.id, this.limit);
+        } else if (this.researchFilterValue === 'ONLY_GUEST' && guestTeam) {
             this.contentReady.set(false);
-            obs = this.researchService.findGamesWithGuestTeam(this.selectedGuestTeam.id, this.limit);
-        } else if (this.selectedHomeTeam && this.selectedGuestTeam) {
+            obs = this.researchService.findGamesWithGuestTeam(guestTeam.id, this.limit);
+        } else if (homeTeam && guestTeam) {
             this.contentReady.set(false);
             const spin = this.researchFilterValue === 'HOME_OR_GUEST';
-            obs = this.researchService.findGamesTeamVsTeam(this.selectedHomeTeam.id, this.selectedGuestTeam.id, spin, this.limit);
+            obs = this.researchService.findGamesTeamVsTeam(homeTeam.id, guestTeam.id, spin, this.limit);
         } else {
-            this.games = undefined;
-            this.dates = [];
+            this.games?.games.splice(0, this.games.games.length);
+            this.dates.splice(0, this.dates.length);
         }
 
         if (obs) {
