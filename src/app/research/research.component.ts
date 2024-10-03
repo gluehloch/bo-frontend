@@ -14,6 +14,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 type dfbFilterType = 'DFB' | 'FIFA';
 type ResearchFilterType = 'HOME_AND_GUEST' | 'HOME_OR_GUEST' | 'ONLY_HOME' | 'ONLY_GUEST' | 'BY_TEAM';
+type HomeOrGuestType = 'HOME' | 'GUEST';
 @Component({
     selector: 'research',
     templateUrl: './research.component.html',
@@ -51,32 +52,41 @@ export class ResearchComponent implements OnInit {
 
     ngOnInit() {
         this.searchHomeSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-            this.researchService.findTeamsByFilter(searchValue, this.toTeamType()).subscribe(
-                (teams: Array<Rest.TeamJson>) => {
-                    this.homeTeams = teams;
-                },
-                (error) => {
-                    console.log('homeTeams -> findTeamsByFilter', error);
-                }
-            );
-          });
+            this.updateTeams(searchValue, this.homeTeams, 'HOME');
+        });
 
         this.searchGuestSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-            this.researchService.findTeamsByFilter(searchValue, this.toTeamType()).subscribe(
-                (teams: Array<Rest.TeamJson>) => {
-                    this.guestTeams = teams;
-                },
-                (error) => {
-                    console.log('guestTeams -> findTeamsByFilter', error);
-                }                
-            );
+            this.updateTeams(searchValue, this.guestTeams, 'GUEST');
         });
 
         this.researchService.findDfbTeams().subscribe((teams: Array<Rest.TeamJson>) => {
             this.homeTeams = teams;
+            if (this.homeTeams) {
+                this.selectedHomeTeam = this.homeTeams[0];
+            }
             this.guestTeams = teams;
+            if (this.guestTeams) {
+                this.selectedGuestTeam = this.guestTeams[0];
+            }
             this.navigationRouterService.activate(NavigationRouterService.ROUTE_RESEARCH);
         });
+    }
+
+    private updateTeams(searchValue: string, teams: Rest.TeamJson[], homeOrGuest: HomeOrGuestType) {
+        this.researchService.findTeamsByFilter(searchValue, this.toTeamType()).subscribe(
+            (_teams: Array<Rest.TeamJson>) => {
+                teams.splice(0, teams.length);
+                teams.push(... _teams);
+                if (homeOrGuest === 'HOME') {
+                    this.selectedHomeTeam = teams[0];
+                } else {
+                    this.selectedGuestTeam = teams[0];
+                }
+            },
+            (error) => {
+                console.log('guestTeams -> findTeamsByFilter', error);
+            }                
+        );        
     }
 
     ngOnDestroy() {
@@ -89,14 +99,8 @@ export class ResearchComponent implements OnInit {
     }
 
     changeTeamTypeFilter(event: Event) {
-        /*
-        const value = (event.target as HTMLInputElement).value;
-        if (value === 'DFB' || value === 'FIFA') {
-            this.dfbFilterValue = value;
-        }
-        */
-        this.changeHomeTeamNameFilter();
-        this.changeGuestTeamNameFilter();
+        this.updateTeams(this.homeTeamNameFilter, this.homeTeams, 'HOME');
+        this.updateTeams(this.guestTeamNameFilter, this.guestTeams, 'GUEST');
     }
 
     changeHomeTeamNameFilter() {
@@ -107,11 +111,13 @@ export class ResearchComponent implements OnInit {
         this.searchGuestSubject.next(this.guestTeamNameFilter);
     }
 
-    selectHomeTeam(event: Event) {
+    selectHomeTeam(event: unknown) {
+        console.log('selectedHomeTeam:', this.selectedHomeTeam, event);
         this.queryGames();
     }
 
-    selectGuestTeam(event: Event) {
+    selectGuestTeam(event: unknown) {
+        console.log('selectedGuestTeam:', this.selectedHomeTeam, event);
         this.queryGames();
     }
 
@@ -130,14 +136,18 @@ export class ResearchComponent implements OnInit {
             obs = this.researchService.findGamesWithHomeTeam(this.selectedHomeTeam.id, this.limit);
         } else if (this.researchFilterValue === 'ONLY_GUEST' && this.selectedGuestTeam) {
             this.contentReady.set(false);
-            obs = this.researchService.findGamesWithGuestTeam(this.selectedGuestTeam.id);
+            obs = this.researchService.findGamesWithGuestTeam(this.selectedGuestTeam.id, this.limit);
         } else if (this.selectedHomeTeam && this.selectedGuestTeam) {
             this.contentReady.set(false);
             const spin = this.researchFilterValue === 'HOME_OR_GUEST';
-            obs = this.researchService.findGamesTeamVsTeam(this.selectedHomeTeam.id, this.selectedGuestTeam.id, spin);
+            obs = this.researchService.findGamesTeamVsTeam(this.selectedHomeTeam.id, this.selectedGuestTeam.id, spin, this.limit);
+        } else {
+            this.games = undefined;
+            this.dates = [];
         }
 
         if (obs) {
+            this.contentReady.set(false);
             obs.subscribe(
                 (history: Rest.HistoryTeamVsTeamJson) => {
                     this.games = history;

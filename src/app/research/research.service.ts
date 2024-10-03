@@ -35,8 +35,8 @@ export class ResearchService extends BetofficeService {
         return this.http.get<Array<Rest.TeamJson>>(this.rootUrl + 'research/team-search', {params: params});
     }
 
-    findGamesTeamVsTeam(homeTeamId: number, guestTeamId: number, spin: boolean): Observable<Rest.HistoryTeamVsTeamJson> {
-        const params = { homeTeam: homeTeamId, guestTeam: guestTeamId, spin: spin };
+    findGamesTeamVsTeam(homeTeamId: number, guestTeamId: number, spin: boolean, limit: number): Observable<Rest.HistoryTeamVsTeamJson> {
+        const params = { homeTeam: homeTeamId, guestTeam: guestTeamId, spin: spin, limit: limit };
         return this.http.get<Rest.HistoryTeamVsTeamJson>(this.rootUrl  + 'research/game/team-vs-team', { params: params });
     }
 
@@ -45,13 +45,13 @@ export class ResearchService extends BetofficeService {
         return this.http.get<Rest.HistoryTeamVsTeamJson>(this.rootUrl  + 'research/game/home-team', { params: params });
     }
 
-    findGamesWithGuestTeam(teamId: number): Observable<Rest.HistoryTeamVsTeamJson> {
-        const params = { team: teamId };
+    findGamesWithGuestTeam(teamId: number, limit: number): Observable<Rest.HistoryTeamVsTeamJson> {
+        const params = { team: teamId, limit: limit };
         return this.http.get<Rest.HistoryTeamVsTeamJson>(this.rootUrl  + 'research/game/guest-team', { params: params });
     }
 
-    findGamesWithTeam(teamId: number): Observable<Rest.HistoryTeamVsTeamJson> {
-        const params = { team: teamId };
+    findGamesWithTeam(teamId: number, limit: number): Observable<Rest.HistoryTeamVsTeamJson> {
+        const params = { team: teamId, limit: limit };
         return this.http.get<Rest.HistoryTeamVsTeamJson>(this.rootUrl  + 'research/game/team', { params: params });
     }
 

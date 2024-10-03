@@ -22,8 +22,8 @@
                 <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" name="homeAndGuestSelect" title="homeAndGuest"
                         (change)="changeHomeAndGuestSelect($event)" 
                         [(ngModel)]="researchFilterValue">
-                    <option selected value="HOME_AND_GUEST">Heim und Gast</option>
-                    <option value="HOME_OR_GUEST">Heim oder Gast</option>
+                    <option selected value="HOME_AND_GUEST">Heim vs Gast</option>
+                    <option value="HOME_OR_GUEST">Heim vs Gast bzw. vertauscht</option>
                     <option value="ONLY_HOME">Nur Heim</option>
                     <option value="ONLY_GUEST">Nur Gast</option>
                 </select>
@@ -61,7 +61,7 @@
             <div class="form-floating mb-3">
                 <select #homeTeamSelect class="form-select" id="homeTeamSelect"
                     title="Auswahl Heimmannschaft" name="selectedHomeTeam"
-                    (ngModelChange)="selectHomeTeam($event)" 
+                    (ngModelChange)="selectHomeTeam(selectedHomeTeam)" 
                     [(ngModel)]="selectedHomeTeam">
                     <option *ngFor="let team of homeTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
@@ -72,7 +72,7 @@
             <div class="form-floating mb-3">
                 <select #guestTeamSelect class="form-select" id="guestTeamSelect"
                     title="Auswahl Gastmannschaft" name="selectedGuestTeam"
-                    (ngModelChange)="selectGuestTeam($event)"
+                    (ngModelChange)="selectGuestTeam(selectedGuestTeam)"
                     [(ngModel)]="selectedGuestTeam">
                     <option *ngFor="let team of guestTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
