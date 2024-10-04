@@ -85,8 +85,8 @@ export class ResearchComponent implements OnInit {
             },
             (error) => {
                 console.log('guestTeams -> findTeamsByFilter', error);
-            }                
-        );        
+            }
+        );
     }
 
     ngOnDestroy() {
@@ -130,13 +130,10 @@ export class ResearchComponent implements OnInit {
     private queryGames(homeTeam: Rest.TeamJson | undefined, guestTeam: Rest.TeamJson | undefined): void {
         let obs: Observable<Rest.HistoryTeamVsTeamJson> | undefined;
         if (this.researchFilterValue === 'ONLY_HOME' && homeTeam) {
-            this.contentReady.set(false);
             obs = this.researchService.findGamesWithHomeTeam(homeTeam.id, this.limit);
         } else if (this.researchFilterValue === 'ONLY_GUEST' && guestTeam) {
-            this.contentReady.set(false);
             obs = this.researchService.findGamesWithGuestTeam(guestTeam.id, this.limit);
         } else if (homeTeam && guestTeam) {
-            this.contentReady.set(false);
             const spin = this.researchFilterValue === 'HOME_OR_GUEST';
             obs = this.researchService.findGamesTeamVsTeam(homeTeam.id, guestTeam.id, spin, this.limit);
         } else {
