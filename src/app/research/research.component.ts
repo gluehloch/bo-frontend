@@ -13,7 +13,9 @@ import * as moment from 'moment';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 type dfbFilterType = 'DFB' | 'FIFA';
-type ResearchFilterType = 'HOME_AND_GUEST' | 'HOME_OR_GUEST' | 'ONLY_HOME' | 'ONLY_GUEST' | 'BY_TEAM';
+type ResearchFilterType = 'HOME_AND_GUEST' | 'HOME_OR_GUEST'
+    | 'ONLY_HOME' | 'ONLY_GUEST' | 'BY_TEAM'
+    | 'LAST_GAMES_HOME_TEAM' | 'LAST_GAMES_GUEST_TEAM';
 type HomeOrGuestType = 'HOME' | 'GUEST';
 @Component({
     selector: 'research',
@@ -137,6 +139,10 @@ export class ResearchComponent implements OnInit {
             obs = this.researchService.findGamesWithHomeTeam(homeTeam.id, this.limit);
         } else if (this.researchFilterValue === 'ONLY_GUEST' && guestTeam) {
             obs = this.researchService.findGamesWithGuestTeam(guestTeam.id, this.limit);
+        } else if (this.researchFilterValue === 'LAST_GAMES_HOME_TEAM' && homeTeam) {
+            obs = this.researchService.findGamesWithTeam(homeTeam.id, this.limit);
+        } else if (this.researchFilterValue === 'LAST_GAMES_GUEST_TEAM' && guestTeam) {
+            obs = this.researchService.findGamesWithTeam(guestTeam.id, this.limit);
         } else if (homeTeam && guestTeam) {
             const spin = this.researchFilterValue === 'HOME_OR_GUEST';
             obs = this.researchService.findGamesTeamVsTeam(homeTeam.id, guestTeam.id, spin, this.limit);
