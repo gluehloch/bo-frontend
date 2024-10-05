@@ -60,11 +60,11 @@ export class ResearchComponent implements OnInit {
         });
 
         this.researchService.findDfbTeams().subscribe((teams: Array<Rest.TeamJson>) => {
-            this.homeTeams = teams;
+            this.homeTeams.push(... teams);
             if (this.homeTeams) {
                 this.selectedHomeTeam = this.homeTeams[0];
             }
-            this.guestTeams = teams;
+            this.guestTeams.push(... teams);
             if (this.guestTeams) {
                 this.selectedGuestTeam = this.guestTeams[0];
             }
@@ -84,7 +84,7 @@ export class ResearchComponent implements OnInit {
                 }
             },
             (error) => {
-                console.log('guestTeams -> findTeamsByFilter', error);
+                console.log('updateTeams -> findTeamsByFilter', error);
             }
         );
     }
@@ -103,12 +103,16 @@ export class ResearchComponent implements OnInit {
         this.updateTeams(this.guestTeamNameFilter, this.guestTeams, 'GUEST');
     }
 
-    changeHomeTeamNameFilter() {
-        this.searchHomeSubject.next(this.homeTeamNameFilter);
+    changeHomeTeamNameFilter(event: any) {
+        const team = event.target.value;
+        this.homeTeamNameFilter = team;
+        this.searchHomeSubject.next(team);
     }
 
-    changeGuestTeamNameFilter() {
-        this.searchGuestSubject.next(this.guestTeamNameFilter);
+    changeGuestTeamNameFilter(event: any) {
+        const team = event.target.value;
+        this.guestTeamNameFilter = team;
+        this.searchGuestSubject.next(team);
     }
 
     selectHomeTeam(team: Rest.TeamJson) {
