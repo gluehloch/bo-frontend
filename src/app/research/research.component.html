@@ -4,7 +4,7 @@
     Alle Spiele der Fussball Bundesliga seit der Meisterschaft 2000/2001.
     Plus alle Spiele der Welt- und Europameisterschaften seit 2002.
 </p>
-<form>
+<form #researchPropertiesForm="ngForm">
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
@@ -15,19 +15,6 @@
                     <option value="FIFA">FIFA</option>
                 </select>
                 <label for="teamTypeFilter">Mannschaftstyp</label>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-floating mb-1">
-                <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" name="homeAndGuestSelect" title="homeAndGuest"
-                        (change)="changeHomeAndGuestSelect($event)" 
-                        [(ngModel)]="researchFilterValue">
-                    <option selected value="HOME_AND_GUEST">Heim vs Gast</option>
-                    <option value="HOME_OR_GUEST">Heim vs Gast bzw. vertauscht</option>
-                    <option value="ONLY_HOME">Nur Heim</option>
-                    <option value="ONLY_GUEST">Nur Gast</option>
-                </select>
-                <label for="homeAndGuestSelect">Heim und Gast</label>
             </div>
         </div>
         <div class="col">
@@ -43,15 +30,14 @@
         <div class="col">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter"
-                    (ngModelChange)="this.changeHomeTeamNameFilter()"
-                    [(ngModel)]="homeTeamNameFilter">
+                    (change)="this.changeHomeTeamNameFilter($event)">
                 <label for="homeTeamNameFilter">Heimmannschaft Filter</label>
             </div>
         </div>
         <div class="col">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter"
-                    [(ngModel)]="guestTeamNameFilter" (ngModelChange)="this.changeGuestTeamNameFilter()">
+                    (change)="this.changeGuestTeamNameFilter($event)">
                 <label for="guestTeamNameFilter">Gastmannschaft Filter</label>
             </div>
         </div>
@@ -65,7 +51,7 @@
                     [(ngModel)]="selectedHomeTeam">
                     <option *ngFor="let team of homeTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
-                <label for="homeTeamSelect">Heimmannschaft auswählen</label>
+                <label for="homeTeamSelect">Heimmannschaft</label>
             </div>
         </div>
         <div class="col">
@@ -76,7 +62,24 @@
                     [(ngModel)]="selectedGuestTeam">
                     <option *ngFor="let team of guestTeams" [ngValue]="team">{{ team.name }}</option>
                 </select>
-                <label for="homeTeamSelect">Gastmannschaft auswählen</label>
+                <label for="homeTeamSelect">Gastmannschaft</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-6">
+                <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" name="homeAndGuestSelect" title="homeAndGuest"
+                        (change)="changeHomeAndGuestSelect($event)" 
+                        [(ngModel)]="researchFilterValue">
+                    <option selected value="HOME_AND_GUEST">Heim vs Gast</option>
+                    <option value="HOME_OR_GUEST">Heim vs Gast bzw. vertauscht</option>
+                    <option value="ONLY_HOME">Nur Heim</option>
+                    <option value="ONLY_GUEST">Nur Gast</option>
+                    <option value="LAST_GAMES_HOME_TEAM">Letzten Spiele der Heimmannschaft</option>
+                    <option value="LAST_GAMES_GUEST_TEAM">Letzten Spiel der Gastmannschaft</option>
+                </select>
+                <label for="homeAndGuestSelect">Heim und Gast</label>
             </div>
         </div>
     </div>
