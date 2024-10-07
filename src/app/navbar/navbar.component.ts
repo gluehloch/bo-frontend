@@ -14,6 +14,7 @@ enum NavState {
     tipp,
     teilnehmer,
     meisterschaft,
+    research,
     adminmenu
 }
 
@@ -23,6 +24,7 @@ class NavMenu {
     tipp = false;
     teilnehmer = false;
     meisterschaften = false;
+    research = false;
     adminmenu = false;
 
     currentNavState: NavState | undefined;
@@ -33,6 +35,7 @@ class NavMenu {
         this.tipp = false;
         this.teilnehmer = false;
         this.meisterschaften = false;
+        this.research = false;
         this.adminmenu = false;
 
         switch (newState) {
@@ -48,6 +51,8 @@ class NavMenu {
                 this.adminmenu = true; break;
             case NavState.meisterschaft:
                 this.meisterschaften = true; break;
+            case NavState.research:
+                this.research = true; break;
         }
         this.currentNavState = newState;
     }
@@ -112,6 +117,8 @@ export class NavbarComponent {
             this.navMenu.changeState(NavState.teilnehmer);
         } else if (activatedRoute === NavigationRouterService.ROUTE_MEISTERSCHAFTEN) {
             this.navMenu.changeState(NavState.meisterschaft);
+        } else if (activatedRoute === NavigationRouterService.ROUTE_RESEARCH) {
+            this.navMenu.changeState(NavState.research);
         } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_MENU) {
             this.navMenu.changeState(NavState.adminmenu);
         }

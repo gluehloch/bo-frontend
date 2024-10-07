@@ -7,6 +7,10 @@ import { TeamFilter } from './teamFilter.pipe';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
 
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+
+type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
 @Component({
     selector: 'teams',
     templateUrl: './team.component.html',
@@ -17,15 +21,15 @@ import { NgIf, NgFor } from '@angular/common';
 export class TeamComponent implements OnInit {
 
     // Team Types: DFB, FIFA
-    teamsModel: Array<Rest.TeamJson>;
-    dfbFilterValue: string;
+    teamsModel: Array<Rest.TeamJson> = [];
+    dfbFilterValue: dfbFilterType = 'alle';
+    private searchSubject = new Subject<string>();
+    teamNameFilter: string = '';
 
     constructor(
         private router: Router,
         private teamService: TeamService,
         private navigationRouterService: NavigationRouterService) {
-        this.teamsModel = [];
-        this.dfbFilterValue = '';
     }
 
     private sortTeams() {
@@ -33,10 +37,23 @@ export class TeamComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+            const teamType = this.dfbFilterValue === 'alle'
+                ? undefined
+                : this.dfbFilterValue === 'DFB' ? 'DFB' : 'FIFA';
+            this.teamService.findTeamsByFilter(searchValue, teamType).subscribe((teams: Array<Rest.TeamJson>) => {
+                this.teamsModel = teams;
+            });
+          });
+
         this.teamService.findTeams().subscribe((teams: Array<Rest.TeamJson>) => {
             this.teamsModel = teams;
             this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
         });
+    }
+
+    ngOnDestroy() {
+        this.searchSubject.complete();
     }
 
     updateTeam(team: Rest.TeamJson) {
@@ -50,12 +67,16 @@ export class TeamComponent implements OnInit {
         });
     }
 
-    changeDfbFilter(value: boolean) {
-        if (!this.dfbFilterValue) {
-            this.dfbFilterValue = 'DFB';
-        } else {
-            this.dfbFilterValue = '';
+    changeDfbFilter(event: Event) {
+        const value = (event.target as HTMLInputElement).value;
+        if (value === 'DFB' || value === 'FIFA' || value === 'alle') {
+            this.dfbFilterValue = value;
         }
+        this.changeTeamNameFilter();
+    }
+
+    changeTeamNameFilter() {
+        this.searchSubject.next(this.teamNameFilter);
     }
 
 }

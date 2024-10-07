@@ -68,7 +68,8 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-secondary btn-sm" (click)="onClickDetails(game)">
-                                ...
+                                <i *ngIf="isExpanded(game)" class="bi bi-arrows-collapse"></i>
+                                <i *ngIf="!isExpanded(game)" class="bi bi-arrows-expand"></i>
                             </button>
                         </td>
                     </tr>
