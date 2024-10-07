@@ -31,7 +31,7 @@ export class ResearchComponent implements OnInit {
     private searchHomeSubject = new Subject<string>();
     private searchGuestSubject = new Subject<string>();
 
-    limit = 100;
+    limit = 5;
     homeTeamNameFilter = '';
     guestTeamNameFilter = '';
     dfbFilterValue: dfbFilterType = 'DFB';
