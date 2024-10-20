@@ -1,12 +1,14 @@
 .grid-scroller {
+    margin-top: 14px;
     overflow: scroll;
-    height: 100vh;
+    height: 600px;
+    /* heigth: 100vh;*/
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 200px 200px 200px 200px;
-    width: 3900px;
+    grid-template-columns: max-content max-content max-content max-content;
+    width: auto;
 }
 
 .grid-entry,
@@ -49,7 +51,7 @@
     border-left: 1px solid gray;
     border-right: none;
     position: sticky;
-    right: 200px;
+    /*right: 200px;*/
 }
 
 .placeholder {
