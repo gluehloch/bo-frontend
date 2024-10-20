@@ -84,24 +84,22 @@
         </div>
     </div>
 </form>
-<table class="table table-striped table-sm">
-    <thead>
-        <tr>
-            <th scope="col">Datum</th>
-            <th scope="col">Heim</th>
-            <th scope="col">Gast</th>
-            <th scope="col">Tore</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngIf="games === undefined  || games.games.length === 0">
-            <td colspan="4">Keine Spiele gefunden.</td>
-        </tr>
-        <tr *ngFor="let game of games?.games; index as i">
-            <td>{{dates[i]}}</td>
-            <td>{{game.homeTeamName}}</td>
-            <td>{{game.guestTeamName}}</td>
-            <td>{{game.homeTeamGoals}} : {{game.guestTeamGoals}}</td>
-        </tr>
-    </tbody>
-</table>
+<!--
+                <tr *ngIf="games === undefined  || games.games.length === 0">
+                    <td colspan="4">Keine Spiele gefunden.</td>
+                </tr>
+-->
+<div class="grid-scroller">
+    <div class="grid">
+        <div class="grid-header fixed-left">Datum</div>
+        <div class="grid-header">Heim</div>
+        <div class="grid-header">Gast</div>
+        <div class="grid-header last">Tore</div>
+        <ng-container *ngFor="let game of games?.games; index as i">
+            <div class="grid-entry fixed-left">{{dates[i]}}</div>  
+            <div class="grid-entry">{{game.homeTeamName}}</div>
+            <div class="grid-entry">{{game.guestTeamName}}</div>
+            <div class="grid-entry">{{game.homeTeamGoals}} : {{game.guestTeamGoals}}</div>
+        </ng-container>
+    </div>
+</div>
