@@ -31,6 +31,42 @@
             </div>
         </div>
         -->
+        <div class="grid-scroller">
+            <div class="grid">
+                <div class="grid-header fixed-left">Datum</div>
+                <div class="grid-header">Heim/Gast</div>
+                <div class="grid-header">Tore</div>
+                <div class="grid-header last">...</div>
+                <ng-container *ngFor="let tipp of tippModelContainer.tippModels; let index = index">
+                    <div class="rowWrapper">
+                        <div class="grid-entry fixed-left date-entry">{{tipp.game.dateTime}}</div>  
+                        <div class="grid-entry home-team">
+                            <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}"
+                                title="{{tipp.game.homeTeam.shortName}}"
+                                style="width:1.5em; height: 1.5em;">
+                            {{tipp.game.homeTeam.shortName}}
+                        </div>
+                        <div class="grid-entry goal-entry">
+                            {{tipp.game.result.homeGoals}} : {{tipp.game.result.guestGoals}}
+                        </div>
+                        <div class="grid-entry tipp-entry">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-secondary btn-sm">1:0</button>
+                                <button type="button" class="btn btn-secondary btn-sm">1:1</button>
+                                <button type="button" class="btn btn-secondary btn-sm">1:2</button>
+                            </div>
+                        </div>
+                        <div class="grid-entry guest-team">
+                            <img class="teamlogo" src="{{tipp.game.guestTeam.logo}}"
+                                title="{{tipp.game.guestTeam.shortName}}"
+                                style="width:1.5em; height: 1.5em;">                            
+                            {{tipp.game.guestTeam.shortName}}
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
         <div *ngFor="let tipp of tippModelContainer.tippModels; let index = index">
             <div class="row" style="border-top: 1px; border-top-color: lightgray; border-top-style: solid; margin-bottom: 2px; margin-top: 2px">
                 <!--
@@ -96,38 +132,6 @@
                         [(ngModel)]="tipp.guestGoals"/>
                 </div>
             </div>
-            <!--
-            <div class="row">
-                <div class="form-group col">
-                    <select id="homeGoals1" class="full-width">
-                        <option selected>0</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                    </select>
-                </div>
-                <div class="form-group col">
-                    <select id="homeGoals1" class="full-width">
-                        <option selected>0</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>                    
-                    </select>
-                </div>
-            </div>
-            -->
         </div>
         </fieldset>
     </form>

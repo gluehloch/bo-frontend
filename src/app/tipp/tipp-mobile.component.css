@@ -1,9 +1,85 @@
-.full-width {
-    width: 99%;
+.grid-scroller {
+    margin-top: 14px;
+    overflow: scroll;
+    height: 600px;
+    /* heigth: 100vh;*/
+}
 
-background-color: #fff;
-background-clip: padding-box;
-border: 1px solid #ced4da;
-border-radius: .25rem;
-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;    
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: auto;
+}
+
+
+.grid-entry,
+.grid-header {
+    padding: 7px;
+    background-color: white;
+    /*border-right: 1px solid gray;*/
+    /*border-bottom: 1px solid lightgray;*/
+}
+
+.date-entry {
+    grid-row-end: span 2;
+}
+
+.goal-entry {
+    grid-row-end: span 2;
+    /*place-self: center stretch;*/
+    justify-items: stretch;
+}
+
+.tipp-entry {
+    grid-row-end: span 2;
+}
+
+.grid-entry.last,
+.grid-header.last {
+    border-right: none;
+}
+
+.grid-header {
+    /*background-color: lightgray;*/
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.grid-header.fixed-left {
+    z-index: 2;
+}
+
+.fixed-left {
+    position: sticky;
+    left: 0;
+}
+
+.fixed-right {
+    border-left: 1px solid gray;
+    border-right: none;
+    position: sticky;
+    right: 0;
+}
+
+.fixed-right2 {
+    border-left: 1px solid gray;
+    border-right: none;
+    position: sticky;
+    /*right: 200px;*/
+}
+
+.placeholder {
+    grid-column-start: 1;
+    grid-column-end: 21;
+    border-right: none;
+}
+
+.rowWrapper{
+    display: contents;
+}
+  
+.rowWrapper:hover > div{
+    background-color: orange;
 }
