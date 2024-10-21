@@ -7,7 +7,7 @@
 
 .grid {
     display: grid;
-    grid-template-columns: max-content max-content max-content max-content;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     width: auto;
 }
 
@@ -15,8 +15,8 @@
 .grid-header {
     padding: 7px;
     background-color: white;
-    border-right: 1px solid gray;
-    border-bottom: 1px solid gray;
+    /*border-right: 1px solid gray;*/
+    border-bottom: 1px solid lightgray;
 }
 
 .grid-entry.last,
@@ -25,7 +25,8 @@
 }
 
 .grid-header {
-    background-color: lightgray;
+    /*background-color: lightgray;*/
+    font-weight: bold;
     position: sticky;
     top: 0;
     z-index: 1;
@@ -59,3 +60,11 @@
     grid-column-end: 21;
     border-right: none;
 }
+
+.rowWrapper{
+    display: contents;
+  }
+  
+  .rowWrapper:hover > div{
+    background-color: orange;
+  }

@@ -96,10 +96,12 @@
         <div class="grid-header">Gast</div>
         <div class="grid-header last">Tore</div>
         <ng-container *ngFor="let game of games?.games; index as i">
-            <div class="grid-entry fixed-left">{{dates[i]}}</div>  
-            <div class="grid-entry">{{game.homeTeamName}}</div>
-            <div class="grid-entry">{{game.guestTeamName}}</div>
-            <div class="grid-entry">{{game.homeTeamGoals}} : {{game.guestTeamGoals}}</div>
+            <div class="rowWrapper">
+                <div class="grid-entry fixed-left">{{dates[i]}}</div>  
+                <div class="grid-entry">{{game.homeTeamName}}</div>
+                <div class="grid-entry">{{game.guestTeamName}}</div>
+                <div class="grid-entry">{{game.homeTeamGoals}} : {{game.guestTeamGoals}}</div>
+            </div>
         </ng-container>
     </div>
 </div>
