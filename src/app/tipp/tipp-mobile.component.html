@@ -1,23 +1,52 @@
 <div>
     <app-spinner [enabled]="!contentReady"/>
-    <div *ngIf="!tippModelContainer.authenticated">
-        <div class="form-group">
-            <p class="alert alert-warning">
-                Du bist noch nicht angemeldet.
-                <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
-            </p>
+    <div class="row mb-3">
+        <div class="col" *ngIf="!tippModelContainer.authenticated">
+            <div class="form-group">
+                <p class="alert alert-warning">
+                    Du bist noch nicht angemeldet.
+                    <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+                </p>
+            </div>
         </div>
     </div>
-
-    <app-tipp-selector selectionState="mobile"></app-tipp-selector>
-
-    <div *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
-        <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
-        <div>
-            Hier kannst du dir deinen letzten Tipp anschauen.
+    <div class="row mb-3">
+        <div class="col">
+            <app-tipp-selector selectionState="small"></app-tipp-selector>
         </div>
     </div>
-    <form>
+    <div class="row mb-3">
+        <div class="col" *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
+            <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
+            <div>
+                Hier kannst du dir deinen letzten Tipp anschauen.
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <form id="selectRound" name="selectRound">
+            <label for="selectRound" class="form-label">Runde auswählen:</label>
+            <select title="Select round" name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
+                <option *ngFor="let round of season?.rounds" [value]="round.id" [selected]="selectedRound?.id == round.id">
+                    {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
+                </option>
+            </select>
+        </form>
+    </div>
+
+    <div *ngIf="tippModelContainer.authenticated && tippModelContainer.round">
+        <h2>{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
+        <h3>{{tippModelContainer.round.index}}. Spieltag / {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}</h3>
+    <form name="tippform" novalidate>
+        <div class="row mb-3">
+            <div class="btn-group" role="group" aria-label="Nächster Letzer">
+                <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
+                    *ngIf="tippModelContainer.round.index > 1">
+                    <i class="bi bi-caret-left-fill"></i> Letzter</button>
+                <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
+                    *ngIf="!tippModelContainer.round.lastRound">Nächster <i class="bi bi-caret-right-fill"></i></button>
+            </div>
+        </div>        
         <fieldset>
         <!--
         <div class="form-row">
@@ -31,7 +60,6 @@
             </div>
         </div>
         -->
-        <small>
         <div class="grid-scroller">
             <div class="grid">
                 <div class="grid-header fixed-left">Datum</div>
@@ -47,29 +75,36 @@
                             <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}"
                                 title="{{tipp.game.homeTeam.shortName}}"
                                 style="width:1.5em; height: 1.5em;">
-                            {{tipp.game.homeTeam.shortName}}
+                                <small>{{tipp.game.homeTeam.shortName}}</small>
                         </div>
                         <div class="grid-entry goal-entry">
-                            {{tipp.game.result.homeGoals}} : {{tipp.game.result.guestGoals}}
+                            <small>{{tipp.game.result.homeGoals}} : {{tipp.game.result.guestGoals}}</small>
                         </div>
                         <div class="grid-entry tipp-entry">
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-secondary btn-sm">1:0</button>
-                                <button type="button" class="btn btn-secondary btn-sm">1:1</button>
-                                <button type="button" class="btn btn-secondary btn-sm">1:2</button>
-                            </div>
+                            <div *ngIf="tipp.game.finished; then gameIsFinished else gameIsNotFinished"></div>
+                            <ng-template #gameIsFinished>
+                                Spiel beendet
+                            </ng-template>
+                            <ng-template #gameIsNotFinished>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary btn-sm">2:1</button>
+                                    <button type="button" class="btn btn-secondary btn-sm">1:0</button>
+                                    <button type="button" class="btn btn-secondary btn-sm">1:1</button>
+                                    <button type="button" class="btn btn-secondary btn-sm">0:1</button>
+                                    <button type="button" class="btn btn-secondary btn-sm">1:2</button>
+                                </div>
+                            </ng-template>
                         </div>
                         <div class="grid-entry guest-team">
                             <img class="teamlogo" src="{{tipp.game.guestTeam.logo}}"
                                 title="{{tipp.game.guestTeam.shortName}}"
                                 style="width:1.5em; height: 1.5em;">                            
-                            {{tipp.game.guestTeam.shortName}}
+                            <small>{{tipp.game.guestTeam.shortName}}</small>
                         </div>
                     </div>
                 </ng-container>
             </div>
         </div>
-        </small>
         </fieldset>
     </form>
 </div>
