@@ -1,3 +1,32 @@
+.jackpot {
+    background-color: green;
+}
+
+.win {
+    background-color: yellowgreen;
+}
+
+.ticket {
+    background-color: lightcoral;
+}
+
+img.teamlogo {
+    max-height: 24px;
+    max-width: 24px;
+}
+
+.input-goals-home {
+    /*width: auto !important;*/
+    /*min-width: 12px;*/
+    text-align: right;
+}
+
+.input-goals-guest {
+    /*width: auto !important;*/
+    /*min-width: 12px;*/
+    text-align: left;
+}
+
 .grid-scroller {
     margin-top: 14px;
     overflow: scroll;
