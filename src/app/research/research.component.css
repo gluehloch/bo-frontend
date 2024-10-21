@@ -63,8 +63,8 @@
 
 .rowWrapper{
     display: contents;
-  }
+}
   
-  .rowWrapper:hover > div{
+.rowWrapper:hover > div{
     background-color: orange;
-  }
+}
