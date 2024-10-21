@@ -1,8 +1,9 @@
 .grid-scroller {
     margin-top: 14px;
     overflow: scroll;
-    height: 600px;
-    /* heigth: 100vh;*/
+    /* height: 600px;*/
+    /*height: 100vh;*/
+    height: auto;
 }
 
 .grid {

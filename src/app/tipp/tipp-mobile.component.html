@@ -83,7 +83,7 @@
                         <div class="grid-entry tipp-entry">
                             <div *ngIf="tipp.game.finished; then gameIsFinished else gameIsNotFinished"></div>
                             <ng-template #gameIsFinished>
-                                Spiel beendet
+                                Spiel ist beendet.
                             </ng-template>
                             <ng-template #gameIsNotFinished>
                                 <div class="btn-group" role="group" aria-label="Basic example">
