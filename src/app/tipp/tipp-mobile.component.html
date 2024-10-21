@@ -65,7 +65,7 @@
                 <div class="grid-header fixed-left">Datum</div>
                 <div class="grid-header">Heim/Gast</div>
                 <div class="grid-header">Tore</div>
-                <div class="grid-header last">...</div>
+                <div class="grid-header last">Tipp</div>
                 <ng-container *ngFor="let tipp of tippModelContainer.tippModels; let index = index">
                     <div class="rowWrapper">
                         <div class="grid-entry fixed-left date-entry">
@@ -83,7 +83,24 @@
                         <div class="grid-entry tipp-entry">
                             <div *ngIf="tipp.game.finished; then gameIsFinished else gameIsNotFinished"></div>
                             <ng-template #gameIsFinished>
-                                Spiel ist beendet.
+                                <div *ngIf="tipp.exists; then tippExists else tippDoesNotExist"></div>
+                                <ng-template #tippExists>
+                                    <div *ngIf="tipp.exists">
+                                        <div [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
+                                            {{tipp.homeGoals}} : {{tipp.guestGoals}}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template #tippDoesNotExist>
+                                    <!-- Es liegt kein Tipp für dieses Spiel vor. -->
+                                    <div *ngIf="!tipp.exists">
+                                        <div class="row">
+                                            <div class="col" style="text-align: center; padding: .5rem .75rem">
+                                                <i>Kein Tipp abgegeben bzw. Tipp nach Spielbeginn erfolgt.</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
                             </ng-template>
                             <ng-template #gameIsNotFinished>
                                 <div class="btn-group" role="group" aria-label="Basic example">

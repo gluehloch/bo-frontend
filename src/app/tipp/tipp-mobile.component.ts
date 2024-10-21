@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
@@ -16,7 +16,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     templateUrl: './tipp-mobile.component.html',
     styleUrls: ['./tipp-mobile.component.css'],
     standalone: true,
-    imports: [DatePipe, NgFor, NgIf, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, SpinnerComponent]
+    imports: [NgClass, DatePipe, NgFor, NgIf, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, SpinnerComponent]
 })
 export class TippMobileComponent extends TippCommonComponent implements OnInit {
 

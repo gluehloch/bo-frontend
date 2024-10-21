@@ -32,6 +32,7 @@
 }
 
 .tipp-entry {
+    justify-items: stretch;
     grid-row-end: span 2;
 }
 
