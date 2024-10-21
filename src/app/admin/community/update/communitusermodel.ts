@@ -1,6 +1,6 @@
 import { CheckableParty } from "./checkable-party";
 
-export class CommunityUserModel {
+export class CommunityModel {
 
     /** all users not associated with the selected season */
     potentialParties: Array<CheckableParty> = [];

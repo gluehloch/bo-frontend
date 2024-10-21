@@ -19,9 +19,10 @@ declare namespace Rest {
     }
 
     type CommunityJson = {
+        id: number;
+        shortName: string;
         name: string;
         year: string;
-        shortName: string;
         communityManager: UserJson;
         season: SeasonJson;
     }
@@ -73,10 +74,6 @@ declare namespace Rest {
     type GroupTypeJson = AbstractOpenligaid & {
         name: string;
         type: 'LEAGUE' | 'PRELIMINARY_ROUND' | 'KNOCKOUT_ROUND' | 'SEMI_FINAL' | 'FINAL';
-    }
-
-    type HistoryTeamVsTeamJson = {
-        teamVsTeamJsons: TeamVsTeamJson[];
     }
 
     type PartyJson = AbstractIdentifier & Serializable & {
@@ -137,13 +134,15 @@ declare namespace Rest {
         submitTippGames: SubmitTippGameJson[];
     }
 
+    type TeamType = 'DFB' | 'FIFA';
+
     type TeamJson = AbstractOpenligaid & {
         name: string;
         longName: string;
         shortName: string;
         xshortName: string;
         logo: string;
-        type: string;
+        type: TeamType;
     }
 
     type TeamResultJson = Serializable & {
@@ -162,6 +161,10 @@ declare namespace Rest {
         matchDate: string;
         homeTeamGoals: number;
         guestTeamGoals: number;
+    }
+
+    type HistoryTeamVsTeamJson = {
+        games: TeamVsTeamJson[];
     }
 
     type TokenJson = Serializable & {

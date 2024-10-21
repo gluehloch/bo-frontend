@@ -23,13 +23,17 @@
         <tbody>
             <tr *ngFor="let season of seasons">
                 <td>
-                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">Edit</button>
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateSeason(season)">
+                        <i class="bi bi-gear"></i>
+                    </button>
                 </td>
                 <td>
                     <button class="btn btn-primary btn-sm" type="submit" (click)="updateTeamGroup(season)">Gruppen/Mannschaften</button>
                 </td>                
                 <td>
-                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateMatchday(season)">Aktualisieren</button>
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateMatchday(season)">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
                 </td>
                 <td>{{season.name}}</td>
                 <td>{{season.year}}</td>

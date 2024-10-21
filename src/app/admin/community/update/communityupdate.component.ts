@@ -1,29 +1,81 @@
-import { Component, OnInit } from "@angular/core";
+import { map } from 'rxjs/operators';
+
+import { Component, Input, OnInit, signal } from "@angular/core";
 import { CheckableParty } from "./checkable-party";
 import { ActivatedRoute, Router } from "@angular/router";
+import { FormsModule } from '@angular/forms';
+import { NgFor, NgIf } from "@angular/common";
+import { CommunityUpdateService } from "./communityupdate.service";
+
+import { AuthenticationWarningComponent } from '../../../authenticationwarning/authenticationwarning.component';
+import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
+
+type PartialCommunityJson = {
+    id: number;
+    name: string;
+    shortName: string;
+    year: string;
+    communityManager: {
+        nickname: string;
+    },
+    season: {
+        name: string;
+    }
+}
 
 @Component({
-    selector: 'app-season-manager-update',
-    templateUrl: './updatecommunityuser.component.html',
-    styleUrls: ['./updatecommunityuser.component.css']
+    selector: 'app-community-update',
+    templateUrl: './communityupdate.component.html',
+    styleUrls: ['./communityupdate.component.css'],
+    standalone: true,
+    imports: [SpinnerComponent, AuthenticationWarningComponent, NgFor, NgIf, FormsModule],
 })
-export class UpdateCommunityUserComponent implements OnInit {
+export class CommunityUpdateComponent implements OnInit {
+
+    contentReady = signal(false);
+    model: Rest.CommunityJson | PartialCommunityJson = {
+        id: 0,
+        name: '',
+        shortName: '',
+        year: '',
+        communityManager: {
+            nickname: '' 
+        },
+        season: {
+            name: ''
+        },
+    };
+
+    @Input()
+    set id(communityId: number) {
+        this.communityUpdateService.findCommunity(communityId).subscribe(
+            (community: Rest.CommunityJson) => this.model = community,
+            (error) => console.error(error),
+            ()  => this.contentReady.set(true)
+        );
+    }
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private communityUpdateService: CommunityUpdateService) {
     }
 
     ngOnInit() {
         /*
         this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
-            this.seasonManagerUpdateService.findSeason(id).subscribe(
-                (season: Rest.SeasonJson) => this.model.season = season);
-
-            this.findParties(id);
-            this.findPotentialParties(id);
+            this.communityUpdateService.findCommunity(id).subscribe(
+                (community: Rest.CommunityJson) => this.model = community);
+            // this.findParties(id);
+            // this.findPotentialParties(id);
         });
         */
+    }
+
+    updateCommunity() {
+    }
+
+    abort() {
     }
 
     /*

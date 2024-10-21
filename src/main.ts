@@ -1,10 +1,12 @@
 import './polyfills';
 
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
+
 import { CommunityAdminComponent } from './app/admin/community/communityadmin.component';
+import { CommunityUpdateComponent } from './app/admin/community/update/communityupdate.component';
+
 import { UpdateMatchComponent } from './app/seasonmanager/updatematch/updatematch.component';
 import { UpdateTeamGroupComponent } from './app/seasonmanager/updateteamgroup/updateteamgroup.component';
 import { UpdateMatchdayComponent } from './app/seasonmanager/updatematchday/updatematchday.component';
@@ -15,6 +17,7 @@ import { TeamUpdateComponent } from './app/team/update/teamupdate.component';
 import { TeamComponent } from './app/team/team.component';
 import { PartyUpdateComponent } from './app/party/update/partyupdate.component';
 import { PartyComponent } from './app/party/party.component';
+
 import { SeasonComponent } from './app/season/season.component';
 import { RankingComponent } from './app/ranking/ranking.component';
 import { TippMobileComponent } from './app/tipp/tipp-mobile.component';
@@ -23,7 +26,7 @@ import { TippComponent } from './app/tipp/tipp.component';
 import { AuthenticationComponent } from './app/authentication/authentication.component';
 import { RegistrationComponent } from './app/registration/registration.component';
 import { HomeComponent } from './app/home/home.component';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { withInterceptorsFromDi, provideHttpClient, HttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -53,6 +56,9 @@ import { CookieService } from './app/app.cookie.service';
 import { UserCanActivate } from './app/session/user.canactivate';
 import { AdministrationCanActivate } from './app/session/administration.canactivate';
 import { httpInterceptorProviders } from './app/interceptors';
+import { CommunityUpdateService } from './app/admin/community/update/communityupdate.service';
+import { ResearchService } from './app/research/research.service';
+import { ResearchComponent } from './app/research/research.component';
 
 
 if (environment.production) {
@@ -79,6 +85,7 @@ bootstrapApplication(AppComponent, {
         TippService,
         SeasonService,
         RankingService,
+        ResearchService,
         SeasonService,
         PartyService,
         PartyUpdateService,
@@ -91,6 +98,7 @@ bootstrapApplication(AppComponent, {
         UpdateMatchdayService,
         UpdateMatchService,
         CommunityAdminService,
+        CommunityUpdateService,
         ModalService,
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi()),
@@ -137,6 +145,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'season',
                 component: SeasonComponent
+            },
+            {
+                path: 'research',
+                component: ResearchComponent
             },
             {
                 path: 'chiefop/party',
@@ -192,8 +204,13 @@ bootstrapApplication(AppComponent, {
                 path: 'chiefop/community',
                 component: CommunityAdminComponent,
                 canActivate: [AdministrationCanActivate]
+            },
+            {
+                path: 'chiefop/community/update/:id',
+                component: CommunityUpdateComponent,
+                canActivate: [AdministrationCanActivate]
             }
-        ])
+        ], withComponentInputBinding())
     ]
 })
     .catch(err => console.log(err));

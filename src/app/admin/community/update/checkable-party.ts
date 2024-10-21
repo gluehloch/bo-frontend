@@ -1,12 +1,6 @@
 
 export class CheckableParty {
-  id: number;
-  nickname: string;
-  checked: boolean;
-
-  constructor() {
-    this.id = 0;
-    this.nickname = '';
-    this.checked = false;
-  }
+  id: number = 0;
+  nickname: string = '';
+  checked: boolean = false;
 }

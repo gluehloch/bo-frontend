@@ -25,7 +25,7 @@ export namespace Betoffice {
         xshortName: string;
         longName: string;
         logo: string;
-        type: string;
+        type: Rest.TeamType;
 
         constructor() {
             super();
@@ -34,7 +34,7 @@ export namespace Betoffice {
             this.xshortName = '';
             this.longName = '';
             this.logo = '';
-            this.type = '';
+            this.type = 'DFB';
         }
     }
 
