@@ -66,7 +66,7 @@
                                 <small>{{tipp.game.homeTeam.shortName}}</small>
                         </div>
                         <div class="grid-entry goal-entry">
-                            <small>{{tipp.game.result.homeGoals}} : {{tipp.game.result.guestGoals}}</small>
+                            <small>{{tipp.game.result.homeGoals}}:{{tipp.game.result.guestGoals}}</small>
                         </div>
                         <div class="grid-entry tipp-entry">
                             <div *ngIf="tipp.game.finished; then gameIsFinished else gameIsNotFinished"></div>
@@ -75,7 +75,7 @@
                                 <ng-template #tippExists>
                                     <div *ngIf="tipp.exists">
                                         <div [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
-                                            {{tipp.homeGoals}} : {{tipp.guestGoals}}
+                                            {{tipp.homeGoals}}:{{tipp.guestGoals}}
                                         </div>
                                     </div>
                                 </ng-template>
