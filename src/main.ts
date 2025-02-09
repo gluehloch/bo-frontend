@@ -59,8 +59,8 @@ import { httpInterceptorProviders } from './app/interceptors';
 import { CommunityUpdateService } from './app/admin/community/update/communityupdate.service';
 import { ResearchService } from './app/research/research.service';
 import { ResearchComponent } from './app/research/research.component';
-import { ProfileService } from './app/profil/profile.service';
-import { ProfileComponent } from './app/profil/profile.component';
+import { ProfileService } from './app/profile/profile.service';
+import { ProfileComponent } from './app/profile/profile.component';
 
 
 if (environment.production) {

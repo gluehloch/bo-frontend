@@ -32,3 +32,4 @@ export const environment = {
     website:             'andre-winkler.de.localhost',
 
 };
+ 
