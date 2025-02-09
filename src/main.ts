@@ -59,6 +59,8 @@ import { httpInterceptorProviders } from './app/interceptors';
 import { CommunityUpdateService } from './app/admin/community/update/communityupdate.service';
 import { ResearchService } from './app/research/research.service';
 import { ResearchComponent } from './app/research/research.component';
+import { ProfileService } from './app/profil/profile.service';
+import { ProfileComponent } from './app/profil/profile.component';
 
 
 if (environment.production) {
@@ -89,6 +91,7 @@ bootstrapApplication(AppComponent, {
         SeasonService,
         PartyService,
         PartyUpdateService,
+        ProfileService,
         TeamService,
         TeamUpdateService,
         SeasonManagerService,
@@ -149,6 +152,11 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'research',
                 component: ResearchComponent
+            },
+            {
+                path: 'profile',
+                component: ProfileComponent,
+                canActivate: [UserCanActivate]
             },
             {
                 path: 'chiefop/party',

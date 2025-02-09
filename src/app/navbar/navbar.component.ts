@@ -15,6 +15,7 @@ enum NavState {
     teilnehmer,
     meisterschaft,
     research,
+    profile,
     adminmenu
 }
 
@@ -26,6 +27,7 @@ class NavMenu {
     meisterschaften = false;
     research = false;
     adminmenu = false;
+    profile = false;
 
     currentNavState: NavState | undefined;
 
@@ -37,6 +39,7 @@ class NavMenu {
         this.meisterschaften = false;
         this.research = false;
         this.adminmenu = false;
+        this.profile = false;
 
         switch (newState) {
             case NavState.home:
@@ -53,6 +56,8 @@ class NavMenu {
                 this.meisterschaften = true; break;
             case NavState.research:
                 this.research = true; break;
+            case NavState.profile:
+                this.profile = true; break;
         }
         this.currentNavState = newState;
     }
@@ -72,6 +77,7 @@ export class NavbarComponent {
 
     navMenu = new NavMenu();
     admin = false;
+    user = false;
 
     constructor(
         private sessionService: SessionService,
@@ -91,9 +97,11 @@ export class NavbarComponent {
                 if (loginOrLogoutState === 'login') {
                     this.loginOrLogout = this.textLogout + ' ' + sessionService.readCredentials().nickname;
                     this.admin = sessionService.getUserRole() === USERROLE.ADMIN;
+                    this.user = true;
                 } else if (loginOrLogoutState === 'logout') {
                     this.loginOrLogout = this.textLogin;
                     this.admin = false;
+                    this.user = false;
                 }
             });
 
@@ -121,6 +129,8 @@ export class NavbarComponent {
             this.navMenu.changeState(NavState.research);
         } else if (activatedRoute === NavigationRouterService.ROUTE_ADMIN_MENU) {
             this.navMenu.changeState(NavState.adminmenu);
+        } else if (activatedRoute === NavigationRouterService.ROUTE_PROFILE) {
+            this.navMenu.changeState(NavState.profile);
         }
     }
 
