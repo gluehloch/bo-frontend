@@ -18,7 +18,7 @@ import { SessionService } from "../session/session.service";
 export class ProfileComponent implements OnInit {
 
     contentReady = signal(true); // TODO Laden der Mannschaftslisten wird nicht angezeigt.
-    userProfile: Rest.UserProfileJson | 'Wird geladen...' = 'Wird geladen...';
+    userProfile: Rest.UserProfileJson | undefined;
 
     constructor(
         private router: Router,
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
         this.profileService.findProfile(this.sessionService.getNickname()).subscribe({
             next: (profile) => {
-                //this.profile = profile;
+                this.userProfile = profile;
                 console.log('Profile: ', profile);
             },
             error: (error) => {
