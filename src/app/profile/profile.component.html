@@ -1,7 +1,7 @@
 <app-spinner [enabled]="!contentReady()"/>
 <h1>Teilnehmer Profil</h1>
 
-<div *ngIf="userProfile">
+<div *ngIf="userProfile; else elseBlock">
     <form name="userProfileUpdateform" novalidate>
         <div class="mb-3">
             <label for="nickname" class="form-label">Nickname</label>
