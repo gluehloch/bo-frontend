@@ -186,6 +186,14 @@ declare namespace Rest {
         users: UserJson[];
     }
 
+    type UserProfileJson = {
+        nickname: string;
+        name: string | undefined;
+        surname: string | undefined;
+        mail: string | undefined;
+        phone: string | undefined;
+    }
+
     type AbstractOpenligaid = AbstractIdentifier & OpenligaObject & {
     }
 
