@@ -42,4 +42,21 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+    updateProfile(): void {
+        if (this.userProfile) {
+            this.profileService.updateProfile(this.userProfile).subscribe({
+                next: (profile) => {
+                    console.log('Profile updated: ', profile);
+                },
+                error: (error) => {
+                    console.error('Error: ', error);
+                }
+            });
+        }
+    }
+
+    abort(): void {
+        console.log('Abort');
+    }
+
 }

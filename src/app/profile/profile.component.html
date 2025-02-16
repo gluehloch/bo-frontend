@@ -2,17 +2,17 @@
 <h1>Teilnehmer Profil</h1>
 
 <div *ngIf="userProfile; else elseBlock">
-    <form name="userProfileUpdateform" novalidate>
+    <form #userProfileUpdateform="ngForm" name="userProfileUpdateform" novalidate>
         <div class="mb-3">
             <label for="nickname" class="form-label">Nickname</label>
-            <input class="form-control" id="nickname" name="nickname" [(ngModel)]="userProfile.nickname" />
+            <input class="form-control" id="nickname" name="nickname" [(ngModel)]="userProfile.nickname" required/>
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input class="form-control" id="name" name="name" [(ngModel)]="userProfile.name" />
         </div>
         <div class="mb-3">
-            <label for="surnmae" class="form-label">Vorname</label>
+            <label for="surname" class="form-label">Vorname</label>
             <input class="form-control" id="surname" name="surname" [(ngModel)]="userProfile.surname" />
         </div>
         <div class="mb-3">
@@ -21,7 +21,7 @@
         </div>
         <div class="mb-3">
             <label for="mail" class="form-label">Mail</label>
-            <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" />
+            <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
         </div>
         <!--
         <div class="mb-3">
@@ -30,13 +30,11 @@
         </div>
         -->
 
-        <!--
         <div class="d-grid gap-2">
-            <button ng-disabled="partyupdateform.$invalid" class="btn btn-primary" type="submit"
-                (click)="updateParty()">Speichern</button>
+            <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
+                (click)="updateProfile()">Speichern</button>
             <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
         </div>
-        -->
     </form>
 </div>
 <ng-template #elseBlock>
