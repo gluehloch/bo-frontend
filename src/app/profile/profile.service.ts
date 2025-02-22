@@ -19,4 +19,8 @@ export class ProfileService extends BetofficeService {
         return this.http.put<Rest.UserProfileJson>(this.rootUrl + 'profile/' + profile.nickname, profile);
     }
 
+    confirmUupdateProfile(profile: Rest.UserProfileJson): Observable<Rest.UserProfileJson> {
+        return this.http.put<Rest.UserProfileJson>(this.rootUrl + 'profile/' + profile.nickname + '/confirm', profile);
+    }
+
 }

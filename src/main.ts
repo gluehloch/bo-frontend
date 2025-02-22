@@ -61,6 +61,7 @@ import { ResearchService } from './app/research/research.service';
 import { ResearchComponent } from './app/research/research.component';
 import { ProfileService } from './app/profile/profile.service';
 import { ProfileComponent } from './app/profile/profile.component';
+import { ProfileConfirmComponent } from './app/profile/profile-confirm.component';
 
 
 if (environment.production) {
@@ -158,6 +159,11 @@ bootstrapApplication(AppComponent, {
                 component: ProfileComponent,
                 canActivate: [UserCanActivate]
             },
+            {
+                path: 'profile-confirm',
+                component: ProfileConfirmComponent,
+                canActivate: [UserCanActivate]
+            },            
             {
                 path: 'chiefop/party',
                 component: PartyComponent,

@@ -1,0 +1,43 @@
+<app-spinner [enabled]="!contentReady()"/>
+<h1>Teilnehmer Profil</h1>
+
+<div *ngIf="userProfile; else elseBlock">
+    <form #userProfileUpdateform="ngForm" name="userProfileUpdateform" novalidate>
+        <div class="mb-3">
+            <label for="nickname" class="form-label">Nickname</label>
+            <input readonly class="form-control" id="nickname" name="nickname" [(ngModel)]="userProfile.nickname" required/>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input readonly class="form-control" id="name" name="name" [(ngModel)]="userProfile.name" />
+        </div>
+        <div class="mb-3">
+            <label for="surname" class="form-label">Vorname</label>
+            <input readonly class="form-control" id="surname" name="surname" [(ngModel)]="userProfile.surname" />
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Telefon</label>
+            <input readonly class="form-control" id="phone" name="phone" [(ngModel)]="userProfile.phone" />
+        </div>
+        <div class="mb-3">
+            <label for="mail" class="form-label">Mail</label>
+            <input readonly class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
+        </div>
+        <!--
+        <div class="mb-3">
+            <label for="password" >Passwort</label>
+            <input class="form-control" id="password" name="password" [(ngModel)]="party.password" />
+        </div>
+        -->
+
+        <div class="d-grid gap-2">
+            <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
+                (click)="updateProfile()">Bestätigen</button>
+            <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+        </div>
+    </form>
+</div>
+<ng-template #elseBlock>
+    <i>Wird geladen...</i>
+</ng-template>
+

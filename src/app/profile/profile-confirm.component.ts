@@ -11,11 +11,11 @@ import { SessionService } from "../session/session.service";
 
 @Component({
     selector: 'profil',
-    templateUrl: './profile.component.html',
+    templateUrl: './profile-confirm.component.html',
     standalone: true,
     imports: [NgIf, NgFor, FormsModule, SpinnerComponent]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileConfirmComponent implements OnInit {
 
     contentReady = signal(false);
     userProfile: Rest.UserProfileJson | undefined;
@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     updateProfile(): void {
         this.contentReady.set(false);
         if (this.userProfile) {
-            this.profileService.updateProfile(this.userProfile).subscribe({
+            this.profileService.confirmUupdateProfile(this.userProfile).subscribe({
                 next: (profile) => {
                     console.log('Profile updated: ', profile);
                 },
