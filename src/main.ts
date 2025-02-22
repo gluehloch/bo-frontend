@@ -160,7 +160,7 @@ bootstrapApplication(AppComponent, {
                 canActivate: [UserCanActivate]
             },
             {
-                path: 'profile-confirm',
+                path: 'profile-confirm/:confirmationToken',
                 component: ProfileConfirmComponent,
                 canActivate: [UserCanActivate]
             },            

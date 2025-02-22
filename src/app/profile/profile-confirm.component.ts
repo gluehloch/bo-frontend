@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NgFor, NgIf } from "@angular/common";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
 import { NavigationRouterService } from "../navigationrouter.service";
@@ -19,15 +19,18 @@ export class ProfileConfirmComponent implements OnInit {
 
     contentReady = signal(false);
     userProfile: Rest.UserProfileJson | undefined;
+    confirmationToken: string | undefined;
 
     constructor(
         private router: Router,
+        private route: ActivatedRoute,
         private sessionService: SessionService,
         private profileService: ProfileService,
         private navigationRouterService: NavigationRouterService) {
     }
     
     ngOnInit() {
+        this.confirmationToken = this.route.snapshot.paramMap.get('confirmationToken') || undefined;
         this.profileService.findProfile(this.sessionService.getNickname()).subscribe({
             next: (profile) => {
                 this.userProfile = profile;
@@ -42,7 +45,7 @@ export class ProfileConfirmComponent implements OnInit {
         });
     }
 
-    updateProfile(): void {
+    confirmUpdateProfile(): void {
         this.contentReady.set(false);
         if (this.userProfile) {
             this.profileService.confirmUupdateProfile(this.userProfile).subscribe({
