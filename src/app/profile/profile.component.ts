@@ -18,6 +18,7 @@ import { SessionService } from "../session/session.service";
 export class ProfileComponent implements OnInit {
 
     contentReady = signal(false);
+    newMailRequested = signal(false);
     userProfile: Rest.UserProfileJson | undefined;
 
     constructor(
@@ -31,6 +32,9 @@ export class ProfileComponent implements OnInit {
         this.profileService.findProfile(this.sessionService.getNickname()).subscribe({
             next: (profile) => {
                 this.userProfile = profile;
+                if (profile.alternativeMail) {
+                    this.newMailRequested.set(true);
+                }
                 console.log('Profile: ', profile);
             },
             error: (error) => {
@@ -61,6 +65,10 @@ export class ProfileComponent implements OnInit {
 
     abort(): void {
         console.log('Abort');
+    }
+
+    submitConfirmationMail(): void {
+        console.log('Submit confirmation mail');
     }
 
 }

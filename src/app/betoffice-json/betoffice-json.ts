@@ -191,6 +191,7 @@ declare namespace Rest {
         name: string | undefined;
         surname: string | undefined;
         mail: string | undefined;
+        alternativeMail: string | undefined;
         phone: string | undefined;
     }
 

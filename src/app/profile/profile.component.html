@@ -29,6 +29,15 @@
             <input class="form-control" id="password" name="password" [(ngModel)]="party.password" />
         </div>
         -->
+        <div *ngIf="newMailRequested()">
+            <div class="mb-3">
+                <label for="newMailRequested" class="form-label">Neue Mail</label>
+                <button id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
+                    (click)="submitConfirmationMail()">
+                    Bestötigungslink an {{userProfile.alternativeMail}} noch einmal versenden
+                </button>
+            </div>
+        </div>
 
         <div class="d-grid gap-2">
             <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
