@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from "@angular/core";
+import { Component, OnInit, Signal, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NgFor, NgIf } from "@angular/common";
 import { Router } from "@angular/router";
@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
     contentReady = signal(false);
     newMailRequested = signal(false);
     userProfile: Rest.UserProfileJson | undefined;
+    error: any | undefined;
 
     constructor(
         private router: Router,
@@ -39,6 +40,7 @@ export class ProfileComponent implements OnInit {
             },
             error: (error) => {
                 console.error('Error: ', error);
+                this.error = error;
             },
             complete: () => {
                 this.contentReady.set(true);
@@ -48,6 +50,7 @@ export class ProfileComponent implements OnInit {
 
     updateProfile(): void {
         this.contentReady.set(false);
+        this.error = undefined;
         if (this.userProfile) {
             this.profileService.updateProfile(this.userProfile).subscribe({
                 next: (profile) => {
@@ -55,6 +58,7 @@ export class ProfileComponent implements OnInit {
                 },
                 error: (error) => {
                     console.error('Error: ', error);
+                    this.error = error;
                 },
                 complete: () => {
                     this.contentReady.set(true);

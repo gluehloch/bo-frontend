@@ -20,6 +20,7 @@ export class ProfileConfirmComponent implements OnInit {
     contentReady = signal(false);
     userProfile: Rest.UserProfileJson | undefined;
     confirmationToken: string | undefined;
+    error: any | undefined;
 
     constructor(
         private router: Router,
@@ -54,6 +55,7 @@ export class ProfileConfirmComponent implements OnInit {
                 },
                 error: (error) => {
                     console.error('Error: ', error);
+                    this.error = error;
                 },
                 complete: () => {
                     this.contentReady.set(true);
