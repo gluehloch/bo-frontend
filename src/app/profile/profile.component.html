@@ -30,13 +30,24 @@
         </div>
         -->
         <div *ngIf="newMailRequested()">
-            <div class="mb-3">
-                <label for="newMailRequested" class="form-label">Neue Mail</label>
-                <button id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
-                    (click)="submitConfirmationMail()">
-                    Bestötigungslink an {{userProfile.alternativeMail}} noch einmal versenden
-                </button>
-            </div>
+            <template [ngIf]="!error">
+                <div class="alert alert-warning" role="alert">
+                    Die Bestätigungsmail wird an {{userProfile.alternativeMail}} versendet. Bitte schaue jetzt
+                    in deinem Postfach nach und klicke auf den Bestätigungs-Link.
+                </div>
+                <div class="mb-3">
+                    <label for="newMailRequested" class="form-label">Neue Mail</label>
+                    <button type="button" id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
+                        (click)="submitConfirmationMail()">
+                        Bestötigungslink an {{userProfile.alternativeMail}} noch einmal versenden
+                    </button>
+                </div>
+            </template>
+            <template [ngIf]="error">
+                <div class="alert alert-danger" role="alert">
+                    Es ist ein Fehler aufgetreten. Bitte versuche es später noch einmal. {{error}}
+                </div>
+            </template>
         </div>
 
         <div class="d-grid gap-2">
