@@ -19,10 +19,6 @@
             <label for="phone" class="form-label">Telefon</label>
             <input class="form-control" id="phone" name="phone" [(ngModel)]="userProfile.phone" />
         </div>
-        <div class="mb-3">
-            <label for="mail" class="form-label">Mail</label>
-            <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
-        </div>
         <!--
         <div class="mb-3">
             <label for="password" >Passwort</label>
@@ -31,6 +27,10 @@
         -->
         <div *ngIf="newMailRequested()">
             <div class="mb-3">
+                <label for="mail" class="form-label">Deine aktuelle Mail Adresse</label>
+                <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
+            </div>            
+            <div class="mb-3">
                 <label for="newMailRequested" class="form-label">Neue Mail</label>
                 <button id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
                     (click)="submitConfirmationMail()">
@@ -38,6 +38,12 @@
                 </button>
             </div>
         </div>
+        <ng-template #elseBlock>
+            <div class="mb-3">
+                <label for="mail" class="form-label">Mail</label>
+                <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
+            </div>
+        </ng-template>
 
         <div class="d-grid gap-2">
             <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
