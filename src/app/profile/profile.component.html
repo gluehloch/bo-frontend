@@ -1,7 +1,7 @@
 <app-spinner [enabled]="!contentReady()"/>
 <h1>Teilnehmer Profil</h1>
 
-<div *ngIf="userProfile; else elseBlock">
+<div *ngIf="userProfile; else isLoading">
     <form #userProfileUpdateform="ngForm" name="userProfileUpdateform" novalidate>
         <div class="mb-3">
             <label for="nickname" class="form-label">Nickname</label>
@@ -25,27 +25,33 @@
             <input class="form-control" id="password" name="password" [(ngModel)]="party.password" />
         </div>
         -->
-        <div *ngIf="newMailRequested()">
-            <template [ngIf]="!error">
+        <div *ngIf="newMailRequested(); else email">
+            <ng-container *ngIf="!error">
                 <div class="alert alert-warning" role="alert">
-                    Die Bestätigungsmail wird an {{userProfile.alternativeMail}} versendet. Bitte schaue jetzt
+                    Die Bestätigungsmail wurde an {{userProfile.alternativeMail}} versendet. Bitte schaue jetzt
                     in deinem Postfach nach und klicke auf den Bestätigungs-Link.
+                    <button type="button" id="newMailRequested" name="newMailRequested" class="form-control btn btn-primary"
+                        (click)="submitConfirmationMail()">
+                        Bestötigungslink an {{userProfile.alternativeMail}} noch einmal versenden
+                    </button>                    
                 </div>
                 <div class="mb-3">
+                    <!--
                     <label for="newMailRequested" class="form-label">Neue Mail</label>
+                    -->
                     <button type="button" id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
                         (click)="submitConfirmationMail()">
                         Bestötigungslink an {{userProfile.alternativeMail}} noch einmal versenden
                     </button>
                 </div>
-            </template>
-            <template [ngIf]="error">
+            </ng-container>
+            <ng-container *ngIf="error">
                 <div class="alert alert-danger" role="alert">
                     Es ist ein Fehler aufgetreten. Bitte versuche es später noch einmal. {{error}}
                 </div>
-            </template>
+            </ng-container>
         </div>
-        <ng-template #elseBlock>
+        <ng-template #email>
             <div class="mb-3">
                 <label for="mail" class="form-label">Mail</label>
                 <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
@@ -59,7 +65,7 @@
         </div>
     </form>
 </div>
-<ng-template #elseBlock>
+<ng-template #isLoading>
     <i>Wird geladen...</i>
 </ng-template>
 
