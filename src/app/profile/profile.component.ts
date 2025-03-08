@@ -34,8 +34,7 @@ export class ProfileComponent implements OnInit {
 
     private handleError(error: any): void {
         if (error.status === 403) {
-            // this.modalService.open('AuthenticationWarningComponent', error.status);
-            this.modalService.open('authentication-warning-modal', error.status);
+            this.modalService.open('AuthenticationWarningComponent', error.status);
         }
     }
     
@@ -65,6 +64,7 @@ export class ProfileComponent implements OnInit {
             this.profileService.updateProfile(this.userProfile).subscribe({
                 next: (profile) => {
                     console.log('Profile updated: ', profile);
+                    this.userProfile = profile;
                 },
                 error: (error) => {
                     console.error('Error: ', error);
@@ -82,7 +82,20 @@ export class ProfileComponent implements OnInit {
     }
 
     submitConfirmationMail(): void {
-        console.log('Submit confirmation mail');
+        this.contentReady.set(false);
+        this.error = undefined;
+        this.profileService.resubmitConfirmationMail(this.sessionService.getNickname()).subscribe({
+            next: (userProfile) => {
+                console.log('Mail sent: ', userProfile);
+            },
+            error: (error) => {
+                console.error('Error: ', error);
+                this.error = error;
+            },
+            complete: () => {
+                this.contentReady.set(true);
+            }
+        });
     }
 
 }
