@@ -5,15 +5,17 @@ import { Router } from "@angular/router";
 
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
 import { NavigationRouterService } from "../navigationrouter.service";
+import { AuthenticationWarningComponent } from "../authenticationwarning/authenticationwarning.component";
 
 import { ProfileService } from "./profile.service";
 import { SessionService } from "../session/session.service";
+import { ModalService } from "../modal/modal.service";
 
 @Component({
     selector: 'profil',
     templateUrl: './profile.component.html',
     standalone: true,
-    imports: [NgIf, NgFor, FormsModule, SpinnerComponent]
+    imports: [NgIf, NgFor, FormsModule, SpinnerComponent, AuthenticationWarningComponent]
 })
 export class ProfileComponent implements OnInit {
 
@@ -26,7 +28,15 @@ export class ProfileComponent implements OnInit {
         private router: Router,
         private sessionService: SessionService,
         private profileService: ProfileService,
+        private modalService: ModalService,
         private navigationRouterService: NavigationRouterService) {
+    }
+
+    private handleError(error: any): void {
+        if (error.status === 403) {
+            // this.modalService.open('AuthenticationWarningComponent', error.status);
+            this.modalService.open('authentication-warning-modal', error.status);
+        }
     }
     
     ngOnInit() {
@@ -36,11 +46,11 @@ export class ProfileComponent implements OnInit {
                 if (profile.alternativeMail) {
                     this.newMailRequested.set(true);
                 }
-                console.log('Profile: ', profile);
             },
             error: (error) => {
                 console.error('Error: ', error);
                 this.error = error;
+                this.handleError(error);
             },
             complete: () => {
                 this.contentReady.set(true);

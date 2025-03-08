@@ -1,6 +1,8 @@
-<app-spinner [enabled]="!contentReady()"/>
-<h1>Teilnehmer Profil</h1>
+<app-authentication-warning></app-authentication-warning>
 
+<app-spinner [enabled]="!contentReady()"/>
+
+<h1>Teilnehmer Profil</h1>
 <div *ngIf="userProfile; else isLoading">
     <form #userProfileUpdateform="ngForm" name="userProfileUpdateform" novalidate>
         <div class="mb-3">

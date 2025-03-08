@@ -1,8 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { CommunityAdminService } from './communityadmin.service';
-import { NavigationRouterService } from '../../navigationrouter.service';
 
 import { PagerModel } from 'src/app/shared/pager/pager.component';
 import { PagerComponent } from '../../shared/pager/pager.component';
