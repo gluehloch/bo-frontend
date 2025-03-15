@@ -65,6 +65,9 @@ export class ProfileComponent implements OnInit {
                 next: (profile) => {
                     console.log('Profile updated: ', profile);
                     this.userProfile = profile;
+                    if (profile.alternativeMail) {
+                        this.newMailRequested.set(true);
+                    }
                 },
                 error: (error) => {
                     console.error('Error: ', error);
