@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
 import { NavigationRouterService } from "../navigationrouter.service";
+import { AuthenticationWarningComponent } from "../authenticationwarning/authenticationwarning.component";
 
 import { ProfileService } from "./profile.service";
 import { SessionService } from "../session/session.service";
@@ -13,7 +14,7 @@ import { SessionService } from "../session/session.service";
     selector: 'profil',
     templateUrl: './profile-confirm.component.html',
     standalone: true,
-    imports: [NgIf, NgFor, FormsModule, SpinnerComponent]
+    imports: [NgIf, NgFor, FormsModule, SpinnerComponent, AuthenticationWarningComponent]
 })
 export class ProfileConfirmComponent implements OnInit {
 
