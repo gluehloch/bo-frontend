@@ -49,8 +49,8 @@ export class ProfileConfirmComponent implements OnInit {
 
     confirmUpdateProfile(): void {
         this.contentReady.set(false);
-        if (this.userProfile) {
-            this.profileService.confirmUupdateProfile(this.userProfile).subscribe({
+        if (this.userProfile && this.confirmationToken) {
+            this.profileService.confirmUupdateProfile(this.userProfile.nickname, this.confirmationToken).subscribe({
                 next: (profile) => {
                     console.log('Profile updated: ', profile);
                 },
