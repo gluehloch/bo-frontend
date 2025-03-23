@@ -53,6 +53,7 @@ export class ProfileConfirmComponent implements OnInit {
             this.profileService.confirmUupdateProfile(this.userProfile.nickname, this.confirmationToken).subscribe({
                 next: (profile) => {
                     console.log('Profile updated: ', profile);
+                    this.router.navigate(['/profile']);
                 },
                 error: (error) => {
                     console.error('Error: ', error);
@@ -66,7 +67,22 @@ export class ProfileConfirmComponent implements OnInit {
     }
 
     abort(): void {
-        console.log('Abort');
+        this.contentReady.set(false);
+        if (this.userProfile) {
+            this.profileService.abortUpdateProfile(this.userProfile?.nickname).subscribe({
+                next: (profile) => {
+                    console.log('Profile updated: ', profile);
+                    this.router.navigate(['/profile']);
+                },
+                error: (error) => { 
+                    console.error('Error: ', error);
+                    this.error = error;
+                },
+                complete: () => {             
+                    this.contentReady.set(true);
+                },
+            });
+        }
     }
 
 }

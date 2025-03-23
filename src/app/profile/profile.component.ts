@@ -90,6 +90,7 @@ export class ProfileComponent implements OnInit {
         this.profileService.resubmitConfirmationMail(this.sessionService.getNickname()).subscribe({
             next: (userProfile) => {
                 console.log('Mail sent: ', userProfile);
+
             },
             error: (error) => {
                 console.error('Error: ', error);

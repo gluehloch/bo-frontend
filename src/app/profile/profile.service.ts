@@ -23,6 +23,10 @@ export class ProfileService extends BetofficeService {
         return this.http.post<Rest.UserProfileJson>(`${this.rootUrl}profile/${nickname}/confirm-update/${confirmationToken}`, confirmationToken);
     }
 
+    abortUpdateProfile(nickname: string): Observable<Rest.UserProfileJson> {
+        return this.http.post<Rest.UserProfileJson>(`${this.rootUrl}profile/${nickname}/abort-update`, {});
+    }
+
     resubmitConfirmationMail(nickname: string): Observable<Rest.UserProfileJson> {
         return this.http.post<Rest.UserProfileJson>(`${this.rootUrl}profile/${nickname}/resubmit-confirmation-mail`, {});
     }
