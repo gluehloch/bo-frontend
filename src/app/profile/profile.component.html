@@ -32,17 +32,12 @@
                 <div class="alert alert-warning" role="alert">
                     Die Bestätigungsmail wurde an {{userProfile.alternativeMail}} versendet. Bitte schaue jetzt
                     in deinem Postfach nach und klicke auf den Bestätigungs-Link.
-                    <!--
-                    <button type="button" id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
-                        (click)="submitConfirmationMail()">
-                        Bestötigungslink an {{userProfile.alternativeMail}} noch einmal versenden
-                    </button>
-                    -->                    
                 </div>
                 <div class="mb-3">
                     <label for="newMailRequested" class="form-label">Bestätigungs-Mail noch einmal senden?</label>
                     <button type="button" id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
-                        (click)="submitConfirmationMail()">
+                        (click)="submitConfirmationMail()"
+                        [disabled]="numberOfResubmits() > 4">
                         Bestötigungslink an {{userProfile.alternativeMail}} versenden!
                     </button>
                 </div>

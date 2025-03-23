@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
 
     contentReady = signal(false);
     newMailRequested = signal(false);
+    numberOfResubmits = signal(0);
     userProfile: Rest.UserProfileJson | undefined;
     error: any | undefined;
 
@@ -90,7 +91,7 @@ export class ProfileComponent implements OnInit {
         this.profileService.resubmitConfirmationMail(this.sessionService.getNickname()).subscribe({
             next: (userProfile) => {
                 console.log('Mail sent: ', userProfile);
-
+                this.numberOfResubmits.set(this.numberOfResubmits() + 1);
             },
             error: (error) => {
                 console.error('Error: ', error);
