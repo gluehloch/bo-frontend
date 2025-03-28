@@ -84,6 +84,7 @@ declare namespace Rest {
         phone: string;
         password: string;
         title: string;
+        emailNotificationEnabled: boolean;
     }
 
     type RoundAndTableJson = {
