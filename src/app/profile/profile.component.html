@@ -21,6 +21,10 @@
             <label for="phone" class="form-label">Telefon</label>
             <input class="form-control" id="phone" name="phone" [(ngModel)]="userProfile.phone" />
         </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="emailNotificationEnabled" name="emailNotificationEnabled" [(ngModel)]="userProfile.emailNotificationEnabled">
+            <label class="form-check-label" for="emailNotificationEnabled">E-Mail-Benachrichtigungen für einen Spieltag aktivieren</label>
+        </div>
         <!--
         <div class="mb-3">
             <label for="password" >Passwort</label>
