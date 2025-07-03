@@ -1,0 +1,61 @@
+.issue-item {
+  transition: all 0.3s ease;
+}
+
+.issue-item:hover {
+  background-color: #f8f9fa;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  margin: -0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.issue-item:last-child {
+  border-bottom: none !important;
+}
+
+.badge {
+  font-size: 0.75rem;
+}
+
+.card-header h3 {
+  font-size: 1.25rem;
+}
+
+a {
+  color: #0d6efd;
+}
+
+a:hover {
+  color: #0a58ca;
+}
+
+.text-muted a {
+  color: #6c757d !important;
+}
+
+.text-muted a:hover {
+  color: #495057 !important;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.collapse {
+  transition: none;
+}
+
+.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}

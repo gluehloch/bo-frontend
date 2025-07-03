@@ -62,6 +62,7 @@ import { ResearchComponent } from './app/research/research.component';
 import { ProfileService } from './app/profile/profile.service';
 import { ProfileComponent } from './app/profile/profile.component';
 import { ProfileConfirmComponent } from './app/profile/profile-confirm.component';
+import { IssueListComponent } from './app/issue-list/issue-list.component';
 
 
 if (environment.production) {
@@ -153,6 +154,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'research',
                 component: ResearchComponent
+            },
+            {
+                path: 'issues',
+                component: IssueListComponent
             },
             {
                 path: 'profile',
