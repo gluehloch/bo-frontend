@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgFor, NgClass, NgIf } from '@angular/common';
+import { NgFor, NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { ResponsiveService, DeviceInfo } from '../../shared/responsive.service';
 import { UserPreferenceService } from '../../shared/user-preference.service';
 
@@ -20,11 +20,12 @@ interface TipFormState {
     templateUrl: './tipp-selector.component.html',
     styleUrls: ['./tipp-selector.component.css'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgFor, NgClass, NgIf]
+    imports: [FormsModule, ReactiveFormsModule, NgFor, NgClass, NgIf, TitleCasePipe]
 })
 export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
 
     @Input() selectionState: string | undefined;
+    @Input() demoMode: boolean = false;
 
     states: TipFormState[] = [
         {
@@ -162,6 +163,11 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private navigateToForm(state: TipFormState): void {
+        if (this.demoMode) {
+            console.log('Demo mode: Would navigate to', state.id);
+            return;
+        }
+        
         if (state.id === 'desktop') {
             this.router.navigate(['./tipp']);
         } else if (state.id === 'small') {
