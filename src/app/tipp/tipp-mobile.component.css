@@ -1,9 +1,454 @@
-.full-width {
-    width: 99%;
+/* Demo Section */
+.demo-section {
+    margin-top: 1rem;
+}
 
-background-color: #fff;
-background-clip: padding-box;
-border: 1px solid #ced4da;
-border-radius: .25rem;
-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;    
+.demo-section .alert {
+    margin-bottom: 1rem;
+}
+
+.demo-section button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mobile Tipp Container */
+.mobile-tipp-container {
+    padding: 0.5rem;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Authentication Warning */
+.auth-warning {
+    margin-bottom: 1rem;
+}
+
+.auth-warning .alert {
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* Selector Section */
+.selector-section {
+    margin-bottom: 1rem;
+}
+
+/* Round Selector */
+.round-selector {
+    margin-bottom: 1.5rem;
+}
+
+.round-selector .form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.round-selector .form-select {
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    padding: 0.75rem;
+    font-size: 1rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.round-selector .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Round Header */
+.round-header {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: white;
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.round-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.round-header h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.round-date {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Games Container */
+.games-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Game Card */
+.game-card {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.game-card.finished {
+    background-color: #f8f9fa;
+    border-color: #6c757d;
+}
+
+/* Game Header */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.game-time {
+    font-size: 0.85rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.points-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+    background-color: #6c757d;
+}
+
+.points-badge.jackpot {
+    background-color: #28a745;
+}
+
+.points-badge.win {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.points-badge.ticket {
+    background-color: #dc3545;
+}
+
+/* Teams Container */
+.teams-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Team */
+.team {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+}
+
+.team-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.team-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #495057;
+}
+
+.team-score {
+    width: 100%;
+    max-width: 80px;
+}
+
+/* Score Input */
+.score-input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    background-color: white;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.score-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    outline: none;
+}
+
+.score-input:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    border-color: #ced4da;
+}
+
+/* VS Separator */
+.vs-separator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0 0.5rem;
+    color: #6c757d;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.actual-result {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #495057;
+    padding: 0.25rem 0.5rem;
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+/* Quick Tips */
+.quick-tips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.quick-tip-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 2px solid #6c757d;
+    background-color: white;
+    color: #6c757d;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    min-width: 50px;
+}
+
+.quick-tip-btn:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+    transform: scale(1.05);
+}
+
+.quick-tip-btn:active {
+    transform: scale(0.95);
+}
+
+/* Summary Section */
+.summary-section {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.total-points {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.total-points strong {
+    color: #0d6efd;
+    font-size: 1.3rem;
+}
+
+/* Status Messages */
+.status-message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.status-message.warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+}
+
+.status-message.success {
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+    color: #0f5132;
+}
+
+.status-message.error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    color: #842029;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.submit-section {
+    width: 100%;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #218838, #1ea080);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:disabled {
+    background: #6c757d;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-btn {
+    flex: 1;
+    padding: 0.75rem;
+    font-weight: 600;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 575.98px) {
+    .mobile-tipp-container {
+        padding: 0.25rem;
+    }
+    
+    .game-card {
+        padding: 0.75rem;
+    }
+    
+    .round-header {
+        padding: 1rem 0.75rem;
+    }
+    
+    .round-header h2 {
+        font-size: 1.1rem;
+    }
+    
+    .round-header h3 {
+        font-size: 1rem;
+    }
+    
+    .team-name {
+        font-size: 0.8rem;
+    }
+    
+    .score-input {
+        padding: 0.5rem;
+        font-size: 1.1rem;
+    }
+    
+    .quick-tip-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        min-width: 45px;
+    }
+    
+    .teams-container {
+        gap: 0.25rem;
+    }
+}
+
+/* Focus and accessibility improvements */
+.score-input:focus,
+.quick-tip-btn:focus,
+.submit-btn:focus,
+.nav-btn:focus,
+.round-selector .form-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+/* Loading state */
+.submit-btn:disabled .bi {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
