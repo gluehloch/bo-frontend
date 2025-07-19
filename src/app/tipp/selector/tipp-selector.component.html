@@ -1,29 +1,68 @@
 <form id="tipp-selector" name="tipp-selector" [formGroup]="form">
-    <div class="form-group">
-        <!--
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary">
-                <span class="bi bi-toggle-on"></span> {{selectionState}}</button>
+    <!-- Auto-Select Toggle -->
+    <div class="auto-select-section mb-3">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="autoSelectSwitch" 
+                   formControlName="autoSelect">
+            <label class="form-check-label" for="autoSelectSwitch">
+                <i class="bi bi-magic"></i> Automatische Formular-Optimierung
+            </label>
         </div>
-        -->
+        <small class="text-muted" *ngIf="isAutoSelectEnabled">
+            Das beste Formular wird automatisch basierend auf Ihrem Bildschirm ausgewählt.
+        </small>
+        <small class="text-muted" *ngIf="!isAutoSelectEnabled">
+            Manuelle Auswahl aktiviert. Ihre Wahl wird gespeichert.
+        </small>
+    </div>
 
-        <!--
-        <label for="tippFromSelection">Formular wechseln</label>
-        -->
+    <!-- Device Info Display -->
+    <div class="device-info mb-3" *ngIf="currentDeviceInfo">
+        <small class="text-muted">
+            <i class="bi bi-display"></i> 
+            Bildschirm: {{getDeviceInfo()}} 
+            • Empfohlen: <strong>{{getRecommendedForm() | titlecase}}</strong>
+        </small>
+    </div>
+
+    <!-- Form Selector -->
+    <div class="form-group">
+        <label for="tippFromSelection" class="form-label">
+            <i class="bi bi-layout-wtf"></i> Formular-Ansicht wählen:
+        </label>
         <select id="tippFromSelection"
-            formControlName="state" class="form-control" aria-label=".form-select-sm toppselector"
-            (ngModelChange)="onModelChange($event)">
+                formControlName="state" 
+                class="form-select" 
+                aria-label="Tipp-Formular auswählen"
+                (ngModelChange)="onModelChange($event)">
             <option disabled>Bitte auswählen....</option>
             <option *ngFor="let state of states"
-                [ngValue]="state" [selected]="selectionState === state.id">
+                    [ngValue]="state" 
+                    [selected]="selectionState === state.id"
+                    [class.optimal-option]="state.isOptimal">
+                <i [class]="state.icon"></i>
                 {{state.name}}
+                <span *ngIf="state.isOptimal"> ⭐ (Optimal)</span>
             </option>
         </select>
     </div>
-<!--
-    <p>Selected: {{form.value | json}}</p>
-    <button id="submit" name="submit"
-        type="button" class="btn btn-primary btn-sm"
-        (click)="clickButton()">Change me</button>
--->
+
+    <!-- Form Descriptions -->
+    <div class="form-descriptions mt-2" *ngIf="form.controls['state'].value">
+        <div class="current-form-info">
+            <div class="d-flex align-items-center">
+                <i [class]="form.controls['state'].value.icon" class="me-2"></i>
+                <div>
+                    <strong>{{form.controls['state'].value.name}}</strong>
+                    <span class="optimal-badge ms-2" 
+                          *ngIf="isOptimalFormType(form.controls['state'].value.id)">
+                        <i class="bi bi-star-fill"></i> Optimal für Ihr Gerät
+                    </span>
+                </div>
+            </div>
+            <small class="text-muted d-block mt-1">
+                {{form.controls['state'].value.description}}
+            </small>
+        </div>
+    </div>
 </form>
