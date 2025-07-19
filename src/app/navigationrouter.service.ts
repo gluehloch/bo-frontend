@@ -10,6 +10,7 @@ export class NavigationRouterService {
     public static readonly ROUTE_TEILNEHMER = 'TEILNEHMER';
     public static readonly ROUTE_MEISTERSCHAFTEN = 'MEISTERSCHAFTEN';
     public static readonly ROUTE_RESEARCH = 'RESEARCH';
+    public static readonly ROUTE_ISSUES = 'ISSUES';
     public static readonly ROUTE_ADMIN_MENU = 'ADMIN_MENU';
     public static readonly ROUTE_PROFILE = "PROFILE";
 
