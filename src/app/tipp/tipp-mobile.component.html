@@ -96,7 +96,7 @@
                                 <span class="team-name">Schalke</span>
                             </div>
                             <div class="team-score">
-                                <input type="number" class="score-input" value="1" disabled>
+                                <input type="number" class="score-input" value="1" disabled placeholder="Heim" title="Heimteam Tore">
                             </div>
                         </div>
 
@@ -108,12 +108,12 @@
 
                         <!-- Guest Team -->
                         <div class="team guest-team">
-                            <div class="team-score">
-                                <input type="number" class="score-input" value="3" disabled>
-                            </div>
                             <div class="team-info">
                                 <div style="width: 32px; height: 32px; background: #d52b1e; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: bold;">RBL</div>
                                 <span class="team-name">Leipzig</span>
+                            </div>
+                            <div class="team-score">
+                                <input type="number" class="score-input" value="3" disabled placeholder="Gast" title="Gastteam Tore">
                             </div>
                         </div>
                     </div>
@@ -239,6 +239,13 @@
 
                         <!-- Guest Team -->
                         <div class="team guest-team">
+                            <div class="team-info">
+                                <img class="team-logo" 
+                                     src="{{tipp.game.guestTeam.logo}}"
+                                     alt="{{tipp.game.guestTeam.shortName}}"
+                                     onerror="this.style.display='none'">
+                                <span class="team-name">{{tipp.game.guestTeam.shortName}}</span>
+                            </div>
                             <div class="team-score">
                                 <input type="number" 
                                        class="score-input"
@@ -248,14 +255,7 @@
                                        [disabled]="tipp.game.finished"
                                        [placeholder]="tipp.game.result.guestGoals"
                                        [(ngModel)]="tipp.guestGoals">
-                            </div>
-                            <div class="team-info">
-                                <img class="team-logo" 
-                                     src="{{tipp.game.guestTeam.logo}}"
-                                     alt="{{tipp.game.guestTeam.shortName}}"
-                                     onerror="this.style.display='none'">
-                                <span class="team-name">{{tipp.game.guestTeam.shortName}}</span>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
 
