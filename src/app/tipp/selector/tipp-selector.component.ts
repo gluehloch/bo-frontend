@@ -8,8 +8,8 @@ import { ResponsiveService, DeviceInfo } from '../../shared/responsive.service';
 import { UserPreferenceService } from '../../shared/user-preference.service';
 
 interface TipFormState {
-    id: string;
-    name: string;
+    id: 'desktop' | 'small' | 'mobile';
+    name: 'Desktop' | 'Kompakt' | 'Mobile';
     description: string;
     icon: string;
     isOptimal?: boolean;
@@ -167,7 +167,7 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
             console.log('Demo mode: Would navigate to', state.id);
             return;
         }
-        
+
         if (state.id === 'desktop') {
             this.router.navigate(['./tipp']);
         } else if (state.id === 'small') {

@@ -50,7 +50,7 @@ export class ResponsiveService {
     const isDesktop = width >= this.breakpoints.desktop;
 
     // Determine recommended tip form based on screen size and capabilities
-    let recommendedTipForm: string;
+    let recommendedTipForm: 'desktop' | 'small' | 'mobile' = 'desktop';
     
     if (isMobile) {
       recommendedTipForm = 'mobile';
