@@ -169,7 +169,7 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         if (state.id === 'desktop') {
-            this.router.navigate(['./tipp']);
+            this.router.navigate(['./tipp-desktop']);
         } else if (state.id === 'small') {
             this.router.navigate(['./tipp-small']);
         } else if (state.id === 'mobile') {

@@ -20,6 +20,7 @@ import { PartyComponent } from './app/party/party.component';
 
 import { SeasonComponent } from './app/season/season.component';
 import { RankingComponent } from './app/ranking/ranking.component';
+import { TippDesktopComponent } from './app/tipp/tipp-desktop.component';
 import { TippMobileComponent } from './app/tipp/tipp-mobile.component';
 import { TippSmallComponent } from './app/tipp/tipp-small.component';
 import { TippComponent } from './app/tipp/tipp.component';
@@ -141,6 +142,11 @@ bootstrapApplication(AppComponent, {
                 component: TippComponent,
                 canActivate: [UserCanActivate]
             },
+            {
+                path: 'tipp-desktop',
+                component: TippDesktopComponent,
+                canActivate: [UserCanActivate]
+            },            
             {
                 path: 'tipp-small',
                 component: TippSmallComponent,

@@ -10,16 +10,15 @@ import { TippSelectorComponent } from './selector/tipp-selector.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
-import { TippSmallComponent } from './tipp-small.component';
 
 @Component({
     selector: 'app-tipp',
     templateUrl: './tipp-desktop.component.html',
     styleUrls: ['./tipp-desktop.component.css'],
     standalone: true,
-    imports: [SpinnerComponent, NgIf, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, NgFor, GameResultComponent, NgClass, DatePipe, TippSmallComponent]
+    imports: [SpinnerComponent, NgIf, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, NgFor, GameResultComponent, NgClass, DatePipe]
 })
-export class TippComponent extends TippCommonComponent implements OnInit {
+export class TippDesktopComponent extends TippCommonComponent implements OnInit {
 
     constructor(sessionService: SessionService, tippService: TippService, navigationRouterService: NavigationRouterService) {
         super(sessionService, tippService, navigationRouterService);
