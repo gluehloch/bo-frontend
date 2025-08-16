@@ -25,7 +25,6 @@ interface TipFormState {
 export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
 
     @Input() selectionState: string | undefined;
-    @Input() demoMode: boolean = false;
 
     states: TipFormState[] = [
         {
@@ -163,11 +162,6 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private navigateToForm(state: TipFormState): void {
-        if (this.demoMode) {
-            console.log('Demo mode: Would navigate to', state.id);
-            return;
-        }
-
         if (state.id === 'desktop') {
             this.router.navigate(['./tipp-desktop']);
         } else if (state.id === 'small') {
