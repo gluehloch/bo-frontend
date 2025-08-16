@@ -14,8 +14,8 @@ import { TippSmallComponent } from './tipp-small.component';
 
 @Component({
     selector: 'app-tipp',
-    templateUrl: './tipp-desktop.component.html',
-    styleUrls: ['./tipp-desktop.component.css'],
+    templateUrl: './tipp.component.html',
+    styleUrls: ['./tipp.component.css'],
     standalone: true,
     imports: [SpinnerComponent, NgIf, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, NgFor, GameResultComponent, NgClass, DatePipe, TippSmallComponent]
 })
