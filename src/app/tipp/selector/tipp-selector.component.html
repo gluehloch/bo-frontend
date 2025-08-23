@@ -34,7 +34,7 @@
                 formControlName="state" 
                 class="form-select" 
                 aria-label="Tipp-Formular auswählen"
-                (change)="onModelChange($event)">
+                (ngModelChange)="onModelChange($event)">
             <option disabled>Bitte auswählen....</option>
             <option *ngFor="let state of states"
                     [ngValue]="state" 
