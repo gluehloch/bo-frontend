@@ -95,6 +95,11 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
             }
         });
         this.subscriptions.push(autoSelectSub);
+
+        const stateSelectSub = this.form.controls['state'].valueChanges.subscribe(value => {
+            this.onModelChange(value);
+        });
+        this.subscriptions.push(stateSelectSub);
     }
 
     ngOnDestroy() {
