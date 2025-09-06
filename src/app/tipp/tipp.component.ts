@@ -1,32 +1,60 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 import { SessionService } from '../session/session.service';
-import { GameResultComponent } from '../shared/gameresult/gameresult.component';
-import { FormsModule } from '@angular/forms';
+
 import { TippSelectorComponent } from './selector/tipp-selector.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
+
 import { TippSmallComponent } from './tipp-small.component';
+
+import { TipFormState } from './selector/tipp-selector.component'; 
+import { TippMobileComponent } from './tipp-mobile.component';
+import { TippDesktopComponent } from './tipp-desktop.component';
 
 @Component({
     selector: 'app-tipp',
     templateUrl: './tipp.component.html',
     styleUrls: ['./tipp.component.css'],
     standalone: true,
-    imports: [SpinnerComponent, NgIf, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, NgFor, GameResultComponent, NgClass, DatePipe, TippSmallComponent]
+    imports: [SpinnerComponent, TippSelectorComponent, FormsModule, TippSmallComponent, TippMobileComponent, TippDesktopComponent]
 })
 export class TippComponent extends TippCommonComponent implements OnInit {
 
-    constructor(sessionService: SessionService, tippService: TippService, navigationRouterService: NavigationRouterService) {
+    selectedFormState: { state: TipFormState | null, autoSelect: boolean } | null = null;
+
+    constructor(
+        private router: Router,
+        sessionService: SessionService,
+        tippService: TippService,
+        navigationRouterService: NavigationRouterService) {
         super(sessionService, tippService, navigationRouterService);
     }
 
     ngOnInit() {
         super.onInit();
+    }
+
+    onSelectionChanged(selection: { state: TipFormState | null, autoSelect: boolean }) {
+        this.selectedFormState = selection;
+        if (selection.state) {
+            this.navigateToForm(selection.state);
+        }
+    }
+
+    private navigateToForm(state: TipFormState): void {
+        if (state.id === 'desktop') {
+            this.router.navigate(['./tipp-desktop']);
+        } else if (state.id === 'small') {
+            this.router.navigate(['./tipp-small']);
+        } else if (state.id === 'mobile') {
+            this.router.navigate(['./tipp-mobile']);
+        }
     }
 
 }

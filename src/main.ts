@@ -146,7 +146,7 @@ bootstrapApplication(AppComponent, {
                 path: 'tipp-desktop',
                 component: TippDesktopComponent,
                 canActivate: [UserCanActivate]
-            },            
+            },
             {
                 path: 'tipp-small',
                 component: TippSmallComponent,

@@ -12,7 +12,7 @@ import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
-    selector: 'app-tipp',
+    selector: 'app-tipp-desktop',
     templateUrl: './tipp-desktop.component.html',
     styleUrls: ['./tipp-desktop.component.css'],
     standalone: true,
