@@ -20,8 +20,14 @@
 
     <app-tipp-selector (selectionChanged)="onSelectionChanged($event)"></app-tipp-selector>
 
-    <app-tipp-small></app-tipp-small>
-    <app-tipp-mobile></app-tipp-mobile>
-    <app-tipp-desktop></app-tipp-desktop>
+    <ng-container *ngIf="selectedFormState?.state?.id === 'small'">
+        <app-tipp-small></app-tipp-small>
+    </ng-container>
+    <ng-container *ngIf="selectedFormState?.state?.id === 'mobile'">
+        <app-tipp-mobile></app-tipp-mobile>
+    </ng-container>
+    <ng-container *ngIf="selectedFormState?.state?.id === 'desktop'">
+        <app-tipp-desktop></app-tipp-desktop>
+    </ng-container>
 
 </div>
