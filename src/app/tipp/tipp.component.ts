@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { JsonPipe, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TippCommonComponent } from './tipp-common.component';
@@ -22,7 +22,7 @@ import { TippDesktopComponent } from './tipp-desktop.component';
     templateUrl: './tipp.component.html',
     styleUrls: ['./tipp.component.css'],
     standalone: true,
-    imports: [SpinnerComponent, TippSelectorComponent, FormsModule, TippSmallComponent, TippMobileComponent, TippDesktopComponent]
+    imports: [SpinnerComponent, TippSelectorComponent, FormsModule, TippSmallComponent, TippMobileComponent, TippDesktopComponent, NgIf, JsonPipe]
 })
 export class TippComponent extends TippCommonComponent implements OnInit {
 
@@ -42,9 +42,11 @@ export class TippComponent extends TippCommonComponent implements OnInit {
 
     onSelectionChanged(selection: { state: TipFormState | null, autoSelect: boolean }) {
         this.selectedFormState = selection;
+        /*
         if (selection.state) {
             this.navigateToForm(selection.state);
         }
+        */
     }
 
     private navigateToForm(state: TipFormState): void {

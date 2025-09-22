@@ -129,6 +129,7 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
             if (recommendedState) {
                 console.log('Auto-selecting optimal form:', recommendedForm);
                 this.form.controls['state'].setValue(recommendedState, { emitEvent: false });
+                this.emitSelectionChanged();
             }
         }
     }
@@ -197,10 +198,5 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
             autoSelect: !!this.form.controls['autoSelect'].value
         });
     }
-/*
-    public clickButton(): void {
-        console.log('clickButton', this.form.controls['state'].value);
-    }
-*/
 
 }
