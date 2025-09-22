@@ -103,6 +103,15 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
             this.emitSelectionChanged();
         });
         this.subscriptions.push(stateSelectSub);
+
+        let tippFormPreference = this.userPreferenceService.getTipFormPreference();
+        if (tippFormPreference === null) {
+            const deviceInfo = this.responsiveService.getCurrentDevice();
+            this.userPreferenceService.saveTipFormPreference(deviceInfo.recommendedTipForm);
+        } else {
+            const selectedState = this.states.find(st => st.id === tippFormPreference) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
+        }
     }
 
     ngOnDestroy() {

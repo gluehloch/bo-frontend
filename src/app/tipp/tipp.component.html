@@ -20,7 +20,6 @@
 
     <app-tipp-selector (selectionChanged)="onSelectionChanged($event)"></app-tipp-selector>
 
-    {{selectedFormState | json}}
     <ng-container *ngIf="selectedFormState?.state?.id === 'small'">
         <app-tipp-small></app-tipp-small>
     </ng-container>

@@ -22,7 +22,7 @@ import { TippDesktopComponent } from './tipp-desktop.component';
     templateUrl: './tipp.component.html',
     styleUrls: ['./tipp.component.css'],
     standalone: true,
-    imports: [SpinnerComponent, TippSelectorComponent, FormsModule, TippSmallComponent, TippMobileComponent, TippDesktopComponent, NgIf, JsonPipe]
+    imports: [SpinnerComponent, TippSelectorComponent, FormsModule, TippSmallComponent, TippMobileComponent, TippDesktopComponent, NgIf]
 })
 export class TippComponent extends TippCommonComponent implements OnInit {
 
