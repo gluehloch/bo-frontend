@@ -9,3 +9,7 @@
 .ticket {
     /*background-color: lightcoral;*/
 }
+
+.corner {
+    border-radius: 25px;
+  }

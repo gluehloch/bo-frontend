@@ -1,35 +1,151 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, OnDestroy, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { NgFor, NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+
+import { Subscription } from 'rxjs';
+
+import { ResponsiveService, DeviceInfo } from '../../shared/responsive.service';
+import { TipFormType, UserPreferenceService } from '../../shared/user-preference.service';
+
+export interface TipFormState {
+    id: TipFormType;
+    name: 'Desktop' | 'Kompakt' | 'Mobile';
+    description: string;
+    icon: string;
+    isOptimal?: boolean;
+}
 
 @Component({
     selector: 'app-tipp-selector',
     templateUrl: './tipp-selector.component.html',
     styleUrls: ['./tipp-selector.component.css'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgFor]
+    imports: [FormsModule, ReactiveFormsModule, NgFor, NgClass, NgIf, TitleCasePipe]
 })
-export class TippSelectorComponent implements OnChanges {
+export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
 
     @Input() selectionState: string | undefined;
+    @Output() selectionChanged = new EventEmitter<{ state: TipFormState | null, autoSelect: boolean }>();
 
-    states = [
-        {id: 'desktop', name: 'Desktop'},
-        {id: 'small', name: 'Kompakt'},
-        /*{id: 'mobile', name: 'Mobile Screen'},*/
+    states: TipFormState[] = [
+        {
+            id: 'desktop', 
+            name: 'Desktop', 
+            description: 'Vollständige Tabellenansicht für große Bildschirme',
+            icon: 'bi-monitor'
+        },
+        {
+            id: 'small', 
+            name: 'Kompakt', 
+            description: 'Kompakte Ansicht für mittlere Bildschirme',
+            icon: 'bi-tablet'
+        },
+        {
+            id: 'mobile', 
+            name: 'Mobile', 
+            description: 'Optimiert für Smartphones und Touch-Bedienung',
+            icon: 'bi-phone'
+        },
     ];
 
     form = new FormGroup({
-        state: new FormControl(/*this.states[0]*/),
+        state: new FormControl(),
+        autoSelect: new FormControl(true)
     });
 
-    constructor(private router: Router) {
-    }
+    currentDeviceInfo: DeviceInfo | undefined;
+    private subscriptions: Subscription[] = [];
+    showOptimalBadge = true;
+    isAutoSelectEnabled = true;
+
+    constructor(
+        private router: Router,
+        private responsiveService: ResponsiveService,
+        private userPreferenceService: UserPreferenceService
+    ) {}
 
     ngOnInit() {
         console.log('ngOnInit', this.selectionState);
+
+        // Initialize auto-select preference from localStorage
+        this.isAutoSelectEnabled = this.userPreferenceService.getAutoSelectPreference();
+        this.form.controls['autoSelect'].setValue(this.isAutoSelectEnabled, { emitEvent: false });
+
+        // Subscribe to device info changes
+        const deviceInfoSub = this.responsiveService.deviceInfo$.subscribe(deviceInfo => {
+            this.currentDeviceInfo = deviceInfo;
+            this.updateOptimalFlags();
+            
+            // Auto-select optimal form if enabled and no user preference
+            if (this.isAutoSelectEnabled && !this.userPreferenceService.hasUserPreference()) {
+                this.autoSelectOptimalForm(deviceInfo);
+            }
+        });
+        this.subscriptions.push(deviceInfoSub);
+
+        // Subscribe to auto-select toggle changes
+        const autoSelectSub = this.form.controls['autoSelect'].valueChanges.subscribe(autoSelect => {
+            const autoSelectValue = autoSelect ?? true; // Default to true if null
+            this.isAutoSelectEnabled = autoSelectValue;
+            this.userPreferenceService.saveAutoSelectPreference(autoSelectValue);
+            
+            if (autoSelectValue && this.currentDeviceInfo) {
+                // Clear user preference and auto-select
+                this.userPreferenceService.clearTipFormPreference();
+                this.autoSelectOptimalForm(this.currentDeviceInfo);
+            }
+        });
+        this.subscriptions.push(autoSelectSub);
+
+        const stateSelectSub = this.form.controls['state'].valueChanges.subscribe(value => {
+            this.onModelChange(value);
+            this.emitSelectionChanged();
+        });
+        this.subscriptions.push(stateSelectSub);
+
+        let tippFormPreference = this.userPreferenceService.getTipFormPreference();
+        if (tippFormPreference === null) {
+            // Auto form detection disabled and user has no preference, then set tipp form to recommended device layout
+            const deviceInfo = this.responsiveService.getCurrentDevice();
+            const selectedState = this.states.find(st => st.id === deviceInfo.recommendedTipForm) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
+        } else if (tippFormPreference && !this.isAutoSelectEnabled) {
+            const selectedState = this.states.find(st => st.id === tippFormPreference) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
+        } else {
+            const selectedState = this.states.find(st => st.id === tippFormPreference) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
+        }
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
+
+    private updateOptimalFlags(): void {
+        if (this.currentDeviceInfo) {
+            this.states.forEach(state => {
+                state.isOptimal = state.id === this.currentDeviceInfo?.recommendedTipForm;
+            });
+        }
+    }
+
+    private autoSelectOptimalForm(deviceInfo: DeviceInfo): void {
+        if (!this.isAutoSelectEnabled) return;
+
+        const recommendedForm = deviceInfo.recommendedTipForm;
+        const currentStateId = this.form.controls['state'].value?.id;
+
+        // Only auto-navigate if we're not already on the recommended form
+        if (currentStateId !== recommendedForm) {
+            const recommendedState = this.states.find(state => state.id === recommendedForm);
+            if (recommendedState) {
+                console.log('Auto-selecting optimal form:', recommendedForm);
+                this.form.controls['state'].setValue(recommendedState, { emitEvent: false });
+                this.emitSelectionChanged();
+            }
+        }
     }
 
     /**
@@ -44,10 +160,8 @@ export class TippSelectorComponent implements OnChanges {
         if (changes.selectionState && changes.selectionState.currentValue) {
             for (const st of this.states) {
                 if (st.id === changes.selectionState.currentValue) {
-                    // this.form.controls['state'].setValue(st, {onlySelf: true});
-                    // this.form.get('state').patchValue(st);
-                    // this.form.get('state').setValue(st);
-                    this.form.controls['state'].setValue(st);
+                    this.form.controls['state'].setValue(st, { emitEvent: false });
+                    this.updateOptimalFlags();
                 }
             }
         }
@@ -62,19 +176,41 @@ export class TippSelectorComponent implements OnChanges {
     onModelChange(event: any): void {
         console.log('onModelChange', event);
 
-        if (event.id === 'desktop') {
-            this.router.navigate(['./tipp']);
-        } else if (event.id === 'small') {
-            this.router.navigate(['./tipp-small']);
-        } else if (event.id === 'mobile') {
-            this.router.navigate(['./tipp-mobile']);
+        if (event && event.id) {
+            // Save user preference when manually selecting
+            this.userPreferenceService.saveTipFormPreference(event.id);
         }
     }
 
-/*
-    public clickButton(): void {
-        console.log('clickButton', this.form.controls['state'].value);
+    /**
+     * Get the current recommended form based on device capabilities
+     */
+    getRecommendedForm(): string {
+        return this.currentDeviceInfo?.recommendedTipForm || 'desktop';
     }
-*/
+
+    /**
+     * Check if a form is currently optimal for the device
+     */
+    isOptimalFormType(formId: string): boolean {
+        return this.currentDeviceInfo?.recommendedTipForm === formId;
+    }
+
+    /**
+     * Get device info for display
+     */
+    getDeviceInfo(): string {
+        if (!this.currentDeviceInfo) return '';
+        
+        const { screenWidth, screenHeight } = this.currentDeviceInfo;
+        return `${screenWidth}×${screenHeight}`;
+    }
+
+    private emitSelectionChanged(): void {
+        this.selectionChanged.emit({
+            state: this.form.controls['state'].value ?? null,
+            autoSelect: !!this.form.controls['autoSelect'].value
+        });
+    }
 
 }

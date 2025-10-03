@@ -175,15 +175,15 @@ export class UpdateMatchdayComponent implements OnInit {
     updateMatchDay() {
         if (this.roundtable.selectedGroup) {
             this.updateMatchdayService
-            .updateMatchday(this.roundtable.seasonId, this.roundtable.table.roundJson, this.roundtable.selectedGroup)
-            .subscribe(
-                (round: Rest.RoundAndTableJson) => {
-                    this.roundtable.table = round;
-                },
-                (error) => {
-                    this.modalService.open('AuthenticationWarningComponent', error.status);
-                }
-            );
+                .updateMatchday(this.roundtable.seasonId, this.roundtable.table.roundJson, this.roundtable.selectedGroup)
+                .subscribe(
+                    (round: Rest.RoundAndTableJson) => {
+                        this.roundtable.table = round;
+                    },
+                    (error) => {
+                        this.modalService.open('AuthenticationWarningComponent', error.status);
+                    }
+                );
         }
     }
 

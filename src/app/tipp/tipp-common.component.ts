@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 
+import { signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { TippService } from './tipp.service';
@@ -96,7 +97,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     season: Rest.SeasonJson | undefined;
     selectedRound: Rest.RoundJson | undefined;
 
-    contentReady = false;
+    contentReady = signal(false);
 
     constructor(private sessionService: SessionService, private tippService: TippService, private navigationRouterService: NavigationRouterService) {
         this.submitButtonModel = new SubmitButtonModel();
@@ -111,7 +112,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
         });
     }
 
-    checkAuthorization() {
+    private checkAuthorization() {
         if (this.sessionService.isAuthorized()) {
             this.tippModelContainer.nickname = this.sessionService.getNickname();
             this.tippModelContainer.authenticated = true;
@@ -169,7 +170,7 @@ export abstract class TippCommonComponent /*implements OnInit*/ {
     }
 
     private updateContentReady() {
-        this.contentReady = true;
+        this.contentReady.set(true);
     }
 
     onInit() {

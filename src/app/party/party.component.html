@@ -10,12 +10,13 @@
                 <th scope="col">Telefon</th>
                 <th scope="col">Email</th>
                 <th scope="col">Password</th>
+                <th scope="col">EMail Notification</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let party of partiesModel">
                 <td>
-                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateParty(party)">
+                    <button class="btn btn-primary btn-sm" type="submit" (click)="updateParty(party)" title="Update Party">
                         <i class="bi bi-gear"></i>
                     </button>
                 </td>
@@ -25,6 +26,7 @@
                 <td>{{party.phone}}</td>
                 <td>{{party.mail}}</td>
                 <td>{{party.password}}</td>
+                <td>{{party.emailNotificationEnabled}}</td>
             </tr>
         </tbody>
     </table>

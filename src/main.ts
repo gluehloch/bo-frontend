@@ -20,6 +20,7 @@ import { PartyComponent } from './app/party/party.component';
 
 import { SeasonComponent } from './app/season/season.component';
 import { RankingComponent } from './app/ranking/ranking.component';
+import { TippDesktopComponent } from './app/tipp/tipp-desktop.component';
 import { TippMobileComponent } from './app/tipp/tipp-mobile.component';
 import { TippSmallComponent } from './app/tipp/tipp-small.component';
 import { TippComponent } from './app/tipp/tipp.component';
@@ -59,7 +60,11 @@ import { httpInterceptorProviders } from './app/interceptors';
 import { CommunityUpdateService } from './app/admin/community/update/communityupdate.service';
 import { ResearchService } from './app/research/research.service';
 import { ResearchComponent } from './app/research/research.component';
-
+import { ProfileService } from './app/profile/profile.service';
+import { ProfileComponent } from './app/profile/profile.component';
+import { ProfileConfirmComponent } from './app/profile/profile-confirm.component';
+import { ResponsiveService } from './app/shared/responsive.service';
+import { UserPreferenceService } from './app/shared/user-preference.service';
 
 if (environment.production) {
     enableProdMode();
@@ -89,6 +94,7 @@ bootstrapApplication(AppComponent, {
         SeasonService,
         PartyService,
         PartyUpdateService,
+        ProfileService,
         TeamService,
         TeamUpdateService,
         SeasonManagerService,
@@ -99,6 +105,8 @@ bootstrapApplication(AppComponent, {
         UpdateMatchService,
         CommunityAdminService,
         CommunityUpdateService,
+        ResponsiveService,
+        UserPreferenceService,
         ModalService,
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi()),
@@ -129,6 +137,11 @@ bootstrapApplication(AppComponent, {
                 canActivate: [UserCanActivate]
             },
             {
+                path: 'tipp-desktop',
+                component: TippDesktopComponent,
+                canActivate: [UserCanActivate]
+            },
+            {
                 path: 'tipp-small',
                 component: TippSmallComponent,
                 canActivate: [UserCanActivate]
@@ -150,6 +163,16 @@ bootstrapApplication(AppComponent, {
                 path: 'research',
                 component: ResearchComponent
             },
+            {
+                path: 'profile',
+                component: ProfileComponent,
+                canActivate: [UserCanActivate]
+            },
+            {
+                path: 'profile-confirm/:confirmationToken',
+                component: ProfileConfirmComponent,
+                canActivate: [UserCanActivate]
+            },            
             {
                 path: 'chiefop/party',
                 component: PartyComponent,

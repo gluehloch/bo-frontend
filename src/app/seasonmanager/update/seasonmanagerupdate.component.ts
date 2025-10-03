@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { SeasonManagerUpdateService } from './seasonmanagerupdate.service';
 import { UpdateSeasonModel } from './update-season-model';
-import { forkJoin } from 'rxjs';
+
 import { FormsModule } from '@angular/forms';
 import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 

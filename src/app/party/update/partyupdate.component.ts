@@ -17,6 +17,7 @@ class PartyModel implements Rest.PartyJson {
     mail: string;
     password: string;
     title: string;
+    emailNotificationEnabled: boolean;
 
     constructor() {
         this.id = 0;
@@ -27,6 +28,7 @@ class PartyModel implements Rest.PartyJson {
         this.mail = '';
         this.password = '';
         this.title = '';
+        this.emailNotificationEnabled = false;
     }
 
     copy(party: Rest.PartyJson) {
@@ -38,6 +40,7 @@ class PartyModel implements Rest.PartyJson {
         this.title = party.title;
         this.mail = party.mail;
         this.phone = party.phone;
+        this.emailNotificationEnabled = party.emailNotificationEnabled;
     }
 }
 

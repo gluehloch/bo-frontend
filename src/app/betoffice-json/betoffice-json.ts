@@ -84,6 +84,7 @@ declare namespace Rest {
         phone: string;
         password: string;
         title: string;
+        emailNotificationEnabled: boolean;
     }
 
     type RoundAndTableJson = {
@@ -184,6 +185,16 @@ declare namespace Rest {
         season: SeasonJson;
         round: RoundJson;
         users: UserJson[];
+    }
+
+    type UserProfileJson = {
+        nickname: string;
+        name: string | undefined;
+        surname: string | undefined;
+        mail: string | undefined;
+        emailNotificationEnabled: boolean | undefined;
+        alternativeMail: string | undefined;
+        phone: string | undefined;
     }
 
     type AbstractOpenligaid = AbstractIdentifier & OpenligaObject & {

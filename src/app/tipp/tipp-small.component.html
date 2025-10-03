@@ -11,11 +11,6 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col">
-            <app-tipp-selector selectionState="small"></app-tipp-selector>
-        </div>
-    </div>
-    <div class="row mb-3">
         <div class="col" *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
             <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
             <div>
@@ -35,10 +30,15 @@
     </div>
 
     <div *ngIf="tippModelContainer.authenticated && tippModelContainer.round">
-        <h2>{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
-        <h3>{{tippModelContainer.round.index}}. Spieltag / {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}</h3>
-
-        <form name="tippform" novalidate>
+        <h2 style="text-align: center;">{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
+        <h3 style="text-align: center;">
+            {{tippModelContainer.round.index}}. Spieltag /
+            <!--
+            <i class="bi bi-calendar-event" style="font-size: 0.9em; vertical-align: middle;"></i>
+            -->
+            {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}
+        </h3>
+        <form name="tippform" novalidate> 
             <div class="row mb-3">
                 <div class="btn-group" role="group" aria-label="Nächster Letzer">
                     <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="col">
                     <div class="alert alert-primary" role="alert" style="text-align: center">
-                        Punktzahl Spieltag: <b>{{tippModelContainer.summedUpPoints}}</b>
+                        <i class="bi bi-trophy"></i> Punktzahl Spieltag: <b>{{tippModelContainer.summedUpPoints}}</b>
                     </div>
                 </div>
             </div>
@@ -80,11 +80,15 @@
 
                 <div class="row">
                     <div class="col" *ngIf="index === 0">
-                        <div style="text-align:left"><small>{{tipp.game.dateTime | date: dateTimeFormat}}</small></div>
+                        <div style="text-align:left">
+                            <small>{{tipp.game.dateTime | date: dateTimeFormat}}</small>
+                        </div>
                     </div>
                     <div class="col"
                         *ngIf="index > 0 && (tippModelContainer.tippModels[index].game.dateTime !== tippModelContainer.tippModels[index - 1].game.dateTime)">
-                        <div style="text-align:left"><small>{{tipp.game.dateTime | date: dateTimeFormat}}</small></div>
+                        <div style="text-align:left">
+                            <small>{{tipp.game.dateTime | date: dateTimeFormat}}</small>
+                        </div>
                     </div>
                 </div>
 
@@ -126,7 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                    </ng-template>>
+                    </ng-template>
                 </ng-template>
 
                 <ng-template #gameIsNotFinished>
