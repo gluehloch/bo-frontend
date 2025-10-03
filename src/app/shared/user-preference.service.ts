@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+export type TipFormType = 'desktop' | 'small' | 'mobile';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,7 @@ export class UserPreferenceService {
   /**
    * Save user's tip form preference
    */
-  saveTipFormPreference(formType: string): void {
+  saveTipFormPreference(formType: TipFormType): void {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(this.TIP_FORM_PREFERENCE_KEY, formType);
     }
@@ -22,9 +24,12 @@ export class UserPreferenceService {
   /**
    * Get user's saved tip form preference
    */
-  getTipFormPreference(): string | null {
+  getTipFormPreference(): TipFormType | null {
     if (typeof localStorage !== 'undefined') {
-      return localStorage.getItem(this.TIP_FORM_PREFERENCE_KEY);
+      const setting = localStorage.getItem(this.TIP_FORM_PREFERENCE_KEY) ;
+      if (setting === 'desktop' || setting === 'small' || setting === 'mobile') {
+        return setting;
+      }
     }
     return null;
   }

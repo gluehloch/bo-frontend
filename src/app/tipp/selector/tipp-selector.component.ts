@@ -6,10 +6,10 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { Subscription } from 'rxjs';
 
 import { ResponsiveService, DeviceInfo } from '../../shared/responsive.service';
-import { UserPreferenceService } from '../../shared/user-preference.service';
+import { TipFormType, UserPreferenceService } from '../../shared/user-preference.service';
 
 export interface TipFormState {
-    id: 'desktop' | 'small' | 'mobile';
+    id: TipFormType;
     name: 'Desktop' | 'Kompakt' | 'Mobile';
     description: string;
     icon: string;
@@ -106,8 +106,13 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
 
         let tippFormPreference = this.userPreferenceService.getTipFormPreference();
         if (tippFormPreference === null) {
+            // Auto form detection disabled and user has no preference, then set tipp form to recommended device layout
             const deviceInfo = this.responsiveService.getCurrentDevice();
-            this.userPreferenceService.saveTipFormPreference(deviceInfo.recommendedTipForm);
+            const selectedState = this.states.find(st => st.id === deviceInfo.recommendedTipForm) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
+        } else if (tippFormPreference && !this.isAutoSelectEnabled) {
+            const selectedState = this.states.find(st => st.id === tippFormPreference) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
         } else {
             const selectedState = this.states.find(st => st.id === tippFormPreference) ?? this.states[0];
             this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
