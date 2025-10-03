@@ -11,11 +11,6 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col">
-            <app-tipp-selector selectionState="small"></app-tipp-selector>
-        </div>
-    </div>
-    <div class="row mb-3">
         <div class="col" *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
             <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
             <div>

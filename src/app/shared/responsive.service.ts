@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, fromEvent } from 'rxjs';
 import { debounceTime, map, startWith } from 'rxjs/operators';
+import { TipFormType } from './user-preference.service';
 
 export interface DeviceInfo {
   isMobile: boolean;
@@ -8,7 +9,7 @@ export interface DeviceInfo {
   isDesktop: boolean;
   screenWidth: number;
   screenHeight: number;
-  recommendedTipForm: string;
+  recommendedTipForm: TipFormType;
 }
 
 @Injectable({
@@ -50,7 +51,7 @@ export class ResponsiveService {
     const isDesktop = width >= this.breakpoints.desktop;
 
     // Determine recommended tip form based on screen size and capabilities
-    let recommendedTipForm: string;
+    let recommendedTipForm: 'desktop' | 'small' | 'mobile' = 'desktop';
     
     if (isMobile) {
       recommendedTipForm = 'mobile';
@@ -101,14 +102,14 @@ export class ResponsiveService {
   /**
    * Get the recommended tip form for current device
    */
-  getRecommendedTipForm(): string {
+  getRecommendedTipForm(): TipFormType{
     return this.getCurrentDevice().recommendedTipForm;
   }
 
   /**
    * Check if the given form is optimal for the current device
    */
-  isOptimalForm(formType: string): boolean {
+  isOptimalForm(formType: TipFormType): boolean {
     return this.getRecommendedTipForm() === formType;
   }
 }

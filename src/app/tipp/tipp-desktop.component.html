@@ -1,0 +1,155 @@
+<div>
+    <app-spinner [enabled]="!contentReady"/>
+    <div class="row mb-3">
+        <div class="col" *ngIf="!tippModelContainer.authenticated">
+            <div class="form-group">
+                <p class="alert alert-warning">
+                    Du bist noch nicht angemeldet.
+                    <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col" *ngIf="tippModelContainer.authenticated && !tippModelContainer.round">
+            <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
+            <div>
+                Hier kannst du dir deinen letzten Tipp anschauen.
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <form id="selectRound" name="selectRound">
+            <label for="selectRound" class="form-label">Runde auswählen:</label>
+            <select title="Select round" name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
+                <option *ngFor="let round of season?.rounds" [value]="round.id" [selected]="selectedRound?.id == round.id">
+                    {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
+                </option>
+            </select>
+        </form>
+    </div>
+
+    <div *ngIf="tippModelContainer.authenticated && tippModelContainer.round">
+        <h2>{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
+        <h3>{{tippModelContainer.round.index}}. Spieltag am {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}</h3>
+        <form id="tippform" name="tippform" novalidate>
+            <table class="table table-striped table-sm desktop">
+                <thead>
+                    <tr>
+                        <th class="hidden-xs" style="text-align:right">Datum</th>
+                        <th style="text-align:right">Heimmannschaft</th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align:left">Gastmannschaft</th>
+                        <th class="hidden-xs">Tore</th>
+                        <th colspan="2">Tipp</th>
+                        <th style="text-align:right">Punkte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tipp of tippModelContainer.tippModels">
+                        <td class="hidden-xs" style="text-align:right">{{tipp.game.dateTime | date: dateTimeFormat}}</td>
+                        <td style="text-align: right">
+                            {{tipp.game.homeTeam.name}}
+                        </td>
+                        <td>
+                            <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}"
+                                title="{{tipp.game.homeTeam.shortName}}"
+                                style="max-width:100%; min-height: auto;">
+                        </td>
+                        <td style="text-align: left">
+                            <img class="teamlogo" src="{{tipp.game.guestTeam.logo}}"
+                                title="{{tipp.game.guestTeam.shortName}}"
+                                style="max-width:100%; min-height: auto;">
+                        </td>
+                        <td>
+                            {{tipp.game.guestTeam.name}}
+                        </td>
+                        <td class="hidden-xs">
+                            <app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult>
+                        </td>
+                        <td>
+                            <input class="form-control" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
+                                name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" max="15" min="0" type="number" size="1"
+                                [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.homeGoals}}" [(ngModel)]="tipp.homeGoals" />
+                        </td>
+                        <td>
+                            <input class="form-control" id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
+                                name="{{tippModelContainer.round.id}}gast{{tipp.game.id}}" max="15" min="0" type="number" size="1"
+                                [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.guestGoals}}" [(ngModel)]="tipp.guestGoals" />
+                        </td>
+                        <td *ngIf="tipp.game.finished" style="text-align:right"
+                            [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
+                            <b></b>{{tipp.points}}
+                        </td>
+                        <td *ngIf="!tipp.game.finished">
+                        </td>
+                    </tr>
+                    <!--
+            <tr>
+            <td colspan="6" style="text-align:right; font-weight: bold">Gesamt</td>
+            <td style="text-align:right; font-weight: bold">{{tippModelContainer.points}}</td>
+            </tr>
+            -->
+                </tbody>
+            </table>
+
+            <!-- Naechster und Letzer Spieltag -->
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-primary" role="alert" style="text-align: center">
+                        Punktzahl Spieltag: <b>{{tippModelContainer.summedUpPoints}}</b>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group" *ngIf="tippModelContainer.modified">
+                <div class="col">
+                    <div class="alert alert-warning" role="alert" style="text-align: center">
+                        <strong>ACHTUNG:</strong> Deine Änderungen sind noch nicht gespeichert!
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group" *ngIf="this.submitButtonModel.responseStatusCode == 200">
+                <div class="col">
+                    <div class="alert alert-success">
+                        Dein Tipp wurde erfolgreich gespeichert!
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group" *ngIf="this.submitButtonModel.responseStatusCode == 403">
+                <div class="col">
+                    <div class="alert alert-danger">
+                        Dein Authentifizierungstoken ist abgelaufen. Melde dich bitte neu an.
+                        <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+                    </div>
+                </div>
+            </div>
+            <!--
+        <div class="row form-group">
+            <div class="col">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{submitButtonModel.progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            </div>
+        </div>
+        -->
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="d-grid gap-5">
+                        <button class="btn btn-primary btn-lg" type="button" (click)="submitTipp()"
+                            *ngIf="tippModelContainer.authenticated && tippModelContainer.round.tippable">Tipp</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="btn-group" role="group" aria-label="Nächster Letzer">
+                    <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
+                        *ngIf="tippModelContainer.round.index > 1">
+                        <i class="bi bi-caret-left-fill"></i> Letzter</button>
+                    <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
+                        *ngIf="!tippModelContainer.round.lastRound">Nächster <i class="bi bi-caret-right-fill"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

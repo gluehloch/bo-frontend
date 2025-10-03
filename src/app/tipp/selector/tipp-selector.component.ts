@@ -1,15 +1,16 @@
-import { Component, Input, OnChanges, OnInit, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, OnDestroy, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgFor, NgClass, NgIf, TitleCasePipe } from '@angular/common';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { Subscription } from 'rxjs';
 
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgFor, NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { ResponsiveService, DeviceInfo } from '../../shared/responsive.service';
-import { UserPreferenceService } from '../../shared/user-preference.service';
+import { TipFormType, UserPreferenceService } from '../../shared/user-preference.service';
 
-interface TipFormState {
-    id: string;
-    name: string;
+export interface TipFormState {
+    id: TipFormType;
+    name: 'Desktop' | 'Kompakt' | 'Mobile';
     description: string;
     icon: string;
     isOptimal?: boolean;
@@ -25,7 +26,7 @@ interface TipFormState {
 export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
 
     @Input() selectionState: string | undefined;
-    @Input() demoMode: boolean = false;
+    @Output() selectionChanged = new EventEmitter<{ state: TipFormState | null, autoSelect: boolean }>();
 
     states: TipFormState[] = [
         {
@@ -96,6 +97,26 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
             }
         });
         this.subscriptions.push(autoSelectSub);
+
+        const stateSelectSub = this.form.controls['state'].valueChanges.subscribe(value => {
+            this.onModelChange(value);
+            this.emitSelectionChanged();
+        });
+        this.subscriptions.push(stateSelectSub);
+
+        let tippFormPreference = this.userPreferenceService.getTipFormPreference();
+        if (tippFormPreference === null) {
+            // Auto form detection disabled and user has no preference, then set tipp form to recommended device layout
+            const deviceInfo = this.responsiveService.getCurrentDevice();
+            const selectedState = this.states.find(st => st.id === deviceInfo.recommendedTipForm) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
+        } else if (tippFormPreference && !this.isAutoSelectEnabled) {
+            const selectedState = this.states.find(st => st.id === tippFormPreference) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
+        } else {
+            const selectedState = this.states.find(st => st.id === tippFormPreference) ?? this.states[0];
+            this.form.setValue({state: selectedState, autoSelect: this.isAutoSelectEnabled}, { emitEvent: true });
+        }
     }
 
     ngOnDestroy() {
@@ -122,7 +143,7 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
             if (recommendedState) {
                 console.log('Auto-selecting optimal form:', recommendedForm);
                 this.form.controls['state'].setValue(recommendedState, { emitEvent: false });
-                this.navigateToForm(recommendedState);
+                this.emitSelectionChanged();
             }
         }
     }
@@ -158,22 +179,6 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
         if (event && event.id) {
             // Save user preference when manually selecting
             this.userPreferenceService.saveTipFormPreference(event.id);
-            this.navigateToForm(event);
-        }
-    }
-
-    private navigateToForm(state: TipFormState): void {
-        if (this.demoMode) {
-            console.log('Demo mode: Would navigate to', state.id);
-            return;
-        }
-        
-        if (state.id === 'desktop') {
-            this.router.navigate(['./tipp']);
-        } else if (state.id === 'small') {
-            this.router.navigate(['./tipp-small']);
-        } else if (state.id === 'mobile') {
-            this.router.navigate(['./tipp-mobile']);
         }
     }
 
@@ -201,10 +206,11 @@ export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
         return `${screenWidth}×${screenHeight}`;
     }
 
-/*
-    public clickButton(): void {
-        console.log('clickButton', this.form.controls['state'].value);
+    private emitSelectionChanged(): void {
+        this.selectionChanged.emit({
+            state: this.form.controls['state'].value ?? null,
+            autoSelect: !!this.form.controls['autoSelect'].value
+        });
     }
-*/
 
 }

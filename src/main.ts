@@ -20,6 +20,7 @@ import { PartyComponent } from './app/party/party.component';
 
 import { SeasonComponent } from './app/season/season.component';
 import { RankingComponent } from './app/ranking/ranking.component';
+import { TippDesktopComponent } from './app/tipp/tipp-desktop.component';
 import { TippMobileComponent } from './app/tipp/tipp-mobile.component';
 import { TippSmallComponent } from './app/tipp/tipp-small.component';
 import { TippComponent } from './app/tipp/tipp.component';
@@ -64,8 +65,6 @@ import { ProfileComponent } from './app/profile/profile.component';
 import { ProfileConfirmComponent } from './app/profile/profile-confirm.component';
 import { ResponsiveService } from './app/shared/responsive.service';
 import { UserPreferenceService } from './app/shared/user-preference.service';
-import { ResponsiveDemoComponent } from './app/demo/responsive-demo.component';
-
 
 if (environment.production) {
     enableProdMode();
@@ -121,10 +120,6 @@ bootstrapApplication(AppComponent, {
                 component: HomeComponent
             },
             {
-                path: 'demo',
-                component: ResponsiveDemoComponent
-            },
-            {
                 path: 'register',
                 component: RegistrationComponent
             },
@@ -139,6 +134,11 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'tipp',
                 component: TippComponent,
+                canActivate: [UserCanActivate]
+            },
+            {
+                path: 'tipp-desktop',
+                component: TippDesktopComponent,
                 canActivate: [UserCanActivate]
             },
             {
