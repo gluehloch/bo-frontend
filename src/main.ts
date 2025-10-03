@@ -65,8 +65,6 @@ import { ProfileComponent } from './app/profile/profile.component';
 import { ProfileConfirmComponent } from './app/profile/profile-confirm.component';
 import { ResponsiveService } from './app/shared/responsive.service';
 import { UserPreferenceService } from './app/shared/user-preference.service';
-import { ResponsiveDemoComponent } from './app/demo/responsive-demo.component';
-
 
 if (environment.production) {
     enableProdMode();
@@ -120,10 +118,6 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'home',
                 component: HomeComponent
-            },
-            {
-                path: 'demo',
-                component: ResponsiveDemoComponent
             },
             {
                 path: 'register',
