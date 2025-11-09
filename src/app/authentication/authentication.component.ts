@@ -72,6 +72,14 @@ export class AuthenticationComponent implements OnInit {
         }
     }
 
+    startGoogleIamLogin() {
+        fetch('http://localhost:9999/betoffice-boot/authentication/google/login-url')
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = data.url;
+            });
+    }
+
     login() {
         const login = {
             nickname: this.authenticationModel.nickname,

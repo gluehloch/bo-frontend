@@ -33,6 +33,10 @@
                         <button ng-disabled="loginform.$invalid" class="btn btn-lg btn-primary btn-block" type="submit"
                             (click)="login()">Sign in</button>
                     </div>
+                    <div class="d-grid gap-2">
+                        <button ng-disabled="loginform.$invalid" class="btn btn-lg btn-secondary btn-block" type="submit"
+                            (click)="startGoogleIamLogin()">Sign in with Google</button>
+                    </div>                    
                 </form>
             </div>
         </div>
