@@ -29,6 +29,10 @@ export class HomeComponent implements OnInit {
                 this.teilnehmer = userTable;
                 this.navigationRouterService.activate(NavigationRouterService.ROUTE_HOME);
             });
+
+        this.homeService.googleIamStatus().subscribe((status: any) => {
+            console.log('Google IAM Status: ', status);
+        });
     }
 
 }

@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../environments/environment';
 import { BetofficeService } from '../betoffice.service';
 import { SessionService } from '../session/session.service';
 
@@ -18,6 +17,10 @@ export class HomeService extends BetofficeService {
 
     calculate(seasonId: number): Observable<Rest.UserTableJson> {
         return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/season/' + seasonId);
+    }
+
+    googleIamStatus(): Observable<any> {
+        return this.http.get<any>(this.authenticationUrl + 'google/status');
     }
 
 }
