@@ -186,8 +186,8 @@
 }
 
 .team-logo {
-    width: 32px;
-    height: 32px;
+    width: 64px;
+    height: 64px;
     object-fit: contain;
     border-radius: 4px;
 }
@@ -267,7 +267,7 @@
     border: 2px solid #6c757d;
     background-color: white;
     color: #6c757d;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all 0.2s ease;
     min-width: 50px;
 }
