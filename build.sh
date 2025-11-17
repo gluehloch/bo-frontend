@@ -6,7 +6,7 @@ usage() {
     echo -e "\t-t, --target Defines the deployment directory."
     echo -e "\t--deploy-dev Deploy to dev.tippdiekistebier.de"
     echo -e "\t--deploy-test Deploy to test.tippdiekistebier.de"
-    echo -e "\t--deploy-prelive Deploy to prelive.tippdiekistebier.de"
+    echo -e "\t--deploy-prep Deploy to prep.tippdiekistebier.de"
     echo -e "\t--deploy-prod Deploy to tippdiekistebier.de"
     exit 1 # Exit script after printing help
 }
@@ -17,12 +17,12 @@ die() {
 }
 
 upload() {
-    echo "scp ${DIST_DIR}/${DIST_TARGZ} $1.tdkb2:~/projects/upload"
-    scp $DIST_DIR/$DIST_TARGZ $1.tdkb2:~/projects/upload
-    ssh $1.tdkb2 << EOF
-        cd ~/projects/upload
-        cp betoffice.tar.gz ~/www
-        cd ~/www
+    echo "scp ${DIST_DIR}/${DIST_TARGZ} $1.tdkb3:~/dev/tmp/upload"
+    scp $DIST_DIR/$DIST_TARGZ $1.tdkb3:~/dev/tmp/upload
+    ssh $1.tdkb3 << EOF
+        cd ~/dev/tmp/upload
+        cp betoffice.tar.gz ~/dev/tmp/www
+        cd ~/dev/tmp/www
         tar -xzf betoffice.tar.gz
 EOF
 }
@@ -39,7 +39,7 @@ while [ "$1" != "" ]; do
                         ;;
         --deploy-test ) DEPLOY_TEST=1
                         ;;
-        --deploy-prelive ) DEPLOY_PRELIVE=1
+        --deploy-prep ) DEPLOY_PREP=1
                         ;;
         --deploy-prod ) DEPLOY_PROD=1
                         ;;
@@ -106,7 +106,7 @@ then
     upload "botest";
 fi
 
-if [[ $DEPLOY_PRELIVE -eq 1 ]]
+if [[ $DEPLOY_PREP -eq 1 ]]
 then
     upload "boprelive"
 fi
