@@ -4,10 +4,10 @@ usage() {
     echo "Usage: $0 -d projectdir -t targetdir"
     echo -e "\t-d, --dir Defines the project directory."
     echo -e "\t-t, --target Defines the deployment directory."
-    echo -e "\t--deploy-dev Deploy to dev.tippdiekistebier.de"
-    echo -e "\t--deploy-test Deploy to test.tippdiekistebier.de"
-    echo -e "\t--deploy-prelive Deploy to prelive.tippdiekistebier.de"
-    echo -e "\t--deploy-prod Deploy to tippdiekistebier.de"
+    echo -e "\t--dev Deploy to dev.tippdiekistebier.de"
+    echo -e "\t--test Deploy to test.tippdiekistebier.de"
+    echo -e "\t--prep Deploy to prep.tippdiekistebier.de"
+    echo -e "\t--prod Deploy to tippdiekistebier.de"
     exit 1 # Exit script after printing help
 }
 
@@ -35,13 +35,13 @@ while [ "$1" != "" ]; do
         -t | --target ) shift
                         TARGET_DIR=$1
                         ;;
-        --deploy-dev )  DEPLOY_DEV=1
+        --dev )  DEPLOY_DEV=1
                         ;;
-        --deploy-test ) DEPLOY_TEST=1
+        ---test ) DEPLOY_TEST=1
                         ;;
-        --deploy-prelive ) DEPLOY_PRELIVE=1
+        --prep ) DEPLOY_PRELIVE=1
                         ;;
-        --deploy-prod ) DEPLOY_PROD=1
+        --prod ) DEPLOY_PROD=1
                         ;;
         -h | --help )   usage
                         ;;
