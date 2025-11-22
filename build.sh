@@ -27,6 +27,10 @@ upload() {
 EOF
 }
 
+copy() {
+    echo "Copying to $1"
+}
+
 while [ "$1" != "" ]; do 
     case $1 in
         -d | --dir )    shift
@@ -39,7 +43,7 @@ while [ "$1" != "" ]; do
                         ;;
         ---test ) DEPLOY_TEST=1
                         ;;
-        --deploy-prep ) DEPLOY_PREP=1
+        --prep ) DEPLOY_PREP=1
                         ;;
         --prod ) DEPLOY_PROD=1
                         ;;
@@ -52,17 +56,17 @@ done
 
 if [ -z "$DIR" ]
 then
-    DIR=$(pwd)    
+    DIR=$(pwd)
 fi
 
 echo "Start building betoffice web ..."
 
-#if [ -z "$TARGET_DIR" ]
-#then
-#    echo "Target directory: Undefined. Start build without deployment."
-#else
-#   echo "Project directory: ${TARGET_DIR}"
-#fi
+if [ -z "$TARGET_DIR" ]
+then
+    echo "Target directory: Undefined. Start build without deployment."
+else
+   echo "Project directory: ${TARGET_DIR}"
+fi
 
 DIST_TARGZ=betoffice.tar.gz
 DIST_DIR=${DIR}/dist/angularapp

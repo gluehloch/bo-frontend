@@ -41,7 +41,8 @@ class AuthenticationModel {
 })
 export class AuthenticationComponent implements OnInit {
 
-    dateTimeFormat = environment.dateTimeFormat;
+    readonly authenticationUrl = environment.authenticationUrl
+    readonly dateTimeFormat = environment.dateTimeFormat;
     authenticationModel: AuthenticationModel;
 
     constructor(
@@ -74,7 +75,8 @@ export class AuthenticationComponent implements OnInit {
 
     startGoogleIamLogin() {
         // TODO Umgebungsabängig / Spring Boot für localhost Development
-        window.location.href = 'http://localhost:9999/betoffice-boot/authentication/google/login-url';
+        // 'http://localhost:9999/betoffice-boot/authentication/google/login-url'
+        window.location.href =  this.authenticationUrl + 'google/login-url';
     }
 
     login() {

@@ -65,6 +65,7 @@ import { ProfileComponent } from './app/profile/profile.component';
 import { ProfileConfirmComponent } from './app/profile/profile-confirm.component';
 import { ResponsiveService } from './app/shared/responsive.service';
 import { UserPreferenceService } from './app/shared/user-preference.service';
+import { GoogleAuthenticationCallbackComponent } from './app/authentication/google-authentication-callback.component';
 
 if (environment.production) {
     enableProdMode();
@@ -130,6 +131,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'logout',
                 component: AuthenticationComponent
+            },
+            {
+                path: 'google-auth-callback',
+                component: GoogleAuthenticationCallbackComponent
             },
             {
                 path: 'tipp',
