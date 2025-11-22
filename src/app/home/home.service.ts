@@ -19,8 +19,4 @@ export class HomeService extends BetofficeService {
         return this.http.get<Rest.UserTableJson>(this.rootUrl + 'ranking/season/' + seasonId);
     }
 
-    googleIamStatus(): Observable<any> {
-        return this.http.get<any>(this.authenticationUrl + 'google/status');
-    }
-
 }

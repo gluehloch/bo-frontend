@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HomeService } from './home.service';
-import { NavigationRouterService } from '../navigationrouter.service';
-import { environment } from '../../environments/environment';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
+import { environment } from '../../environments/environment';
+
+import { HomeService } from './home.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 
 @Component({
     selector: 'app-home',
@@ -29,10 +31,6 @@ export class HomeComponent implements OnInit {
                 this.teilnehmer = userTable;
                 this.navigationRouterService.activate(NavigationRouterService.ROUTE_HOME);
             });
-
-        this.homeService.googleIamStatus().subscribe((status: any) => {
-            console.log('Google IAM Status: ', status);
-        });
     }
 
 }
