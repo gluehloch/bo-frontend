@@ -152,7 +152,8 @@ interface ValidationCodeToInputFieldMapper {
     selector: 'app-registration',
     templateUrl: './registration.component.html',
     styleUrls: ['./registration.component.css'],
-    imports: [FormsModule]
+    imports: [FormsModule],
+    standalone: true,
 })
 export class RegistrationComponent implements OnInit {
 

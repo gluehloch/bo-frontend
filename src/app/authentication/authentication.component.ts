@@ -36,7 +36,8 @@ class AuthenticationModel {
     selector: 'app-authentication',
     templateUrl: './authentication.component.html',
     styleUrls: ['./authentication.component.css'],
-    imports: [FormsModule, DatePipe]
+    imports: [FormsModule, DatePipe],
+    standalone: true,
 })
 export class AuthenticationComponent implements OnInit {
 

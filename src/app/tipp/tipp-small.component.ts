@@ -15,6 +15,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     selector: 'app-tipp-small',
     templateUrl: './tipp-small.component.html',
     styleUrls: ['./tipp-small.component.css'],
+    standalone: true,
     imports: [SpinnerComponent, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, GameResultComponent, NgClass, DatePipe]
 })
 export class TippSmallComponent extends TippCommonComponent implements OnInit {

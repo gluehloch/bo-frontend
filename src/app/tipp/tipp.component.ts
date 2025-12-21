@@ -21,6 +21,7 @@ import { TippDesktopComponent } from './tipp-desktop.component';
     selector: 'app-tipp',
     templateUrl: './tipp.component.html',
     styleUrls: ['./tipp.component.css'],
+    standalone: true,
     imports: [SpinnerComponent, TippSelectorComponent, FormsModule, TippSmallComponent, TippMobileComponent, TippDesktopComponent]
 })
 export class TippComponent extends TippCommonComponent implements OnInit {

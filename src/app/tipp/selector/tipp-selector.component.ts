@@ -20,7 +20,8 @@ export interface TipFormState {
     selector: 'app-tipp-selector',
     templateUrl: './tipp-selector.component.html',
     styleUrls: ['./tipp-selector.component.css'],
-    imports: [FormsModule, ReactiveFormsModule, NgClass, TitleCasePipe]
+    imports: [FormsModule, ReactiveFormsModule, NgClass, TitleCasePipe],
+    standalone: true,
 })
 export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
 

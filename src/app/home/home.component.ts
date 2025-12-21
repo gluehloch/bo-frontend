@@ -10,7 +10,8 @@ import { RouterLink } from '@angular/router';
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
-    imports: [RouterLink]
+    imports: [RouterLink],
+    standalone: true,
 })
 export class HomeComponent implements OnInit {
 

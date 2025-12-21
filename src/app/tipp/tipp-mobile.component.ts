@@ -14,7 +14,8 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     selector: 'app-tipp-mobile',
     templateUrl: './tipp-mobile.component.html',
     styleUrls: ['./tipp-mobile.component.css'],
-    imports: [SpinnerComponent, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, NgClass, DatePipe]
+    imports: [SpinnerComponent, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, NgClass, DatePipe],
+    standalone: true,
 })
 export class TippMobileComponent extends TippCommonComponent implements OnInit {
 

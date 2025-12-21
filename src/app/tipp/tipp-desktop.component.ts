@@ -15,7 +15,8 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     selector: 'app-tipp-desktop',
     templateUrl: './tipp-desktop.component.html',
     styleUrls: ['./tipp-desktop.component.css'],
-    imports: [SpinnerComponent, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, GameResultComponent, NgClass, DatePipe]
+    imports: [SpinnerComponent, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, GameResultComponent, NgClass, DatePipe],
+    standalone: true,
 })
 export class TippDesktopComponent extends TippCommonComponent implements OnInit {
 
