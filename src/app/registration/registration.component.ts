@@ -152,7 +152,6 @@ interface ValidationCodeToInputFieldMapper {
     selector: 'app-registration',
     templateUrl: './registration.component.html',
     styleUrls: ['./registration.component.css'],
-    standalone: true,
     imports: [FormsModule, NgIf]
 })
 export class RegistrationComponent implements OnInit {

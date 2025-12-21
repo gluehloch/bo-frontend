@@ -21,7 +21,6 @@ type HomeOrGuestType = 'HOME' | 'GUEST';
     selector: 'research',
     templateUrl: './research.component.html',
     styleUrls: ['./research.component.css'],
-    standalone: true,
     imports: [NgIf, NgFor, FormsModule, SpinnerComponent]
 })
 export class ResearchComponent implements OnInit {

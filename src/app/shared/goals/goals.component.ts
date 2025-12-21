@@ -13,7 +13,6 @@ class GameDetail {
     selector: 'goals',
     templateUrl: './goals.component.html',
     styleUrls: ['./goals.component.css'],
-    standalone: true,
     imports: [NgIf, NgFor]
 })
 export class GoalsComponent implements OnInit {

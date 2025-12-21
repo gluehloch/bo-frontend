@@ -37,7 +37,6 @@ class MatchModel {
     selector: 'app-match-detail',
     templateUrl: './updatematch.component.html',
     styleUrls: ['./updatematch.component.css'],
-    standalone: true,
     imports: [AuthenticationWarningComponent, NgIf, FormsModule]
 })
 export class UpdateMatchComponent implements OnInit {

@@ -14,7 +14,6 @@ import { ModalService } from "../modal/modal.service";
 @Component({
     selector: 'profil',
     templateUrl: './profile.component.html',
-    standalone: true,
     imports: [NgIf, NgFor, FormsModule, SpinnerComponent, AuthenticationWarningComponent]
 })
 export class ProfileComponent implements OnInit {

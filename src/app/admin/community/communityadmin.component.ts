@@ -13,7 +13,6 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
     selector: 'app-community-admin',
     templateUrl: './communityadmin.component.html',
     styleUrls: ['./communityadmin.component.css'],
-    standalone: true,
     imports: [SpinnerComponent, AuthenticationWarningComponent, NgFor, PagerComponent]
 })
 export class CommunityAdminComponent implements OnInit {

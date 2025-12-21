@@ -12,7 +12,6 @@ import { NgIf, NgFor } from '@angular/common';
     selector: 'party',
     templateUrl: './party.component.html',
     styleUrls: ['./party.component.css'],
-    standalone: true,
     imports: [NgIf, NgFor]
 })
 export class PartyComponent implements OnInit {

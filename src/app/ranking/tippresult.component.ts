@@ -6,7 +6,6 @@ import { NgIf, NgClass } from '@angular/common';
     selector: 'app-tippresult',
     templateUrl: './tippresult.component.html',
     styleUrls: ['./tippresult.component.css'],
-    standalone: true,
     imports: [NgIf, NgClass]
 })
 export class TippResultComponent implements OnInit {

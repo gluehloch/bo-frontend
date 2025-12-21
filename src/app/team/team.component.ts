@@ -15,7 +15,6 @@ type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
     selector: 'teams',
     templateUrl: './team.component.html',
     styleUrls: ['./team.component.css'],
-    standalone: true,
     imports: [NgIf, FormsModule, NgFor, TeamFilter]
 })
 export class TeamComponent implements OnInit {

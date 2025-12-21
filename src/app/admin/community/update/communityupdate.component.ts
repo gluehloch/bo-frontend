@@ -27,8 +27,7 @@ type PartialCommunityJson = {
     selector: 'app-community-update',
     templateUrl: './communityupdate.component.html',
     styleUrls: ['./communityupdate.component.css'],
-    standalone: true,
-    imports: [SpinnerComponent, AuthenticationWarningComponent, NgFor, NgIf, FormsModule],
+    imports: [SpinnerComponent, AuthenticationWarningComponent, NgFor, NgIf, FormsModule]
 })
 export class CommunityUpdateComponent implements OnInit {
 

@@ -66,7 +66,6 @@ class NavMenu {
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
-    standalone: true,
     imports: [RouterLink, NgIf]
 })
 export class NavbarComponent {

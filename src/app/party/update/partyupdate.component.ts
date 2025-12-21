@@ -48,7 +48,6 @@ class PartyModel implements Rest.PartyJson {
     selector: 'party',
     templateUrl: './partyupdate.component.html',
     styleUrls: ['./partyupdate.component.css'],
-    standalone: true,
     imports: [FormsModule]
 })
 export class PartyUpdateComponent implements OnInit {

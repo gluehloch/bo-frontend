@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-season-manager-create',
     templateUrl: './seasonmanagercreate.component.html',
     styleUrls: ['./seasonmanagercreate.component.css'],
-    standalone: true,
     imports: [FormsModule, NgFor]
 })
 
