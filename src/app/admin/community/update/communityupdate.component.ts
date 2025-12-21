@@ -4,7 +4,7 @@ import { Component, Input, OnInit, signal } from "@angular/core";
 import { CheckableParty } from "./checkable-party";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from "@angular/common";
+
 import { CommunityUpdateService } from "./communityupdate.service";
 
 import { AuthenticationWarningComponent } from '../../../authenticationwarning/authenticationwarning.component';
@@ -27,7 +27,7 @@ type PartialCommunityJson = {
     selector: 'app-community-update',
     templateUrl: './communityupdate.component.html',
     styleUrls: ['./communityupdate.component.css'],
-    imports: [SpinnerComponent, AuthenticationWarningComponent, NgFor, NgIf, FormsModule]
+    imports: [SpinnerComponent, AuthenticationWarningComponent, FormsModule]
 })
 export class CommunityUpdateComponent implements OnInit {
 

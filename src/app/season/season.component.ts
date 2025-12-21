@@ -9,7 +9,7 @@ import { GamesPreprocessor, Processing, SeasonGroupRoundSelectorService } from '
 import { RoundtableModel } from '../shared/seasonroundgame/RoundtableModel';
 import { GoalsComponent } from '../shared/goals/goals.component';
 import { GameResultComponent } from '../shared/gameresult/gameresult.component';
-import { NgFor, NgIf, NgClass, DatePipe } from '@angular/common';
+import { NgClass, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
@@ -27,7 +27,7 @@ class ExpandedGameDetail {
     selector: 'app-seasons',
     templateUrl: './season.component.html',
     styleUrls: ['./season.component.css'],
-    imports: [SpinnerComponent, FormsModule, NgFor, NgIf, GameResultComponent, GoalsComponent, NgClass, DatePipe]
+    imports: [SpinnerComponent, FormsModule, GameResultComponent, GoalsComponent, NgClass, DatePipe]
 })
 export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
 

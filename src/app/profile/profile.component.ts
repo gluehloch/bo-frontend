@@ -1,6 +1,6 @@
 import { Component, OnInit, Signal, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { NgFor, NgIf } from "@angular/common";
+
 import { Router } from "@angular/router";
 
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
@@ -14,7 +14,7 @@ import { ModalService } from "../modal/modal.service";
 @Component({
     selector: 'profil',
     templateUrl: './profile.component.html',
-    imports: [NgIf, NgFor, FormsModule, SpinnerComponent, AuthenticationWarningComponent]
+    imports: [FormsModule, SpinnerComponent, AuthenticationWarningComponent]
 })
 export class ProfileComponent implements OnInit {
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, OnDestroy, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgFor, NgClass, NgIf, TitleCasePipe } from '@angular/common';
+import { NgClass, TitleCasePipe } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ export interface TipFormState {
     selector: 'app-tipp-selector',
     templateUrl: './tipp-selector.component.html',
     styleUrls: ['./tipp-selector.component.css'],
-    imports: [FormsModule, ReactiveFormsModule, NgFor, NgClass, NgIf, TitleCasePipe]
+    imports: [FormsModule, ReactiveFormsModule, NgClass, TitleCasePipe]
 })
 export class TippSelectorComponent implements OnInit, OnChanges, OnDestroy {
 

@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Betoffice } from 'src/app/betoffice-json/model/betoffice-data-model';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 
 class MatchModel {
@@ -37,7 +37,7 @@ class MatchModel {
     selector: 'app-match-detail',
     templateUrl: './updatematch.component.html',
     styleUrls: ['./updatematch.component.css'],
-    imports: [AuthenticationWarningComponent, NgIf, FormsModule]
+    imports: [AuthenticationWarningComponent, FormsModule]
 })
 export class UpdateMatchComponent implements OnInit {
 

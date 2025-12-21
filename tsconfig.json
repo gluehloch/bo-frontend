@@ -6,12 +6,11 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "strictNullChecks": true,
-    // TODO enable me: "exactOptionalPropertyTypes": true,
     "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"

@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core'; // First, import Input
 import { Betoffice } from '../betoffice-json/model/betoffice-data-model';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-tippresult',
     templateUrl: './tippresult.component.html',
     styleUrls: ['./tippresult.component.css'],
-    imports: [NgIf, NgClass]
+    imports: [NgClass]
 })
 export class TippResultComponent implements OnInit {
 

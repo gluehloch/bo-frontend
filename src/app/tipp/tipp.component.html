@@ -1,33 +1,33 @@
 <div>
-    <app-spinner [enabled]="!contentReady"/>
-    <!--
-    <div class="row mb-3">
-        <div class="col" *ngIf="!tippModelContainer.authenticated">
-            <div class="form-group">
-                <p class="alert alert-warning">
-                    Du bist noch nicht angemeldet.
-                    <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
-                </p>
-            </div>
-        </div>
+  <app-spinner [enabled]="!contentReady"/>
+  <!--
+  <div class="row mb-3">
+    <div class="col" *ngIf="!tippModelContainer.authenticated">
+      <div class="form-group">
+        <p class="alert alert-warning">
+          Du bist noch nicht angemeldet.
+          <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+        </p>
+      </div>
     </div>
-    <div class="row mb-3">
-        <div class="col">
-            <app-tipp-selector selectionState="desktop"></app-tipp-selector>
-        </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <app-tipp-selector selectionState="desktop"></app-tipp-selector>
     </div>
-    -->
+  </div>
+  -->
 
-    <app-tipp-selector (selectionChanged)="onSelectionChanged($event)"></app-tipp-selector>
+  <app-tipp-selector (selectionChanged)="onSelectionChanged($event)"></app-tipp-selector>
 
-    <ng-container *ngIf="selectedFormState?.state?.id === 'small'">
-        <app-tipp-small></app-tipp-small>
-    </ng-container>
-    <ng-container *ngIf="selectedFormState?.state?.id === 'mobile'">
-        <app-tipp-mobile></app-tipp-mobile>
-    </ng-container>
-    <ng-container *ngIf="selectedFormState?.state?.id === 'desktop'">
-        <app-tipp-desktop></app-tipp-desktop>
-    </ng-container>
+  @if (selectedFormState?.state?.id === 'small') {
+    <app-tipp-small></app-tipp-small>
+  }
+  @if (selectedFormState?.state?.id === 'mobile') {
+    <app-tipp-mobile></app-tipp-mobile>
+  }
+  @if (selectedFormState?.state?.id === 'desktop') {
+    <app-tipp-desktop></app-tipp-desktop>
+  }
 
 </div>

@@ -8,14 +8,14 @@ import { GameResultComponent } from '../shared/gameresult/gameresult.component';
 import { FormsModule } from '@angular/forms';
 import { TippSelectorComponent } from './selector/tipp-selector.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
+import { NgClass, DatePipe } from '@angular/common';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
     selector: 'app-tipp-desktop',
     templateUrl: './tipp-desktop.component.html',
     styleUrls: ['./tipp-desktop.component.css'],
-    imports: [SpinnerComponent, NgIf, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, NgFor, GameResultComponent, NgClass, DatePipe]
+    imports: [SpinnerComponent, RouterLink, RouterLinkActive, TippSelectorComponent, FormsModule, GameResultComponent, NgClass, DatePipe]
 })
 export class TippDesktopComponent extends TippCommonComponent implements OnInit {
 

@@ -1,126 +1,146 @@
 <div>
-    <app-spinner [enabled]="!contentReady"/>
+  <app-spinner [enabled]="!contentReady"/>
+  <div>
+    <form name="selectSeason">
+      <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
+      <select title="Select season" name="selectSeason" class="form-control form-control-sm" (change)="seasonSelected($event)">
+        @for (season of seasons; track season) {
+          <option [value]="season.id">
+            {{season.name}} {{season.year}}
+          </option>
+        }
+      </select>
+    </form>
+  </div>
+
+  <hr/>
+
+  @if (ranking) {
     <div>
-        <form name="selectSeason">
-            <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
-            <select title="Select season" name="selectSeason" class="form-control form-control-sm" (change)="seasonSelected($event)">
-                <option *ngFor="let season of seasons" [value]="season.id">
-                    {{season.name}} {{season.year}}
-                </option>
-            </select>
-        </form>
-    </div>
-
-    <hr/>
-
-    <div *ngIf="ranking">
-        <div class="row">
-            <div class="col-12">
-                <div class="fs-2">{{ranking.season.name}} {{ranking.season.year}}</div>
-            </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="fs-2">{{ranking.season.name}} {{ranking.season.year}}</div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="fs-4">{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy'}}</div>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="fs-4">{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy'}}</div>
         </div>
-        <table class="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <th colspan="6">Gesamtwertung</th>
-                </tr>
-                <tr>
-                    <th>Platz</th>
-                    <th>Name</th>
-                    <th class="right">Punkte</th>
-                    <th class="right">g</th>
-                    <th class="right">t</th>
-                    <th class="right">v</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of ranking?.users">
-                    <td class="right">{{user.position}}</td>
-                    <td>{{user.nickname}}
-                        <!--
+      </div>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th colspan="6">Gesamtwertung</th>
+          </tr>
+          <tr>
+            <th>Platz</th>
+            <th>Name</th>
+            <th class="right">Punkte</th>
+            <th class="right">g</th>
+            <th class="right">t</th>
+            <th class="right">v</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of ranking?.users; track user) {
+            <tr>
+              <td class="right">{{user.position}}</td>
+              <td>{{user.nickname}}
+                <!--
                 <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
                 -->
-                    </td>
-                    <td class="right">{{user.points}}</td>
-                    <td class="right">{{user.win}}</td>
-                    <td class="right">{{user.toto}}</td>
-                    <td class="right">{{user.ticket}}</td>
-                </tr>
-                <tr>
-                    <th colspan="6">Spieltagswertung</th>
-                </tr>
-                <tr>
-                    <th>Platz</th>
-                    <th>Name</th>
-                    <th class="right">Punkte</th>
-                    <th class="right">g</th>
-                    <th class="right">t</th>
-                    <th class="right">v</th>
-                </tr>
-                <tr *ngFor="let user of rankingRound?.users">
-                    <td class="right">{{user.position}}</td>
-                    <td>{{user.nickname}}
-                        <!--
-                    <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
-                    -->
-                    </td>
-                    <td class="right">{{user.points}}</td>
-                    <td class="right">{{user.win}}</td>
-                    <td class="right">{{user.toto}}</td>
-                    <td class="right">{{user.ticket}}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="row mb-3">
-            <div class="btn-group" role="group" aria-label="Nächster Letzer">
-                <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">
-                    <i class="bi bi-caret-left-fill"></i> Letzter</button>
-                <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">
-                    Nächster <i class="bi bi-caret-right-fill"></i></button>
+              </td>
+              <td class="right">{{user.points}}</td>
+              <td class="right">{{user.win}}</td>
+              <td class="right">{{user.toto}}</td>
+              <td class="right">{{user.ticket}}</td>
+            </tr>
+          }
+          <tr>
+            <th colspan="6">Spieltagswertung</th>
+          </tr>
+          <tr>
+            <th>Platz</th>
+            <th>Name</th>
+            <th class="right">Punkte</th>
+            <th class="right">g</th>
+            <th class="right">t</th>
+            <th class="right">v</th>
+          </tr>
+          @for (user of rankingRound?.users; track user) {
+            <tr>
+              <td class="right">{{user.position}}</td>
+              <td>{{user.nickname}}
+                <!--
+                <a ng-href="#/season/{{ranking.season.id}}/ranking/{{user.nickname}}">{{user.nickname}}</a>
+                -->
+              </td>
+              <td class="right">{{user.points}}</td>
+              <td class="right">{{user.win}}</td>
+              <td class="right">{{user.toto}}</td>
+              <td class="right">{{user.ticket}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <div class="row mb-3">
+        <div class="btn-group" role="group" aria-label="Nächster Letzer">
+          @if (ranking.round.index > 1) {
+            <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)">
+              <i class="bi bi-caret-left-fill"></i> Letzter</button>
+            }
+            @if (!ranking.round.lastRound) {
+              <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)">
+                Nächster <i class="bi bi-caret-right-fill"></i></button>
+              }
             </div>
-        </div>
-
-        <div>
+          </div>
+          <div>
             <h4>Tippübersicht</h4>
             <h5>{{ranking.round.index}}. Spieltag am {{ranking.round.dateTime | date: 'dd.MM.yyyy'}}</h5>
             <table class="table table-sm">
-                <tbody>
-                    <tr>
-                        <td>Spiel</td>
-                        <td class="center" *ngFor="let match of rankingRound?.round?.games">
-                            {{match.homeTeam.xshortName}}<br />{{match.guestTeam.xshortName}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ergebnis</td>
-                        <td class="center" *ngFor="let match of rankingRound?.round?.games">
-                            <app-gameresult [game]="match" [halfTime]="false"></app-gameresult>
-                        </td>
-                    </tr>
-                    <tr *ngFor="let user of ranking?.users">
-                        <td>{{user.nickname}}</td>
-                        <td class="center" *ngFor="let match of rankingRound?.round?.games">
-                            <app-tippresult [tipp]="findTipp(match, user)"></app-tippresult>
-                        </td>
-                    </tr>
-                </tbody>
+              <tbody>
+                <tr>
+                  <td>Spiel</td>
+                  @for (match of rankingRound?.round?.games; track match) {
+                    <td class="center">
+                      {{match.homeTeam.xshortName}}<br />{{match.guestTeam.xshortName}}
+                    </td>
+                  }
+                </tr>
+                <tr>
+                  <td>Ergebnis</td>
+                  @for (match of rankingRound?.round?.games; track match) {
+                    <td class="center">
+                      <app-gameresult [game]="match" [halfTime]="false"></app-gameresult>
+                    </td>
+                  }
+                </tr>
+                @for (user of ranking?.users; track user) {
+                  <tr>
+                    <td>{{user.nickname}}</td>
+                    @for (match of rankingRound?.round?.games; track match) {
+                      <td class="center">
+                        <app-tippresult [tipp]="findTipp(match, user)"></app-tippresult>
+                      </td>
+                    }
+                  </tr>
+                }
+              </tbody>
             </table>
-        </div>
-
-        <div class="row mb-3">
+          </div>
+          <div class="row mb-3">
             <div class="btn-group" role="group" aria-label="Nächster Letzer">
-                <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)" *ngIf="ranking.round.index > 1">
-                    <i class="bi bi-caret-left-fill"></i> Letzter</button>
-                <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)" *ngIf="!ranking.round.lastRound">
+              @if (ranking.round.index > 1) {
+                <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="last(ranking.round.id)">
+                  <i class="bi bi-caret-left-fill"></i> Letzter</button>
+                }
+                @if (!ranking.round.lastRound) {
+                  <button class="btn btn-sm btn-secondary btn-block" type="submit" (click)="next(ranking.round.id)">
                     Nächster <i class="bi bi-caret-right-fill"></i></button>
+                  }
+                </div>
+              </div>
             </div>
+          }
         </div>
-
-    </div>
-</div>

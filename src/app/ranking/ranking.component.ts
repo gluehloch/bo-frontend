@@ -11,7 +11,7 @@ import { Betoffice } from '../betoffice-json/model/betoffice-data-model';
 import { Sorting } from '../betoffice-json/model/Sorting';
 import { TippResultComponent } from './tippresult.component';
 import { GameResultComponent } from '../shared/gameresult/gameresult.component';
-import { NgFor, NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
@@ -19,7 +19,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     selector: 'app-ranking',
     templateUrl: './ranking.component.html',
     styleUrls: ['./ranking.component.css'],
-    imports: [SpinnerComponent, FormsModule, NgFor, NgIf, GameResultComponent, TippResultComponent, DatePipe]
+    imports: [SpinnerComponent, FormsModule, GameResultComponent, TippResultComponent, DatePipe]
 })
 export class RankingComponent implements OnInit {
 

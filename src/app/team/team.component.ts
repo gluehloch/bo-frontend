@@ -5,7 +5,7 @@ import { TeamService } from './team.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 import { TeamFilter } from './teamFilter.pipe';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+
 
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -15,7 +15,7 @@ type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
     selector: 'teams',
     templateUrl: './team.component.html',
     styleUrls: ['./team.component.css'],
-    imports: [NgIf, FormsModule, NgFor, TeamFilter]
+    imports: [FormsModule, TeamFilter]
 })
 export class TeamComponent implements OnInit {
 

@@ -3,14 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
 import { NavigationRouterService } from '../navigationrouter.service';
 import { environment } from '../../environments/environment';
-import { NgFor } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
-    imports: [RouterLink, NgFor]
+    imports: [RouterLink]
 })
 export class HomeComponent implements OnInit {
 

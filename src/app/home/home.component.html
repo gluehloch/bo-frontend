@@ -1,16 +1,16 @@
 <h2>Tippdiekistebier | TDKB</h2>
 <p>
-    Die Tippgemeinschaft TDKB spielt wieder den besten Tipper aus. Der Gewinner
-    erhält eine Kiste Bier.
+  Die Tippgemeinschaft TDKB spielt wieder den besten Tipper aus. Der Gewinner
+  erhält eine Kiste Bier.
 </p>
 <p>
-    Neu hier? Die Anmeldung kannst du <a routerLink="/register">hier</a> vornehmen.
+  Neu hier? Die Anmeldung kannst du <a routerLink="/register">hier</a> vornehmen.
 </p>
 <p>
-    Hier geht es zum <a routerLink="/login">Login</a>. Die aktuelle
-    Rangliste findet sich im Detail <a routerLink="/ranking">hier</a>.
-    In der nächsten Ausbaustufe finden sich dort detailierte
-    Informationen.
+  Hier geht es zum <a routerLink="/login">Login</a>. Die aktuelle
+  Rangliste findet sich im Detail <a routerLink="/ranking">hier</a>.
+  In der nächsten Ausbaustufe finden sich dort detailierte
+  Informationen.
 </p>
 <table class="table table-striped table-sm">
   <thead>
@@ -24,38 +24,40 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of teilnehmer?.users">
-      <td scope="row">{{user.position}}</td>
-      <td>{{user.nickname}}</td>
-      <td>{{user.points}}</td>
-      <td>{{user.win}}</td>
-      <td>{{user.toto}}</td>
-      <td>{{user.ticket}}</td>
-    </tr>
+    @for (user of teilnehmer?.users; track user) {
+      <tr>
+        <td scope="row">{{user.position}}</td>
+        <td>{{user.nickname}}</td>
+        <td>{{user.points}}</td>
+        <td>{{user.win}}</td>
+        <td>{{user.toto}}</td>
+        <td>{{user.ticket}}</td>
+      </tr>
+    }
   </tbody>
 </table>
 <h3>Release Übersicht</h3>
 <p>
-    Das Projekt wird über <a href="https://bitbucket.org">Bitbucket</a> verwaltet. Einen Release Plan
-    findet sich <a href="https://bitbucket.org/teamwinkler/angular2/wiki/Release%20Overview">hier</a>.
-    Bzw. das Frontend ist nach
-    <a href="https://github.com/gluehloch/bo-frontend">GitHub (Bo Frontend)</a> umgezogen.
+  Das Projekt wird über <a href="https://bitbucket.org">Bitbucket</a> verwaltet. Einen Release Plan
+  findet sich <a href="https://bitbucket.org/teamwinkler/angular2/wiki/Release%20Overview">hier</a>.
+  Bzw. das Frontend ist nach
+  <a href="https://github.com/gluehloch/bo-frontend">GitHub (Bo Frontend)</a> umgezogen.
 </p>
 <h3>Werbung</h3>
 <p>
-    Werbung muss auch sein: <a href="https://passivergeldfluss.academy/">Hattwigs Akademie</a>
-    Hier können alle Gewinne sinnvoll reinvestiert werden.
+  Werbung muss auch sein: <a href="https://passivergeldfluss.academy/">Hattwigs Akademie</a>
+  Hier können alle Gewinne sinnvoll reinvestiert werden.
 </p>
 <h3>Impressum</h3>
 <dl class="dl-horizontal">
-    <dt>Autor</dt>
-    <dd>André Winkler</dd>
-    <dt>EMail</dt>
-    <dd>andre.winkler ... web.de</dd>
-    <dt>Postanschrift</dt>
-    <dd>Mensingstr 29a, 21079 Hamburg</dd>
-    <dt>Anmerkung</dt>
-    <dd>
-        Diese Homepage dient privaten und keinen kommerziellen Interessen.
-    </dd>
+  <dt>Autor</dt>
+  <dd>André Winkler</dd>
+  <dt>EMail</dt>
+  <dd>andre.winkler ... web.de</dd>
+  <dt>Postanschrift</dt>
+  <dd>Mensingstr 29a, 21079 Hamburg</dd>
+  <dt>Anmerkung</dt>
+  <dd>
+    Diese Homepage dient privaten und keinen kommerziellen Interessen.
+  </dd>
 </dl>

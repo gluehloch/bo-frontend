@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { NavigationRouterService } from '../navigationrouter.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+
 
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -21,7 +21,7 @@ type HomeOrGuestType = 'HOME' | 'GUEST';
     selector: 'research',
     templateUrl: './research.component.html',
     styleUrls: ['./research.component.css'],
-    imports: [NgIf, NgFor, FormsModule, SpinnerComponent]
+    imports: [FormsModule, SpinnerComponent]
 })
 export class ResearchComponent implements OnInit {
 

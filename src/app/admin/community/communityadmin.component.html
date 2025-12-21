@@ -4,31 +4,33 @@
 
 <h1>Community Verwaltung</h1>
 <div>
-    <table class="table table-sm table-hover">
-        <thead>
-            <tr>
-                <td></td>
-                <td>Abkürzung</td>
-                <td>Name</td>
-                <td>Jahrgang</td>
-                <td>Community Ops</td>
-                <td>Meisterschaft</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let community of communityPage?.content">
-                <td>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="updateCommunity(community)">
-                        <i class="bi bi-gear"></i>
-                    </button>
-                </td>
-                <td>{{community.shortName}}</td>
-                <td>{{community.name}}</td>
-                <td>{{community.year}}</td>
-                <td>{{community.communityManager.nickname}}</td>
-                <td>{{community.season.name}} {{community.season.year}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <app-pager [pagerModel]="pagerModel" (pageEventEmitter)="updatePager($event)"></app-pager>
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <td></td>
+        <td>Abkürzung</td>
+        <td>Name</td>
+        <td>Jahrgang</td>
+        <td>Community Ops</td>
+        <td>Meisterschaft</td>
+      </tr>
+    </thead>
+    <tbody>
+      @for (community of communityPage?.content; track community) {
+        <tr>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm" (click)="updateCommunity(community)">
+              <i class="bi bi-gear"></i>
+            </button>
+          </td>
+          <td>{{community.shortName}}</td>
+          <td>{{community.name}}</td>
+          <td>{{community.year}}</td>
+          <td>{{community.communityManager.nickname}}</td>
+          <td>{{community.season.name}} {{community.season.year}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <app-pager [pagerModel]="pagerModel" (pageEventEmitter)="updatePager($event)"></app-pager>
 </div>

@@ -3,25 +3,26 @@
 <app-spinner [enabled]="!contentReady()"/>
 
 <h1>Teilnehmer Profil</h1>
-<div *ngIf="userProfile; else elseBlock">
+@if (userProfile) {
+  <div>
     <form #userProfileUpdateform="ngForm" name="userProfileUpdateform" novalidate>
-        <div class="mb-3">
-            <label for="nickname" class="form-label">Nickname</label>
-            <input readonly class="form-control" id="nickname" name="nickname" [(ngModel)]="userProfile.nickname" required/>
-        </div>
-        <div class="mb-3">
-            <label for="mail" class="form-label">Mail</label>
-            <input readonly class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.alternativeMail" required/>
-        </div>
-        <div class="d-grid gap-2">
-            <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
-                (click)="confirmUpdateProfile()">Email Änderung bestätigen</button>
-            <button class="btn btn-secondary" type="submit"
-                (click)="abort()">Abbrechen / Email Änderung wird nicht vorgenommen</button>
-        </div>
+      <div class="mb-3">
+        <label for="nickname" class="form-label">Nickname</label>
+        <input readonly class="form-control" id="nickname" name="nickname" [(ngModel)]="userProfile.nickname" required/>
+      </div>
+      <div class="mb-3">
+        <label for="mail" class="form-label">Mail</label>
+        <input readonly class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.alternativeMail" required/>
+      </div>
+      <div class="d-grid gap-2">
+        <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
+        (click)="confirmUpdateProfile()">Email Änderung bestätigen</button>
+        <button class="btn btn-secondary" type="submit"
+        (click)="abort()">Abbrechen / Email Änderung wird nicht vorgenommen</button>
+      </div>
     </form>
-</div>
-<ng-template #elseBlock>
-    <i>Wird geladen...</i>
-</ng-template>
+  </div>
+} @else {
+  <i>Wird geladen...</i>
+}
 
