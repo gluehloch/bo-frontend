@@ -9,7 +9,7 @@ import { Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ResearchService } from './research.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 type dfbFilterType = 'DFB' | 'FIFA';
