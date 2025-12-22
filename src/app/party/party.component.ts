@@ -12,7 +12,8 @@ import { environment } from '../../environments/environment';
     selector: 'party',
     templateUrl: './party.component.html',
     styleUrls: ['./party.component.css'],
-    imports: []
+    imports: [],
+    standalone: true,
 })
 export class PartyComponent implements OnInit {
 

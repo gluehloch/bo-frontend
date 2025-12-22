@@ -7,7 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    imports: [NavbarComponent, RouterOutlet]
+    imports: [NavbarComponent, RouterOutlet],
+    standalone: true,
 })
 export class AppComponent implements OnInit, OnDestroy {
 
