@@ -137,7 +137,6 @@
       }
     }
   },
-  "defaultProject": "angularapp",
   "schematics": {
     "@schematics/angular:component": {
       "type": "component"
