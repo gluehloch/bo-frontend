@@ -1,6 +1,6 @@
 <div>
   @if (gameDetail.detail) {
-    @for (goal of gameDetail.detail?.goals; track goal) {
+    @for (goal of gameDetail.detail.goals; track goal) {
       <div class="row">
         <div class="col"></div>
         <div class="col" style="font-size: 0.8em;">
@@ -10,7 +10,7 @@
         <div class="col"></div>
       </div>
     }
-    @if (!gameDetail.detail?.finished) {
+    @if (!gameDetail.detail.finished) {
       <div class="row">
         <div class="col"></div>
         <div class="col" style="font-size: 0.8em;">Das Spiel ist noch nicht beendet.</div>
