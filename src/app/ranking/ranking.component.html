@@ -42,7 +42,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (user of ranking?.users; track user) {
+          @for (user of ranking.users; track user) {
             <tr>
               <td class="right">{{user.position}}</td>
               <td>{{user.nickname}}
@@ -67,7 +67,7 @@
             <th class="right">t</th>
             <th class="right">v</th>
           </tr>
-          @for (user of rankingRound?.users; track user) {
+          @for (user of rankingRound.users; track user) {
             <tr>
               <td class="right">{{user.position}}</td>
               <td>{{user.nickname}}
@@ -102,7 +102,7 @@
               <tbody>
                 <tr>
                   <td>Spiel</td>
-                  @for (match of rankingRound?.round?.games; track match) {
+                  @for (match of rankingRound.round.games; track match) {
                     <td class="center">
                       {{match.homeTeam.xshortName}}<br />{{match.guestTeam.xshortName}}
                     </td>
@@ -110,16 +110,16 @@
                 </tr>
                 <tr>
                   <td>Ergebnis</td>
-                  @for (match of rankingRound?.round?.games; track match) {
+                  @for (match of rankingRound.round.games; track match) {
                     <td class="center">
                       <app-gameresult [game]="match" [halfTime]="false"></app-gameresult>
                     </td>
                   }
                 </tr>
-                @for (user of ranking?.users; track user) {
+                @for (user of ranking.users; track user) {
                   <tr>
                     <td>{{user.nickname}}</td>
-                    @for (match of rankingRound?.round?.games; track match) {
+                    @for (match of rankingRound.round.games; track match) {
                       <td class="center">
                         <app-tippresult [tipp]="findTipp(match, user)"></app-tippresult>
                       </td>
