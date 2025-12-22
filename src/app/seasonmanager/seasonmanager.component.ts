@@ -14,7 +14,8 @@ import { AuthenticationWarningComponent } from '../authenticationwarning/authent
     selector: 'app-season-manager',
     templateUrl: './seasonmanager.component.html',
     styleUrls: ['./seasonmanager.component.css'],
-    imports: [AuthenticationWarningComponent]
+    imports: [AuthenticationWarningComponent],
+    standalone: true,
 })
 export class SeasonManagerComponent implements OnInit {
 

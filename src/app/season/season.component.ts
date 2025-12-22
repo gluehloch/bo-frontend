@@ -27,7 +27,8 @@ class ExpandedGameDetail {
     selector: 'app-seasons',
     templateUrl: './season.component.html',
     styleUrls: ['./season.component.css'],
-    imports: [SpinnerComponent, FormsModule, GameResultComponent, GoalsComponent, NgClass, DatePipe]
+    imports: [SpinnerComponent, FormsModule, GameResultComponent, GoalsComponent, NgClass, DatePipe],
+    standalone: true,
 })
 export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
 

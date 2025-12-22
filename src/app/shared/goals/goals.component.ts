@@ -13,7 +13,8 @@ class GameDetail {
     selector: 'goals',
     templateUrl: './goals.component.html',
     styleUrls: ['./goals.component.css'],
-    imports: []
+    imports: [],
+    standalone: true,
 })
 export class GoalsComponent implements OnInit {
 

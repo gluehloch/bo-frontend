@@ -35,7 +35,8 @@ export class Roundtable {
     selector: 'app-seasons',
     templateUrl: './updatematchday.component.html',
     styleUrls: ['./updatematchday.component.css'],
-    imports: [AuthenticationWarningComponent, SpinnerComponent, FormsModule, DatePipe]
+    imports: [AuthenticationWarningComponent, SpinnerComponent, FormsModule, DatePipe],
+    standalone: true,
 })
 export class UpdateMatchdayComponent implements OnInit {
 

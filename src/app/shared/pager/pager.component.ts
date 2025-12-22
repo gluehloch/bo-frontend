@@ -11,7 +11,8 @@ export class PagerModel {
     selector: 'app-pager',
     templateUrl: './pager.component.html',
     styleUrls: ['./pager.component.css'],
-    imports: [RouterLink]
+    imports: [RouterLink],
+    standalone: true,
 })
 export class PagerComponent implements OnInit {
 

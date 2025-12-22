@@ -14,7 +14,8 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-season-manager-create',
     templateUrl: './seasonmanagercreate.component.html',
     styleUrls: ['./seasonmanagercreate.component.css'],
-    imports: [FormsModule]
+    imports: [FormsModule],
+    standalone: true,
 })
 
 export class SeasonManagerCreateComponent implements OnInit {

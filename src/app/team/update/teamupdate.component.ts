@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-teamupdate',
     templateUrl: './teamupdate.component.html',
     styleUrls: ['./teamupdate.component.css'],
-    imports: [FormsModule]
+    imports: [FormsModule],
+    standalone: true,
 })
 export class TeamUpdateComponent implements OnInit {
 

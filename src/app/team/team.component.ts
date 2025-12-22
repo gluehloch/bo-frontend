@@ -14,7 +14,8 @@ type dfbFilterType = 'DFB' | 'FIFA' | 'alle';
     selector: 'teams',
     templateUrl: './team.component.html',
     styleUrls: ['./team.component.css'],
-    imports: [FormsModule]
+    imports: [FormsModule],
+    standalone: true,
 })
 export class TeamComponent implements OnInit {
 

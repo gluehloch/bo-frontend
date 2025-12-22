@@ -13,7 +13,8 @@ import { AuthenticationWarningComponent } from '../../authenticationwarning/auth
     selector: 'app-updateteamgroup',
     templateUrl: './updateteamgroup.component.html',
     styleUrls: ['./updateteamgroup.component.css'],
-    imports: [AuthenticationWarningComponent, FormsModule]
+    imports: [AuthenticationWarningComponent, FormsModule],
+    standalone: true,
 })
 export class UpdateTeamGroupComponent implements OnInit {
 
