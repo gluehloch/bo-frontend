@@ -1,6 +1,6 @@
 @if (tipp) {
-  <div class="corner" [ngClass]="{'jackpot': tipp?.points == 13, 'win': tipp?.points == 10, 'ticket': tipp?.points == 0 }">
-    {{tipp?.tipp?.homeGoals}}:{{tipp?.tipp?.guestGoals}}
+  <div class="corner" [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
+    {{tipp.tipp.homeGoals}}:{{tipp.tipp.guestGoals}}
   </div>
 } @else {
   -/-
