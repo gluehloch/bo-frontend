@@ -5,7 +5,7 @@ import { CommunityAdminService } from './communityadmin.service';
 
 import { PagerModel } from 'src/app/shared/pager/pager.component';
 import { PagerComponent } from '../../shared/pager/pager.component';
-import { NgFor } from '@angular/common';
+
 import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
@@ -13,8 +13,8 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
     selector: 'app-community-admin',
     templateUrl: './communityadmin.component.html',
     styleUrls: ['./communityadmin.component.css'],
+    imports: [SpinnerComponent, AuthenticationWarningComponent, PagerComponent],
     standalone: true,
-    imports: [SpinnerComponent, AuthenticationWarningComponent, NgFor, PagerComponent]
 })
 export class CommunityAdminComponent implements OnInit {
 

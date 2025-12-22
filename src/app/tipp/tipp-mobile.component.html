@@ -1,189 +1,211 @@
 <div class="mobile-tipp-container">
-    <app-spinner [enabled]="!contentReady"/>
-    
-    <!-- Authentication Warning -->
-    <div *ngIf="!tippModelContainer.authenticated" class="auth-warning">
-        <div class="alert alert-warning">
-            <i class="bi bi-exclamation-triangle"></i>
-            Du bist noch nicht angemeldet.
-            <a routerLink="/login" routerLinkActive="active">Hier anmelden</a>
-        </div>
+  <app-spinner [enabled]="!contentReady"/>
+
+  <!-- Authentication Warning -->
+  @if (!tippModelContainer.authenticated) {
+    <div class="auth-warning">
+      <div class="alert alert-warning">
+        <i class="bi bi-exclamation-triangle"></i>
+        Du bist noch nicht angemeldet.
+        <a routerLink="/login" routerLinkActive="active">Hier anmelden</a>
+      </div>
     </div>
+  }
 
-    <!-- No Round Available -->
-    <div *ngIf="tippModelContainer.authenticated && !tippModelContainer.round" class="no-round">
-        <div class="alert alert-info">
-            <i class="bi bi-info-circle"></i>
-            Zur Zeit gibt es keinen Spieltag zu tippen.
-        </div>
-        <p>Hier kannst du dir deinen letzten Tipp anschauen.</p>
+  <!-- No Round Available -->
+  @if (tippModelContainer.authenticated && !tippModelContainer.round) {
+    <div class="no-round">
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i>
+        Zur Zeit gibt es keinen Spieltag zu tippen.
+      </div>
+      <p>Hier kannst du dir deinen letzten Tipp anschauen.</p>
     </div>
+  }
 
-    <!-- Round Selection -->
-    <div *ngIf="tippModelContainer.authenticated" class="round-selector">
-        <label for="selectRound" class="form-label">
-            <i class="bi bi-calendar3"></i> Runde auswählen:
-        </label>
-        <select name="selectRound" class="form-select" (change)="roundSelected($event)">
-            <option *ngFor="let round of season?.rounds" [value]="round.id" [selected]="selectedRound?.id == round.id">
-                {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
-            </option>
-        </select>
+  <!-- Round Selection -->
+  @if (tippModelContainer.authenticated) {
+    <div class="round-selector">
+      <label for="selectRound" class="form-label">
+        <i class="bi bi-calendar3"></i> Runde auswählen:
+      </label>
+      <select name="selectRound" class="form-select" (change)="roundSelected($event)">
+        @for (round of season?.rounds; track round) {
+          <option [value]="round.id" [selected]="selectedRound?.id == round.id">
+            {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
+          </option>
+        }
+      </select>
     </div>
+  }
 
-    <!-- Main Tipp Section -->
-    <div *ngIf="tippModelContainer.authenticated && tippModelContainer.round" class="tipp-section">
-        <!-- Round Header -->
-        <div class="round-header">
-            <h2>{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
-            <h3>{{tippModelContainer.round.index}}. Spieltag</h3>
-            <div class="round-date">
-                <i class="bi bi-calendar-event"></i>
-                {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}
-            </div>
+  <!-- Main Tipp Section -->
+  @if (tippModelContainer.authenticated && tippModelContainer.round) {
+    <div class="tipp-section">
+      <!-- Round Header -->
+      <div class="round-header">
+        <h2>{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
+        <h3>{{tippModelContainer.round.index}}. Spieltag</h3>
+        <div class="round-date">
+          <i class="bi bi-calendar-event"></i>
+          {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}
         </div>
-
-        <!-- Games Form --> 
-        <form id="tippform" name="tippform" novalidate>
-            <!-- Game Cards -->
-            <div class="games-container">
-                <div *ngFor="let tipp of tippModelContainer.tippModels; let i = index" 
-                     class="game-card" 
-                     [class.finished]="tipp.game.finished">
-                    
-                    <!-- Game Header -->
-                    <div class="game-header">
-                        <div class="game-time">
-                            <i class="bi bi-clock"></i>
-                            {{tipp.game.dateTime | date: dateTimeFormat}}
-                        </div>
-                        <div *ngIf="tipp.game.finished" class="points-badge" 
-                             [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0}">
-                            {{tipp.points}} Punkte
-                        </div>
-                    </div>
-
-                    <!-- Teams -->
-                    <div class="teams-container">
-                        <!-- Home Team -->
-                        <div class="team home-team">
-                            <div class="team-info">
-                                <img class="team-logo" 
-                                     src="{{tipp.game.homeTeam.logo}}"
-                                     alt="{{tipp.game.homeTeam.shortName}}"
-                                     onerror="this.style.display='none'">
-                                <span class="team-name">{{tipp.game.homeTeam.shortName}}</span>
-                            </div>
-                            <div class="team-score">
-                                <input type="number" 
-                                       class="score-input"
-                                       id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
-                                       name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
-                                       min="0" max="15"
-                                       [disabled]="tipp.game.finished"
-                                       [placeholder]="tipp.game.result.homeGoals"
-                                       [(ngModel)]="tipp.homeGoals">
-                            </div>
-                        </div>
-
-                        <!-- VS Separator -->
-                        <div class="vs-separator">
-                            <span>VS</span>
-                            <div *ngIf="tipp.game.finished" class="actual-result">
-                                {{tipp.game.result.homeGoals}}:{{tipp.game.result.guestGoals}}
-                            </div>
-                        </div>
-
-                        <!-- Guest Team -->
-                        <div class="team guest-team">
-                            <div class="team-info">
-                                <img class="team-logo" 
-                                     src="{{tipp.game.guestTeam.logo}}"
-                                     alt="{{tipp.game.guestTeam.shortName}}"
-                                     onerror="this.style.display='none'">
-                                <span class="team-name">{{tipp.game.guestTeam.shortName}}</span>
-                            </div>
-                            <div class="team-score">
-                                <input type="number" 
-                                       class="score-input"
-                                       id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
-                                       name="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
-                                       min="0" max="15"
-                                       [disabled]="tipp.game.finished"
-                                       [placeholder]="tipp.game.result.guestGoals"
-                                       [(ngModel)]="tipp.guestGoals">
-                            </div>                            
-                        </div>
-                    </div>
-
-                    <!-- Quick Tip Buttons for Common Scores -->
-                    <div *ngIf="!tipp.game.finished" class="quick-tips">
-                        <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 1, 0)">1:0</button>
-                        <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 2, 0)">2:0</button>
-                        <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 1, 1)">1:1</button>
-                        <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 2, 1)">2:1</button>
-                        <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 0, 1)">0:1</button>
-                        <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 1, 2)">1:2</button>
-                        <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 0, 2)">0:2</button>
-                    </div>
+      </div>
+      <!-- Games Form -->
+      <form id="tippform" name="tippform" novalidate>
+        <!-- Game Cards -->
+        <div class="games-container">
+          @for (tipp of tippModelContainer.tippModels; track tipp; let i = $index) {
+            <div
+              class="game-card"
+              [class.finished]="tipp.game.finished">
+              <!-- Game Header -->
+              <div class="game-header">
+                <div class="game-time">
+                  <i class="bi bi-clock"></i>
+                  {{tipp.game.dateTime | date: dateTimeFormat}}
                 </div>
-            </div>
-
-            <!-- Summary Section -->
-            <div class="summary-section">
-                <div class="total-points">
+                @if (tipp.game.finished) {
+                  <div class="points-badge"
+                    [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0}">
+                    {{tipp.points}} Punkte
+                  </div>
+                }
+              </div>
+              <!-- Teams -->
+              <div class="teams-container">
+                <!-- Home Team -->
+                <div class="team home-team">
+                  <div class="team-info">
+                    <img class="team-logo"
+                      src="{{tipp.game.homeTeam.logo}}"
+                      alt="{{tipp.game.homeTeam.shortName}}"
+                      onerror="this.style.display='none'">
+                      <span class="team-name">{{tipp.game.homeTeam.shortName}}</span>
+                    </div>
+                    <div class="team-score">
+                      <input type="number"
+                        class="score-input"
+                        id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
+                        name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
+                        min="0" max="15"
+                        [disabled]="tipp.game.finished"
+                        [placeholder]="tipp.game.result.homeGoals"
+                        [(ngModel)]="tipp.homeGoals">
+                      </div>
+                    </div>
+                    <!-- VS Separator -->
+                    <div class="vs-separator">
+                      <span>VS</span>
+                      @if (tipp.game.finished) {
+                        <div class="actual-result">
+                          {{tipp.game.result.homeGoals}}:{{tipp.game.result.guestGoals}}
+                        </div>
+                      }
+                    </div>
+                    <!-- Guest Team -->
+                    <div class="team guest-team">
+                      <div class="team-info">
+                        <img class="team-logo"
+                          src="{{tipp.game.guestTeam.logo}}"
+                          alt="{{tipp.game.guestTeam.shortName}}"
+                          onerror="this.style.display='none'">
+                          <span class="team-name">{{tipp.game.guestTeam.shortName}}</span>
+                        </div>
+                        <div class="team-score">
+                          <input type="number"
+                            class="score-input"
+                            id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
+                            name="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
+                            min="0" max="15"
+                            [disabled]="tipp.game.finished"
+                            [placeholder]="tipp.game.result.guestGoals"
+                            [(ngModel)]="tipp.guestGoals">
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Quick Tip Buttons for Common Scores -->
+                      @if (!tipp.game.finished) {
+                        <div class="quick-tips">
+                          <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 1, 0)">1:0</button>
+                          <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 2, 0)">2:0</button>
+                          <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 1, 1)">1:1</button>
+                          <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 2, 1)">2:1</button>
+                          <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 0, 1)">0:1</button>
+                          <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 1, 2)">1:2</button>
+                          <button type="button" class="quick-tip-btn" (click)="setQuickTip(tipp, 0, 2)">0:2</button>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+                <!-- Summary Section -->
+                <div class="summary-section">
+                  <div class="total-points">
                     <i class="bi bi-trophy"></i>
                     Punktzahl Spieltag: <strong>{{tippModelContainer.summedUpPoints}}</strong>
+                  </div>
                 </div>
-            </div>
-
-            <!-- Status Messages -->
-            <div *ngIf="tippModelContainer.modified" class="status-message warning">
-                <i class="bi bi-exclamation-triangle"></i>
-                <strong>ACHTUNG:</strong> Deine Änderungen sind noch nicht gespeichert!
-            </div>
-
-            <div *ngIf="submitButtonModel.responseStatusCode == 200" class="status-message success">
-                <i class="bi bi-check-circle"></i>
-                Dein Tipp wurde erfolgreich gespeichert!
-            </div>
-
-            <div *ngIf="submitButtonModel.responseStatusCode == 403" class="status-message error">
-                <i class="bi bi-x-circle"></i>
-                Dein Authentifizierungstoken ist abgelaufen. 
-                <a routerLink="/login" routerLinkActive="active">Hier neu anmelden</a>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-                <!-- Submit Button -->
-                <div *ngIf="tippModelContainer.authenticated && tippModelContainer.round.tippable" class="submit-section">
-                    <button type="button" 
-                            class="btn btn-primary btn-lg submit-btn"
-                            (click)="submitTipp()"
-                            [disabled]="submitButtonModel.pressed">
+                <!-- Status Messages -->
+                @if (tippModelContainer.modified) {
+                  <div class="status-message warning">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <strong>ACHTUNG:</strong> Deine Änderungen sind noch nicht gespeichert!
+                  </div>
+                }
+                @if (submitButtonModel.responseStatusCode == 200) {
+                  <div class="status-message success">
+                    <i class="bi bi-check-circle"></i>
+                    Dein Tipp wurde erfolgreich gespeichert!
+                  </div>
+                }
+                @if (submitButtonModel.responseStatusCode == 403) {
+                  <div class="status-message error">
+                    <i class="bi bi-x-circle"></i>
+                    Dein Authentifizierungstoken ist abgelaufen.
+                    <a routerLink="/login" routerLinkActive="active">Hier neu anmelden</a>
+                  </div>
+                }
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                  <!-- Submit Button -->
+                  @if (tippModelContainer.authenticated && tippModelContainer.round.tippable) {
+                    <div class="submit-section">
+                      <button type="button"
+                        class="btn btn-primary btn-lg submit-btn"
+                        (click)="submitTipp()"
+                        [disabled]="submitButtonModel.pressed">
                         <i class="bi bi-save"></i>
-                        <span *ngIf="!submitButtonModel.pressed">Tipp abgeben</span>
-                        <span *ngIf="submitButtonModel.pressed">Speichere...</span>
-                    </button>
-                </div>
-
-                <!-- Navigation Buttons -->
-                <div class="navigation-buttons">
-                    <button type="button" 
-                            class="btn btn-outline-secondary nav-btn"
-                            (click)="last()"
-                            *ngIf="tippModelContainer.round.index > 1">
+                        @if (!submitButtonModel.pressed) {
+                          <span>Tipp abgeben</span>
+                        }
+                        @if (submitButtonModel.pressed) {
+                          <span>Speichere...</span>
+                        }
+                      </button>
+                    </div>
+                  }
+                  <!-- Navigation Buttons -->
+                  <div class="navigation-buttons">
+                    @if (tippModelContainer.round.index > 1) {
+                      <button type="button"
+                        class="btn btn-outline-secondary nav-btn"
+                        (click)="last()"
+                        >
                         <i class="bi bi-chevron-left"></i> Vorheriger
-                    </button>
-                    <button type="button" 
-                            class="btn btn-outline-secondary nav-btn"
-                            (click)="next()"
-                            *ngIf="!tippModelContainer.round.lastRound">
+                      </button>
+                    }
+                    @if (!tippModelContainer.round.lastRound) {
+                      <button type="button"
+                        class="btn btn-outline-secondary nav-btn"
+                        (click)="next()"
+                        >
                         Nächster <i class="bi bi-chevron-right"></i>
-                    </button>
+                      </button>
+                    }
+                  </div>
                 </div>
+              </form>
             </div>
-        </form>
-    </div>
-</div>
+          }
+        </div>

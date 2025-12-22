@@ -1,107 +1,111 @@
 <app-spinner [enabled]="!contentReady()"/>
 <h1>Mannschaften Ergebnis Vergleich</h1>
 <p>
-    Alle Spiele der Fussball Bundesliga seit der Meisterschaft 2000/2001.
-    Plus alle Spiele der Welt- und Europameisterschaften seit 2002.
+  Alle Spiele der Fussball Bundesliga seit der Meisterschaft 2000/2001.
+  Plus alle Spiele der Welt- und Europameisterschaften seit 2002.
 </p>
 <form #researchPropertiesForm="ngForm">
-    <div class="row">
-        <div class="col">
-            <div class="form-floating mb-3">
-                <select #dfbFilter class="form-select" id="teamTypeFilter" name="teamTypeFilter"
-                        (change)="changeTeamTypeFilter($event)"
-                        [(ngModel)]="dfbFilterValue">
-                    <option selected value="DFB">DFB</option>
-                    <option value="FIFA">FIFA</option>
-                </select>
-                <label for="teamTypeFilter">Mannschaftstyp</label>
-            </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-floating mb-3">
+        <select #dfbFilter class="form-select" id="teamTypeFilter" name="teamTypeFilter"
+          (change)="changeTeamTypeFilter($event)"
+          [(ngModel)]="dfbFilterValue">
+          <option selected value="DFB">DFB</option>
+          <option value="FIFA">FIFA</option>
+        </select>
+        <label for="teamTypeFilter">Mannschaftstyp</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-floating mb-1">
+        <input type="number" class="form-control" id="limit" placeholder="100" name="limit"
+          (change)="changeHomeAndGuestSelect($event)"
+          [(ngModel)]="limit">
+          <label for="limit">Maximale Anzahl</label>
         </div>
-        <div class="col">
-            <div class="form-floating mb-1">
-                <input type="number" class="form-control" id="limit" placeholder="100" name="limit"
-                    (change)="changeHomeAndGuestSelect($event)"
-                    [(ngModel)]="limit">
-                <label for="limit">Maximale Anzahl</label>
-            </div>
-        </div>
+      </div>
     </div>
     <div class="row">
-        <div class="col">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter"
-                    (change)="this.changeHomeTeamNameFilter($event)">
-                <label for="homeTeamNameFilter">Heimmannschaft Filter</label>
-            </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="homeTeamNameFilter" name="homeTeamNameFilter"
+            (change)="this.changeHomeTeamNameFilter($event)">
+            <label for="homeTeamNameFilter">Heimmannschaft Filter</label>
+          </div>
         </div>
         <div class="col">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter"
-                    (change)="this.changeGuestTeamNameFilter($event)">
-                <label for="guestTeamNameFilter">Gastmannschaft Filter</label>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="guestTeamNameFilter" name="guestTeamNameFilter"
+              (change)="this.changeGuestTeamNameFilter($event)">
+              <label for="guestTeamNameFilter">Gastmannschaft Filter</label>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
+        <div class="row">
+          <div class="col">
             <div class="form-floating mb-3">
-                <select #homeTeamSelect class="form-select" id="homeTeamSelect"
-                    title="Auswahl Heimmannschaft" name="selectedHomeTeam"
-                    (ngModelChange)="selectHomeTeam($event)" 
-                    [(ngModel)]="selectedHomeTeam">
-                    <option *ngFor="let team of homeTeams" [ngValue]="team">{{ team.name }}</option>
-                </select>
-                <label for="homeTeamSelect">Heimmannschaft</label>
+              <select #homeTeamSelect class="form-select" id="homeTeamSelect"
+                title="Auswahl Heimmannschaft" name="selectedHomeTeam"
+                (ngModelChange)="selectHomeTeam($event)"
+                [(ngModel)]="selectedHomeTeam">
+                @for (team of homeTeams; track team) {
+                  <option [ngValue]="team">{{ team.name }}</option>
+                }
+              </select>
+              <label for="homeTeamSelect">Heimmannschaft</label>
             </div>
-        </div>
-        <div class="col">
+          </div>
+          <div class="col">
             <div class="form-floating mb-3">
-                <select #guestTeamSelect class="form-select" id="guestTeamSelect"
-                    title="Auswahl Gastmannschaft" name="selectedGuestTeam"
-                    (ngModelChange)="selectGuestTeam($event)"
-                    [(ngModel)]="selectedGuestTeam">
-                    <option *ngFor="let team of guestTeams" [ngValue]="team">{{ team.name }}</option>
-                </select>
-                <label for="homeTeamSelect">Gastmannschaft</label>
+              <select #guestTeamSelect class="form-select" id="guestTeamSelect"
+                title="Auswahl Gastmannschaft" name="selectedGuestTeam"
+                (ngModelChange)="selectGuestTeam($event)"
+                [(ngModel)]="selectedGuestTeam">
+                @for (team of guestTeams; track team) {
+                  <option [ngValue]="team">{{ team.name }}</option>
+                }
+              </select>
+              <label for="homeTeamSelect">Gastmannschaft</label>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
+        <div class="row">
+          <div class="col">
             <div class="form-floating mb-6">
-                <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" name="homeAndGuestSelect" title="homeAndGuest"
-                        (change)="changeHomeAndGuestSelect($event)" 
-                        [(ngModel)]="researchFilterValue">
-                    <option selected value="HOME_AND_GUEST">Heim vs Gast</option>
-                    <option value="HOME_OR_GUEST">Heim vs Gast bzw. vertauscht</option>
-                    <option value="ONLY_HOME">Nur Heim</option>
-                    <option value="ONLY_GUEST">Nur Gast</option>
-                    <option value="LAST_GAMES_HOME_TEAM">Letzten Spiele der Heimmannschaft</option>
-                    <option value="LAST_GAMES_GUEST_TEAM">Letzten Spiel der Gastmannschaft</option>
-                </select>
-                <label for="homeAndGuestSelect">Heim und Gast</label>
+              <select #homeAndGuestSelect class="form-select" id="homeAndGuestSelect" name="homeAndGuestSelect" title="homeAndGuest"
+                (change)="changeHomeAndGuestSelect($event)"
+                [(ngModel)]="researchFilterValue">
+                <option selected value="HOME_AND_GUEST">Heim vs Gast</option>
+                <option value="HOME_OR_GUEST">Heim vs Gast bzw. vertauscht</option>
+                <option value="ONLY_HOME">Nur Heim</option>
+                <option value="ONLY_GUEST">Nur Gast</option>
+                <option value="LAST_GAMES_HOME_TEAM">Letzten Spiele der Heimmannschaft</option>
+                <option value="LAST_GAMES_GUEST_TEAM">Letzten Spiel der Gastmannschaft</option>
+              </select>
+              <label for="homeAndGuestSelect">Heim und Gast</label>
             </div>
+          </div>
         </div>
-    </div>
-</form>
-<!--
-                <tr *ngIf="games === undefined  || games.games.length === 0">
-                    <td colspan="4">Keine Spiele gefunden.</td>
-                </tr>
--->
-<div class="grid-scroller">
-    <div class="grid">
-        <div class="grid-header fixed-left">Datum</div>
-        <div class="grid-header">Heim</div>
-        <div class="grid-header">Gast</div>
-        <div class="grid-header last">Tore</div>
-        <ng-container *ngFor="let game of games?.games; index as i">
+      </form>
+      <!--
+      <tr *ngIf="games === undefined  || games.games.length === 0">
+        <td colspan="4">Keine Spiele gefunden.</td>
+      </tr>
+      -->
+      <div class="grid-scroller">
+        <div class="grid">
+          <div class="grid-header fixed-left">Datum</div>
+          <div class="grid-header">Heim</div>
+          <div class="grid-header">Gast</div>
+          <div class="grid-header last">Tore</div>
+          @for (game of games?.games; track game; let i = $index) {
             <div class="rowWrapper">
-                <div class="grid-entry fixed-left">{{dates[i]}}</div>  
-                <div class="grid-entry">{{game.homeTeamName}}</div>
-                <div class="grid-entry">{{game.guestTeamName}}</div>
-                <div class="grid-entry">{{game.homeTeamGoals}} : {{game.guestTeamGoals}}</div>
+              <div class="grid-entry fixed-left">{{dates[i]}}</div>
+              <div class="grid-entry">{{game.homeTeamName}}</div>
+              <div class="grid-entry">{{game.guestTeamName}}</div>
+              <div class="grid-entry">{{game.homeTeamGoals}} : {{game.guestTeamGoals}}</div>
             </div>
-        </ng-container>
-    </div>
-</div>
+          }
+        </div>
+      </div>

@@ -1,85 +1,96 @@
 <app-authentication-warning></app-authentication-warning>
 <div>
-    <h1>Gruppen / Team Zuordnung für {{model.season.name}} {{model.season.year}}</h1>
-    <form #updateSeasonGroupTeam="ngForm" name="updateSeasonGroupTeam" id="updateSeasonGroupTeam">
-        <div class="row mb-3">
-            <ng-template [ngIf]="model.groupTypes.length === 0">
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                        value="Es ist keine Gruppe der Meisterschaft zugeordnet.">
-                </div>
-            </ng-template>
-            <ng-template [ngIf]="model.groupTypes.length > 0">
-                <div class="col-sm-10">
-                    <table class="table table-sm" *ngFor="let groupType of model.groupTypes">
-                        <thead>
-                            <tr colspan="3">
-                                <th>
-                                    {{groupType.name}}
-                                    <button type="button" class="btn btn-sm btn-secondary"
-                                        *ngIf="model.getTeamsOfGroup(groupType).length === 0"
-                                        (click)="removeGroup(groupType)">
-                                        Gruppe entfernen
-                                    </button>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Logo</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let team of model.getTeamsOfGroup(groupType)">
-                                <td>{{team.name}}</td>
-                                <td>
-                                    <img class="teamlogo" src="{{team.logo}}" style="max-width: 20px; max-height: 20px" />
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-secondary"
-                                        (click)="removeTeamFromGroup(groupType, team)">
-                                        Entfernen
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">
-                                    <button type="button" class="btn btn-sm btn-primary"
-                                        *ngIf="!startingAddingTeamToGroup"
-                                        (click)="startAddTeamToGroup(groupType)">
-                                        Mannschaft hinzufügen
-                                    </button>
-                                    <select class="form-select" name="selectTeam" id="selectTeam"
-                                        aria-label="Mannschaft auswählen"
-                                        *ngIf="startingAddingTeamToGroup?.id === groupType.id"
-                                        [(ngModel)]="model.selectedTeam"
-                                        (change)="addTeamToGroup(groupType, model.selectedTeam)">
-                                        <option [ngValue]="undefined" disabled>Mannschaft auswählen...</option>
-                                        <option *ngFor="let teamCandidate of model.teamCandidates"
-                                            [ngValue]="teamCandidate">
-                                            {{teamCandidate.name}}
-                                    </option>
-                                    </select>
-                                </td>                                
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </ng-template>                
-        </div>
+  <h1>Gruppen / Team Zuordnung für {{model.season.name}} {{model.season.year}}</h1>
+  <form #updateSeasonGroupTeam="ngForm" name="updateSeasonGroupTeam" id="updateSeasonGroupTeam">
+    <div class="row mb-3">
+      @if (model.groupTypes.length === 0) {
+        <div class="col-sm-10">
+          <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+            value="Es ist keine Gruppe der Meisterschaft zugeordnet.">
+          </div>
+        }
+        @if (model.groupTypes.length > 0) {
+          <div class="col-sm-10">
+            @for (groupType of model.groupTypes; track groupType) {
+              <table class="table table-sm">
+                <thead>
+                  <tr colspan="3">
+                    <th>
+                      {{groupType.name}}
+                      @if (model.getTeamsOfGroup(groupType).length === 0) {
+                        <button type="button" class="btn btn-sm btn-secondary"
+                          (click)="removeGroup(groupType)">
+                          Gruppe entfernen
+                        </button>
+                      }
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Logo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (team of model.getTeamsOfGroup(groupType); track team) {
+                    <tr>
+                      <td>{{team.name}}</td>
+                      <td>
+                        <img class="teamlogo" src="{{team.logo}}" style="max-width: 20px; max-height: 20px" />
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-sm btn-secondary"
+                          (click)="removeTeamFromGroup(groupType, team)">
+                          Entfernen
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                  <tr>
+                    <td colspan="3">
+                      @if (!startingAddingTeamToGroup) {
+                        <button type="button" class="btn btn-sm btn-primary"
+                          (click)="startAddTeamToGroup(groupType)">
+                          Mannschaft hinzufügen
+                        </button>
+                      }
+                      @if (startingAddingTeamToGroup?.id === groupType.id) {
+                        <select class="form-select" name="selectTeam" id="selectTeam"
+                          aria-label="Mannschaft auswählen"
+                          [(ngModel)]="model.selectedTeam"
+                          (change)="addTeamToGroup(groupType, model.selectedTeam)">
+                          <option [ngValue]="undefined" disabled>Mannschaft auswählen...</option>
+                          @for (teamCandidate of model.teamCandidates; track teamCandidate) {
+                            <option
+                              [ngValue]="teamCandidate">
+                              {{teamCandidate.name}}
+                            </option>
+                          }
+                        </select>
+                      }
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            }
+          </div>
+        }
+      </div>
 
-        <div class="mb-3">
-            <label for="groupTypes" class="form-label">Gruppen zur Meisterschaft hinzufügen</label>
-            <select class="form-select" id="selectedGroupType" name="selectedGroupType"
-                aria-label="Default select example"
-                [(ngModel)]="model.selectedGroupType"
-                (change)="addGroup(model.selectedGroupType)">
-                <option [ngValue]="undefined" selected>Gruppe auswählen...</option>
-                <option *ngFor="let groupType of model.selectableGroupTypes"
-                    [ngValue]="groupType">
-                    {{groupType.name}}
-                </option>
-              </select>
-        </div>
+      <div class="mb-3">
+        <label for="groupTypes" class="form-label">Gruppen zur Meisterschaft hinzufügen</label>
+        <select class="form-select" id="selectedGroupType" name="selectedGroupType"
+          aria-label="Default select example"
+          [(ngModel)]="model.selectedGroupType"
+          (change)="addGroup(model.selectedGroupType)">
+          <option [ngValue]="undefined" selected>Gruppe auswählen...</option>
+          @for (groupType of model.selectableGroupTypes; track groupType) {
+            <option
+              [ngValue]="groupType">
+              {{groupType.name}}
+            </option>
+          }
+        </select>
+      </div>
     </form>
-</div>
+  </div>

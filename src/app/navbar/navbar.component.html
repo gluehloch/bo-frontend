@@ -1,43 +1,45 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 fixed-top" style="padding-left: 1em;">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.home">
-                <a class="nav-link" routerLink="/home">Home</a>
-            </li>
-            <!--
-            <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="login">
-                <a class="nav-link" routerLink="/login">Login</a>
-            </li>
-            -->
-            <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.tipp">
-                <a class="nav-link" routerLink="/tipp">Tipp</a>
-            </li>
-            <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.teilnehmer">
-                <a class="nav-link" routerLink="/ranking">Teilnehmer</a>
-            </li>
-            <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.meisterschaften">
-                <a class="nav-link" routerLink="/season">Meisterschaften</a>
-            </li>
-            <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.research">
-                <a class="nav-link" routerLink="/research">Analyse</a>
-            </li>
-            <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.profile">
-                <a class="nav-link" routerLink="/profile">Profil</a>
-            </li>
-            <li class="nav-item dropdown" *ngIf="admin">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                    aria-expanded="false" [class.active]="navMenu.adminmenu">Admin</a>
-                <div class="dropdown-menu">
-                    <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/party">Teilnehmer</a>
-                    <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/team">Mannschaften</a>
-                    <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/seasonmanager">Meisterschaft</a>
-                    <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/community">Teilnehmergruppe</a>
-                </div>
-            </li>
-        </ul>
-        <button class="btn btn-outline-light" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="'/login'" type="submit">{{loginOrLogout}}</button>
-    </div>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.home">
+        <a class="nav-link" routerLink="/home">Home</a>
+      </li>
+      <!--
+      <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="login">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+      -->
+      <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.tipp">
+        <a class="nav-link" routerLink="/tipp">Tipp</a>
+      </li>
+      <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.teilnehmer">
+        <a class="nav-link" routerLink="/ranking">Teilnehmer</a>
+      </li>
+      <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.meisterschaften">
+        <a class="nav-link" routerLink="/season">Meisterschaften</a>
+      </li>
+      <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.research">
+        <a class="nav-link" routerLink="/research">Analyse</a>
+      </li>
+      <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="nav-item" [class.active]="navMenu.profile">
+        <a class="nav-link" routerLink="/profile">Profil</a>
+      </li>
+      @if (admin) {
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false" [class.active]="navMenu.adminmenu">Admin</a>
+          <div class="dropdown-menu">
+            <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/party">Teilnehmer</a>
+            <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/team">Mannschaften</a>
+            <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/seasonmanager">Meisterschaft</a>
+            <a data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" class="dropdown-item" routerLink="/chiefop/community">Teilnehmergruppe</a>
+          </div>
+        </li>
+      }
+    </ul>
+    <button class="btn btn-outline-light" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="'/login'" type="submit">{{loginOrLogout}}</button>
+  </div>
 </nav>

@@ -12,8 +12,8 @@ import { AuthenticationWarningComponent } from '../../authenticationwarning/auth
     selector: 'app-season-manager-update',
     templateUrl: './seasonmanagerupdate.component.html',
     styleUrls: ['./seasonmanagerupdate.component.css'],
+    imports: [AuthenticationWarningComponent, FormsModule],
     standalone: true,
-    imports: [AuthenticationWarningComponent, FormsModule]
 })
 export class SeasonManagerUpdateComponent implements OnInit {
 
