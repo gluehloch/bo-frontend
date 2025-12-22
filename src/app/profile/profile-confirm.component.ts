@@ -13,7 +13,8 @@ import { SessionService } from "../session/session.service";
 @Component({
     selector: 'profil',
     templateUrl: './profile-confirm.component.html',
-    imports: [FormsModule, SpinnerComponent, AuthenticationWarningComponent]
+    imports: [FormsModule, SpinnerComponent, AuthenticationWarningComponent],
+    standalone: true,
 })
 export class ProfileConfirmComponent implements OnInit {
 

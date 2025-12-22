@@ -1,7 +1,6 @@
 import { map } from 'rxjs/operators';
 
 import { Component, Input, OnInit, signal } from "@angular/core";
-import { CheckableParty } from "./checkable-party";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 

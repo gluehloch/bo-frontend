@@ -19,7 +19,8 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     selector: 'app-ranking',
     templateUrl: './ranking.component.html',
     styleUrls: ['./ranking.component.css'],
-    imports: [SpinnerComponent, FormsModule, GameResultComponent, TippResultComponent, DatePipe]
+    imports: [SpinnerComponent, FormsModule, GameResultComponent, TippResultComponent, DatePipe],
+    standalone: true,
 })
 export class RankingComponent implements OnInit {
 
