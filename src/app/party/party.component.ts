@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { USERROLE } from '../user-role.enum';
 import { PartyService } from './party.service';
 import { NavigationRouterService } from '../navigationrouter.service';
-
-import { environment } from '../../environments/environment';
 
 
 @Component({
