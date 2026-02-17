@@ -1,65 +1,65 @@
 <div>
-  <app-spinner [enabled]="!contentReady"/>
+  <app-spinner [enabled]="!contentReady" />
   <div class="row mb-3">
     @if (!tippModelContainer.authenticated) {
-      <div class="col">
-        <div class="form-group">
-          <p class="alert alert-warning">
-            Du bist noch nicht angemeldet.
-            <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
-          </p>
-        </div>
+    <div class="col">
+      <div class="form-group">
+        <p class="alert alert-warning">
+          Du bist noch nicht angemeldet.
+          <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+        </p>
       </div>
+    </div>
     }
   </div>
   <div class="row mb-3">
     @if (tippModelContainer.authenticated && !tippModelContainer.round) {
-      <div class="col">
-        <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
-        <div>
-          Hier kannst du dir deinen letzten Tipp anschauen.
-        </div>
+    <div class="col">
+      <div class="alert alert-info" role="alert">Zur Zeit gibt es keinen Spieltag zu tippen.</div>
+      <div>
+        Hier kannst du dir deinen letzten Tipp anschauen.
       </div>
+    </div>
     }
   </div>
   <div class="row mb-3">
     <form id="selectRound" name="selectRound">
       <label for="selectRound" class="form-label">Runde auswählen:</label>
-      <select title="Select round" name="selectRound" class="form-control form-control-sm" (change)="roundSelected($event)">
+      <select title="Select round" name="selectRound" class="form-control form-control-sm"
+        (change)="roundSelected($event)">
         @for (round of season?.rounds; track round) {
-          <option [value]="round.id" [selected]="selectedRound?.id == round.id">
-            {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
-          </option>
+        <option [value]="round.id" [selected]="selectedRound?.id == round.id">
+          {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
+        </option>
         }
       </select>
     </form>
   </div>
 
   @if (tippModelContainer.authenticated && tippModelContainer.round) {
-    <div>
-      <h2 style="text-align: center;">{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
-      <h3 style="text-align: center;">
-        {{tippModelContainer.round.index}}. Spieltag /
-        <!--
+  <div>
+    <h2 style="text-align: center;">{{tippModelContainer.round.seasonName}} {{tippModelContainer.round.seasonYear}}</h2>
+    <h3 style="text-align: center;">
+      {{tippModelContainer.round.index}}. Spieltag /
+      <!--
         <i class="bi bi-calendar-event" style="font-size: 0.9em; vertical-align: middle;"></i>
         -->
-        {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}
-      </h3>
-      <form name="tippform" novalidate>
-        <div class="row mb-3">
-          <div class="btn-group" role="group" aria-label="Nächster Letzer">
-            @if (tippModelContainer.round.index > 1) {
-              <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
-                >
-                <i class="bi bi-caret-left-fill"></i> Letzter</button>
-              }
-              @if (!tippModelContainer.round.lastRound) {
-                <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
-                  >Nächster <i class="bi bi-caret-right-fill"></i></button>
-                }
-              </div>
-            </div>
-            <!--
+      {{tippModelContainer.round.dateTime | date: 'dd.MM.yyyy'}}
+    </h3>
+    <form name="tippform" novalidate>
+      <div class="row mb-3">
+        <div class="btn-group" role="group" aria-label="Nächster Letzer">
+          @if (tippModelContainer.round.index > 1) {
+          <button type="button" class="btn btn-sm btn-secondary" (click)="last()">
+            <i class="bi bi-caret-left-fill"></i> Letzter</button>
+          }
+          @if (!tippModelContainer.round.lastRound) {
+          <button type="button" class="btn btn-sm btn-secondary" (click)="next()">Nächster <i
+              class="bi bi-caret-right-fill"></i></button>
+          }
+        </div>
+      </div>
+      <!--
             <div class="col-md-6">
               <button type="button" class="btn btn-sm btn-secondary btn-block" (click)="last()"
               *ngIf="tippModelContainer.round.index > 1">Letzter</button>
@@ -69,133 +69,138 @@
               *ngIf="!tippModelContainer.round.lastRound">Nächster</button>
             </div>
             -->
-            <div class="row">
-              <div class="col">
-                <div class="alert alert-primary" role="alert" style="text-align: center">
-                  <i class="bi bi-trophy"></i> Punktzahl Spieltag: <b>{{tippModelContainer.summedUpPoints}}</b>
-                </div>
-              </div>
-            </div>
-            @for (tipp of tippModelContainer.tippModels; track tipp; let index = $index) {
-              <div>
-                <!--
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-primary" role="alert" style="text-align: center">
+            <i class="bi bi-trophy"></i> Punktzahl Spieltag: <b>{{tippModelContainer.summedUpPoints}}</b>
+          </div>
+        </div>
+      </div>
+      @for (tipp of tippModelContainer.tippModels; track tipp; let index = $index) {
+      <div>
+        <!--
                 <div class="row">
                   <div class="col">
                     <div style="text-align:left">{{tipp.game.dateTime | date: dateTimeFormat}}</div>
                   </div>
                 </div>
                 -->
-                <!-- style="border-top:solid; border-top-color: rgb(202, 211, 219)" -->
-                <div class="row">
-                  @if (index === 0) {
-                    <div class="col">
-                      <div style="text-align:left">
-                        <small>{{tipp.game.dateTime | date: dateTimeFormat}}</small>
-                      </div>
-                    </div>
-                  }
-                  @if (index > 0 && (tippModelContainer.tippModels[index].game.dateTime !== tippModelContainer.tippModels[index - 1].game.dateTime)) {
-                    <div class="col"
-                      >
-                      <div style="text-align:left">
-                        <small>{{tipp.game.dateTime | date: dateTimeFormat}}</small>
-                      </div>
-                    </div>
-                  }
-                </div>
-                <div class="row" style="border-top:solid 1px; border-top-color: rgb(202, 211, 219)">
-                  <div class="col-5" style="text-align: right; padding: .5rem .75rem">
-                    {{tipp.game.homeTeam.shortName}}
-                    <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}" title="{{tipp.game.homeTeam.shortName}}" style="max-width:100%; min-height: auto;">
-                  </div>
-                  @if (tipp.game.finished) {
-                    <div class="col-2" style="text-align: center; padding: .5rem .75rem">
-                      <app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult>
-                    </div>
-                  }
-                  @if (!tipp.game.finished) {
-                    <div class="col-2" style="text-align: center; padding: .5rem .75rem">
-                      {{tipp.game.result.homeGoals}}:{{tipp.game.result.guestGoals}}
-                    </div>
-                  }
-                  <div class="col-5" style="text-align: left; padding: .5rem .75rem">
-                    <img class="teamlogo" src="{{tipp.game.guestTeam.logo}}" title="{{tipp.game.guestTeam.shortName}}" style="max-width:100%; min-height: auto;">
-                    {{tipp.game.guestTeam.shortName}}
-                  </div>
-                </div>
-                @if (tipp.game.finished) {
-                  @if (tipp.exists) {
-                    @if (tipp.exists) {
-                      <div>
-                        <div class="row" [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
-                          <div class="col" style="text-align: center; padding: .5rem .75rem">
-                          {{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
-                        </div>
-                      </div>
-                    }
-                  } @else {
-                    <!-- Es liegt kein Tipp für dieses Spiel vor. -->
-                    @if (!tipp.exists) {
-                      <div>
-                        <div class="row">
-                          <div class="col" style="text-align: center; padding: .5rem .75rem">
-                            <i>Kein Tipp abgegeben bzw. Tipp nach Spielbeginn erfolgt.</i>
-                          </div>
-                        </div>
-                      </div>
-                    }
-                  }
-                } @else {
-                  <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-3" style="padding: .5rem .75rem">
-                      <input class="form-control form-control-sm input-goals-home" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
-                        name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" max="15" min="0" type="number"
-                        size="1" [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.homeGoals}}"
-                        [(ngModel)]="tipp.homeGoals" />
-                      </div>
-                      <div class="col-3" style="padding: .5rem .75rem">
-                        <input class="form-control form-control-sm input-goals-guest" id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
-                          name="{{tippModelContainer.round.id}}gast{{tipp.game.id}}" max="15" min="0" type="number"
-                          size="1" [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.guestGoals}}"
-                          [(ngModel)]="tipp.guestGoals" />
-                        </div>
-                        <div class="col-3"></div>
-                      </div>
-                    }
-                  </div>
-                }
-                <hr />
-                <!-- Naechster und Letzer Spieltag -->
-                @if (tippModelContainer.modified) {
-                  <div class="row" role="alert" style="text-align: center">
-                    <div class="col">
-                      <div class="alert alert-warning">
-                        <strong>ACHTUNG:</strong> Deine Änderungen sind noch nicht gespeichert!
-                      </div>
-                    </div>
-                  </div>
-                }
-                @if (this.submitButtonModel.responseStatusCode == 200) {
-                  <div class="row">
-                    <div class="col">
-                      <div class="alert alert-success">
-                        Dein Tipp wurde erfolgreich gespeichert!
-                      </div>
-                    </div>
-                  </div>
-                }
-                @if (this.submitButtonModel.responseStatusCode == 403) {
-                  <div class="row">
-                    <div class="col">
-                      <div class="alert alert-danger">
-                        Dein Authentifizierungstoken ist abgelaufen. Melde dich bitte neu an.
-                        <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
-                      </div>
-                    </div>
-                  </div>
-                }
-                <!--
+        <!-- style="border-top:solid; border-top-color: rgb(202, 211, 219)" -->
+        <div class="row">
+          @if (index === 0) {
+          <div class="col">
+            <div style="text-align:left">
+              <small>{{tipp.game.dateTime | date: dateTimeFormat}}</small>
+            </div>
+          </div>
+          }
+          @if (index > 0 && (tippModelContainer.tippModels[index].game.dateTime !== tippModelContainer.tippModels[index
+          - 1].game.dateTime)) {
+          <div class="col">
+            <div style="text-align:left">
+              <small>{{tipp.game.dateTime | date: dateTimeFormat}}</small>
+            </div>
+          </div>
+          }
+        </div>
+        <div class="row" style="border-top:solid 1px; border-top-color: rgb(202, 211, 219)">
+          <div class="col-5" style="text-align: right; padding: .5rem .75rem">
+            {{tipp.game.homeTeam.shortName}}
+            <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}" title="{{tipp.game.homeTeam.shortName}}"
+              style="max-width:100%; min-height: auto;">
+          </div>
+          @if (tipp.game.finished) {
+          <div class="col-2" style="text-align: center; padding: .5rem .75rem">
+            <app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult>
+          </div>
+          }
+          @if (!tipp.game.finished) {
+          <div class="col-2" style="text-align: center; padding: .5rem .75rem">
+            {{tipp.game.result.homeGoals}}:{{tipp.game.result.guestGoals}}
+          </div>
+          }
+          <div class="col-5" style="text-align: left; padding: .5rem .75rem">
+            <img class="teamlogo" src="{{tipp.game.guestTeam.logo}}" title="{{tipp.game.guestTeam.shortName}}"
+              style="max-width:100%; min-height: auto;">
+            {{tipp.game.guestTeam.shortName}}
+          </div>
+        </div>
+        @if (tipp.game.finished) {
+        @if (tipp.exists) {
+        @if (tipp.exists) {
+        <div>
+          <div class="row"
+            [ngClass]="{'jackpot': tipp.points == 13, 'win': tipp.points == 10, 'ticket': tipp.points == 0 }">
+            <div class="col" style="text-align: center; padding: .5rem .75rem">
+              {{tipp.homeGoals}}:{{tipp.guestGoals}}</div>
+          </div>
+        </div>
+        }
+        } @else {
+        <!-- Es liegt kein Tipp für dieses Spiel vor. -->
+        @if (!tipp.exists) {
+        <div>
+          <div class="row">
+            <div class="col" style="text-align: center; padding: .5rem .75rem">
+              <i>Kein Tipp abgegeben bzw. Tipp nach Spielbeginn erfolgt.</i>
+            </div>
+          </div>
+        </div>
+        }
+        }
+        } @else {
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-3" style="padding: .5rem .75rem">
+            <input class="form-control form-control-sm input-goals-home"
+              id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
+              name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" max="15" min="0" type="number" size="1"
+              [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.homeGoals}}"
+              [(ngModel)]="tipp.homeGoals" />
+          </div>
+          <div class="col-3" style="padding: .5rem .75rem">
+            <input class="form-control form-control-sm input-goals-guest"
+              id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
+              name="{{tippModelContainer.round.id}}gast{{tipp.game.id}}" max="15" min="0" type="number" size="1"
+              [disabled]="tipp.game.finished" placeholder="{{tipp.game.result.guestGoals}}"
+              [(ngModel)]="tipp.guestGoals" />
+          </div>
+          <div class="col-3"></div>
+        </div>
+        }
+      </div>
+      }
+      <hr />
+      <!-- Naechster und Letzer Spieltag -->
+      @if (tippModelContainer.modified) {
+      <div class="row" role="alert" style="text-align: center">
+        <div class="col">
+          <div class="alert alert-warning">
+            <strong>ACHTUNG:</strong> Deine Änderungen sind noch nicht gespeichert!
+          </div>
+        </div>
+      </div>
+      }
+      @if (this.submitButtonModel.responseStatusCode == 200) {
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-success">
+            Dein Tipp wurde erfolgreich gespeichert!
+          </div>
+        </div>
+      </div>
+      }
+      @if (this.submitButtonModel.responseStatusCode == 403) {
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-danger">
+            Dein Authentifizierungstoken ist abgelaufen. Melde dich bitte neu an.
+            <a routerLink="/login" routerLinkActive="active">Hier</a> kannst du das nachholen.
+          </div>
+        </div>
+      </div>
+      }
+      <!--
                 <div class="row form-group">
                   <div class="col">
                     <div class="progress">
@@ -204,30 +209,28 @@
                   </div>
                 </div>
                 -->
-                <div class="row mb-3">
-                  <div class="col-12">
-                    <div class="d-grid gap-5">
-                      @if (tippModelContainer.authenticated && tippModelContainer.round.tippable) {
-                        <button class="btn btn-primary btn-lg" type="button" (click)="submitTipp()"
-                        >Tipp</button>
-                      }
-                    </div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="btn-group" role="group" aria-label="Nächster Letzer">
-                    @if (tippModelContainer.round.index > 1) {
-                      <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
-                        >
-                        <i class="bi bi-caret-left-fill"></i> Letzter</button>
-                      }
-                      @if (!tippModelContainer.round.lastRound) {
-                        <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
-                          >Nächster <i class="bi bi-caret-right-fill"></i></button>
-                        }
-                      </div>
-                    </div>
-      </form>
-    </div>
+      <div class="row mb-3">
+        <div class="col-12">
+          <div class="d-grid gap-5">
+            @if (tippModelContainer.authenticated && tippModelContainer.round.tippable) {
+            <button class="btn btn-primary btn-lg" type="button" (click)="submitTipp()">Tipp</button>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="btn-group" role="group" aria-label="Nächster Letzer">
+          @if (tippModelContainer.round.index > 1) {
+          <button type="button" class="btn btn-sm btn-secondary" (click)="last()">
+            <i class="bi bi-caret-left-fill"></i> Letzter</button>
+          }
+          @if (!tippModelContainer.round.lastRound) {
+          <button type="button" class="btn btn-sm btn-secondary" (click)="next()">Nächster <i
+              class="bi bi-caret-right-fill"></i></button>
+          }
+        </div>
+      </div>
+    </form>
+  </div>
   }
 </div>
