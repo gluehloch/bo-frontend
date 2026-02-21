@@ -1,0 +1,48 @@
+name: Build and Deploy Angular App
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular app
+        run: npm run build -- --prod
+
+      - name: Archive production build
+        uses: actions/upload-artifact@v4
+        with:
+          name: angular-dist
+          path: dist/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: angular-dist
+
+      # Add your deployment step here
+      # Example: Deploy to Azure, AWS, Firebase, or custom server
+      # - name: Deploy to Hosting
+      #   run: echo "Deploy step goes here"
