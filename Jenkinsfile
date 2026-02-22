@@ -36,14 +36,14 @@ pipeline {
                 echo 'Start test...'
             }
         }
-        /*
         stage('Deploy to remote host') {
             steps {
                 // Clean up remote upload directory and copy to remote host
-                sh 'ssh boprod.tdkb rm -f /home/boprod/upload/betoffice-angular2.tar.gz'
-                sh 'scp ./dist/betoffice-angular2.tar.gz boprod.tdkb:~/upload'
+                // sh 'ssh winkler@tippdiekistebier.de rm -f /home/winkler/upload/betoffice-angular2.tar.gz'
+                sh 'scp ./dist/betoffice-angular2.tar.gz winkler@tippdiekistebier.de:~/upload'
             }
         }
+        /*
         stage('Deploy Development') { 
             steps {
                 echo 'Start deploy development ...'
