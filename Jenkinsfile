@@ -43,6 +43,8 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'winkler.tdkb3', keyFileVariable: 'SSH_KEY')]) {
                     sh '''
                     scp -i "$SSH_KEY" ./dist/betoffice-angular2.tar.gz winkler@tippdiekistebier.de:~/upload
+                    '''
+                    sh '''
                     ssh -i "$SSH_KEY" winkler@tippdiekistebier.de '~/upload/copy-dev.sh'
                     '''
                 }
