@@ -24,8 +24,7 @@ jobs:
         run: npm install
 
       - name: Build Angular app
-        run: npm run build -- --prod
-
+        run: npm run build 
       - name: Archive production build
         uses: actions/upload-artifact@v4
         with:
