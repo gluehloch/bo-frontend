@@ -27,8 +27,8 @@ pipeline {
         stage('Build') { 
             steps {
                 echo 'Start build...'
-                sh 'npm run ng -- build'
-                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp .'
+                sh 'npm run build-release'
+                // sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp .'
             }
         }
         stage('Test') { 
