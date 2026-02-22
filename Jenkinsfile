@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo 'Start build...'
                 sh 'npm run build-release'
-                // sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp .'
+                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp/browser .'
             }
         }
         stage('Test') { 
@@ -36,6 +36,7 @@ pipeline {
                 echo 'Start test...'
             }
         }
+        /*
         stage('Deploy to remote host') {
             steps {
                 // Clean up remote upload directory and copy to remote host
@@ -70,6 +71,7 @@ pipeline {
                 sh 'ssh boprod.tdkb rm -f /home/boprod/www/tippdiekistebier/*'
                 sh 'ssh boprod.tdkb tar xvf /home/boprod/upload/betoffice-angular2.tar.gz -C /home/boprod/www/tippdiekistebier'
             }
-        }                
+        }
+        */
     }
 }
