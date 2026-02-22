@@ -40,7 +40,11 @@ pipeline {
             steps {
                 // Clean up remote upload directory and copy to remote host
                 // sh 'ssh winkler@tippdiekistebier.de rm -f /home/winkler/upload/betoffice-angular2.tar.gz'
-                sh 'scp ./dist/betoffice-angular2.tar.gz winkler@tippdiekistebier.de:~/upload'
+                withCredentials([sshUserPrivateKey(credentialsId: 'winkler.tdkb3', keyFileVariable: 'SSH_KEY')]) {
+                    sh '''
+                    scp -i "$SSH_KEY" ./dist/betoffice-angular2.tar.gz winkler@tippdiekistebier.de:~/upload
+                    '''
+                }
             }
         }
         /*
