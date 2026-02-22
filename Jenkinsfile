@@ -12,7 +12,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 echo 'Prepare and check environment ...'
-                sh 'nodejs -v'
+                sh 'node -v'
                 sh 'npm -v'
                 sh 'java -version'
                 sh 'javac -version'
