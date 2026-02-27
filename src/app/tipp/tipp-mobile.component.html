@@ -80,6 +80,7 @@
                   onerror="this.style.display='none'">
                 <span class="team-name">{{tipp.game.homeTeam.shortName}}</span>
               </div>
+              <app-team-trend [team]="tipp.game.homeTeam" [limit]="5"></app-team-trend>
               <div class="team-score">
                 <input type="number" class="score-input" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
                   name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" min="0" max="15"
@@ -104,6 +105,7 @@
                   onerror="this.style.display='none'">
                 <span class="team-name">{{tipp.game.guestTeam.shortName}}</span>
               </div>
+              <app-team-trend [team]="tipp.game.guestTeam" [limit]="5"></app-team-trend>
               <div class="team-score">
                 <input type="number" title="{{tipp.game.guestTeam.shortName}} Auswärtstore"
                   aria-label="{{tipp.game.guestTeam.shortName}} Auswärtstore" class="score-input"
