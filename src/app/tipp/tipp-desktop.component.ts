@@ -7,6 +7,7 @@ import { GameResultComponent } from '../shared/gameresult/gameresult.component';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 import { NavigationRouterService } from '../navigationrouter.service';
 import { SessionService } from '../session/session.service';
+import { TeamTrendComponent } from './team-trend/team-trend.component';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
@@ -15,7 +16,7 @@ import { TippService } from './tipp.service';
     selector: 'app-tipp-desktop',
     templateUrl: './tipp-desktop.component.html',
     styleUrls: ['./tipp-desktop.component.css'],
-    imports: [SpinnerComponent, RouterLink, RouterLinkActive, FormsModule, GameResultComponent, NgClass, DatePipe],
+    imports: [SpinnerComponent, RouterLink, RouterLinkActive, FormsModule, GameResultComponent, NgClass, DatePipe, TeamTrendComponent],
     standalone: true,
 })
 export class TippDesktopComponent extends TippCommonComponent implements OnInit {
