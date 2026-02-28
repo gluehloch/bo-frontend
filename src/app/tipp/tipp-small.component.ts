@@ -7,6 +7,7 @@ import { NavigationRouterService } from '../navigationrouter.service';
 import { SessionService } from '../session/session.service';
 import { GameResultComponent } from '../shared/gameresult/gameresult.component';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { TeamTrendComponent } from './team-trend/team-trend.component';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
@@ -16,7 +17,7 @@ import { TippService } from './tipp.service';
     templateUrl: './tipp-small.component.html',
     styleUrls: ['./tipp-small.component.css'],
     standalone: true,
-    imports: [SpinnerComponent, RouterLink, RouterLinkActive, FormsModule, GameResultComponent, NgClass, DatePipe]
+    imports: [SpinnerComponent, RouterLink, RouterLinkActive, FormsModule, GameResultComponent, NgClass, DatePipe, TeamTrendComponent]
 })
 export class TippSmallComponent extends TippCommonComponent implements OnInit {
 

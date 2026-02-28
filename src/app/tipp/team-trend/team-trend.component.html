@@ -1,0 +1,6 @@
+<div class="team-trend" title="Letzte {{trend.length}} Spiele">
+  @for (result of trend; track result) {
+  <span class="trend-dot" [ngClass]="{'trend-win': result === 'W', 'trend-draw': result === 'D', 'trend-loss': result === 'L'}"
+    [title]="trendTitle(result)" [attr.aria-label]="trendTitle(result)">{{trendLabel(result)}}</span>
+  }
+</div>

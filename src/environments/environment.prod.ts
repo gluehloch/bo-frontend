@@ -1,6 +1,7 @@
 // const betoffice = '/betoffice-war/';
 // As systemd service of a spring-boot application
 const betoffice = '/bo/';
+// const betoffice = '/betoffice-boot/';
 
 const urlRegistration = '/registrationservice/';
 
