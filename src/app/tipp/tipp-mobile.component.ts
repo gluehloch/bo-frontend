@@ -6,6 +6,7 @@ import { NgClass, DatePipe } from '@angular/common';
 import { NavigationRouterService } from '../navigationrouter.service';
 import { SessionService } from '../session/session.service';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { TeamTrendComponent } from './team-trend/team-trend.component';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
@@ -14,7 +15,7 @@ import { TippService } from './tipp.service';
     selector: 'app-tipp-mobile',
     templateUrl: './tipp-mobile.component.html',
     styleUrls: ['./tipp-mobile.component.css'],
-    imports: [SpinnerComponent, RouterLink, RouterLinkActive, FormsModule, NgClass, DatePipe],
+    imports: [SpinnerComponent, RouterLink, RouterLinkActive, FormsModule, NgClass, DatePipe, TeamTrendComponent],
     standalone: true,
 })
 export class TippMobileComponent extends TippCommonComponent implements OnInit {

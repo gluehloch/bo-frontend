@@ -36,7 +36,7 @@ pipeline {
                 echo 'Start test...'
             }
         }
-        stage('Deploy to remote host') {
+        stage('DEV: Deploy to remote host') {
             steps {
                 // Clean up remote upload directory and copy to remote host
                 // sh 'ssh winkler@tippdiekistebier.de rm -f /home/winkler/upload/betoffice-angular2.tar.gz'
@@ -50,6 +50,20 @@ pipeline {
                 }
             }
         }
+        stage('PROD: Deploy to remote host') {
+            steps {
+                // Clean up remote upload directory and copy to remote host
+                // sh 'ssh winkler@tippdiekistebier.de rm -f /home/winkler/upload/betoffice-angular2.tar.gz'
+                withCredentials([sshUserPrivateKey(credentialsId: 'winkler.tdkb3', keyFileVariable: 'SSH_KEY')]) {
+                    sh '''
+                    scp -i "$SSH_KEY" ./dist/betoffice-angular2.tar.gz winkler@tippdiekistebier.de:~/upload
+                    '''
+                    sh '''
+                    ssh -i "$SSH_KEY" winkler@tippdiekistebier.de '~/upload/copy-prod.sh'
+                    '''
+                }
+            }
+        }        
         /*
         stage('Deploy Development') { 
             steps {

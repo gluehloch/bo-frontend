@@ -60,6 +60,7 @@
             <td class="hidden-xs" style="text-align:right">{{tipp.game.dateTime | date: dateTimeFormat}}</td>
             <td style="text-align: right">
               {{tipp.game.homeTeam.name}}
+              <app-team-trend [team]="tipp.game.homeTeam" [limit]="5"></app-team-trend>
             </td>
             <td>
               <img class="teamlogo" src="{{tipp.game.homeTeam.logo}}" title="{{tipp.game.homeTeam.shortName}}"
@@ -71,6 +72,7 @@
             </td>
             <td>
               {{tipp.game.guestTeam.name}}
+              <app-team-trend [team]="tipp.game.guestTeam" [limit]="5"></app-team-trend>
             </td>
             <td class="hidden-xs">
               <app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult>
