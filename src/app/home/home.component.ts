@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { environment } from '../../environments/environment';
 
 import { HomeService } from './home.service';
 import { NavigationRouterService } from '../navigationrouter.service';
-
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
+    imports: [RouterLink],
     standalone: true,
-    imports: [RouterLink, NgFor]
 })
 export class HomeComponent implements OnInit {
 

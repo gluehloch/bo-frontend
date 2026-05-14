@@ -12,23 +12,23 @@ pipeline {
         stage('Prepare') {
             steps {
                 echo 'Prepare and check environment ...'
-                sh 'nodejs -v'
+                sh 'node -v'
                 sh 'npm -v'
                 sh 'java -version'
                 sh 'javac -version'
-                sh 'ssh boprod.tdkb ls /var/www'
-                sh 'cp src/environments/environment.prod.ts src/environments/environment.ts'
+                // sh 'ssh boprod.tdkb ls /var/www'
+                // sh 'cp src/environments/environment.prod.ts src/environments/environment.ts'
                 sh 'npm install'
-                sh 'npm uninstall @angular/cli'
+                // sh 'npm uninstall @angular/cli'
                 // sh 'npm cache clean'
-                sh 'npm install @angular/cli@latest'
+                // sh 'npm install @angular/cli@latest'
             }            
         }
         stage('Build') { 
             steps {
                 echo 'Start build...'
-                sh 'npm run ng -- build'
-                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp .'
+                sh 'npm run build-release'
+                sh 'tar -zcvf ./dist/betoffice-angular2.tar.gz -C ./dist/angularapp/browser .'
             }
         }
         stage('Test') { 
@@ -36,13 +36,35 @@ pipeline {
                 echo 'Start test...'
             }
         }
-        stage('Deploy to remote host') {
+        stage('DEV: Deploy to remote host') {
             steps {
                 // Clean up remote upload directory and copy to remote host
-                sh 'ssh boprod.tdkb rm -f /home/boprod/upload/betoffice-angular2.tar.gz'
-                sh 'scp ./dist/betoffice-angular2.tar.gz boprod.tdkb:~/upload'
+                // sh 'ssh winkler@tippdiekistebier.de rm -f /home/winkler/upload/betoffice-angular2.tar.gz'
+                withCredentials([sshUserPrivateKey(credentialsId: 'winkler.tdkb3', keyFileVariable: 'SSH_KEY')]) {
+                    sh '''
+                    scp -i "$SSH_KEY" ./dist/betoffice-angular2.tar.gz winkler@tippdiekistebier.de:~/upload
+                    '''
+                    sh '''
+                    ssh -i "$SSH_KEY" winkler@tippdiekistebier.de '~/upload/copy-dev.sh'
+                    '''
+                }
             }
         }
+        stage('PROD: Deploy to remote host') {
+            steps {
+                // Clean up remote upload directory and copy to remote host
+                // sh 'ssh winkler@tippdiekistebier.de rm -f /home/winkler/upload/betoffice-angular2.tar.gz'
+                withCredentials([sshUserPrivateKey(credentialsId: 'winkler.tdkb3', keyFileVariable: 'SSH_KEY')]) {
+                    sh '''
+                    scp -i "$SSH_KEY" ./dist/betoffice-angular2.tar.gz winkler@tippdiekistebier.de:~/upload
+                    '''
+                    sh '''
+                    ssh -i "$SSH_KEY" winkler@tippdiekistebier.de '~/upload/copy-prod.sh'
+                    '''
+                }
+            }
+        }        
+        /*
         stage('Deploy Development') { 
             steps {
                 echo 'Start deploy development ...'
@@ -70,6 +92,7 @@ pipeline {
                 sh 'ssh boprod.tdkb rm -f /home/boprod/www/tippdiekistebier/*'
                 sh 'ssh boprod.tdkb tar xvf /home/boprod/upload/betoffice-angular2.tar.gz -C /home/boprod/www/tippdiekistebier'
             }
-        }                
+        }
+        */
     }
 }

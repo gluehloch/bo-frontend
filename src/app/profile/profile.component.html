@@ -3,70 +3,71 @@
 <app-spinner [enabled]="!contentReady()"/>
 
 <h1>Teilnehmer Profil</h1>
-<div *ngIf="userProfile; else isLoading">
+@if (userProfile) {
+  <div>
     <form #userProfileUpdateform="ngForm" name="userProfileUpdateform" novalidate>
-        <div class="mb-3">
-            <label for="nickname" class="form-label">Nickname</label>
-            <input class="form-control" id="nickname" name="nickname" [(ngModel)]="userProfile.nickname" required/>
-        </div>
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input class="form-control" id="name" name="name" [(ngModel)]="userProfile.name" />
-        </div>
-        <div class="mb-3">
-            <label for="surname" class="form-label">Vorname</label>
-            <input class="form-control" id="surname" name="surname" [(ngModel)]="userProfile.surname" />
-        </div>
-        <div class="mb-3">
-            <label for="phone" class="form-label">Telefon</label>
-            <input class="form-control" id="phone" name="phone" [(ngModel)]="userProfile.phone" />
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="emailNotificationEnabled" name="emailNotificationEnabled" [(ngModel)]="userProfile.emailNotificationEnabled">
-            <label class="form-check-label" for="emailNotificationEnabled">E-Mail-Benachrichtigungen für einen Spieltag aktivieren</label>
-        </div>
-        <!--
-        <div class="mb-3">
-            <label for="password" >Passwort</label>
-            <input class="form-control" id="password" name="password" [(ngModel)]="party.password" />
-        </div>
-        -->
-        <div *ngIf="newMailRequested(); else email">
-            <ng-container *ngIf="!error">
-                <div class="alert alert-warning" role="alert">
-                    Die Bestätigungsmail wurde an {{userProfile.alternativeMail}} versendet. Bitte schaue jetzt
-                    in deinem Postfach nach und klicke auf den Bestätigungs-Link. Der Link ist 10 Minuten gültig.
-                </div>
-                <div class="mb-3">
-                    <label for="newMailRequested" class="form-label">Bestätigungs-Mail noch einmal senden?</label>
-                    <button type="button" id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
-                        (click)="submitConfirmationMail()"
-                        [disabled]="numberOfResubmits() > 4">
-                        Bestötigungslink an {{userProfile.alternativeMail}} versenden!
-                    </button>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="error">
-                <div class="alert alert-danger" role="alert">
-                    Es ist ein Fehler aufgetreten. Bitte versuche es später noch einmal. {{error}}
-                </div>
-            </ng-container>
-        </div>
-        <ng-template #email>
-            <div class="mb-3">
-                <label for="mail" class="form-label">Mail</label>
-                <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
+      <div class="mb-3">
+        <label for="nickname" class="form-label">Nickname</label>
+        <input class="form-control" id="nickname" name="nickname" [(ngModel)]="userProfile.nickname" required/>
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input class="form-control" id="name" name="name" [(ngModel)]="userProfile.name" />
+      </div>
+      <div class="mb-3">
+        <label for="surname" class="form-label">Vorname</label>
+        <input class="form-control" id="surname" name="surname" [(ngModel)]="userProfile.surname" />
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Telefon</label>
+        <input class="form-control" id="phone" name="phone" [(ngModel)]="userProfile.phone" />
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="emailNotificationEnabled" name="emailNotificationEnabled" [(ngModel)]="userProfile.emailNotificationEnabled">
+        <label class="form-check-label" for="emailNotificationEnabled">E-Mail-Benachrichtigungen für einen Spieltag aktivieren</label>
+      </div>
+      <!--
+      <div class="mb-3">
+        <label for="password" >Passwort</label>
+        <input class="form-control" id="password" name="password" [(ngModel)]="party.password" />
+      </div>
+      -->
+      @if (newMailRequested()) {
+        <div>
+          @if (!error) {
+            <div class="alert alert-warning" role="alert">
+              Die Bestätigungsmail wurde an {{userProfile.alternativeMail}} versendet. Bitte schaue jetzt
+              in deinem Postfach nach und klicke auf den Bestätigungs-Link. Der Link ist 10 Minuten gültig.
             </div>
-        </ng-template>
-
-        <div class="d-grid gap-2">
-            <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
-                (click)="updateProfile()">Speichern</button>
-            <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+            <div class="mb-3">
+              <label for="newMailRequested" class="form-label">Bestätigungs-Mail noch einmal senden?</label>
+              <button type="button" id="newMailRequested" name="newMailRequested" class="form-control btn btn-secondary"
+                (click)="submitConfirmationMail()"
+                [disabled]="numberOfResubmits() > 4">
+                Bestötigungslink an {{userProfile.alternativeMail}} versenden!
+              </button>
+            </div>
+          }
+          @if (error) {
+            <div class="alert alert-danger" role="alert">
+              Es ist ein Fehler aufgetreten. Bitte versuche es später noch einmal. {{error}}
+            </div>
+          }
         </div>
+      } @else {
+        <div class="mb-3">
+          <label for="mail" class="form-label">Mail</label>
+          <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
+        </div>
+      }
+      <div class="d-grid gap-2">
+        <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
+        (click)="updateProfile()">Speichern</button>
+        <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+      </div>
     </form>
-</div>
-<ng-template #isLoading>
-    <i>Wird geladen...</i>
-</ng-template>
+  </div>
+} @else {
+  <i>Wird geladen...</i>
+}
 

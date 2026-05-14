@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { JsonPipe, NgIf } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TippCommonComponent } from './tipp-common.component';
@@ -22,7 +22,7 @@ import { TippDesktopComponent } from './tipp-desktop.component';
     templateUrl: './tipp.component.html',
     styleUrls: ['./tipp.component.css'],
     standalone: true,
-    imports: [SpinnerComponent, TippSelectorComponent, FormsModule, TippSmallComponent, TippMobileComponent, TippDesktopComponent, NgIf]
+    imports: [SpinnerComponent, TippSelectorComponent, FormsModule, TippSmallComponent, TippMobileComponent, TippDesktopComponent]
 })
 export class TippComponent extends TippCommonComponent implements OnInit {
 

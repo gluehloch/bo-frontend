@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 
 import { NavigationRouterService } from '../navigationrouter.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+
 
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ResearchService } from './research.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 type dfbFilterType = 'DFB' | 'FIFA';
@@ -21,8 +21,8 @@ type HomeOrGuestType = 'HOME' | 'GUEST';
     selector: 'research',
     templateUrl: './research.component.html',
     styleUrls: ['./research.component.css'],
+    imports: [FormsModule, SpinnerComponent],
     standalone: true,
-    imports: [NgIf, NgFor, FormsModule, SpinnerComponent]
 })
 export class ResearchComponent implements OnInit {
 

@@ -1,113 +1,137 @@
 <div>
-    <app-spinner [enabled]="loading"/>
-    <form name="selectSeasonAndGroup">
-        <div class="mb-3">
-            <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
-            <select title="Select season" id="selectSeason" name="selectSeason" class="form-select form-select-sm" (change)="seasonSelected($event)">
-                <option *ngFor="let season of roundtable.seasons" [value]="season.id">
-                    {{season.name}} {{season.year}}
-                </option>
-            </select>
+  <app-spinner [enabled]="loading"/>
+  <form name="selectSeasonAndGroup">
+    <div class="mb-3">
+      <label for="selectSeason" class="form-label">Meisterschaft auswählen:</label>
+      <select title="Select season" id="selectSeason" name="selectSeason" class="form-select form-select-sm" (change)="seasonSelected($event)">
+        @for (season of roundtable.seasons; track season) {
+          <option [value]="season.id">
+            {{season.name}} {{season.year}}
+          </option>
+        }
+      </select>
+    </div>
+    <div class="mb-3">
+      @if (roundtable.groups.length > 1) {
+        <div>
+          <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
+          <select title="Select group" id="selectGroup" name="selectGroup" class="form-select form-select-sm" (change)="groupSelected($event)">
+            @for (group of roundtable.groups; track group) {
+              <option [value]="group.id">
+                {{group.name}}
+              </option>
+            }
+          </select>
         </div>
-        <div class="mb-3">
-            <div *ngIf="roundtable.groups.length > 1">
-                <label for="selectGroup" class="form-label">Gruppe auswählen:</label>
-                <select title="Select group" id="selectGroup" name="selectGroup" class="form-select form-select-sm" (change)="groupSelected($event)">
-                    <option *ngFor="let group of roundtable.groups" [value]="group.id">
-                        {{group.name}}
-                    </option>
-                </select>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="selectRound" class="form-label">Runde auswählen:</label>
+      <select title="Select round" id="selectRound" name="selectRound" class="form-select form-select-sm" (change)="roundSelected($event)">
+        @for (round of roundtable.rounds; track round) {
+          <option [value]="round.id" [selected]="roundtable.selectedRound?.id == round.id">
+            {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
+          </option>
+        }
+      </select>
+    </div>
+    @if (roundtable.rounds.length > 1) {
+      <div class="row mb-3">
+        <div class="btn-group" role="group" aria-label="Nächster Letzer">
+          @if (roundtable.selectedRound && roundtable.selectedRound.index > 1) {
+            <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
+              >
+              <i class="bi bi-caret-left-fill"></i> Letzter</button>
+            }
+            @if (roundtable.selectedRound && roundtable.selectedRound.index < roundtable.rounds.length) {
+              <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
+                >Nächster
+                <i class="bi bi-caret-right-fill"></i></button>
+              }
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="selectRound" class="form-label">Runde auswählen:</label>
-            <select title="Select round" id="selectRound" name="selectRound" class="form-select form-select-sm" (change)="roundSelected($event)">
-                <option *ngFor="let round of roundtable.rounds" [value]="round.id" [selected]="roundtable.selectedRound?.id == round.id">
-                    {{round.index}}. Spieltag / {{round.dateTime | date: 'dd.MM.yyyy'}}
-                </option>
-            </select>
-        </div>
-        <div class="row mb-3" *ngIf="roundtable.rounds.length > 1">
-            <div class="btn-group" role="group" aria-label="Nächster Letzer">
-                <button type="button" class="btn btn-sm btn-secondary" (click)="last()"
-                    *ngIf="roundtable.selectedRound && roundtable.selectedRound.index > 1">
-                    <i class="bi bi-caret-left-fill"></i> Letzter</button>
-                <button type="button" class="btn btn-sm btn-secondary" (click)="next()"
-                    *ngIf="roundtable.selectedRound && roundtable.selectedRound.index < roundtable.rounds.length">Nächster 
-                    <i class="bi bi-caret-right-fill"></i></button>
-            </div>
-        </div>
-    </form>
+          </div>
+        }
+      </form>
 
-    <div *ngIf="roundtable.table">
-        <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
-        <table class="table table-sm">
+      @if (roundtable.table) {
+        <div>
+          <h1>{{roundtable.table.roundJson.seasonName}} {{roundtable.table.roundJson.seasonYear}}</h1>
+          <table class="table table-sm">
             <thead>
+              <tr>
+                <th scope="col" class="right">Datum</th>
+                <th scope="col" class="right">Heimmannschaft</th>
+                <th scope="col" class="center">Ergebnis</th>
+                <th scope="col" class="left">Gastmannschaft</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (game of roundtable.table.roundJson.games; track game) {
                 <tr>
-                    <th scope="col" class="right">Datum</th>
-                    <th scope="col" class="right">Heimmannschaft</th>
-                    <th scope="col" class="center">Ergebnis</th>
-                    <th scope="col" class="left">Gastmannschaft</th>
-                    <th scope="col"></th>
+                  <td class="date">{{game.dateTime | date: dateTimeFormat}}</td>
+                  <td class="homeTeam">
+                    {{game.homeTeam.name}}
+                    <img class="teamlogo" src="{{game.homeTeam.logo}}" alt=""/>
+                  </td>
+                  <td class="result">
+                    <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
+                  </td>
+                  <td class="guestTeam">
+                    <img class="teamlogo" src="{{game.guestTeam.logo}}" alt=""/>
+                    {{game.guestTeam.name}}
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="onClickDetails(game)">
+                      @if (isExpanded(game)) {
+                        <i class="bi bi-arrows-collapse"></i>
+                      }
+                      @if (!isExpanded(game)) {
+                        <i class="bi bi-arrows-expand"></i>
+                      }
+                    </button>
+                  </td>
                 </tr>
-            </thead>
-            <tbody>
-                <ng-container *ngFor="let game of roundtable.table.roundJson.games">
-                    <tr>
-                        <td class="date">{{game.dateTime | date: dateTimeFormat}}</td>
-                        <td class="homeTeam">
-                            {{game.homeTeam.name}}
-                            <img class="teamlogo" src="{{game.homeTeam.logo}}" alt=""/>
-                        </td>
-                        <td class="result">
-                            <app-gameresult [game]="game" [halfTime]="true"></app-gameresult>
-                        </td>
-                        <td class="guestTeam">
-                            <img class="teamlogo" src="{{game.guestTeam.logo}}" alt=""/>
-                            {{game.guestTeam.name}}
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-secondary btn-sm" (click)="onClickDetails(game)">
-                                <i *ngIf="isExpanded(game)" class="bi bi-arrows-collapse"></i>
-                                <i *ngIf="!isExpanded(game)" class="bi bi-arrows-expand"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr [style.display]="expandedGames.get(game.id)?.expanded ? 'table-row' : 'none'">
-                        <td colspan="5">
-                            <goals [display]="isExpanded(game)" [game]="game"/>
-                        </td>
-                    </tr>
-                </ng-container>
+                <tr [style.display]="expandedGames.get(game.id)?.expanded ? 'table-row' : 'none'">
+                  <td colspan="5">
+                    <goals [display]="isExpanded(game)" [game]="game"/>
+                  </td>
+                </tr>
+              }
             </tbody>
-        </table>
-    </div>
+          </table>
+        </div>
+      }
 
-    <!-- Tabelle wird nur angezeigt, wenn wir es mit einer Liga oder einem Gruppenspiel zu tun haben. -->
-    <div *ngIf="roundtable.table && (roundtable.selectedGroup && (roundtable.selectedGroup.type === 'LEAGUE' || roundtable.selectedGroup.type === 'PRELIMINARY_ROUND'))">
-        <table class="table table-striped table-sm">
+      <!-- Tabelle wird nur angezeigt, wenn wir es mit einer Liga oder einem Gruppenspiel zu tun haben. -->
+      @if (roundtable.table && (roundtable.selectedGroup && (roundtable.selectedGroup.type === 'LEAGUE' || roundtable.selectedGroup.type === 'PRELIMINARY_ROUND'))) {
+        <div>
+          <table class="table table-striped table-sm">
             <thead>
-                <th scope="col">Pos</th>
-                <th scope="col" style="width:50%">Team</th>
-                <th scope="col">Punkte</th>
-                <th scope="col">Differenz</th>
-                <th scope="col">Tore</th>
-                <th scope="col">g:r:v</th>
+              <th scope="col">Pos</th>
+              <th scope="col" style="width:50%">Team</th>
+              <th scope="col">Punkte</th>
+              <th scope="col">Differenz</th>
+              <th scope="col">Tore</th>
+              <th scope="col">g:r:v</th>
             </thead>
             <tbody>
-                <tr *ngFor="let teamResult of roundtable.table.groupTeamTableJsons.teamResultJsons; index as i" [ngClass]="getColor(i)">
-                    <td>{{teamResult.tablePosition}}</td>
-                    <td>
-                        <img class="teamlogo" src="{{teamResult.team.logo}}">
-                        {{teamResult.team.name}}
-                    </td>
-                    <td style="text-align: center">{{teamResult.win * 3 + teamResult.remis}}</td>
-                    <td style="text-align: center">{{teamResult.posGoals - teamResult.negGoals}}</td>
-                    <td>{{teamResult.posGoals}}:{{teamResult.negGoals}}</td>
-                    <td>{{teamResult.win}}:{{teamResult.remis}}:{{teamResult.lost}} </td>
+              @for (teamResult of roundtable.table.groupTeamTableJsons.teamResultJsons; track teamResult; let i = $index) {
+                <tr [ngClass]="getColor(i)">
+                  <td>{{teamResult.tablePosition}}</td>
+                  <td>
+                    <img class="teamlogo" src="{{teamResult.team.logo}}">
+                    {{teamResult.team.name}}
+                  </td>
+                  <td style="text-align: center">{{teamResult.win * 3 + teamResult.remis}}</td>
+                  <td style="text-align: center">{{teamResult.posGoals - teamResult.negGoals}}</td>
+                  <td>{{teamResult.posGoals}}:{{teamResult.negGoals}}</td>
+                  <td>{{teamResult.win}}:{{teamResult.remis}}:{{teamResult.lost}} </td>
                 </tr>
+              }
             </tbody>
-        </table>
-    </div>
+          </table>
+        </div>
+      }
 
-</div>
+    </div>

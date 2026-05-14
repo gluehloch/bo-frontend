@@ -1,69 +1,83 @@
 <form id="tipp-selector" name="tipp-selector" [formGroup]="form">
-    <!-- Auto-Select Toggle -->
-    <div class="auto-select-section mb-3">
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="autoSelectSwitch" 
-                   formControlName="autoSelect">
-            <label class="form-check-label" for="autoSelectSwitch">
-                <i class="bi bi-magic"></i> Automatische Formular-Optimierung
-            </label>
-        </div>
-        <small class="text-muted" *ngIf="isAutoSelectEnabled">
-            Das beste Formular wird automatisch basierend auf Ihrem Bildschirm ausgewählt.
+  <!-- Auto-Select Toggle -->
+  <div class="auto-select-section mb-3">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="autoSelectSwitch"
+        formControlName="autoSelect">
+        <label class="form-check-label" for="autoSelectSwitch">
+          <i class="bi bi-magic"></i> Automatische Formular-Optimierung
+        </label>
+      </div>
+      @if (isAutoSelectEnabled) {
+        <small class="text-muted">
+          Das beste Formular wird automatisch basierend auf Ihrem Bildschirm ausgewählt.
         </small>
-        <small class="text-muted" *ngIf="!isAutoSelectEnabled">
-            Manuelle Auswahl aktiviert. Ihre Wahl wird gespeichert.
+      }
+      @if (!isAutoSelectEnabled) {
+        <small class="text-muted">
+          Manuelle Auswahl aktiviert. Ihre Wahl wird gespeichert.
         </small>
+      }
     </div>
 
     <!-- Device Info Display -->
-    <div class="device-info mb-3" *ngIf="currentDeviceInfo">
+    @if (currentDeviceInfo) {
+      <div class="device-info mb-3">
         <small class="text-muted">
-            <i class="bi bi-display"></i> 
-            Bildschirm: {{getDeviceInfo()}} 
-            • Empfohlen: <strong>{{getRecommendedForm() | titlecase}}</strong>
+          <i class="bi bi-display"></i>
+          Bildschirm: {{getDeviceInfo()}}
+          • Empfohlen: <strong>{{getRecommendedForm() | titlecase}}</strong>
         </small>
-    </div>
+      </div>
+    }
 
     <!-- Form Selector -->
     <div class="form-group">
-        <label for="tippFromSelection" class="form-label">
-            <i class="bi bi-layout-wtf"></i> Formular-Ansicht wählen:
-        </label>
-        <select id="tippFromSelection"
-                formControlName="state" 
-                class="form-select" 
-                aria-label="Tipp-Formular auswählen"
-            >
-            <!-- (ngModelChange)="onModelChange($event)" -->
-            <option disabled>Bitte auswählen....</option>
-            <option *ngFor="let state of states"
-                    [ngValue]="state" 
-                    [selected]="selectionState === state.id"
-                    [class.optimal-option]="state.isOptimal">
-                <i [class]="state.icon"></i>
-                {{state.name}}
-                <span *ngIf="state.isOptimal"> ⭐ (Optimal)</span>
-            </option>
-        </select>
+      <label for="tippFromSelection" class="form-label">
+        <i class="bi bi-layout-wtf"></i> Formular-Ansicht wählen:
+      </label>
+      <select id="tippFromSelection"
+        formControlName="state"
+        class="form-select"
+        aria-label="Tipp-Formular auswählen"
+        >
+        <!-- (ngModelChange)="onModelChange($event)" -->
+        <option disabled>Bitte auswählen....</option>
+        @for (state of states; track state) {
+          <option
+            [ngValue]="state"
+            [selected]="selectionState === state.id"
+            [class.optimal-option]="state.isOptimal">
+            <i [class]="state.icon"></i>
+            {{state.name}}
+            @if (state.isOptimal) {
+              <span> ⭐ (Optimal)</span>
+            }
+          </option>
+        }
+      </select>
     </div>
 
     <!-- Form Descriptions -->
-    <div class="form-descriptions mt-2" *ngIf="form.controls['state'].value">
+    @if (form.controls['state'].value) {
+      <div class="form-descriptions mt-2">
         <div class="current-form-info">
-            <div class="d-flex align-items-center">
-                <i [class]="form.controls['state'].value.icon" class="me-2"></i>
-                <div>
-                    <strong>{{form.controls['state'].value.name}}</strong>
-                    <span class="optimal-badge ms-2" 
-                          *ngIf="isOptimalFormType(form.controls['state'].value.id)">
-                        <i class="bi bi-star-fill"></i> Optimal für Ihr Gerät
-                    </span>
-                </div>
+          <div class="d-flex align-items-center">
+            <i [class]="form.controls['state'].value.icon" class="me-2"></i>
+            <div>
+              <strong>{{form.controls['state'].value.name}}</strong>
+              @if (isOptimalFormType(form.controls['state'].value.id)) {
+                <span class="optimal-badge ms-2"
+                  >
+                  <i class="bi bi-star-fill"></i> Optimal für Ihr Gerät
+                </span>
+              }
             </div>
-            <small class="text-muted d-block mt-1">
-                {{form.controls['state'].value.description}}
-            </small>
+          </div>
+          <small class="text-muted d-block mt-1">
+            {{form.controls['state'].value.description}}
+          </small>
         </div>
-    </div>
-</form>
+      </div>
+    }
+  </form>

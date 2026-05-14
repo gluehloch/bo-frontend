@@ -16,13 +16,55 @@ img.teamlogo {
 }
 
 .input-goals-home {
-    /*width: auto !important;*/
-    /*min-width: 12px;*/
     text-align: right;
 }
 
 .input-goals-guest {
-    /*width: auto !important;*/
-    /*min-width: 12px;*/
     text-align: left;
 }
+
+.game-block {
+    border-top: 1px solid rgb(202, 211, 219);
+    padding: .25rem 0;
+}
+
+.game-row {
+    padding: .25rem 0;
+}
+
+.team-cell {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.team-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: min(80px, 40%);
+}
+
+.tipp-result {
+    display: inline-block;
+    padding: .1rem .5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.tipp-result.jackpot {
+    background-color: green;
+    color: white;
+}
+
+.tipp-result.win {
+    background-color: yellowgreen;
+}
+
+.tipp-result.ticket {
+    background-color: lightcoral;
+}
+

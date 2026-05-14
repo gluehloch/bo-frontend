@@ -1,0 +1,33 @@
+.team-trend {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.trend-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: white;
+    cursor: default;
+}
+
+.trend-dot.trend-win {
+    background-color: #28a745;
+}
+
+.trend-dot.trend-draw {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.trend-dot.trend-loss {
+    background-color: #dc3545;
+}

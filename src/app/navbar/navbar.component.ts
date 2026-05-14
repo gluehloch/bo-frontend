@@ -5,7 +5,7 @@ import { NavigationRouterService } from '../navigationrouter.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { USERROLE } from '../user-role.enum';
 import { SessionService } from '../session/session.service';
-import { NgIf } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 
 enum NavState {
@@ -66,8 +66,8 @@ class NavMenu {
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
+    imports: [RouterLink],
     standalone: true,
-    imports: [RouterLink, NgIf]
 })
 export class NavbarComponent {
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { NgFor } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 
 export class PagerModel {
@@ -11,8 +11,8 @@ export class PagerModel {
     selector: 'app-pager',
     templateUrl: './pager.component.html',
     styleUrls: ['./pager.component.css'],
+    imports: [RouterLink],
     standalone: true,
-    imports: [RouterLink, NgFor]
 })
 export class PagerComponent implements OnInit {
 

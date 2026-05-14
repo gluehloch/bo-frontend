@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { NgFor, NgIf } from "@angular/common";
+
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
@@ -13,8 +13,8 @@ import { SessionService } from "../session/session.service";
 @Component({
     selector: 'profil',
     templateUrl: './profile-confirm.component.html',
+    imports: [FormsModule, SpinnerComponent, AuthenticationWarningComponent],
     standalone: true,
-    imports: [NgIf, NgFor, FormsModule, SpinnerComponent, AuthenticationWarningComponent]
 })
 export class ProfileConfirmComponent implements OnInit {
 

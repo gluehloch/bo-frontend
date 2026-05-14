@@ -7,15 +7,15 @@ import { NavigationRouterService } from '../navigationrouter.service';
 
 import { environment } from '../../environments/environment';
 import { Sorting } from '../betoffice-json/model/Sorting';
-import { NgIf, NgFor } from '@angular/common';
+
 import { AuthenticationWarningComponent } from '../authenticationwarning/authenticationwarning.component';
 
 @Component({
     selector: 'app-season-manager',
     templateUrl: './seasonmanager.component.html',
     styleUrls: ['./seasonmanager.component.css'],
+    imports: [AuthenticationWarningComponent],
     standalone: true,
-    imports: [AuthenticationWarningComponent, NgIf, NgFor]
 })
 export class SeasonManagerComponent implements OnInit {
 

@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 
 import { PartyUpdateService } from './partyupdate.service';
 
-import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 
 class PartyModel implements Rest.PartyJson {
@@ -48,8 +47,8 @@ class PartyModel implements Rest.PartyJson {
     selector: 'party',
     templateUrl: './partyupdate.component.html',
     styleUrls: ['./partyupdate.component.css'],
+    imports: [FormsModule],
     standalone: true,
-    imports: [FormsModule]
 })
 export class PartyUpdateComponent implements OnInit {
 
