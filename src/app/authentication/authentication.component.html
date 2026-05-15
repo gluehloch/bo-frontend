@@ -5,13 +5,10 @@
     Dann lasse dich <a routerLink="/register">hier</a> registrieren und trete eine Tipp-Gemeinschaft bei.
   </p>
   -->
-
   <div [hidden]="authenticationModel.authenticated" class="vertical-center">
     <div class="card">
       <h5 class="card-header">
-        @if (!authenticationModel.authenticated) {
-          <div>Anmeldung</div>
-        }
+        <div>Anmeldung</div>
       </h5>
       <div class="card-body">
         <h5 class="card-title">TDKB - Tippdiekistebier</h5>
@@ -42,36 +39,34 @@
           </div>
         </form>
       </div>
+    </div>
+  </div>
 
-      <div [hidden]="!authenticationModel.authenticated" class="vertical-center">
-        <div class="card">
-          <h5 class="card-header">
-            @if (authenticationModel.authenticated) {
-              <div>Abmeldung</div>
-            }
-          </h5>
-          <div class="card-body">
-            <h5 class="card-title">TDKB - Tippdiekistebier</h5>
-            <p class="card-text">Ein Gewinner. Eine Kiste Bier. So einfach ist das. </p>
-            <hr/>
-            @if (authenticationModel.authenticated) {
-              <div class="alert alert-success" role="alert">
-                Du bist als {{authenticationModel.nickname}} angemeldet.
-                Letzter erfolgreicher Login: {{authenticationModel.lastlogin | date: dateTimeFormat}}
-              </div>
-            }
-            @if (authenticationModel.admin) {
-              <div class="alert alert-warning" role="alert">
-                Du bist als Administrator angemeldet.
-              </div>
-            }
-            <form name="logoutform" novalidate>
-              <div class="d-grid gap-2">
-                <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="logout()">Logout</button>
-              </div>
-            </form>
-          </div>
+  <div [hidden]="!authenticationModel.authenticated" class="vertical-center">
+    <div class="card">
+      <h5 class="card-header">
+        <div>Abmeldung</div>
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title">TDKB - Tippdiekistebier</h5>
+        <p class="card-text">Ein Gewinner. Eine Kiste Bier. So einfach ist das. </p>
+        <hr/>
+        <div class="alert alert-success" role="alert">
+          Du bist als {{authenticationModel.nickname}} angemeldet.
+          Letzter erfolgreicher Login: {{authenticationModel.lastlogin | date: dateTimeFormat}}
         </div>
+        @if (authenticationModel.admin) {
+          <div class="alert alert-warning" role="alert">
+            Du bist als Administrator angemeldet.
+          </div>
+        }
+        <form name="logoutform" novalidate>
+          <div class="d-grid gap-2">
+            <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="logout()">Logout</button>
+          </div>
+        </form>
       </div>
+    </div>
+  </div>
 
     </div>
