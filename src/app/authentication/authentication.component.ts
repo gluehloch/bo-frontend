@@ -76,7 +76,9 @@ export class AuthenticationComponent implements OnInit {
     startGoogleIamLogin() {
         // TODO Umgebungsabängig / Spring Boot für localhost Development
         // 'http://localhost:9999/betoffice-boot/authentication/google/login-url'
-        window.location.href =  this.authenticationUrl + 'google/login-url';
+        // http://localhost:9999/betoffice-boot/oauth2/authorization/google
+        // window.location.href =  this.authenticationUrl + 'google/login-url';
+        window.location.href =  'http://localhost:9999/betoffice-boot/oauth2/authorization/google';
     }
 
     login() {
