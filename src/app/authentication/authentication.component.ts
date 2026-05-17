@@ -78,7 +78,8 @@ export class AuthenticationComponent implements OnInit {
         // 'http://localhost:9999/betoffice-boot/authentication/google/login-url'
         // http://localhost:9999/betoffice-boot/oauth2/authorization/google
         // window.location.href =  this.authenticationUrl + 'google/login-url';
-        window.location.href =  'http://localhost:9999/betoffice-boot/oauth2/authorization/google';
+        // window.location.href =  'http://localhost:9999/betoffice-boot/oauth2/authorization/google';
+        window.location.href = '/betoffice-boot/oauth2/authorization/google';
     }
 
     login() {
