@@ -13,6 +13,7 @@
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col"></th>
+          <th scope="col"></th>
           <th scope="col">Name</th>
           <th scope="col">Jahr</th>
           <th scope="col">Meisterschaft-Modus</th>
@@ -35,6 +36,11 @@
             <td>
               <button class="btn btn-primary btn-sm" type="submit" (click)="updateMatchday(season)">
                 <i class="bi bi-arrow-clockwise"></i>
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-primary btn-sm" type="submit" (click)="createMatchday(season)">
+                Spieltag neu
               </button>
             </td>
             <td>{{season.name}}</td>

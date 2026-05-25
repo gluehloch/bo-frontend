@@ -13,6 +13,7 @@ import { UpdateMatchdayComponent } from './app/seasonmanager/updatematchday/upda
 import { SeasonManagerUpdateComponent } from './app/seasonmanager/update/seasonmanagerupdate.component';
 import { SeasonManagerCreateComponent } from './app/seasonmanager/create/seasonmanagercreate.component';
 import { SeasonManagerComponent } from './app/seasonmanager/seasonmanager.component';
+import { CreateMatchdayComponent } from './app/seasonmanager/creatematchday/creatematchday.component';
 import { TeamUpdateComponent } from './app/team/update/teamupdate.component';
 import { TeamComponent } from './app/team/team.component';
 import { PartyUpdateComponent } from './app/party/update/partyupdate.component';
@@ -40,6 +41,7 @@ import { UpdateSeasonGroupTeamService } from './app/seasonmanager/updateteamgrou
 import { SeasonManagerCreateService } from './app/seasonmanager/create/seasonmanagercreate.service';
 import { SeasonManagerUpdateService } from './app/seasonmanager/update/seasonmanagerupdate.service';
 import { SeasonManagerService } from './app/seasonmanager/seasonmanager.service';
+import { CreateMatchdayService } from './app/seasonmanager/creatematchday/creatematchday.service';
 import { TeamUpdateService } from './app/team/update/teamupdate.service';
 import { TeamService } from './app/team/team.service';
 import { PartyUpdateService } from './app/party/update/partyupdate.service';
@@ -100,6 +102,7 @@ bootstrapApplication(AppComponent, {
         SeasonManagerService,
         SeasonManagerUpdateService,
         SeasonManagerCreateService,
+        CreateMatchdayService,
         UpdateSeasonGroupTeamService,
         UpdateMatchdayService,
         UpdateMatchService,
@@ -201,6 +204,11 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'chiefop/seasonmanager/create',
                 component: SeasonManagerCreateComponent,
+                canActivate: [AdministrationCanActivate]
+            },
+            {
+                path: 'chiefop/seasonmanager/creatematchday',
+                component: CreateMatchdayComponent,
                 canActivate: [AdministrationCanActivate]
             },
             {
