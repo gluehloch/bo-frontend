@@ -160,7 +160,16 @@ export class CreateMatchdayComponent implements OnInit {
         this.model.errorMessage = '';
         this.model.successMessage = '';
 
-        const roundPayload = this.createRoundPayload(this.model.selectedSeason, this.model.selectedGroup);
+        let roundPayload: CreateMatchdayRoundPayload;
+        try {
+            roundPayload = this.createRoundPayload(this.model.selectedSeason, this.model.selectedGroup);
+        } catch (error) {
+            console.error(error);
+            this.model.errorMessage = error instanceof Error ? error.message : 'Der Spieltag konnte nicht angelegt werden.';
+            this.model.submitted = false;
+            return;
+        }
+
         this.createMatchdayService
             .createMatchday(this.model.selectedSeason.id, this.model.selectedGroup.id, roundPayload)
             .subscribe({
