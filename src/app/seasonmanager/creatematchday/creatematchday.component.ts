@@ -192,8 +192,11 @@ export class CreateMatchdayComponent implements OnInit {
             const homeTeam = teams.find(team => team.id === game.homeTeamId);
             const guestTeam = teams.find(team => team.id === game.guestTeamId);
 
-            if (!homeTeam || !guestTeam) {
-                throw new Error('Die Mannschaften konnten nicht zugeordnet werden.');
+            if (!homeTeam) {
+                throw new Error(`Heimteam mit ID ${game.homeTeamId} konnte nicht zugeordnet werden.`);
+            }
+            if (!guestTeam) {
+                throw new Error(`Gastteam mit ID ${game.guestTeamId} konnte nicht zugeordnet werden.`);
             }
 
             return {
