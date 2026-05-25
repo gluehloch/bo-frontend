@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { BetofficeService } from '../../betoffice.service';
 import { SessionService } from 'src/app/session/session.service';
+import { CreateMatchdayRoundPayload } from './create-matchday-model';
 
 @Injectable()
 export class CreateMatchdayService extends BetofficeService {
@@ -28,7 +29,7 @@ export class CreateMatchdayService extends BetofficeService {
         return this.http.get<Rest.SeasonGroupTeamJson>(this.adminUrl + 'season/' + seasonId + '/groupteam');
     }
 
-    createMatchday(seasonId: number, groupId: number, roundPayload: unknown): Observable<Rest.RoundAndTableJson> {
+    createMatchday(seasonId: number, groupId: number, roundPayload: CreateMatchdayRoundPayload): Observable<Rest.RoundAndTableJson> {
         return this.http.post<Rest.RoundAndTableJson>(
             this.adminUrl + 'season/' + seasonId + '/group/' + groupId + '/round',
             roundPayload

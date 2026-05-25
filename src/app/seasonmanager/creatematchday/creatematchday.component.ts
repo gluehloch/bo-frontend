@@ -2,19 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
-import { CreateMatchdayModel, CreateMatchdayGameModel } from './create-matchday-model';
+import {
+    CreateMatchdayModel,
+    CreateMatchdayGameModel,
+    CreateMatchdayGamePayload,
+    CreateMatchdayRoundPayload
+} from './create-matchday-model';
 import { CreateMatchdayService } from './creatematchday.service';
 import { Sorting } from '../../betoffice-json/model/Sorting';
 import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 import { FormsModule } from '@angular/forms';
-
-interface CreateMatchdayGamePayload extends Rest.GameJson {
-    groupType: Rest.GroupTypeJson;
-}
-
-interface CreateMatchdayRoundPayload extends Omit<Rest.RoundJson, 'games'> {
-    games: CreateMatchdayGamePayload[];
-}
 
 @Component({
     selector: 'app-create-matchday',
@@ -204,7 +201,7 @@ export class CreateMatchdayComponent implements OnInit {
                 openligaid: 0,
                 index: index + 1,
                 roundId: 0,
-                dateTime: this.toBackendDateTime(game.dateTime),
+                dateTime: this.formatDateTimeForBackend(game.dateTime),
                 homeTeam: homeTeam,
                 guestTeam: guestTeam,
                 groupType: group,
@@ -230,7 +227,7 @@ export class CreateMatchdayComponent implements OnInit {
             };
         });
 
-        const roundDate = this.toBackendDateTime(this.model.roundDateTime);
+        const roundDate = this.formatDateTimeForBackend(this.model.roundDateTime);
         const nextIndex = (season.rounds?.length || 0) + 1;
 
         return {
@@ -238,7 +235,7 @@ export class CreateMatchdayComponent implements OnInit {
             seasonId: season.id,
             seasonName: season.name,
             seasonYear: season.year,
-            dateTime: roundDate as unknown as Date,
+            dateTime: roundDate,
             index: nextIndex,
             lastRound: false,
             tippable: false,
@@ -246,7 +243,7 @@ export class CreateMatchdayComponent implements OnInit {
         };
     }
 
-    private toBackendDateTime(localDateTime: string): string {
+    private formatDateTimeForBackend(localDateTime: string): string {
         const date = new Date(localDateTime);
         const offsetMinutes = -date.getTimezoneOffset();
         const offsetSign = offsetMinutes >= 0 ? '+' : '-';

@@ -5,6 +5,15 @@ export type CreateMatchdayGameModel = {
     guestTeamId?: number;
 };
 
+export type CreateMatchdayGamePayload = Rest.GameJson & {
+    groupType: Rest.GroupTypeJson;
+};
+
+export type CreateMatchdayRoundPayload = Omit<Rest.RoundJson, 'games' | 'dateTime'> & {
+    dateTime: string;
+    games: CreateMatchdayGamePayload[];
+};
+
 export class CreateMatchdayModel {
     seasons: Rest.SeasonJson[] = [];
     selectedSeason?: Rest.SeasonJson;
