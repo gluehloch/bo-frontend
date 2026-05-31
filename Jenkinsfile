@@ -52,6 +52,8 @@ pipeline {
         }
         stage('PROD: Deploy to remote host') {
             steps {
+                input message: 'Deploy to production?', ok: 'Deploy'
+
                 // Clean up remote upload directory and copy to remote host
                 // sh 'ssh winkler@tippdiekistebier.de rm -f /home/winkler/upload/betoffice-angular2.tar.gz'
                 withCredentials([sshUserPrivateKey(credentialsId: 'winkler.tdkb3', keyFileVariable: 'SSH_KEY')]) {
