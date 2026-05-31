@@ -1,0 +1,113 @@
+<app-authentication-warning></app-authentication-warning>
+
+<h1>Spieltag neu anlegen</h1>
+
+@if (model.errorMessage) {
+  <div class="alert alert-danger" role="alert">{{model.errorMessage}}</div>
+}
+
+@if (model.successMessage) {
+  <div class="alert alert-success" role="alert">{{model.successMessage}}</div>
+}
+
+<form #createMatchdayForm="ngForm" name="createMatchdayForm">
+  <div class="mb-3">
+    <label for="season" class="form-label">Meisterschaft</label>
+    <select id="season" name="season" class="form-select" [ngModel]="model.selectedSeason?.id"
+      (change)="seasonSelected($event)" required>
+      @for (season of model.seasons; track season) {
+        <option [value]="season.id">{{season.name}} {{season.year}}</option>
+      }
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="roundGroup" class="form-label">Gruppentyp (für den Spieltag)</label>
+    <select id="roundGroup" name="roundGroup" class="form-select" [ngModel]="model.selectedGroup?.id"
+      (change)="groupSelected($event)" required>
+      @for (group of model.groups; track group) {
+        <option [value]="group.id">{{group.name}}</option>
+      }
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="roundDateTime" class="form-label">Spieltag Datum</label>
+    <input type="datetime-local" id="roundDateTime" name="roundDateTime" class="form-control"
+      [(ngModel)]="model.roundDateTime" required />
+  </div>
+
+  <h2>Spiele</h2>
+
+  @if (model.games.length === 0) {
+    <div class="alert alert-warning" role="alert">
+      Bitte mindestens ein Spiel hinzufügen.
+    </div>
+  }
+
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Gruppe</th>
+        <th>Datum</th>
+        <th>Heim</th>
+        <th>Gast</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (game of model.games; track game; let i = $index) {
+        <tr>
+          <td>
+            <select class="form-select form-select-sm" name="group{{i}}" [ngModel]="game.groupId"
+              (change)="gameGroupSelected(game, $event)" required>
+              @for (group of model.groups; track group) {
+                <option [value]="group.id">{{group.name}}</option>
+              }
+            </select>
+          </td>
+          <td>
+            <input type="datetime-local" class="form-control form-control-sm" name="dateTime{{i}}"
+              [(ngModel)]="game.dateTime" required />
+          </td>
+          <td>
+            <select class="form-select form-select-sm" name="homeTeam{{i}}" [(ngModel)]="game.homeTeamId" required>
+              <option [ngValue]="undefined" disabled>Mannschaft wählen</option>
+              @for (team of findTeamsByGroupId(game.groupId); track team) {
+                <option [ngValue]="team.id">{{team.name}}</option>
+              }
+            </select>
+          </td>
+          <td>
+            <select class="form-select form-select-sm" name="guestTeam{{i}}" [(ngModel)]="game.guestTeamId" required>
+              <option [ngValue]="undefined" disabled>Mannschaft wählen</option>
+              @for (team of findTeamsByGroupId(game.groupId); track team) {
+                <option [ngValue]="team.id">{{team.name}}</option>
+              }
+            </select>
+          </td>
+          <td>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="removeGame(i)">
+              Entfernen
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="mb-3">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="addGame()">
+      Spiel hinzufügen
+    </button>
+  </div>
+
+  <div class="d-grid gap-2">
+    <button type="button" class="btn btn-primary" [disabled]="!canSubmit()" (click)="createMatchday()">
+      Spieltag anlegen
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="abort()">
+      Abbrechen
+    </button>
+  </div>
+</form>
