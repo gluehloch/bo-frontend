@@ -16,7 +16,7 @@ pipeline {
                 sh 'npm -v'
                 sh 'java -version'
                 sh 'javac -version'
-                sh 'mvn --version'
+                // sh 'mvn --version'
                 // sh 'ssh boprod.tdkb ls /var/www'
                 // sh 'cp src/environments/environment.prod.ts src/environments/environment.ts'
                 sh 'npm install'
