@@ -1,4 +1,32 @@
+<app-authentication-warning></app-authentication-warning>
+@if (processing()) {
+  <div>
+    <p>Bitte warten ...</p>
+  </div>
+}
 <h1>Spieltage verwalten</h1>
 <p>
-    
+    {{season()?.name}} {{season()?.year}} / {{season()?.seasonType}} / {{season()?.teamType}}
 </p>
+<table>
+    <tr>
+        <th scope="col">Index</th>
+        <th scope="col">Round</th>
+    </tr>
+    @for (round of season()?.rounds; track round) {
+    <tr>
+        <td>{{round.index}}</td>
+        <td>{{round.dateTime}}</td>
+    </tr>
+    }
+</table>
+<table>
+    <tr>
+        <th scope="col">GroupType</th>
+    </tr>
+    @for (groupType of groupTypes(); track groupType) {
+    <tr>
+        <td>{{groupType.name}} {{groupType.type}}</td>
+    </tr>
+    }
+</table>

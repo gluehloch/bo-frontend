@@ -21,6 +21,10 @@ export class SeasonService extends BetofficeService {
         return this.http.get<Array<Rest.GroupTypeJson>>(this.rootUrl + 'season/' + seasonId + '/group');
     }
 
+    findSeason(seasonId: number): Observable<Rest.SeasonJson> {
+        return this.http.get<Rest.SeasonJson>(this.rootUrl + 'season/' + seasonId);
+    }
+
     findCurrent(seasonId: number): Observable<Rest.RoundJson> {
         return this.http.get<Rest.RoundJson>(this.rootUrl + 'season/' + seasonId + "/current");
     }
