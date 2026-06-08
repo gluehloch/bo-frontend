@@ -1,4 +1,4 @@
-0<h1>Meisterschaften neu anlegen</h1>
+<h1>Meisterschaften neu anlegen</h1>
 
 <form #createSeasonForm="ngForm" name="seasonmanagerupdateform">
   <div class="mb-3">
@@ -6,43 +6,43 @@
     <input disabled="true" class="form-control" id="id" name="id" [(ngModel)]="model.season.id" />
   </div>
   <div class="mb-3">
-        <!-- ng-class="{'has-warning': party.nickname} -->
-        <label for="name" class="form-label">Name</label>
-        <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name" required />
-    </div>
-    <div class="mb-3">
-        <label for="year" class="form-label">Jahrgang</label>
-        <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year" required />
-    </div>
-    <div class="mb-3">
-        <label for="seasonType" class="form-label">Meisterschaftstyp</label>
-        <select class="form-select" id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType" required>
-            @for (seasonType of model.seasonTypes; track seasonType) {
-<option [value]="seasonType">{{seasonType}}</option>
-}
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="teamType" class="form-label">Mannschaftstyp</label>
-        <select class="form-select" id="teamType" name="teamType" [(ngModel)]="model.season.teamType" required>
-            @for (teamType of model.teamTypes; track teamType) {
-<option [value]="teamType">{{teamType}}</option>
-}
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="openligaLeagueShortcut" class="form-label">Openleague Shortcut</label>
-        <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut"
-            [(ngModel)]="model.season.openligaLeagueShortcut" />
-    </div>
-    <div class="mb-3">
-      <label for="openligaLeagueSeason" class="form-label">Openleague Jahrgang/League</label>
-      <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason"
-        [(ngModel)]="model.season.openligaLeagueSeason" />
-      </div>
-      <div class="d-grid gap-2">
-        <button [disabled]="!createSeasonForm.form.valid || model.submitted" class="btn btn-primary"
-        type="submit" (click)="createSeason()">Neu Anlegen</button>
-        <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
-      </div>
-    </form>
+    <!-- ng-class="{'has-warning': party.nickname} -->
+    <label for="name" class="form-label">Name</label>
+    <input class="form-control" id="name" name="name" [(ngModel)]="model.season.name" required />
+  </div>
+  <div class="mb-3">
+    <label for="year" class="form-label">Jahrgang</label>
+    <input class="form-control" id="year" name="year" [(ngModel)]="model.season.year" required />
+  </div>
+  <div class="mb-3">
+    <label for="seasonType" class="form-label">Meisterschaftstyp</label>
+    <select class="form-select" id="seasonType" name="seasonType" [(ngModel)]="model.season.seasonType" required>
+      @for (seasonType of model.seasonTypes; track seasonType) {
+      <option [value]="seasonType">{{seasonType}}</option>
+      }
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="teamType" class="form-label">Mannschaftstyp</label>
+    <select class="form-select" id="teamType" name="teamType" [(ngModel)]="model.season.teamType" required>
+      @for (teamType of model.teamTypes; track teamType) {
+      <option [value]="teamType">{{teamType}}</option>
+      }
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="openligaLeagueShortcut" class="form-label">Openleague Shortcut</label>
+    <input class="form-control" id="openligaLeagueShortcut" name="openligaLeagueShortcut"
+      [(ngModel)]="model.season.openligaLeagueShortcut" />
+  </div>
+  <div class="mb-3">
+    <label for="openligaLeagueSeason" class="form-label">Openleague Jahrgang/League</label>
+    <input class="form-control" id="openligaLeagueSeason" name="openligaLeagueSeason"
+      [(ngModel)]="model.season.openligaLeagueSeason" />
+  </div>
+  <div class="d-grid gap-2">
+    <button [disabled]="!createSeasonForm.form.valid || model.submitted" class="btn btn-primary" type="submit"
+      (click)="createSeason()">Neu Anlegen</button>
+    <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+  </div>
+</form>

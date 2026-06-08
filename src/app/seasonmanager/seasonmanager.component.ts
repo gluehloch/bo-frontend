@@ -56,4 +56,8 @@ export class SeasonManagerComponent implements OnInit {
         this.router.navigate(['./chiefop/seasonmanager/create']);
     }
 
+    addRound(season: Rest.SeasonJson): void {
+        this.router.navigate(['./chiefop/seasonmanager/addround', season.id]);
+    }
+
 }

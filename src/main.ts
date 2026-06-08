@@ -12,6 +12,7 @@ import { UpdateTeamGroupComponent } from './app/seasonmanager/updateteamgroup/up
 import { UpdateMatchdayComponent } from './app/seasonmanager/updatematchday/updatematchday.component';
 import { SeasonManagerUpdateComponent } from './app/seasonmanager/update/seasonmanagerupdate.component';
 import { SeasonManagerCreateComponent } from './app/seasonmanager/create/seasonmanagercreate.component';
+import { AddRoundComponent } from './app/seasonmanager/addround/addround.component';
 import { SeasonManagerComponent } from './app/seasonmanager/seasonmanager.component';
 import { TeamUpdateComponent } from './app/team/update/teamupdate.component';
 import { TeamComponent } from './app/team/team.component';
@@ -40,6 +41,7 @@ import { UpdateSeasonGroupTeamService } from './app/seasonmanager/updateteamgrou
 import { SeasonManagerCreateService } from './app/seasonmanager/create/seasonmanagercreate.service';
 import { SeasonManagerUpdateService } from './app/seasonmanager/update/seasonmanagerupdate.service';
 import { SeasonManagerService } from './app/seasonmanager/seasonmanager.service';
+
 import { TeamUpdateService } from './app/team/update/teamupdate.service';
 import { TeamService } from './app/team/team.service';
 import { PartyUpdateService } from './app/party/update/partyupdate.service';
@@ -221,6 +223,11 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'chiefop/seasonmanager/updatematch',
                 component: UpdateMatchComponent,
+                canActivate: [AdministrationCanActivate]
+            },
+            {
+                path: 'chiefop/seasonmanager/addround/:id',
+                component: AddRoundComponent,
                 canActivate: [AdministrationCanActivate]
             },
             {
