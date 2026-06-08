@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UpdateMatchService } from './updatematch.service';
@@ -45,7 +45,7 @@ export class UpdateMatchComponent implements OnInit {
     dateTimeFormat = environment.dateTimeFormat;
     matchModel: MatchModel;
     localDateTime: string = '';
-    processing = true;
+    processing = signal(true);
 
     constructor(private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -81,7 +81,7 @@ export class UpdateMatchComponent implements OnInit {
 
     private findMatch(matchId: number) {
         console.log('Match loading: ' + matchId);
-        this.processing = true;
+        this.processing.set(true);
         this.updateMatchService
             .findMatch(matchId)
             .subscribe(
@@ -107,7 +107,7 @@ export class UpdateMatchComponent implements OnInit {
                     // TODO Error handling not implemented.
                 },
                 () => {
-                    this.processing = false;
+                    this.processing.set(false);
                 }
             );
     }
