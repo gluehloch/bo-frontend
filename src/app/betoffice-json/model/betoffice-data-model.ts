@@ -108,9 +108,10 @@ export namespace Betoffice {
         seasonYear: string;
         dateTime: Date;
         index: number;
-        lastRound: boolean;
-        tippable: boolean;
+        lastRound: boolean | undefined;
+        tippable: boolean | undefined;
         games: GameModel[];
+        groupType: Rest.GroupTypeJson | undefined;
 
         constructor() {
             super();

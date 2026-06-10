@@ -6,13 +6,14 @@ import { map, switchMap } from "rxjs/operators";
 
 import { SeasonService } from "src/app/season/season.service";
 
+import { SpinnerComponent } from "../../shared/spinner/spinner.component";
 import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
 
 @Component({
     selector: 'app-add-round',
     templateUrl: './addround.component.html',
     styleUrls: ['./addround.component.css'],
-    imports: [AuthenticationWarningComponent, FormsModule],
+    imports: [AuthenticationWarningComponent, FormsModule, SpinnerComponent],
     standalone: true,
 })
 export class AddRoundComponent implements OnInit {
@@ -44,11 +45,13 @@ export class AddRoundComponent implements OnInit {
                 next: ({ season, groups }) => {
                     this.season.set(season);
                     this.groupTypes.set(groups);
+                    this.processing.set(false);
                 },
                 error: error => {
                     console.error('Unable to execute request.', error);
                 },
                 complete: () => {
+                    // Never complete, because the component is still active. But we can set processing to false, so that the spinner is hidden.
                     this.processing.set(false);
                 },
             });

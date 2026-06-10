@@ -71,9 +71,13 @@ declare namespace Rest {
         teamResultJsons: TeamResultJson[];
     }
 
+    type GroupType =
+        'LEAGUE' | 'PRELIMINARY_ROUND' | 'KNOCKOUT_ROUND' | 'SEMI_FINAL' | 'FINAL';
+
+
     type GroupTypeJson = AbstractOpenligaid & {
         name: string;
-        type: 'LEAGUE' | 'PRELIMINARY_ROUND' | 'KNOCKOUT_ROUND' | 'SEMI_FINAL' | 'FINAL';
+        type: Rest.GroupType;
     }
 
     type PartyJson = AbstractIdentifier & Serializable & {
@@ -98,9 +102,10 @@ declare namespace Rest {
         seasonYear: string;
         dateTime: Date;
         index: number;
-        lastRound: boolean;
-        tippable: boolean;
+        lastRound: boolean | undefined;
+        tippable: boolean | undefined;
         games: GameJson[];
+        groupType: Rest.GroupTypeJson | undefined;
     }
 
     type SeasonJson = AbstractIdentifier & Serializable & {
