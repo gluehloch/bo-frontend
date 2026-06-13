@@ -18,18 +18,36 @@
     </thead>
     <tbody>
         @for (round of season()?.rounds; track round) {
-        <tr>
+        <tr [class.table-warning]="isEditingRound(round)">
             <td>
-                <button class="btn btn-primary btn-sm" (click)="updateRound(season, round)">
+                <button type="button" class="btn btn-primary btn-sm" (click)="updateRound(season(), round)">
                     <i class="bi bi-gear"></i>
-            </button>
+                </button>
             </td>
             <td>{{round.index}}</td>
-            <td>{{round.dateTime}}</td>
-            <td>{{round.groupType.name}}</td>
-            <td>{{round.groupType.type}}</td>
             <td>
-                @switch (round.groupType.type) {
+                @if (isEditingRound(round)) {
+                <input type="datetime-local" class="form-control form-control-sm round-inline-control" name="dateTime{{round.id}}"
+                    [(ngModel)]="editingRoundDateTime" />
+                } @else {
+                {{round.dateTime | date: dateTimeFormat}}
+                }
+            </td>
+            <td>
+                @if (isEditingRound(round)) {
+                <select class="form-select form-select-sm round-inline-control" name="groupType{{round.id}}"
+                    [(ngModel)]="editingRoundGroupType">
+                    @for (groupType of groupTypes(); track groupType) {
+                    <option [ngValue]="groupType">{{groupType.name}}</option>
+                    }
+                </select>
+                } @else {
+                {{round.groupType?.name}}
+                }
+            </td>
+            <td>{{isEditingRound(round) ? editingRoundGroupType?.type : round.groupType?.type}}</td>
+            <td>
+                @switch (isEditingRound(round) ? editingRoundGroupType?.type : round.groupType?.type) {
                 @case ('PRELIMINARY_ROUND') {
                 <div>Vorrunde</div>
                 }
@@ -45,6 +63,20 @@
                 @default {
                 <div>Unbekannt</div>
                 }
+                }
+            </td>
+            <td>
+                @if (isEditingRound(round)) {
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-success btn-sm" [disabled]="updatingRound()"
+                        (click)="updateRound(season(), round)">
+                        <i class="bi bi-check-lg"></i>
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" [disabled]="updatingRound()"
+                        (click)="cancelRoundEdit()">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
                 }
             </td>
         </tr>
