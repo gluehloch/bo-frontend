@@ -10,12 +10,34 @@
         <th scope="col">Index</th>
         <th scope="col">Round</th>
         <th scope="col">Gruppe</th>
+        <th scope="col">Type</th>
+        <th scope="col">...</th>
     </tr>
     @for (round of season()?.rounds; track round) {
     <tr>
         <td>{{round.index}}</td>
         <td>{{round.dateTime}}</td>
         <td>{{round.groupType.name}}</td>
+        <td>{{round.groupType.type}}</td>
+        <td>
+            @switch (round.groupType.type) {
+            @case ('PRELIMINARY_ROUND') {
+            <div>Vorrunde</div>
+            }
+            @case ('KNOCKOUT_ROUND') {
+            <div>K.O.-Runde</div>
+            }
+            @case ('SEMI_FINAL') {
+            <div>Halbfinale</div>
+            }
+            @case ('FINAL') {
+            <div>Finale</div>
+            }
+            @default {
+            <div>Unbekannt</div>
+            }
+            }
+        </td>
     </tr>
     }
 </table>
