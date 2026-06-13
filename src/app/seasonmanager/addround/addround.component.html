@@ -5,49 +5,67 @@
 <p>
     {{season()?.name}} {{season()?.year}} / {{season()?.seasonType}} / {{season()?.teamType}}
 </p>
-<table>
-    <tr>
-        <th scope="col">Index</th>
-        <th scope="col">Round</th>
-        <th scope="col">Gruppe</th>
-        <th scope="col">Type</th>
-        <th scope="col">...</th>
-    </tr>
-    @for (round of season()?.rounds; track round) {
-    <tr>
-        <td>{{round.index}}</td>
-        <td>{{round.dateTime}}</td>
-        <td>{{round.groupType.name}}</td>
-        <td>{{round.groupType.type}}</td>
-        <td>
-            @switch (round.groupType.type) {
-            @case ('PRELIMINARY_ROUND') {
-            <div>Vorrunde</div>
-            }
-            @case ('KNOCKOUT_ROUND') {
-            <div>K.O.-Runde</div>
-            }
-            @case ('SEMI_FINAL') {
-            <div>Halbfinale</div>
-            }
-            @case ('FINAL') {
-            <div>Finale</div>
-            }
-            @default {
-            <div>Unbekannt</div>
-            }
-            }
-        </td>
-    </tr>
-    }
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Index</th>
+            <th scope="col">Round</th>
+            <th scope="col">Gruppe</th>
+            <th scope="col">Type</th>
+            <th scope="col">...</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (round of season()?.rounds; track round) {
+        <tr>
+            <td>
+                <button class="btn btn-primary btn-sm" (click)="updateRound(season, round)">
+                    <i class="bi bi-gear"></i>
+            </button>
+            </td>
+            <td>{{round.index}}</td>
+            <td>{{round.dateTime}}</td>
+            <td>{{round.groupType.name}}</td>
+            <td>{{round.groupType.type}}</td>
+            <td>
+                @switch (round.groupType.type) {
+                @case ('PRELIMINARY_ROUND') {
+                <div>Vorrunde</div>
+                }
+                @case ('KNOCKOUT_ROUND') {
+                <div>K.O.-Runde</div>
+                }
+                @case ('SEMI_FINAL') {
+                <div>Halbfinale</div>
+                }
+                @case ('FINAL') {
+                <div>Finale</div>
+                }
+                @default {
+                <div>Unbekannt</div>
+                }
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
 </table>
-<table>
-    <tr>
-        <th scope="col">GroupType</th>
-    </tr>
-    @for (groupType of groupTypes(); track groupType) {
-    <tr>
-        <td>{{groupType.name}} {{groupType.type}}</td>
-    </tr>
-    }
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (groupType of groupTypes(); track groupType) {
+        <tr>
+            <td></td>
+            <td>{{groupType.name}}</td>
+            <td>{{groupType.type}}</td>
+        </tr>
+        }
+    </tbody>
 </table>
