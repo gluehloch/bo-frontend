@@ -34,7 +34,7 @@
                     @if (isEditingRound(round)) {
                         <input
                             type="datetime-local"
-                            class="form-control form-control-sm round-inline-control"
+                            class="form-control form-control-sm"
                             name="dateTime{{ round.id }}"
                             [(ngModel)]="editingRoundDateTime"
                         />
@@ -45,7 +45,7 @@
                 <td>
                     @if (isEditingRound(round)) {
                         <select
-                            class="form-select form-select-sm round-inline-control"
+                            class="form-select form-select-sm"
                             name="groupType{{ round.id }}"
                             [(ngModel)]="editingRoundGroupType"
                         >
