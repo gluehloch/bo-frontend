@@ -26,13 +26,13 @@ export class AddRoundComponent implements OnInit {
     editingRoundId: number | null = null;
     editingRoundDateTime = '';
     editingRoundGroupType: Rest.GroupTypeJson | null = null;
-    
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private seasonService: SeasonService
     ) {
-        
+
     }
 
     ngOnInit(): void {
