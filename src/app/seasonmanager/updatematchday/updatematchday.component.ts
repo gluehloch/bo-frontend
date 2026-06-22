@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 import { AuthenticationWarningComponent } from '../../authenticationwarning/authenticationwarning.component';
+import { SeasonService } from 'src/app/season/season.service';
 
 export class Roundtable {
     seasonId: number;
@@ -47,6 +48,7 @@ export class UpdateMatchdayComponent implements OnInit {
     constructor(private router: Router,
         private route: ActivatedRoute,
         private updateMatchdayService: UpdateMatchdayService,
+        private seasonService: SeasonService,
         private modalService: ModalService) {
 
         this.roundtable = new Roundtable();
@@ -62,7 +64,7 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     private findGroups(seasonId: number) {
-        this.updateMatchdayService.findGroups(seasonId)
+        this.seasonService.findGroups(seasonId)
             .subscribe((groups: Rest.GroupTypeJson[]) => {
                 this.roundtable.groups = groups;
                 this.roundtable.selectedGroup = groups[0];
@@ -71,7 +73,7 @@ export class UpdateMatchdayComponent implements OnInit {
     }
 
     private findRounds(seasonId: number, groupId: number) {
-        this.updateMatchdayService
+        this.seasonService
                 .findRounds(seasonId, groupId)
                 .subscribe(
                     (season: Rest.SeasonJson) => {
@@ -174,8 +176,8 @@ export class UpdateMatchdayComponent implements OnInit {
 
     updateMatchDay() {
         if (this.roundtable.selectedGroup) {
-            this.updateMatchdayService
-                .updateMatchday(this.roundtable.seasonId, this.roundtable.table.roundJson, this.roundtable.selectedGroup)
+            this.seasonService
+                .updateRoundWithMatches(this.roundtable.seasonId, this.roundtable.table.roundJson, this.roundtable.selectedGroup)
                 .subscribe(
                     (round: Rest.RoundAndTableJson) => {
                         this.roundtable.table = round;

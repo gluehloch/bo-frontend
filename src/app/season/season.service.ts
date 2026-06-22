@@ -37,7 +37,12 @@ export class SeasonService extends BetofficeService {
         return this.http.get<Rest.RoundAndTableJson>(this.rootUrl + 'season/' + seasonId + '/roundtable/' + roundId + "/group/" + groupId);
     }
 
-    updateRound(seasonId: number, round: Rest.RoundJson, group: Rest.GroupTypeJson): Observable<Rest.RoundAndTableJson> {
+    updateRound(seasonId: number, roundId: number, updatedRound: Rest.RoundJson): Observable<Rest.RoundAndTableJson> {
+        return this.http.put<Rest.RoundAndTableJson>(
+            this.adminUrl + 'season/' + seasonId + '/round/' + roundId, updatedRound);
+    }
+
+    updateRoundWithMatches(seasonId: number, round: Rest.RoundJson, group: Rest.GroupTypeJson): Observable<Rest.RoundAndTableJson> {
         return this.http.post<Rest.RoundAndTableJson>(
             this.adminUrl + 'season/' + seasonId + '/round/' + round.id + '/group/' + group.id + '/update', round);
     }
