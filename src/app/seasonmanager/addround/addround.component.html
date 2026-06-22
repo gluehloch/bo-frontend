@@ -124,6 +124,41 @@
                 </td>
             </tr>
         }
+        <tr>
+            <td>
+                <button
+                    type="button"
+                    class="btn btn-success btn-sm"
+                    (click)="addRound(season())"
+                >
+                    <i class="bi bi-plus"></i>
+                </button>
+            </td>
+            <td>
+                {{(season()?.rounds?.length ?? 0) + 1}}
+            </td>
+            <td>
+                <input
+                    type="datetime-local"
+                    class="form-control form-control-sm"
+                    name="dateTimeNewRound"
+                    [(ngModel)]="newRoundDateTime"
+                />
+            </td>
+            <td>
+                <select
+                    class="form-select form-select-sm"
+                    name="groupTypeNewRound"
+                    [(ngModel)]="newRoundGroupType"
+                >
+                    @for (groupType of groupTypes(); track groupType) {
+                        <option [ngValue]="groupType">
+                            {{ groupType.name }}
+                        </option>
+                    }
+                </select>
+            </td>
+        </tr>
     </tbody>
 </table>
 <table class="table table-striped table-sm">

@@ -109,7 +109,7 @@ export class AddRoundComponent implements OnInit {
         };
 
         this.updatingRound.set(true);
-        this.seasonService.updateRound(season.id, updatedRound, selectedGroupType)
+        this.seasonService.updateRound(season.id, round.id, updatedRound)
             .pipe(finalize(() => this.updatingRound.set(false)))
             .subscribe({
                 next: (response) => {
