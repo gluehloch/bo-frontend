@@ -23,9 +23,13 @@ export class AddRoundComponent implements OnInit {
     updatingRound = signal(false);
     groupTypes = signal<Rest.GroupTypeJson[]>([]);
     season = signal<Rest.SeasonJson | null>(null);
+
     editingRoundId: number | null = null;
     editingRoundDateTime = '';
     editingRoundGroupType: Rest.GroupTypeJson | null = null;
+
+    newRoundDateTime = '';
+    newRoundGroupType: Rest.GroupTypeJson | null = null;
 
     constructor(
         private router: Router,
@@ -62,6 +66,27 @@ export class AddRoundComponent implements OnInit {
             });
     }
 
+    findRoundAndGroups(seasonId: number, roundId: number): void {
+        forkJoin({
+            season: this.seasonService.findSeason(seasonId),
+            groups: this.seasonService.findGroups(seasonId)
+        }).subscribe({
+            next: ({ season, groups }) => {
+                this.season.set(season);
+                this.groupTypes.set(groups);
+            }
+        });
+    }
+
+    startEdit(season: Rest.SeasonJson | null, round: Rest.RoundJson): void {
+        this.editingRoundId = round.id;
+        this.editingRoundDateTime = this.toLocalDateTimeValue(round.dateTime);
+        this.editingRoundGroupType = this.groupTypes().find(groupType => groupType.id === round.groupType?.id)
+            ?? round.groupType
+            ?? null;
+
+    }
+
     updateRound(season: Rest.SeasonJson | null, round: Rest.RoundJson): void {
         if (!season) {
             return;
@@ -71,12 +96,19 @@ export class AddRoundComponent implements OnInit {
             this.saveRound(season);
             return;
         }
+    }
 
-        this.editingRoundId = round.id;
-        this.editingRoundDateTime = this.toLocalDateTimeValue(round.dateTime);
-        this.editingRoundGroupType = this.groupTypes().find(groupType => groupType.id === round.groupType?.id)
-            ?? round.groupType
-            ?? null;
+    addRound(season: Rest.SeasonJson | null): void {
+        const s = this.season();
+        if (!season) {
+            return;
+        }
+
+        if (!this.newRoundGroupType) {
+            return;
+        }
+
+        this.saveRound
     }
 
     cancelRoundEdit(): void {
@@ -102,37 +134,26 @@ export class AddRoundComponent implements OnInit {
             return;
         }
 
-        const updatedRound: Rest.RoundJson = {
-            ...round,
+        const updatedRound: Rest.UpdateRoundJson = {
+            seasonId: season.id,
+            roundId: round.id,
             dateTime: this.toBackendDateTime(this.editingRoundDateTime) as unknown as Date,
-            groupType: selectedGroupType,
+            groupType: selectedGroupType.type,
         };
 
         this.updatingRound.set(true);
         this.seasonService.updateRound(season.id, round.id, updatedRound)
-            .pipe(finalize(() => this.updatingRound.set(false)))
+            // .pipe(finalize(() => this.updatingRound.set(false)))
             .subscribe({
-                next: (response) => {
-                    const savedRound = response.roundJson ?? updatedRound;
-                    this.season.update(existingSeason => {
-                        if (!existingSeason) {
-                            return existingSeason;
-                        }
-
-                        return {
-                            ...existingSeason,
-                            rounds: existingSeason.rounds.map(entry =>
-                                entry.id === savedRound.id
-                                    ? { ...entry, ...savedRound, groupType: savedRound.groupType ?? selectedGroupType }
-                                    : entry,
-                            ),
-                        };
-                    });
+                next: () => {
                     this.cancelRoundEdit();
                 },
                 error: error => {
                     console.error('Unable to update round.', error);
                 },
+                complete: () => {
+                    this.updatingRound.set(false);
+                }
             });
     }
 

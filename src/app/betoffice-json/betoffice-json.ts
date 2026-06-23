@@ -108,6 +108,19 @@ declare namespace Rest {
         groupType: Rest.GroupTypeJson | undefined;
     }
 
+    type UpdateRoundJson = {
+        seasonId: number;
+        roundId: number;
+        dateTime: Date;
+        groupType: Rest.GroupType;
+    }
+
+    type AddRoundJson = {
+        seasonId: number;
+        dateTime: Date;
+        groupType: Rest.GroupType;
+    }
+
     type SeasonJson = AbstractIdentifier & Serializable & {
         name: string;
         year: string;
