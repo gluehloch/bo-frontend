@@ -24,6 +24,7 @@
                     <button
                         type="button"
                         class="btn btn-primary btn-sm"
+                        title="Spieltag bearbeiten"
                         (click)="startEdit(season(), round)"
                     >
                         <i class="bi bi-gear"></i>
@@ -33,9 +34,11 @@
                 <td>
                     @if (isEditingRound(round)) {
                         <input
+                            [disabled]="updatingRound()"
                             type="datetime-local"
                             class="form-control form-control-sm"
                             name="dateTime{{ round.id }}"
+                            aria-label="Spieltag-Datum und Uhrzeit"
                             [(ngModel)]="editingRoundDateTime"
                         />
                     } @else {
@@ -45,8 +48,10 @@
                 <td>
                     @if (isEditingRound(round)) {
                         <select
+                            [disabled]="updatingRound()"
                             class="form-select form-select-sm"
                             name="groupType{{ round.id }}"
+                            title="Gruppe auswählen"
                             [(ngModel)]="editingRoundGroupType"
                         >
                             @for (groupType of groupTypes(); track groupType) {
@@ -107,6 +112,7 @@
                                 <button
                                     type="button"
                                     class="btn btn-success btn-sm"
+                                    title="Spieltag speichern"
                                     (click)="updateRound(season(), round)"
                                 >
                                     <i class="bi bi-check-lg"></i>
@@ -114,6 +120,7 @@
                                 <button
                                     type="button"
                                     class="btn btn-secondary btn-sm"
+                                    title="Bearbeiten abbrechen"
                                     (click)="cancelRoundEdit()"
                                 >
                                     <i class="bi bi-x-lg"></i>
@@ -129,6 +136,7 @@
                 <button
                     type="button"
                     class="btn btn-success btn-sm"
+                    title="Spieltag hinzufügen"
                     (click)="addRound(season())"
                 >
                     <i class="bi bi-plus"></i>
@@ -142,6 +150,7 @@
                     type="datetime-local"
                     class="form-control form-control-sm"
                     name="dateTimeNewRound"
+                    aria-label="Neuer Spieltag-Datum und Uhrzeit"
                     [(ngModel)]="newRoundDateTime"
                 />
             </td>
@@ -149,6 +158,7 @@
                 <select
                     class="form-select form-select-sm"
                     name="groupTypeNewRound"
+                    title="Gruppe für neuen Spieltag auswählen"
                     [(ngModel)]="newRoundGroupType"
                 >
                     @for (groupType of groupTypes(); track groupType) {

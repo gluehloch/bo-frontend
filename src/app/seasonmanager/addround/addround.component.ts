@@ -84,7 +84,6 @@ export class AddRoundComponent implements OnInit {
         this.editingRoundGroupType = this.groupTypes().find(groupType => groupType.id === round.groupType?.id)
             ?? round.groupType
             ?? null;
-
     }
 
     updateRound(season: Rest.SeasonJson | null, round: Rest.RoundJson): void {
@@ -108,7 +107,7 @@ export class AddRoundComponent implements OnInit {
             return;
         }
 
-        this.saveRound
+        //this.saveRound
     }
 
     cancelRoundEdit(): void {
