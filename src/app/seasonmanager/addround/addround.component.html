@@ -34,6 +34,7 @@
                 <td>
                     @if (isEditingRound(round)) {
                         <input
+                            id="datetime{{ round.id }}"
                             [disabled]="updatingRound()"
                             type="datetime-local"
                             class="form-control form-control-sm"
@@ -48,6 +49,7 @@
                 <td>
                     @if (isEditingRound(round)) {
                         <select
+                            id="groupType{{ round.id }}"
                             [disabled]="updatingRound()"
                             class="form-select form-select-sm"
                             name="groupType{{ round.id }}"
