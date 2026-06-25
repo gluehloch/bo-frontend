@@ -114,6 +114,27 @@ export class AddRoundComponent implements OnInit {
         this.editingRoundId = null;
         this.editingRoundDateTime = '';
         this.editingRoundGroupType = null;
+
+        const seasonId = this.season()?.id;
+        if (seasonId) {
+            this.processing.set(true);
+            forkJoin({
+                season: this.seasonService.findSeason(seasonId),
+                groups: this.seasonService.findGroups(seasonId)
+            }).subscribe({
+                next: ({ season, groups }) => {
+                    this.season.set(season);
+                    this.groupTypes.set(groups);
+                    this.processing.set(false);
+                },
+                error: error => {
+                    console.error('Unable to execute request.', error);
+                },
+                complete: () => {
+                    this.processing.set(false);
+                },
+            });
+        }
     }
 
     isEditingRound(round: Rest.RoundJson): boolean {
