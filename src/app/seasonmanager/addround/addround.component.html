@@ -21,14 +21,16 @@
         @for (round of season()?.rounds; track round) {
             <tr [class.table-warning]="isEditingRound(round)">
                 <td>
-                    <button
-                        type="button"
-                        class="btn btn-primary btn-sm"
-                        title="Spieltag bearbeiten"
-                        (click)="startEdit(season(), round)"
-                    >
-                        <i class="bi bi-gear"></i>
-                    </button>
+                    @if (!isEditingRound(round)) {
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-sm"
+                            title="Spieltag bearbeiten"
+                            (click)="startEdit(season(), round)"
+                        >
+                            <i class="bi bi-gear"></i>
+                        </button>
+                    }
                 </td>
                 <td>{{ round.index }}</td>
                 <td>
