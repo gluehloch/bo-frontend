@@ -101,7 +101,6 @@ export class AddRoundComponent implements OnInit {
                 next: ({ season, groups }) => {
                     this.season.set(season);
                     this.groupTypes.set(groups);
-                    this.processing.set(false);
                 },
                 error: error => {
                     console.error('Unable to execute request.', error);
@@ -119,6 +118,7 @@ export class AddRoundComponent implements OnInit {
 
     addRound(season: Rest.SeasonJson | null): void {
         if (!season || !this.newRoundGroupType || !this.newRoundDateTime) {
+            console.log('addRound: properties not set->', {season, newRoundDateTime: this.newRoundDateTime, newRoundGroupType: this.newRoundGroupType});
             return;
         }
 
