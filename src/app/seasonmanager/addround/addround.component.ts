@@ -86,30 +86,6 @@ export class AddRoundComponent implements OnInit {
             ?? null;
     }
 
-    updateRound(season: Rest.SeasonJson | null, round: Rest.RoundJson): void {
-        if (!season) {
-            return;
-        }
-
-        if (this.editingRoundId === round.id) {
-            this.saveRound(season);
-            return;
-        }
-    }
-
-    addRound(season: Rest.SeasonJson | null): void {
-        const s = this.season();
-        if (!season) {
-            return;
-        }
-
-        if (!this.newRoundGroupType) {
-            return;
-        }
-
-        //this.saveRound
-    }
-
     cancelRoundEdit(): void {
         this.editingRoundId = null;
         this.editingRoundDateTime = '';
@@ -141,18 +117,38 @@ export class AddRoundComponent implements OnInit {
         return this.editingRoundId === round.id;
     }
 
-    private saveRound(season: Rest.SeasonJson): void {
-        if (!this.editingRoundGroupType || this.editingRoundId === null) {
+    addRound(season: Rest.SeasonJson | null): void {
+        if (!season || !this.newRoundGroupType || !this.newRoundDateTime) {
+            return;
+        }
+
+        const addRound: Rest.AddRoundJson = {
+            seasonId: season.id,
+            dateTime: this.toBackendDateTime(this.newRoundDateTime) as unknown as Date,
+            groupType: this.newRoundGroupType.type,
+        }
+
+        this.updatingRound.set(true);
+        this.seasonService.addRound(season.id, addRound)
+            .subscribe({
+                next: () => {
+                    this.cancelRoundEdit();
+                },
+                error: error => {
+                    console.error('Unable to update round.', error);
+                },
+                complete: () => {
+                    this.updatingRound.set(false);
+                }
+            });        
+    }
+    
+    updateRound(season: Rest.SeasonJson | null, round: Rest.RoundJson): void {
+        if (!season || !this.editingRoundGroupType || this.editingRoundId === null) {
             return;
         }
 
         const selectedGroupType = this.editingRoundGroupType;
-
-        const currentSeason = this.season();
-        const round = currentSeason?.rounds.find(entry => entry.id === this.editingRoundId);
-        if (!round) {
-            return;
-        }
 
         const updatedRound: Rest.UpdateRoundJson = {
             seasonId: season.id,
@@ -163,7 +159,6 @@ export class AddRoundComponent implements OnInit {
 
         this.updatingRound.set(true);
         this.seasonService.updateRound(season.id, round.id, updatedRound)
-            // .pipe(finalize(() => this.updatingRound.set(false)))
             .subscribe({
                 next: () => {
                     this.cancelRoundEdit();
