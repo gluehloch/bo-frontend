@@ -138,6 +138,7 @@
         <tr>
             <td>
                 <button
+                    id="addRoundButton"
                     type="button"
                     class="btn btn-success btn-sm"
                     title="Spieltag hinzufügen"
@@ -152,9 +153,10 @@
             <td>
                 <input
                     id="newRoundDateTime"
-                    type="datetime-local"
                     class="form-control form-control-sm"
                     name="newRoundDateTime"
+                    type="datetime-local"
+                    required
                     aria-label="Neuer Spieltag-Datum und Uhrzeit"
                     [(ngModel)]="newRoundDateTime"
                 />
@@ -165,6 +167,7 @@
                     class="form-select form-select-sm"
                     name="newRoundGroupType"
                     title="Gruppe für neuen Spieltag auswählen"
+                    required
                     [(ngModel)]="newRoundGroupType"
                 >
                     @for (groupType of groupTypes(); track groupType) {

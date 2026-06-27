@@ -40,6 +40,8 @@ export class AddRoundComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.newRoundDateTime = this.toLocalDateTimeValue(new Date());
+
         this.route.params
             .pipe(
                 map(params => params['id']),
