@@ -10,12 +10,13 @@ import { TeamTrendComponent } from './team-trend/team-trend.component';
 
 import { TippCommonComponent } from './tipp-common.component';
 import { TippService } from './tipp.service';
+import { GameResultComponent } from '../shared/gameresult/gameresult.component';
 
 @Component({
     selector: 'app-tipp-mobile',
     templateUrl: './tipp-mobile.component.html',
     styleUrls: ['./tipp-mobile.component.css'],
-    imports: [SpinnerComponent, RouterLink, RouterLinkActive, FormsModule, NgClass, DatePipe, TeamTrendComponent],
+    imports: [SpinnerComponent, RouterLink, RouterLinkActive, FormsModule, GameResultComponent, NgClass, DatePipe, TeamTrendComponent],
     standalone: true,
 })
 export class TippMobileComponent extends TippCommonComponent implements OnInit {

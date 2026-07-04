@@ -85,8 +85,9 @@
                 <input type="number" class="score-input" id="{{tippModelContainer.round.id}}heim{{tipp.game.id}}"
                   name="{{tippModelContainer.round.id}}heim{{tipp.game.id}}" min="0" max="15"
                   [disabled]="tipp.game.finished" title="{{tipp.game.homeTeam.shortName}} Heimtore"
-                  aria-label="{{tipp.game.homeTeam.shortName}} Heimtore" [placeholder]="tipp.game.result.homeGoals"
+                  [placeholder]="tipp.game.result.homeGoals"
                   [(ngModel)]="tipp.homeGoals">
+                  <!-- aria-label="{{tipp.game.homeTeam.shortName}} Heimtore" -->
               </div>
             </div>
             <!-- VS Separator -->
@@ -94,7 +95,10 @@
               <span>VS</span>
               @if (tipp.game.finished) {
               <div class="actual-result">
+                <app-gameresult [game]="tipp.game" [halfTime]="true"></app-gameresult>
+                <!--
                 {{tipp.game.result.homeGoals}}:{{tipp.game.result.guestGoals}}
+                -->
               </div>
               }
             </div>
@@ -108,11 +112,11 @@
               <app-team-trend [team]="tipp.game.guestTeam" [limit]="5"></app-team-trend>
               <div class="team-score">
                 <input type="number" title="{{tipp.game.guestTeam.shortName}} Auswärtstore"
-                  aria-label="{{tipp.game.guestTeam.shortName}} Auswärtstore" class="score-input"
                   id="{{tippModelContainer.round.id}}gast{{tipp.game.id}}"
                   name="{{tippModelContainer.round.id}}gast{{tipp.game.id}}" min="0" max="15"
                   [disabled]="tipp.game.finished" [placeholder]="tipp.game.result.guestGoals"
                   [(ngModel)]="tipp.guestGoals">
+                  <!-- aria-label="{{tipp.game.guestTeam.shortName}} Auswärtstore" class="score-input" -->
               </div>
             </div>
           </div>
