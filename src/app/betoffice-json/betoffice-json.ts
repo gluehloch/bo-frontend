@@ -112,14 +112,14 @@ declare namespace Rest {
     type UpdateRoundJson = {
         seasonId: number;
         roundId: number;
+        groupTypeId: number;
         dateTime: Date;
-        groupTypeEnum: Rest.GroupTypeEnum;
     }
 
     type AddRoundJson = {
         seasonId: number;
+        groupTypeId: number;
         dateTime: Date;
-        groupTypeEnum: Rest.GroupTypeEnum;
     }
 
     type SeasonJson = AbstractIdentifier & Serializable & {
