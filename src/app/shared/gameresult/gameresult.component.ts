@@ -16,19 +16,11 @@ export class GameResultComponent implements OnInit {
     ngOnInit() {
     }
 
-    private isRegular(): boolean {
-        if (!this.game) {
-            return false;
-        }
-        return (!this.game.ko) || (this.game.ko && this.game.result.homeGoals !== this.game.result.guestGoals);
-    }
-
     private isOvertime(): boolean {
         if (!this.game) {
             return false;
         }
         return this.game.ko
-            && this.game.result.homeGoals === this.game.result.guestGoals
             && this.game.overtimeResult.homeGoals !== this.game.overtimeResult.guestGoals;
     }
 
@@ -37,8 +29,7 @@ export class GameResultComponent implements OnInit {
             return false;
         }
         return this.game.ko
-            && this.game.result.homeGoals === this.game.result.guestGoals
-            && this.game.overtimeResult.homeGoals === this.game.overtimeResult.guestGoals;
+            && this.game.penaltyResult.homeGoals !== this.game.penaltyResult.guestGoals;
     }
 
     private result(): string {
@@ -47,15 +38,12 @@ export class GameResultComponent implements OnInit {
         }
         if (!this.game.finished) {
             return '-:-';
-        } else if (this.isRegular()) {
-            return this.game.result.homeGoals + ':' + this.game.result.guestGoals;
-        } else if (this.isOvertime()) {
-            return this.game.overtimeResult.homeGoals + ':' + this.game.overtimeResult.guestGoals + ' n.V.';
         } else if (this.isPenalty()) {
             return this.game.penaltyResult.homeGoals + ':' + this.game.penaltyResult.guestGoals + ' n.E.';
-        }
-
-        return 'Ups';
+        } else if (this.isOvertime()) {
+            return this.game.overtimeResult.homeGoals + ':' + this.game.overtimeResult.guestGoals + ' n.V.';
+        } 
+        return this.game.result.homeGoals + ':' + this.game.result.guestGoals;
     }
 
     printResult() {
@@ -63,7 +51,9 @@ export class GameResultComponent implements OnInit {
         if (!this.game) {
             return '---';
         }
-        if (this.game.finished && this.halfTime) {
+
+        // Halbzeitergebnis nur anzeigen, wennn das Spiel kein KO Spiel ist.
+        if (this.game.finished && this.halfTime && !this.game.ko) {
             result = '(' + this.game.halfTimeResult.homeGoals
                 + ':' + this.game.halfTimeResult.guestGoals
                 + ') '
