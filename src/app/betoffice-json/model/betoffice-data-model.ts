@@ -40,12 +40,14 @@ export namespace Betoffice {
 
     export class GroupTypeModel extends AbstractOpenligaidModel implements Rest.GroupTypeJson {
         name: string;
-        type: 'LEAGUE' | 'PRELIMINARY_ROUND' | 'KNOCKOUT_ROUND' | 'SEMI_FINAL' | 'FINAL';
+        id: number;
+        groupTypeEnum: Rest.GroupTypeEnum;
 
         constructor() {
             super();
             this.name = '';
-            this.type = 'LEAGUE';
+            this.id = -1;
+            this.groupTypeEnum = 'LEAGUE';
         }
     }
 

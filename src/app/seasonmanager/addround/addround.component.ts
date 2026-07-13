@@ -127,7 +127,7 @@ export class AddRoundComponent implements OnInit {
         const addRound: Rest.AddRoundJson = {
             seasonId: season.id,
             dateTime: this.toBackendDateTime(this.newRoundDateTime) as unknown as Date,
-            groupType: this.newRoundGroupType.type,
+            groupTypeId: this.newRoundGroupType.id,
         }
 
         this.updatingRound.set(true);
@@ -156,7 +156,7 @@ export class AddRoundComponent implements OnInit {
             seasonId: season.id,
             roundId: round.id,
             dateTime: this.toBackendDateTime(this.editingRoundDateTime) as unknown as Date,
-            groupType: selectedGroupType.type,
+            groupTypeId: selectedGroupType.id,
         };
 
         this.updatingRound.set(true);

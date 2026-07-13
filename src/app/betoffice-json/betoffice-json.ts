@@ -76,7 +76,6 @@ declare namespace Rest {
 
 
     type GroupTypeJson = AbstractOpenligaid & {
-        groupTypeId: number;
         name: string;
         groupTypeEnum: Rest.GroupTypeEnum;
     }
