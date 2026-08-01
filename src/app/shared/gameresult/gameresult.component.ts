@@ -36,6 +36,7 @@ export class GameResultComponent implements OnInit {
         if (!this.game) {
             return '---';
         }
+        // Reihenfolge beachten!
         if (!this.game.finished) {
             return '-:-';
         } else if (this.isPenalty()) {
