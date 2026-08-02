@@ -50,14 +50,19 @@ export class SeasonGroupRoundSelectorService {
                 .subscribe((groups: Rest.GroupTypeJson[]) => {
 
             this.roundtable.groups.splice(0);
-            groups.filter(g => g.type === 'PRELIMINARY_ROUND').forEach(group => this.roundtable.groups.push(group));
-            groups.filter(g => g.type === 'KNOCKOUT_ROUND').forEach(group => this.roundtable.groups.push(group));
-            groups.filter(g => g.type === 'SEMI_FINAL').forEach(group => this.roundtable.groups.push(group));
-            groups.filter(g => g.type === 'FINAL').forEach(group => this.roundtable.groups.push(group));
-            groups.filter(g => g.type === 'LEAGUE').forEach(group => this.roundtable.groups.push(group));
+            // groups.forEach(group => this.roundtable.groups.push(group));
+
+            // Gruppe der Vorrunde kommen zu erst...
+            groups.filter(g => g.groupTypeEnum === 'PRELIMINARY_ROUND').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.groupTypeEnum === 'KNOCKOUT_ROUND' && g.name === 'Sechzehntelfinale').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.groupTypeEnum === 'KNOCKOUT_ROUND' && g.name === 'Achtelfinale').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.groupTypeEnum === 'KNOCKOUT_ROUND' && g.name === 'Viertelfinale').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.groupTypeEnum === 'SEMI_FINAL').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.groupTypeEnum === 'FINAL').forEach(group => this.roundtable.groups.push(group));
+            groups.filter(g => g.groupTypeEnum === 'LEAGUE').forEach(group => this.roundtable.groups.push(group));
 
             if (this.roundtable.groups.length > 0 && this.roundtable.selectedSeason) {
-                this.roundtable.selectedGroup = groups[0];
+                this.roundtable.selectedGroup = this.roundtable.groups[0];
                 this.findRounds(this.roundtable.selectedSeason.id, this.roundtable.selectedGroup.id);
             }
             this.processing.stop();

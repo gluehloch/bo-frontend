@@ -71,13 +71,13 @@ declare namespace Rest {
         teamResultJsons: TeamResultJson[];
     }
 
-    type GroupType =
+    type GroupTypeEnum =
         'LEAGUE' | 'PRELIMINARY_ROUND' | 'KNOCKOUT_ROUND' | 'SEMI_FINAL' | 'FINAL';
 
 
     type GroupTypeJson = AbstractOpenligaid & {
         name: string;
-        type: Rest.GroupType;
+        groupTypeEnum: Rest.GroupTypeEnum;
     }
 
     type PartyJson = AbstractIdentifier & Serializable & {
@@ -111,14 +111,14 @@ declare namespace Rest {
     type UpdateRoundJson = {
         seasonId: number;
         roundId: number;
+        groupTypeId: number;
         dateTime: Date;
-        groupType: Rest.GroupType;
     }
 
     type AddRoundJson = {
         seasonId: number;
+        groupTypeId: number;
         dateTime: Date;
-        groupType: Rest.GroupType;
     }
 
     type SeasonJson = AbstractIdentifier & Serializable & {

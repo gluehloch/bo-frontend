@@ -71,15 +71,15 @@
                 <td>
                     {{
                         isEditingRound(round)
-                            ? editingRoundGroupType?.type
-                            : round.groupType?.type
+                            ? editingRoundGroupType?.groupTypeEnum
+                            : round.groupType?.groupTypeEnum
                     }}
                 </td>
                 <td>
                     @switch (
                         isEditingRound(round)
-                            ? editingRoundGroupType?.type
-                            : round.groupType?.type
+                            ? editingRoundGroupType?.groupTypeEnum
+                            : round.groupType?.groupTypeEnum
                     ) {
                         @case ("PRELIMINARY_ROUND") {
                             <div>Vorrunde</div>
@@ -193,7 +193,7 @@
             <tr>
                 <td></td>
                 <td>{{ groupType.name }}</td>
-                <td>{{ groupType.type }}</td>
+                <td>{{ groupType.groupTypeEnum }}</td>
             </tr>
         }
     </tbody>
