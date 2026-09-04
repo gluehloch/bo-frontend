@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HomeService } from './home.service';
-import { NavigationRouterService } from '../navigationrouter.service';
-import { environment } from '../../environments/environment';
-
 import { RouterLink } from '@angular/router';
 
+import { environment } from '../../environments/environment';
+
+import { HomeService } from './home.service';
+import { NavigationRouterService } from '../navigationrouter.service';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
