@@ -26,12 +26,12 @@ export class CommunityUpdateService extends BetofficeService {
             this.adminUrl + 'season/' + seasonId + '/potentialuser');
     }
 
-    addUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
+    unused_dddUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
         return this.http.post<Array<Rest.SeasonMemberJson>>(
             this.adminUrl + 'season/' + seasonId + '/user/add', members);
     }
 
-    removeUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
+    unused_removeUser(seasonId: number, members: Array<Rest.SeasonMemberJson>): Observable<Array<Rest.SeasonMemberJson>> {
         return this.http.post<Array<Rest.SeasonMemberJson>>(
             this.adminUrl + 'season/' + seasonId + '/user/remove', members);
     }
