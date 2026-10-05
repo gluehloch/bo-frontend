@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import { SeasonService } from './season.service';
 import { NavigationRouterService } from '../navigationrouter.service';
@@ -44,6 +44,7 @@ export class SeasonComponent implements OnInit, Processing, GamesPreprocessor {
     constructor(private seasonService: SeasonService, private navigationRouterService: NavigationRouterService) {
         this.roundtable = new RoundtableModel();
         this.seasonGroupRoundSelectorService = new SeasonGroupRoundSelectorService(this, this.seasonService, this.roundtable, this);
+        // this.seasonService = inject(SeasonService);
     }
 
     ngOnInit() {
