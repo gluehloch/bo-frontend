@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { PartyUpdateService } from './partyupdate.service';
 
 import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
 class PartyModel implements Rest.PartyJson {
     id: number;
@@ -47,12 +48,13 @@ class PartyModel implements Rest.PartyJson {
     selector: 'party',
     templateUrl: './partyupdate.component.html',
     styleUrls: ['./partyupdate.component.css'],
-    imports: [FormsModule],
+    imports: [FormsModule, SpinnerComponent],
     standalone: true,
 })
 export class PartyUpdateComponent implements OnInit {
 
     party = signal(new PartyModel());
+    loading = signal(true);
 
     constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
     }
@@ -61,21 +63,23 @@ export class PartyUpdateComponent implements OnInit {
         this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
             this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => {
                 this.party().copy(party);
+                this.loading.set(false);
             });
         });
-
-        /*
-        this.route.params.map(params => params['id']).subscribe((id) => {
-          this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => this.party = party);
-        });
-        */
     }
 
     updateParty() {
+        this.loading.set(true);
         this.partyService.updateParty(this.party()).subscribe({
             next: partyResponse => this.party().copy(partyResponse),
-            error: error =>console.error('Request completed with an error.', error),
-            complete: () => console.info('Request completed successfully.')
+            error: error => {
+                console.error('Request completed with an error.', error);
+                this.loading.set(false);
+            },
+            complete: () => {
+                console.info('Request completed successfully.');
+                this.loading.set(false);
+            }
         });
     }
 
