@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { map } from 'rxjs/operators';
@@ -52,16 +52,15 @@ class PartyModel implements Rest.PartyJson {
 })
 export class PartyUpdateComponent implements OnInit {
 
-    party = new PartyModel();
+    party = signal(new PartyModel());
 
     constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
-        this.party.id = -1;
     }
 
     ngOnInit() {
         this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
             this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => {
-                this.party.copy(party);
+                this.party().copy(party);
             });
         });
 
@@ -73,21 +72,11 @@ export class PartyUpdateComponent implements OnInit {
     }
 
     updateParty() {
-        if (!this.party.nickname) {
-
-        }
-
-        this.partyService.updateParty(this.party).subscribe(
-            (partyResponse: Rest.PartyJson) => {
-                this.party.copy(partyResponse);
-            },
-            error => {
-                console.error('Error', error);
-            },
-            () => {
-                console.info('Request completed.');
-            }
-        );
+        this.partyService.updateParty(this.party()).subscribe({
+            next: partyResponse => this.party().copy(partyResponse),
+            error: error =>console.error('Request completed with an error.', error),
+            complete: () => console.info('Request completed successfully.')
+        });
     }
 
     abort() {
