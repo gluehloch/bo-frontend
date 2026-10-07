@@ -55,6 +55,8 @@ export class PartyUpdateComponent implements OnInit {
 
     party = signal(new PartyModel());
     loading = signal(true);
+    error = signal(false);
+    success = signal(false);
 
     constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
     }
@@ -73,8 +75,11 @@ export class PartyUpdateComponent implements OnInit {
         this.partyService.updateParty(this.party()).subscribe({
             next: partyResponse => this.party().copy(partyResponse),
             error: error => {
-                console.error('Request completed with an error.', error);
+                console.error('Request completed with an error.', { error });
                 this.loading.set(false);
+                if (error?.status === 400) {
+                    this.error.set(true);
+                }
             },
             complete: () => {
                 console.info('Request completed successfully.');

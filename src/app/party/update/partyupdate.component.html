@@ -1,6 +1,17 @@
 <h1>Teilnehmer ändern</h1>
 <app-spinner [enabled]="loading()"/>
+
 <form name="partyupdateform" novalidate>
+    @if (success()) {
+        <div class="alert alert-success" role="status">
+            Die Daten wurden erfolgreich geändert.
+        </div>
+    }   
+    @if (error()) {
+        <div class="alert alert-danger" role="status">
+            Die Daten konnten nicht geändert werden.
+        </div>
+    }
     <div class="mb-3">
         <label for="id" class="form-label">ID</label>
         <input disabled="true" class="form-control" id="id" name="id"
