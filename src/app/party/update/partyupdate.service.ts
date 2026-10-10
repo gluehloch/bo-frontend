@@ -20,7 +20,7 @@ export class PartyUpdateService extends BetofficeService {
     }
 
     updateParty(party: Rest.PartyJson): Observable<Rest.PartyJson> {
-        return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/update', party);
+        return this.http.put<Rest.PartyJson>(this.adminUrl + 'user', party);
     }
 
 }

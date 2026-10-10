@@ -1,43 +1,56 @@
 <h1>Teilnehmer ändern</h1>
+<app-spinner [enabled]="loading()"/>
 
-<form name="partyupdateform" novalidate>
+<form #partyupdateform="ngForm" name="partyupdateform" novalidate
+    (ngSubmit)="updateParty(partyupdateform)">
+    @if (success()) {
+        <div class="alert alert-success" role="status">
+            Die Daten wurden erfolgreich geändert.
+        </div>
+    }   
+    @if (error()) {
+        <div class="alert alert-danger" role="status">
+            Die Daten konnten nicht geändert werden.
+        </div>
+    }
     <div class="mb-3">
         <label for="id" class="form-label">ID</label>
         <input disabled="true" class="form-control" id="id" name="id"
-            [(ngModel)]="party.id" />
+            [(ngModel)]="party().id" />
     </div>
     <div class="mb-3">
         <label for="nickname" class="form-label">Nickname</label>
-        <input class="form-control" id="nickname" name="nickname" [(ngModel)]="party.nickname" />
+        <input disabled="true" class="form-control" id="nickname" name="nickname"
+            [(ngModel)]="party().nickname" />
     </div>
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input class="form-control" id="name" name="name" [(ngModel)]="party.name" />
+        <input class="form-control" id="name" name="name" [(ngModel)]="party().name" />
     </div>
     <div class="mb-3">
         <label for="surnmae" class="form-label">Vorname</label>
-        <input class="form-control" id="surname" name="surname" [(ngModel)]="party.surname" />
+        <input class="form-control" id="surname" name="surname" [(ngModel)]="party().surname" />
     </div>
     <div class="mb-3">
         <label for="phone" class="form-label">Telefon</label>
-        <input class="form-control" id="phone" name="phone" [(ngModel)]="party.phone" />
+        <input class="form-control" id="phone" name="phone" [(ngModel)]="party().phone" />
     </div>
     <div class="mb-3">
         <label for="mail" class="form-label">Mail</label>
-        <input class="form-control" id="mail" name="mail" [(ngModel)]="party.mail" />
+        <input class="form-control" id="mail" name="mail" [(ngModel)]="party().mail" />
     </div>
     <div class="mb-3">
         <label for="password" >Passwort</label>
-        <input class="form-control" id="password" name="password" [(ngModel)]="party.password" />
+        <input class="form-control" id="password" name="password" [(ngModel)]="party().password" />
     </div>
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="emailNotificationEnabled" name="emailNotificationEnabled" [(ngModel)]="party.emailNotificationEnabled">
+    <div class="mb-3 form-check form-switch">
+        <input type="checkbox" role="switch" class="form-check-input" id="emailNotificationEnabled" name="emailNotificationEnabled" [(ngModel)]="party().emailNotificationEnabled">
         <label class="form-check-label" for="emailNotificationEnabled">E-Mail-Benachrichtigungen für einen Spieltag aktivieren</label>
     </div>
 
     <div class="d-grid gap-2">
-        <button ng-disabled="partyupdateform.$invalid" class="btn btn-primary" type="submit"
-            (click)="updateParty()">Speichern</button>
-        <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+        <button [disabled]="loading() || !partyupdateform.dirty"
+            class="btn btn-primary" type="submit">Speichern</button>
+        <button class="btn btn-secondary" type="button" (click)="abort()">Zurück</button>
     </div>
 </form>
