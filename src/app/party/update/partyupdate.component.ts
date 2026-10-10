@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { PartyUpdateService } from './partyupdate.service';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
 @Component({
@@ -44,7 +44,7 @@ export class PartyUpdateComponent implements OnInit {
         });
     }
 
-    updateParty() {
+    updateParty(form: NgForm) {
         this.loading.set(true);
         this.partyService.updateParty(this.party()).subscribe({
             next: partyResponse => this.party.set(partyResponse),
@@ -57,6 +57,7 @@ export class PartyUpdateComponent implements OnInit {
             },
             complete: () => {
                 console.info('Request completed successfully.');
+                form.form.markAsPristine();
                 this.loading.set(false);
             }
         });

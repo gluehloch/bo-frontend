@@ -1,7 +1,8 @@
 <h1>Teilnehmer ändern</h1>
 <app-spinner [enabled]="loading()"/>
 
-<form name="partyupdateform" novalidate>
+<form #partyupdateform="ngForm" name="partyupdateform" novalidate
+    (ngSubmit)="updateParty(partyupdateform)">
     @if (success()) {
         <div class="alert alert-success" role="status">
             Die Daten wurden erfolgreich geändert.
@@ -48,8 +49,8 @@
     </div>
 
     <div class="d-grid gap-2">
-        <button ng-disabled="partyupdateform.$invalid" class="btn btn-primary" type="submit"
-            (click)="updateParty()">Speichern</button>
-        <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+        <button [disabled]="loading() || !partyupdateform.dirty"
+            class="btn btn-primary" type="submit">Speichern</button>
+        <button class="btn btn-secondary" type="button" (click)="abort()">Zurück</button>
     </div>
 </form>
