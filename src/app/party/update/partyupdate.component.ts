@@ -8,42 +8,6 @@ import { PartyUpdateService } from './partyupdate.service';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
-class PartyModel implements Rest.PartyJson {
-    id: number;
-    nickname: string;
-    surname: string;
-    name: string;
-    phone: string;
-    mail: string;
-    password: string;
-    title: string;
-    emailNotificationEnabled: boolean;
-
-    constructor() {
-        this.id = 0;
-        this.nickname = '';
-        this.surname = '';
-        this.name = '';
-        this.phone = '';
-        this.mail = '';
-        this.password = '';
-        this.title = '';
-        this.emailNotificationEnabled = false;
-    }
-
-    copy(party: Rest.PartyJson) {
-        this.id = party.id;
-        this.nickname =  party.nickname;
-        this.password = party.password;
-        this.surname = party.surname;
-        this.name = party.name;
-        this.title = party.title;
-        this.mail = party.mail;
-        this.phone = party.phone;
-        this.emailNotificationEnabled = party.emailNotificationEnabled;
-    }
-}
-
 @Component({
     selector: 'party',
     templateUrl: './partyupdate.component.html',
@@ -53,7 +17,17 @@ class PartyModel implements Rest.PartyJson {
 })
 export class PartyUpdateComponent implements OnInit {
 
-    party = signal(new PartyModel());
+    party = signal<Rest.PartyJson>({
+        id: 0,
+        nickname: '',
+        surname: '',
+        name: '',
+        phone: '',
+        mail: '',
+        password: '',
+        title: '',
+        emailNotificationEnabled: false,
+    });
     loading = signal(true);
     error = signal(false);
     success = signal(false);
@@ -64,7 +38,7 @@ export class PartyUpdateComponent implements OnInit {
     ngOnInit() {
         this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
             this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => {
-                this.party().copy(party);
+                this.party.set(party);
                 this.loading.set(false);
             });
         });
@@ -73,7 +47,7 @@ export class PartyUpdateComponent implements OnInit {
     updateParty() {
         this.loading.set(true);
         this.partyService.updateParty(this.party()).subscribe({
-            next: partyResponse => this.party().copy(partyResponse),
+            next: partyResponse => this.party.set(partyResponse),
             error: error => {
                 console.error('Request completed with an error.', { error });
                 this.loading.set(false);
