@@ -16,8 +16,8 @@ import { AddRoundComponent } from './app/seasonmanager/addround/addround.compone
 import { SeasonManagerComponent } from './app/seasonmanager/seasonmanager.component';
 import { TeamUpdateComponent } from './app/team/update/teamupdate.component';
 import { TeamComponent } from './app/team/team.component';
-import { PartyUpdateComponent } from './app/party/update/partyupdate.component';
-import { PartyComponent } from './app/party/party.component';
+import { PartyUpdateComponent } from './app/admin/party/update/partyupdate.component';
+import { PartyComponent } from './app/admin/party/party.component';
 
 import { SeasonComponent } from './app/season/season.component';
 import { RankingComponent } from './app/ranking/ranking.component';
@@ -44,8 +44,8 @@ import { SeasonManagerService } from './app/seasonmanager/seasonmanager.service'
 
 import { TeamUpdateService } from './app/team/update/teamupdate.service';
 import { TeamService } from './app/team/team.service';
-import { PartyUpdateService } from './app/party/update/partyupdate.service';
-import { PartyService } from './app/party/party.service';
+import { PartyUpdateService } from './app/admin/party/update/partyupdate.service';
+import { PartyService } from './app/admin/party/party.service';
 import { RankingService } from './app/ranking/ranking.service';
 import { SeasonService } from './app/season/season.service';
 import { TippService } from './app/tipp/tipp.service';

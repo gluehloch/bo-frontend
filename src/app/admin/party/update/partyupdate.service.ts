@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { BetofficeService } from '../../betoffice.service';
+import { BetofficeService } from '../../../betoffice.service';
 import { SessionService } from 'src/app/session/session.service';
 
 @Injectable()

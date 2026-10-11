@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PartyService } from './party.service';
-import { NavigationRouterService } from '../navigationrouter.service';
+import { NavigationRouterService } from '../../navigationrouter.service';
 
 
 @Component({

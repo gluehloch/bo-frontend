@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { BetofficeService } from '../betoffice.service';
-import { SessionService } from '../session/session.service';
+import { BetofficeService } from '../../betoffice.service';
+import { SessionService } from '../../session/session.service';
 
 @Injectable()
 export class PartyService extends BetofficeService {
