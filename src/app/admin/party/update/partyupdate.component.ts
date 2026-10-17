@@ -17,7 +17,7 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 })
 export class PartyUpdateComponent implements OnInit {
 
-    party = signal<Rest.PartyJson>({
+    party: Rest.PartyJson = {
         id: 0,
         nickname: '',
         surname: '',
@@ -27,7 +27,7 @@ export class PartyUpdateComponent implements OnInit {
         password: '',
         title: '',
         emailNotificationEnabled: false,
-    });
+    };
     loading = signal(true);
     error = signal(false);
     success = signal(false);
@@ -38,7 +38,7 @@ export class PartyUpdateComponent implements OnInit {
     ngOnInit() {
         this.route.params.pipe(map(params => params['id'])).subscribe((id) => {
             this.partyService.findParty(id).subscribe((party: Rest.PartyJson) => {
-                this.party.set(party);
+                this.party = party;
                 this.loading.set(false);
             });
         });
@@ -46,13 +46,16 @@ export class PartyUpdateComponent implements OnInit {
 
     updateParty(form: NgForm) {
         this.loading.set(true);
-        this.partyService.updateParty(this.party()).subscribe({
-            next: partyResponse => this.party.set(partyResponse),
+        this.partyService.updateParty(this.party).subscribe({
+            next: partyResponse => this.party = partyResponse,
             error: error => {
                 console.error('Request completed with an error.', { error });
                 this.loading.set(false);
                 if (error?.status === 400) {
                     this.error.set(true);
+                }
+                if (error?.error?.USER_MAIL_IS_NOT_VALID) {
+                    console.error(error?.error?.USER_MAIL_IS_NOT_VALID);
                 }
             },
             complete: () => {
