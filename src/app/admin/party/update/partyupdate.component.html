@@ -19,13 +19,13 @@
             [(ngModel)]="party.id" />
     </div>
     <div class="mb-3">
-        <label for="nickname" class="form-label">Nickname</label>
-        <input disabled="true" class="form-control" id="nickname" name="nickname"
+        <label for="nickname" class="form-label" >Nickname <span aria-hidden="true">*</span></label>
+        <input disabled="true" class="form-control" id="nickname" name="nickname" required
             [(ngModel)]="party.nickname" />
     </div>
     <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input class="form-control" id="name" name="name" [(ngModel)]="party.name" />
+        <label for="name" class="form-label">Name <span aria-hidden="true">*</span></label>
+        <input class="form-control" id="name" name="name" required [(ngModel)]="party.name" />
     </div>
     <div class="mb-3">
         <label for="surnmae" class="form-label">Vorname</label>
@@ -36,8 +36,8 @@
         <input class="form-control" id="phone" name="phone" [(ngModel)]="party.phone" />
     </div>
     <div class="mb-3">
-        <label for="mail" class="form-label">Mail</label>
-        <input type="email" class="form-control" id="mail" name="mail" email
+        <label for="mail" class="form-label">Mail <span aria-hidden="true">*</span></label>
+        <input type="email" class="form-control" id="mail" name="mail" email required
             [(ngModel)]="party.mail" #mail="ngModel"
             [class.is-invalid]="mail.invalid && (mail.touched || partyupdateform.submitted)" />
         @if (mail.invalid && (mail.touched || partyupdateform.submitted)) {
@@ -47,8 +47,8 @@
         }
     </div>
     <div class="mb-3">
-        <label for="password" >Passwort</label>
-        <input class="form-control" id="password" name="password" [(ngModel)]="party.password" />
+        <label for="password" >Passwort <span aria-hidden="true">*</span></label>
+        <input class="form-control" id="password" name="password" required [(ngModel)]="party.password" />
     </div>
     <div class="mb-3 form-check form-switch">
         <input type="checkbox" role="switch" class="form-check-input" id="emailNotificationEnabled" name="emailNotificationEnabled" [(ngModel)]="party.emailNotificationEnabled">
