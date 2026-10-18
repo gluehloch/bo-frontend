@@ -45,7 +45,6 @@ import { SeasonManagerService } from './app/seasonmanager/seasonmanager.service'
 
 import { TeamUpdateService } from './app/team/update/teamupdate.service';
 import { TeamService } from './app/team/team.service';
-import { PartyUpdateService } from './app/admin/party/update/partyupdate.service';
 import { PartyService } from './app/admin/party/party.service';
 import { RankingService } from './app/ranking/ranking.service';
 import { SeasonService } from './app/season/season.service';
@@ -96,7 +95,6 @@ bootstrapApplication(AppComponent, {
         ResearchService,
         SeasonService,
         PartyService,
-        PartyUpdateService,
         ProfileService,
         TeamService,
         TeamUpdateService,

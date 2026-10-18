@@ -32,7 +32,7 @@ export class PartyAddComponent {
 
     addParty() {
         this.loading.set(true);
-        this.partyService.addParty(this.party).subscribe({
+        this.partyService.createParty(this.party).subscribe({
             next: () => this.router.navigate(['./chiefop/party']),
             error: error => {
                 console.error('Request completed with an error.', { error });
