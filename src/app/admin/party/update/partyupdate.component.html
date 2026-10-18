@@ -1,0 +1,64 @@
+<h1>Teilnehmer ändern</h1>
+<app-spinner [enabled]="loading()"/>
+
+<form #partyupdateform="ngForm" name="partyupdateform" novalidate
+    (ngSubmit)="updateParty(partyupdateform)">
+    @if (success()) {
+        <div class="alert alert-success" role="status">
+            Die Daten wurden erfolgreich geändert.
+        </div>
+    }   
+    @if (error()) {
+        <div class="alert alert-danger" role="status">
+            Die Daten konnten nicht geändert werden.
+        </div>
+    }
+    <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
+        <input disabled="true" class="form-control" id="id" name="id"
+            [(ngModel)]="party.id" />
+    </div>
+    <div class="mb-3">
+        <label for="nickname" class="form-label" >Nickname <span aria-hidden="true">*</span></label>
+        <input disabled="true" class="form-control" id="nickname" name="nickname" required
+            [(ngModel)]="party.nickname" />
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name <span aria-hidden="true">*</span></label>
+        <input class="form-control" id="name" name="name" required [(ngModel)]="party.name" />
+    </div>
+    <div class="mb-3">
+        <label for="surnmae" class="form-label">Vorname</label>
+        <input class="form-control" id="surname" name="surname" [(ngModel)]="party.surname" />
+    </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Telefon</label>
+        <input class="form-control" id="phone" name="phone" [(ngModel)]="party.phone" />
+    </div>
+    <div class="mb-3">
+        <label for="mail" class="form-label">Mail <span aria-hidden="true">*</span></label>
+        <input type="email" class="form-control" id="mail" name="mail" email required
+            [(ngModel)]="party.mail" #mail="ngModel"
+            [class.is-invalid]="mail.invalid && (mail.touched || partyupdateform.submitted)" />
+        @if (mail.invalid && (mail.touched || partyupdateform.submitted)) {
+            <div class="invalid-feedback">
+                Bitte geben Sie eine gültige E-Mail-Adresse ein.
+            </div>
+        }
+    </div>
+    <div class="mb-3">
+        <label for="password" >Passwort <span aria-hidden="true">*</span></label>
+        <input disabled="true" class="form-control" id="password" name="password" required [(ngModel)]="party.password" type="password" />
+        <small class="form-text text-muted">Das Passwort kann vom Administrator hier nicht geändert werden.</small>
+    </div>
+    <div class="mb-3 form-check form-switch">
+        <input type="checkbox" role="switch" class="form-check-input" id="emailNotificationEnabled" name="emailNotificationEnabled" [(ngModel)]="party.emailNotificationEnabled">
+        <label class="form-check-label" for="emailNotificationEnabled">E-Mail-Benachrichtigungen für einen Spieltag aktivieren</label>
+    </div>
+
+    <div class="d-grid gap-2">
+        <button [disabled]="loading() || !partyupdateform.dirty || partyupdateform.invalid"
+            class="btn btn-primary" type="submit">Speichern</button>
+        <button class="btn btn-secondary" type="button" (click)="abort()">Zurück</button>
+    </div>
+</form>

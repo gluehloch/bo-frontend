@@ -1,4 +1,8 @@
 <h1>Teilnehmer</h1>
+<app-spinner [enabled]="loading()"/>
+<button class="btn btn-primary mb-3" type="button" (click)="createParty()">
+  <i class="bi bi-plus-lg me-1"></i>Teilnehmer anlegen
+</button>
 @if (partiesModel.length != 0) {
   <div>
     <table class="table table-striped table-sm">
@@ -10,8 +14,7 @@
           <th scope="col">Vorname</th>
           <th scope="col">Telefon</th>
           <th scope="col">Email</th>
-          <th scope="col">Password</th>
-          <th scope="col">EMail Notification</th>
+          <th scope="col">E-Mail-Benachrichtigung</th>
         </tr>
       </thead>
       <tbody>
@@ -27,8 +30,13 @@
             <td>{{party.surname}}</td>
             <td>{{party.phone}}</td>
             <td>{{party.mail}}</td>
-            <td>{{party.password}}</td>
-            <td>{{party.emailNotificationEnabled}}</td>
+            <td>
+              @if (party.emailNotificationEnabled) {
+                <span class="badge text-bg-success">Aktiv</span>
+              } @else {
+                <span class="badge text-bg-secondary">Aus</span>
+              }
+            </td>
           </tr>
         }
       </tbody>

@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, Signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PartyService } from './party.service';
-import { NavigationRouterService } from '../navigationrouter.service';
-
+import { NavigationRouterService } from '../../navigationrouter.service';
+import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
 @Component({
     selector: 'party',
     templateUrl: './party.component.html',
     styleUrls: ['./party.component.css'],
-    imports: [],
+    imports: [SpinnerComponent],
     standalone: true,
 })
 export class PartyComponent implements OnInit {
 
+  loading = signal(true);
   partiesModel: Array<Rest.PartyJson>;
 
   constructor(
@@ -28,9 +29,17 @@ export class PartyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.partyService.findParties().subscribe((parties: Array<Rest.PartyJson>) => {
-      this.partiesModel = parties;
-      this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
+    this.partyService.findParties().subscribe({
+      next: (parties: Array<Rest.PartyJson>) => {
+        this.partiesModel = parties;
+        this.navigationRouterService.activate(NavigationRouterService.ROUTE_ADMIN_MENU);
+      },
+      error: (err: any) => {
+        console.error('Failed to load parties', err);
+      },
+      complete: () => {
+        this.loading.set(false);
+      }
     });
   }
 
@@ -38,11 +47,8 @@ export class PartyComponent implements OnInit {
     this.router.navigate(['./chiefop/party/update', party.id]);
   }
 
-  addParty(party: Rest.PartyJson) {
-    this.partyService.addParty(party).subscribe((updatedParty: Rest.PartyJson) => {
-      this.partiesModel.push(updatedParty);
-      this.sortParties();
-    });
+  createParty() {
+    this.router.navigate(['./chiefop/party/create']);
   }
 
 }
