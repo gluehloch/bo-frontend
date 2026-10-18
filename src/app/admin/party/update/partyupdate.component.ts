@@ -4,7 +4,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { PartyUpdateService } from './partyupdate.service';
-
 import { FormsModule, NgForm } from '@angular/forms';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
@@ -32,7 +31,11 @@ export class PartyUpdateComponent implements OnInit {
     error = signal(false);
     success = signal(false);
 
-    constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyUpdateService) {
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private partyService: PartyUpdateService
+    ) {
     }
 
     ngOnInit() {

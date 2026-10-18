@@ -16,6 +16,7 @@ import { AddRoundComponent } from './app/seasonmanager/addround/addround.compone
 import { SeasonManagerComponent } from './app/seasonmanager/seasonmanager.component';
 import { TeamUpdateComponent } from './app/team/update/teamupdate.component';
 import { TeamComponent } from './app/team/team.component';
+import { PartyAddComponent } from './app/admin/party/add/add.component';
 import { PartyUpdateComponent } from './app/admin/party/update/partyupdate.component';
 import { PartyComponent } from './app/admin/party/party.component';
 
@@ -178,6 +179,11 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'chiefop/party',
                 component: PartyComponent,
+                canActivate: [AdministrationCanActivate]
+            },
+            {
+                path: 'chiefop/party/create',
+                component: PartyAddComponent,
                 canActivate: [AdministrationCanActivate]
             },
             {

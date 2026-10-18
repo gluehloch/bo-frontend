@@ -1,5 +1,8 @@
 <h1>Teilnehmer</h1>
 <app-spinner [enabled]="loading()"/>
+<button class="btn btn-primary mb-3" type="button" (click)="createParty()">
+  <i class="bi bi-plus-lg me-1"></i>Teilnehmer anlegen
+</button>
 @if (partiesModel.length != 0) {
   <div>
     <table class="table table-striped table-sm">

@@ -47,6 +47,10 @@ export class PartyComponent implements OnInit {
     this.router.navigate(['./chiefop/party/update', party.id]);
   }
 
+  createParty() {
+    this.router.navigate(['./chiefop/party/create']);
+  }
+
   addParty(party: Rest.PartyJson) {
     this.partyService.addParty(party).subscribe((updatedParty: Rest.PartyJson) => {
       this.partiesModel.push(updatedParty);
