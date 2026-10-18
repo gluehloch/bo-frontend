@@ -48,7 +48,8 @@
     </div>
     <div class="mb-3">
         <label for="password" >Passwort <span aria-hidden="true">*</span></label>
-        <input class="form-control" id="password" name="password" required [(ngModel)]="party.password" />
+        <input disabled="true" class="form-control" id="password" name="password" required [(ngModel)]="party.password" type="password" />
+        <small class="form-text text-muted">Das Passwort kann vom Administrator hier nicht geändert werden.</small>
     </div>
     <div class="mb-3 form-check form-switch">
         <input type="checkbox" role="switch" class="form-check-input" id="emailNotificationEnabled" name="emailNotificationEnabled" [(ngModel)]="party.emailNotificationEnabled">
