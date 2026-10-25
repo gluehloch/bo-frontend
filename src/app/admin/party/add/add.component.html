@@ -1,0 +1,57 @@
+<h1>Teilnehmer anlegen</h1>
+<app-spinner [enabled]="loading()"/>
+
+<form #partyaddform="ngForm" name="partyaddform" novalidate
+    (ngSubmit)="addParty()">
+    @if (error()) {
+        <div class="alert alert-danger" role="status">
+            Der Teilnehmer konnte nicht angelegt werden.
+        </div>
+    }
+    <div class="mb-3">
+        <label for="nickname" class="form-label">Nickname <span aria-hidden="true">*</span></label>
+        <input class="form-control" id="nickname" name="nickname" required
+            [(ngModel)]="party.nickname" />
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name <span aria-hidden="true">*</span></label>
+        <input class="form-control" id="name" name="name" required [(ngModel)]="party.name" />
+    </div>
+    <div class="mb-3">
+        <label for="surname" class="form-label">Vorname</label>
+        <input class="form-control" id="surname" name="surname" [(ngModel)]="party.surname" />
+    </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Telefon</label>
+        <input class="form-control" id="phone" name="phone" [(ngModel)]="party.phone" />
+    </div>
+    <div class="mb-3">
+        <label for="mail" class="form-label">Mail <span aria-hidden="true">*</span></label>
+        <input type="email" class="form-control" id="mail" name="mail" email required
+            [(ngModel)]="party.mail" #mail="ngModel"
+            [class.is-invalid]="mail.invalid && (mail.touched || partyaddform.submitted)" />
+        @if (mail.invalid && (mail.touched || partyaddform.submitted)) {
+            <div class="invalid-feedback">
+                Bitte geben Sie eine gültige E-Mail-Adresse ein.
+            </div>
+        }
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Passwort <span aria-hidden="true">*</span></label>
+        <input type="password" class="form-control" id="password" name="password" required
+            [(ngModel)]="party.password" />
+    </div>
+    <div class="mb-3 form-check form-switch">
+        <input type="checkbox" role="switch" class="form-check-input" id="emailNotificationEnabled"
+            name="emailNotificationEnabled" [(ngModel)]="party.emailNotificationEnabled">
+        <label class="form-check-label" for="emailNotificationEnabled">
+            E-Mail-Benachrichtigungen für einen Spieltag aktivieren
+        </label>
+    </div>
+
+    <div class="d-grid gap-2">
+        <button [disabled]="loading() || !partyaddform.dirty || partyaddform.invalid"
+            class="btn btn-primary" type="submit">Anlegen</button>
+        <button class="btn btn-secondary" type="button" (click)="abort()">Zurück</button>
+    </div>
+</form>
