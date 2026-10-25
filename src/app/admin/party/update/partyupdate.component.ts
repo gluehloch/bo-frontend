@@ -6,12 +6,13 @@ import { map } from 'rxjs/operators';
 import { PartyService } from '../party.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
+import { AuthenticationWarningComponent } from 'src/app/authenticationwarning/authenticationwarning.component';
 
 @Component({
     selector: 'party',
     templateUrl: './partyupdate.component.html',
     styleUrls: ['./partyupdate.component.css'],
-    imports: [FormsModule, SpinnerComponent],
+    imports: [FormsModule, SpinnerComponent, AuthenticationWarningComponent],
     standalone: true,
 })
 export class PartyUpdateComponent implements OnInit {

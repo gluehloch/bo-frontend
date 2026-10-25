@@ -1,5 +1,5 @@
 import { Component, OnInit, Signal, signal } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, NgForm } from "@angular/forms";
 
 import { Router } from "@angular/router";
 
@@ -19,7 +19,7 @@ import { ModalService } from "../modal/modal.service";
 })
 export class ProfileComponent implements OnInit {
 
-    contentReady = signal(false);
+    loading = signal(true);
     newMailRequested = signal(false);
     numberOfResubmits = signal(0);
     userProfile: Rest.UserProfileJson | undefined;
@@ -53,13 +53,13 @@ export class ProfileComponent implements OnInit {
                 this.handleError(error);
             },
             complete: () => {
-                this.contentReady.set(true);
+                this.loading.set(false);
             }
         });
     }
 
-    updateProfile(): void {
-        this.contentReady.set(false);
+    updateProfile(form: NgForm): void {
+        this.loading.set(true);
         this.error = undefined;
         if (this.userProfile) {
             this.profileService.updateProfile(this.userProfile).subscribe({
@@ -75,18 +75,19 @@ export class ProfileComponent implements OnInit {
                     this.error = error;
                 },
                 complete: () => {
-                    this.contentReady.set(true);
+                    form.form.markAsPristine();
+                    this.loading.set(false);
                 },
             });
         }
     }
 
     abort(): void {
-        console.log('Abort');
+        this.router.navigate(['./home']);
     }
 
     submitConfirmationMail(): void {
-        this.contentReady.set(false);
+        this.loading.set(true);
         this.error = undefined;
         this.profileService.resubmitConfirmationMail(this.sessionService.getNickname()).subscribe({
             next: (userProfile) => {
@@ -98,7 +99,7 @@ export class ProfileComponent implements OnInit {
                 this.error = error;
             },
             complete: () => {
-                this.contentReady.set(true);
+                this.loading.set(false);
             }
         });
     }

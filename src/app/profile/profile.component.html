@@ -1,14 +1,14 @@
 <app-authentication-warning></app-authentication-warning>
-
-<app-spinner [enabled]="!contentReady()"/>
+<app-spinner [enabled]="loading()"/>
 
 <h1>Teilnehmer Profil</h1>
 @if (userProfile) {
   <div>
-    <form #userProfileUpdateform="ngForm" name="userProfileUpdateform" novalidate>
+    <form #userProfileUpdateform="ngForm" name="userProfileUpdateform" novalidate
+      (ngSubmit)="updateProfile(userProfileUpdateform)">
       <div class="mb-3">
         <label for="nickname" class="form-label">Nickname</label>
-        <input class="form-control" id="nickname" name="nickname" [(ngModel)]="userProfile.nickname" required/>
+        <input class="form-control" id="nickname" name="nickname" disabled="true" [(ngModel)]="userProfile.nickname" required/>
       </div>
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
@@ -57,13 +57,21 @@
       } @else {
         <div class="mb-3">
           <label for="mail" class="form-label">Mail</label>
-          <input class="form-control" id="mail" name="mail" [(ngModel)]="userProfile.mail" required/>
+          <input class="form-control" id="mail" name="mail"
+            #mail="ngModel" 
+            [(ngModel)]="userProfile.mail" required 
+            [class.is-invalid]="mail.invalid && mail.touched"/>
+            @if (mail.invalid && mail.touched) {
+              <div class="invalid-feedback">
+                Bitte geben Sie eine gültige E-Mail-Adresse ein.
+              </div>
+            }
         </div>
       }
       <div class="d-grid gap-2">
-        <button [disabled]="userProfileUpdateform.invalid" class="btn btn-primary" type="submit"
-        (click)="updateProfile()">Speichern</button>
-        <button class="btn btn-secondary" type="submit" (click)="abort()">Abbrechen</button>
+        <button [disabled]="loading() || !userProfileUpdateform.dirty || userProfileUpdateform.invalid" 
+          class="btn btn-primary" type="submit">Speichern</button>
+        <button class="btn btn-secondary" type="button" (click)="abort()">Zurück</button>
       </div>
     </form>
   </div>

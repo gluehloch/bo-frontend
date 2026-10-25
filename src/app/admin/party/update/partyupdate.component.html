@@ -1,6 +1,6 @@
-<h1>Teilnehmer ändern</h1>
+<app-authentication-warning></app-authentication-warning>
 <app-spinner [enabled]="loading()"/>
-
+<h1>Teilnehmer ändern</h1>
 <form #partyupdateform="ngForm" name="partyupdateform" novalidate
     (ngSubmit)="updateParty(partyupdateform)">
     @if (success()) {
