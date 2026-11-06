@@ -12,7 +12,7 @@ export class ProfileService extends BetofficeService {
     }
 
     findProfile(nickname: string): Observable<Rest.UserProfileJson> {
-        return this.http.get<Rest.UserProfileJson>(this.rootUrl + 'profile/' + nickname);
+        return this.http.get<Rest.UserProfileJson>(`${this.rootUrl}profile/${nickname}`);
     }
 
     updateProfile(profile: Rest.UserProfileJson): Observable<Rest.UserProfileJson> {

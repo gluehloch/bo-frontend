@@ -6,10 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { BetofficeService } from '../../betoffice.service';
-import { SessionService } from 'src/app/session/session.service';
+import { SessionService } from '../../session/session.service';
 
 @Injectable()
-export class PartyUpdateService extends BetofficeService {
+export class PartyService extends BetofficeService {
 
     constructor(http: HttpClient, sessionService: SessionService) {
         super(http, sessionService);
@@ -19,8 +19,16 @@ export class PartyUpdateService extends BetofficeService {
         return this.http.get<Rest.PartyJson>(this.adminUrl + 'user/' + partyId);
     }
 
+    findParties(): Observable<Array<Rest.PartyJson>> {
+        return this.http.get<Array<Rest.PartyJson>>(this.adminUrl + 'user');
+    }
+    
     updateParty(party: Rest.PartyJson): Observable<Rest.PartyJson> {
-        return this.http.post<Rest.PartyJson>(this.adminUrl + 'user/update', party);
+        return this.http.put<Rest.PartyJson>(this.adminUrl + 'user', party);
+    }
+    
+    createParty(party: Rest.PartyJson): Observable<Rest.PartyJson> {
+        return this.http.post<Rest.PartyJson>(this.adminUrl + 'user', party);
     }
 
 }
